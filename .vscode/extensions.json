@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "vscodevim.vim",
+        "vscode-icons-team.vscode-icons",
+        "GitHub.copilot"
+    ]
+}
