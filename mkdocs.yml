@@ -1,8 +1,8 @@
-site_name: Python 笔记
+site_name: 机器学习笔记
 site_author: ricolxwz
-site_url: https://py.ricolxwz.de/
+site_url: https://ml.ricolxwz.de/
 copyright: Copyright &copy; 2024 ricolxwz
-site_description: An python study node
+site_description: An machine learning study node
 theme:
   name: material
   logo_light_mode: assets/favicon-d-212121-doc.svg
