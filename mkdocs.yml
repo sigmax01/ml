@@ -122,3 +122,5 @@ plugins:
 nav:
   - 开始:
     - index.md
+  - 算法:
+    - 绪论: 算法/绪论.md
