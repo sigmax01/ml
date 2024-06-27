@@ -2,7 +2,7 @@
     "recommendations": [
         "ms-vscode-remote.remote-containers",
         "ms-vscode-remote.vscode-remote-extensionpack",
-        "asvetliakov.vscode-neovim",
+        "vscodevim.vim",
         "vscode-icons-team.vscode-icons",
         "GitHub.copilot"
     ]
