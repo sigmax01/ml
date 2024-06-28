@@ -42,3 +42,7 @@
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   background-color: var(--md-header-bg-color);
 }
+
+.katex {
+  font-size: 1em;
+}

@@ -72,8 +72,8 @@ extra:
       link: https://hub.docker.com/u/ricolxwz
   generator: false
 extra_css:
-  - stylesheets/extra.css
   - https://unpkg.com/katex@0/dist/katex.min.css
+  - stylesheets/extra.css
 extra_javascript:
   - javascripts/katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
