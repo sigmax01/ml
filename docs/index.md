@@ -22,5 +22,6 @@
 
 ## 推荐
 
-- 机器学习路径: [深度学习（DL/ML）学习路径](https://github.com/loveunk/machine-learning-deep-learning-notes/tree/master?tab=readme-ov-file)
-- 机器学习算法简单介绍: [产品经理的人工智能学习库](https://easyai.tech/)
+- [深度学习（DL/ML）学习路径](https://github.com/loveunk/machine-learning-deep-learning-notes/tree/master?tab=readme-ov-file)
+- [产品经理的人工智能学习库](https://easyai.tech/)
+- [数据科学家需要哪些能力](https://cn.linkedin.com/pulse/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E5%AE%B6%E9%9C%80%E8%A6%81%E5%93%AA%E4%BA%9B%E8%83%BD%E5%8A%9B-song-xue)
