@@ -6,7 +6,8 @@ authors = ["麦旋风超好吃 <92409532+ricolxwz@users.noreply.github.com>"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "3.12.4"
+numpy = "^1.26"
 
 [tool.poetry.group.doc.dependencies]
 mkdocs-material = "*"
