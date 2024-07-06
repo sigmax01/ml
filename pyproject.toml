@@ -19,6 +19,7 @@ jupyter = "^1.0.0"
 
 [tool.poetry.group.extra.dependencies]
 pandas = ">=2.1.0"
+Hello-World-Package = ">=0.1.1"
 
 [build-system]
 requires = ["poetry-core"]
