@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "ml"
+version = "0.1.0"
+description = ""
+authors = ["麦旋风超好吃 <92409532+ricolxwz@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.doc.dependencies]
+mkdocs-material = "^9.5.28"
+mkdocs-open-in-new-tab = "^1.0.3"
+mkdocs-glightbox = "^0.4.0"
+jieba = "^0.42.1"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+
+[tool.poetry.group.extra.dependencies]
+pandas = "^2.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
