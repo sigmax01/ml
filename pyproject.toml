@@ -18,7 +18,7 @@ jieba = "^0.42.1"
 jupyter = "^1.0.0"
 
 [tool.poetry.group.extra.dependencies]
-pandas = "^2.2.0"
+pandas = ">=2.1.0"
 
 [build-system]
 requires = ["poetry-core"]
