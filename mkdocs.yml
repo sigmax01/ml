@@ -142,4 +142,4 @@ nav:
     - titanic: 竞赛/titanic.md
   - PyTorch:
     - 绪论: PyTorch/绪论.md
-    - 基础: notebook/daniel-bourke/00_pytorch_fundamentals.ipynb
+    - 基础: PyTorch/基础.ipynb

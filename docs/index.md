@@ -26,7 +26,7 @@
     - [ ] [titanic](/竞赛/titanic)
 - [ ] PyTorch
     - [x] [绪论](/PyTorch/绪论)
-    - [ ] [基础](/notebook/daniel-bourke/00_pytorch_fundamentals)
+    - [ ] [基础](/PyTorch/基础)
 
 ## 推荐
 
