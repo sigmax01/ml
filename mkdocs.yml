@@ -137,3 +137,5 @@ nav:
     - 线性回归模型: 算法/线性回归模型.md
   - 竞赛:
     - titanic: 竞赛/titanic.md
+  - PyTorch:
+    - 绪论: PyTorch/绪论.md
