@@ -121,6 +121,7 @@ plugins:
   - glightbox
   - mkdocs-jupyter:
       theme: slate
+      include_source: True
 nav:
   - 开始:
     - index.md
