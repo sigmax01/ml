@@ -119,6 +119,8 @@ plugins:
       separator: '[\s\u200b\-]'
   - open-in-new-tab
   - glightbox
+  - mkdocs-jupyter:
+      theme: slate
 nav:
   - 开始:
     - index.md
@@ -139,3 +141,4 @@ nav:
     - titanic: 竞赛/titanic.md
   - PyTorch:
     - 绪论: PyTorch/绪论.md
+    - 基础: notebook/daniel-bourke/00_pytorch_fundamentals.ipynb

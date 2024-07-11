@@ -13,6 +13,7 @@ mkdocs-material = "*"
 mkdocs-open-in-new-tab = "*"
 mkdocs-glightbox = "*"
 jieba = "*"
+mkdocs-jupyter = "*"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "*"
