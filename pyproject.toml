@@ -21,6 +21,7 @@ pandas = "*"
 numpy = "*"
 seaborn = "*"
 matplotlib = "*"
+ipykernel = "*"
 
 [build-system]
 requires = ["poetry-core"]
