@@ -18,10 +18,13 @@ mkdocs-jupyter = "*"
 [tool.poetry.group.dev.dependencies]
 jupyter = "*"
 pandas = "*"
-numpy = "*"
+numpy = "1.26.4"
 seaborn = "*"
 matplotlib = "*"
 ipykernel = "*"
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
 
 [build-system]
 requires = ["poetry-core"]
