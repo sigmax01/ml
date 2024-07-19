@@ -145,5 +145,6 @@ nav:
   - 竞赛:
     - titanic: 竞赛/titanic.md
   - PyTorch:
-    - 绪论: PyTorch/绪论.md
-    - 基础: PyTorch/基础.ipynb
+    - Preface: PyTorch/Preface.md
+    - Foundations: PyTorch/Foundations.ipynb
+    - Workflows: PyTorch/Workflows.ipynb

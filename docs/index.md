@@ -26,7 +26,8 @@
     - [ ] [titanic](/竞赛/titanic)
 - [ ] PyTorch
     - [x] [绪论](/PyTorch/绪论)
-    - [ ] [基础](/PyTorch/基础)
+    - [x] [基础](/PyTorch/基础)
+    - [ ] [流程](/PyTorch/流程)
 
 ## 推荐
 
