@@ -149,6 +149,7 @@ nav:
     - 决策树: 算法/决策树.md
     - 最邻近(练习1): 算法/KNN.ipynb
     - 线性回归(练习1): 算法/LR.ipynb
+    - 朴素贝叶斯(练习1): 算法/NB.ipynb
   - 竞赛:
     - titanic: 竞赛/titanic.md
   - PyTorch:
