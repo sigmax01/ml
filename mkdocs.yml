@@ -130,7 +130,9 @@ plugins:
       include_source: True
   - git-revision-date-localized:
       locale: zh
+      enable_creation_date: true
   # - mkdocs-video
+  - git-authors
 nav:
   - 开始:
     - index.md
