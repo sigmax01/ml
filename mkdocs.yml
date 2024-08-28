@@ -1,6 +1,7 @@
 site_name: 机器学习
 site_author: ricolxwz
 site_url: https://ml.ricolxwz.de/
+edit_uri: https://github.com/ricolxwz/ml/edit/master/docs
 copyright: Copyright &copy; 2024 ricolxwz
 site_description: An machine learning study node
 theme:
@@ -17,6 +18,7 @@ theme:
     - content.tabs.link
     - content.footnote.tooltips
     - content.tooltips
+    - content.action.edit
     # - header.autohide
     # - announce.dismiss
     # - navigation.footer
@@ -126,6 +128,7 @@ plugins:
   - mkdocs-jupyter:
       theme: slate
       include_source: True
+  - git-revision-date-localized
 nav:
   - 开始:
     - index.md
