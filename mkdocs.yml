@@ -128,7 +128,9 @@ plugins:
   - mkdocs-jupyter:
       theme: slate
       include_source: True
-  - git-revision-date-localized
+  - git-revision-date-localized:
+      locale: zh
+  # - mkdocs-video
 nav:
   - 开始:
     - index.md

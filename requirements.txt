@@ -4,3 +4,4 @@ mkdocs-glightbox
 jieba
 mkdocs-jupyter
 mkdocs-git-revision-date-localized-plugin
+# mkdocs-video
