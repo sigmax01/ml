@@ -5,4 +5,4 @@ jieba
 mkdocs-jupyter
 mkdocs-git-revision-date-localized-plugin
 # mkdocs-video
-mkdocs-git-authors-plugin
+mkdocs-git-committers-plugin-2

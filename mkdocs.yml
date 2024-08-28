@@ -1,7 +1,9 @@
 site_name: 机器学习
 site_author: ricolxwz
-site_url: https://ml.ricolxwz.de/
+site_url: https://ml.ricolxwz.de
+# repo_url: https://github.com/ricolxwz/ml
 edit_uri: https://github.com/ricolxwz/ml/edit/master/docs
+repo_name: ricolxwz/ml
 copyright: Copyright &copy; 2024 ricolxwz
 site_description: An machine learning study node
 theme:
@@ -19,6 +21,7 @@ theme:
     - content.footnote.tooltips
     - content.tooltips
     - content.action.edit
+    - content.action.view
     # - header.autohide
     # - announce.dismiss
     # - navigation.footer
@@ -51,6 +54,7 @@ theme:
         name: Switch to system preference 
   icon:
     annotation: material/star-four-points-circle
+    repo: fontawesome/brands/github
     # admonition:
     #   note: octicons/tag-16
     #   abstract: octicons/checklist-16
@@ -132,7 +136,9 @@ plugins:
       locale: zh
       enable_creation_date: true
   # - mkdocs-video
-  - git-authors
+  - git-committers:
+      repository: ricolxwz/ml
+      branch: master
 nav:
   - 开始:
     - index.md
