@@ -29,7 +29,7 @@ theme:
     - navitation.sections
     - navigation.expand
     - navigation.indexes
-    # - navigation.top
+    - navigation.top
     - search.suggest
     - search.highlight
     - search.share
