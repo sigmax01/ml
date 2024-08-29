@@ -125,6 +125,16 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: zh
+          default: true
+          name: 中文
+          build: true
+        - locale: en
+          name: English
+          build: true
   - search:
       separator: '[\s\u200b\-]'
   - open-in-new-tab
@@ -138,6 +148,7 @@ plugins:
   - git-committers:
       repository: ricolxwz/ml
       branch: master
+  - section-index
 nav:
   - 开始:
     - index.md
