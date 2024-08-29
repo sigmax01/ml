@@ -135,7 +135,6 @@ plugins:
   - git-revision-date-localized:
       locale: zh
       enable_creation_date: true
-  # - mkdocs-video
   - git-committers:
       repository: ricolxwz/ml
       branch: master
