@@ -10,7 +10,7 @@ theme:
   name: material
   logo_light_mode: assets/favicon-d-212121-doc.svg
   logo_dark_mode: assets/favicon-w-ffffff-doc.svg
-  favicon: assets/favicon-white-background.svg
+  favicon: assets/favicon-with-white-background-2.svg
   language: zh
   custom_dir: overrides
   features:
