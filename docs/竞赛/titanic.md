@@ -3,7 +3,7 @@ title: titanic
 comments: true
 ---
 
-![](https://img.ricolxwz.io/2024/07/e69c985e402a62f36c1529e820d00a08.jpg){:style="width:100%"}
+![](https://cdn.jsdelivr.net/gh/sigmax0124/img@master/2024/07/e69c985e402a62f36c1529e820d00a08.jpg){:style="width:100%"}
 
 ## 链接
 
