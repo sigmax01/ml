@@ -126,6 +126,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
   - i18n:
+      enabled: !ENV [CI, false]
       docs_structure: suffix
       languages:
         - locale: zh
@@ -175,9 +176,10 @@ nav:
     - 集成学习: 算法/集成学习.md
     - 支持向量机: 算法/支持向量机.md
     - 降维: 算法/降维.md
-    - 最邻近(练习1): 算法/KNN.ipynb
-    - 线性回归(练习1): 算法/LR.ipynb
-    - 朴素贝叶斯(练习1): 算法/NB.ipynb
+    - 练习:
+      - 最邻近(练习1): 算法/KNN.ipynb
+      - 线性回归(练习1): 算法/LR.ipynb
+      - 朴素贝叶斯(练习1): 算法/NB.ipynb
   - 竞赛:
     - titanic: 竞赛/titanic.md
   - PyTorch:
