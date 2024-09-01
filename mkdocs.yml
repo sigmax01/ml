@@ -139,7 +139,9 @@ plugins:
   - search:
       separator: '[\s\u200b\-]'
   - open-in-new-tab
-  - glightbox
+  - glightbox:
+      skip_classes:
+        - skipbox
   - mkdocs-jupyter:
       theme: slate
       include_source: True

@@ -2,6 +2,8 @@
 
 欢迎来到机器学习笔记项目.
 
+<img src="https://socialify.git.ci/ricolxwz/ml/image?font=Raleway&forks=1&issues=1&name=1&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Auto" alt="ml" class="skipbox" />
+
 ## 基础
 
 [https://py.ricolxwz.de](https://py.ricolxwz.de)
