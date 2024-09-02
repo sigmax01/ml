@@ -4,7 +4,6 @@ mkdocs-glightbox
 jieba
 mkdocs-jupyter
 mkdocs-git-revision-date-localized-plugin
-# mkdocs-video
 mkdocs-git-committers-plugin-2
 mkdocs-section-index
 mkdocs-static-i18n
