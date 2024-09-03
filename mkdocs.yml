@@ -4,8 +4,8 @@ site_url: https://ml.ricolxwz.de
 # repo_url: https://github.com/ricolxwz/ml
 edit_uri: https://github.com/ricolxwz/ml/edit/master/docs
 repo_name: ricolxwz/ml
-copyright: Copyright &copy; 2024 ricolxwz
-site_description: An machine learning study node
+copyright: 版权所有 &copy; 2024-至今 ricolxwz
+site_description: 一个有待面面俱到的机器学习文档
 theme:
   name: material
   logo_light_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg 
@@ -26,13 +26,13 @@ theme:
     # - navigation.footer
     - navigation.tabs
     - navitation.sections
-    - navigation.expand
+    # - navigation.expand
     - navigation.indexes
     - navigation.top
+    - navigation.tracking
     - search.suggest
     - search.highlight
     - search.share
-    - navigation.tracking
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -51,6 +51,9 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference 
+  font:
+    text: "Roboto"
+    code: "Ubuntu Mono"
   icon:
     annotation: material/star-four-points-circle
     repo: fontawesome/brands/github
@@ -153,7 +156,6 @@ plugins:
       repository: ricolxwz/ml
       branch: master
       enabled: !ENV [CI, false]
-  - section-index
 nav:
   - 开始:
     - index.md
@@ -179,11 +181,16 @@ nav:
     - 支持向量机: 算法/支持向量机.md
     - 降维: 算法/降维.md
     - 练习:
-      - 最邻近1: 算法/KNN1.ipynb
-      - 线性回归1: 算法/LR1.ipynb
-      - 朴素贝叶斯1: 算法/NB1.ipynb
-      - 决策树1: 算法/DT1.ipynb
-      - 支持向量机1: 算法/SVM1.ipynb
+      - 最临近:
+        - 练习1: 算法/练习/最临近/KNN1.ipynb
+      - 线性回归:
+        - 练习1: 算法/练习/线性回归/LR1.ipynb
+      - 朴素贝叶斯:
+        - 练习1: 算法/练习/朴素贝叶斯/NB1.ipynb
+      - 决策树:
+        - 练习1: 算法/练习/决策树/DT1.ipynb
+      - 支持向量机:
+        - 练习1: 算法/练习/支持向量机/SVM1.ipynb
   - 竞赛:
     - titanic: 竞赛/titanic.md
   - PyTorch:
