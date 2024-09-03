@@ -10,6 +10,7 @@ theme:
   name: material
   logo_light_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg 
   logo_dark_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg
+  favicon: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-blank-500.svg
   language: zh
   custom_dir: overrides
   features:
@@ -80,6 +81,7 @@ extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
   - stylesheets/extra.css
 extra_javascript:
+  - javascripts/favicon.js
   - javascripts/katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
