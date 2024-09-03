@@ -179,9 +179,11 @@ nav:
     - 支持向量机: 算法/支持向量机.md
     - 降维: 算法/降维.md
     - 练习:
-      - 最邻近(练习1): 算法/KNN.ipynb
-      - 线性回归(练习1): 算法/LR.ipynb
-      - 朴素贝叶斯(练习1): 算法/NB.ipynb
+      - 最邻近1: 算法/KNN1.ipynb
+      - 线性回归1: 算法/LR1.ipynb
+      - 朴素贝叶斯1: 算法/NB1.ipynb
+      - 决策树1: 算法/DT1.ipynb
+      - 支持向量机1: 算法/SVM1.ipynb
   - 竞赛:
     - titanic: 竞赛/titanic.md
   - PyTorch:
