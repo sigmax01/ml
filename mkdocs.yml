@@ -10,7 +10,6 @@ theme:
   name: material
   logo_light_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg 
   logo_dark_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg
-  favicon: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-blank-500.svg
   language: zh
   custom_dir: overrides
   features:
