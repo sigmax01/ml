@@ -9,11 +9,11 @@
 
 #logo_light_mode {
   display: var(--md-footer-logo-light-mode);
-  height: 26px;
+  height: 23px;
 }
 #logo_dark_mode {
   display: var(--md-footer-logo-dark-mode);
-  height: 26px;
+  height: 23px;
 }
 
 [data-md-color-scheme="default"] {
