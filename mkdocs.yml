@@ -4,7 +4,7 @@ site_url: https://ml.ricolxwz.de
 # repo_url: https://github.com/ricolxwz/ml
 edit_uri: https://github.com/ricolxwz/ml/edit/master/docs
 repo_name: ricolxwz/ml
-copyright: <p xmlns:cc="http://creativecommons.org/ns#" >版权所有 &copy 2024-至今 采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0&nbsp</a>许可证发布</p> 
+copyright: <p xmlns:cc="http://creativecommons.org/ns#" >版权所有 &copy 2024 由 <span property="cc:attributionName">ricolxwz</span> 采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0&nbsp</a>许可证发布</p>
 site_description: 一个有待面面俱到的机器学习文档
 theme:
   name: material
