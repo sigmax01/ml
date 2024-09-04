@@ -4,6 +4,10 @@
 
 <img src="https://socialify.git.ci/ricolxwz/ml/image?font=Raleway&forks=1&issues=1&name=1&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Auto" alt="ml" class="skipbox" />
 
+## 分析
+
+[https://umami.ricolxwz.io/share/9hAf9kSfNZuBHm1F/ml.ricolxwz.de](https://umami.ricolxwz.io/share/9hAf9kSfNZuBHm1F/ml.ricolxwz.de)
+
 ## 基础
 
 [https://py.ricolxwz.de](https://py.ricolxwz.de)
