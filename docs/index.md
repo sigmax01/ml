@@ -6,7 +6,7 @@
 
 ## 分析
 
-https://link.ricolxwz.io/mlstatus
+https://link.ricolxwz.io/mlanalysis
 
 ## 基础
 
