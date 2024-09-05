@@ -6,7 +6,7 @@
 
 ## 分析
 
-[https://umami.ricolxwz.io/share/9hAf9kSfNZuBHm1F/ml.ricolxwz.de](https://umami.ricolxwz.io/share/9hAf9kSfNZuBHm1F/ml.ricolxwz.de)
+https://link.ricolxwz.io/mlstatus
 
 ## 基础
 
