@@ -72,12 +72,16 @@ theme:
     #   quote: octicons/quote-16 
 extra:
   social:
+    - icon: fontawesome/compass-solid
+      link: https://ricolxwz.de
     - icon: fontawesome/brands/github
       link: https://github.com/ricolxwz
-    - icon: fontawesome/brands/gitlab
-      link: https://gitlab.com/ricolxwz
     - icon: fontawesome/brands/docker
       link: https://hub.docker.com/u/ricolxwz
+    - icon: fontawesome/telegram-brands-solid
+      link: https://t.me/ricolxwz
+    - icon: fontawesome/at-solid
+      link: mailto:ricol.xwz@outlook.com
   generator: false
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
