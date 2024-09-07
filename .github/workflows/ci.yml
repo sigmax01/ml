@@ -12,14 +12,10 @@ jobs:
     container:
       image: ubuntu:24.04
     steps:
+      - run: apt update -y && apt install git -y
       - uses: actions/checkout@v4
         with: 
           fetch-depth: 0
-      - run: pwd 
-      - run: ls -la
-      - run: apt update -y && apt install git -y
-      - run: pwd 
-      - run: ls -la
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
