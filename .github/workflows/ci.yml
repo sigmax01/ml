@@ -10,7 +10,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     container:
-      image: ubuntu:22.04
+      image: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with: 
