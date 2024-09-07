@@ -7,34 +7,14 @@ on:
 permissions:
   contents: write
 jobs:
-  deploy:
-    runs-on: self-hosted
-    defaults:
-      run:
-        shell: bash
+  example-job:
+    runs-on: ubuntu-latest
     container:
-      image: ubuntu:24.04
+      image: node:14  # 主容器，所有步骤默认在此容器中运行
     steps:
-      - run: apt update -y && apt install git -y
-      - uses: actions/checkout@v4
-        with: 
-          fetch-depth: 0
-      - name: Configure Git Credentials
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
-      - uses: actions/cache@v4
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-      - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
-        env:
-            MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITTERS_APIKEY }}
+      - name: Run Node.js script
+        run: node -v  # 这步在 node:14 容器中运行
 
+      - name: Run Python step in its own container
+        uses: docker://python:3.8  # 这步在一个单独的 python 容器中运行
+        run: python --version
