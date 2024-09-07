@@ -9,10 +9,13 @@ permissions:
 jobs:
   deploy:
     runs-on: self-hosted
+    container:
+      image: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
         with: 
           fetch-depth: 0
+      - run: apt install git -y
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
