@@ -16,7 +16,10 @@ jobs:
         with: 
           fetch-depth: 0
       - run: pwd 
+      - run: ls
       - run: apt update -y && apt install git -y
+      - run: pwd 
+      - run: ls
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
