@@ -9,6 +9,9 @@ permissions:
 jobs:
   deploy:
     runs-on: self-hosted
+    defaults:
+      run:
+        shell: bash
     container:
       image: ubuntu:24.04
     steps:
