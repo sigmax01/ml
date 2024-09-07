@@ -33,3 +33,4 @@ jobs:
       - run: mkdocs gh-deploy --force
         env:
             MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITTERS_APIKEY }}
+
