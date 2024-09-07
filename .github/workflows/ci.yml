@@ -8,9 +8,7 @@ permissions:
   contents: write
 jobs:
   deploy:
-    runs-on: self-hosted
-    container:
-      image: busybox:latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with: 
