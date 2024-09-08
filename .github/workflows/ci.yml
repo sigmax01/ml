@@ -9,12 +9,11 @@ permissions:
 jobs:
   deploy:
     runs-on: self-hosted
-    container: ubuntu:24.04
+    container: ghcr.io/sigmax01/runner:latest
     defaults:
       run:
         shell: bash
     steps:
-      - run: apt update -y && apt install git -y
       - uses: actions/checkout@v4
         with: 
           fetch-depth: 0
