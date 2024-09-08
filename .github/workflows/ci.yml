@@ -13,6 +13,10 @@ jobs:
     defaults:
       run:
         shell: bash
+    env:
+      AWS_S3_NAME: ${{ vars.AWS_S3_NAME }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_IO_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_IO_KEY }}
     steps:
       - uses: actions/checkout@v4
         with: 
@@ -21,6 +25,7 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+      - run: touch test && aws s3 cp test s3://${{ env.AWS_S3_NAME }}
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
