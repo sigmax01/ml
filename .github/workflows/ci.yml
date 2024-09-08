@@ -9,7 +9,7 @@ permissions:
 jobs:
   deploy:
     runs-on: self-hosted
-    container: ghcr.io/sigmax01/runner:latest
+    container: ricolxwz/runner:latest
     defaults:
       run:
         shell: bash
