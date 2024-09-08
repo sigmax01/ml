@@ -9,8 +9,10 @@ permissions:
 jobs:
   deploy:
     runs-on: self-hosted
-    container:
-      image: busybox:latest
+    container: ghcr.io/sigmax01/runner:latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
         with: 
@@ -33,4 +35,3 @@ jobs:
       - run: mkdocs gh-deploy --force
         env:
             MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITTERS_APIKEY }}
-
