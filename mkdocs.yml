@@ -26,7 +26,7 @@ theme:
     # - navigation.footer
     - navigation.tabs
     - navitation.sections
-    # - navigation.expand
+    - navigation.expand
     - navigation.indexes
     - navigation.top
     - navigation.tracking
@@ -183,6 +183,8 @@ nav:
     - 集成学习: 算法/集成学习.md
     - 支持向量机: 算法/支持向量机.md
     - 降维: 算法/降维.md
+    - 神经网络:
+      - 前馈神经网络: 算法/神经网络/前馈神经网络.md
   - 竞赛:
     - titanic: 竞赛/titanic.md
   - PyTorch:
