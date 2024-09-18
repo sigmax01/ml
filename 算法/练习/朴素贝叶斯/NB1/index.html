@@ -1,0 +1,898 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 练习1\n",
+    "\n",
+    "<style>\n",
+    ".CodeMirror pre {\n",
+    "    white-space: pre-wrap;\n",
+    "}\n",
+    "</style>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "朴素贝叶斯是一种高度基于训练集的算法. 这种模型/分类器的训练速度非常快, 以高斯朴素贝叶斯为例, 它只需要计算需要的统计参数, 如均值和方差, 还有标签中每个类别的概率, 从面上来看, 好像没有训练过程. 因为如同线性回归这样的算法, 会经过不断的优化产生回归系数, 这个回归系数就构成了模型. 但是朴素贝叶斯没有这样的过程, 它只需要计算一些统计参数, 然后就可以进行预测了. 预测的过程会利用这些统计参数, 结合特征在标签下的条件概率, 然后得到一个后验概率, 这个后验概率就用于预测了."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 1. Setup"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.285321Z",
+     "start_time": "2024-08-24T08:46:53.551439Z"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import matplotlib.pyplot as plt\n",
+    "import os\n",
+    "from scipy import signal\n",
+    "\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.preprocessing import MinMaxScaler\n",
+    "\n",
+    "#for accuracy_score, classification_report and confusion_matrix\n",
+    "from sklearn import metrics\n",
+    "from sklearn.metrics import accuracy_score\n",
+    "\n",
+    "# to make this notebook's output stable across runs\n",
+    "np.random.seed(42)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 2. Introduction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In this tutorial we will firstly learn how to create a Naive Bayes (NB) classifier in sklearn. Then we will learn how to obtain different performance metrics (precision, recall, F1-score and confusion matrix), how to apply different procedures for evaluating the performance of classifiers (cross-validation and leave-one-out) and finally, how to use grid search with cross-validation for model selection. \n",
+    "\n",
+    "首先, 我们会学习如何创造一个朴素贝叶斯分类器(用Sklearn). 然后我们会学习如何获取衡量性能的不同目标(精度, 召回率, F1分数和混淆矩阵), 如何应用不同的程序来评估分类器的性能(交叉验证和留一法), 最后, 如何使用带有交叉验证的网格搜索来选择模型."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 3. Creating an NB classifier\n",
+    "\n",
+    "There are four main types of NB classifiers in sklearn:  <b>GaussianNB</b>, <b>CategoricalNB</b>,  <b>MultinomialNB</b> and <b>BernoulliNB</b>. \n",
+    "\n",
+    "- The first two are the ones we discussed at the lecture -  <b>GaussianNB</b> is applicable to numeric data, while <b>CategoricalNB</b> is applicable to categorical data. \n",
+    "\n",
+    "- <b>BernoulliNB</b> and <b>MultinomialNB</b> are mostly used for text clasification; they assume binary data and count data respectively, e.g. how many times a word appears in a document.\n",
+    "\n",
+    "In this tutorial we will create a NB for the iris data which is a numeric dataset, so we will use the <b>GaussianNB</b> class to create the classifier."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let's load the iris data and create the training and test splits:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.322775Z",
+     "start_time": "2024-08-24T08:46:54.298571Z"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# load the iris dataset\n",
+    "from sklearn.datasets import load_iris\n",
+    "iris = load_iris()\n",
+    "\n",
+    "# create the training and test splits\n",
+    "X_train, X_test, y_train, y_test = train_test_split(\n",
+    "       iris.data, iris.target, stratify=iris.target, random_state=42) "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.399818Z",
+     "start_time": "2024-08-24T08:46:54.391772Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[7.4, 2.8, 6.1, 1.9],\n",
+       "       [7.7, 2.8, 6.7, 2. ],\n",
+       "       [5.5, 2.4, 3.7, 1. ],\n",
+       "       [6.1, 2.8, 4. , 1.3],\n",
+       "       [5.5, 2.5, 4. , 1.3],\n",
+       "       [6.3, 3.3, 6. , 2.5],\n",
+       "       [4.6, 3.4, 1.4, 0.3],\n",
+       "       [6.3, 2.7, 4.9, 1.8],\n",
+       "       [4.8, 3.1, 1.6, 0.2],\n",
+       "       [6.2, 2.8, 4.8, 1.8],\n",
+       "       [5.1, 3.8, 1.9, 0.4],\n",
+       "       [6.4, 2.7, 5.3, 1.9],\n",
+       "       [5. , 2. , 3.5, 1. ],\n",
+       "       [5.5, 4.2, 1.4, 0.2],\n",
+       "       [5.2, 4.1, 1.5, 0.1],\n",
+       "       [5.8, 2.7, 3.9, 1.2],\n",
+       "       [7.2, 3. , 5.8, 1.6],\n",
+       "       [5.1, 3.5, 1.4, 0.3],\n",
+       "       [5.7, 4.4, 1.5, 0.4],\n",
+       "       [5.2, 2.7, 3.9, 1.4],\n",
+       "       [7. , 3.2, 4.7, 1.4],\n",
+       "       [6.9, 3.1, 4.9, 1.5],\n",
+       "       [5.3, 3.7, 1.5, 0.2],\n",
+       "       [5.6, 2.9, 3.6, 1.3],\n",
+       "       [6.7, 3. , 5.2, 2.3],\n",
+       "       [4.9, 3. , 1.4, 0.2],\n",
+       "       [6.8, 3.2, 5.9, 2.3],\n",
+       "       [6.3, 2.3, 4.4, 1.3],\n",
+       "       [6.9, 3.2, 5.7, 2.3],\n",
+       "       [5. , 3.6, 1.4, 0.2],\n",
+       "       [4.9, 3.1, 1.5, 0.2],\n",
+       "       [6.7, 3.1, 4.7, 1.5],\n",
+       "       [4.9, 3.1, 1.5, 0.1],\n",
+       "       [6.3, 2.8, 5.1, 1.5],\n",
+       "       [4.9, 3.6, 1.4, 0.1],\n",
+       "       [4.8, 3.4, 1.9, 0.2],\n",
+       "       [5.6, 3. , 4.1, 1.3],\n",
+       "       [5.1, 3.4, 1.5, 0.2],\n",
+       "       [6. , 2.9, 4.5, 1.5],\n",
+       "       [4.3, 3. , 1.1, 0.1],\n",
+       "       [4.8, 3. , 1.4, 0.1],\n",
+       "       [5.7, 3. , 4.2, 1.2],\n",
+       "       [5.8, 2.8, 5.1, 2.4],\n",
+       "       [5.8, 2.7, 5.1, 1.9],\n",
+       "       [5. , 3. , 1.6, 0.2],\n",
+       "       [6.5, 3.2, 5.1, 2. ],\n",
+       "       [6.4, 2.9, 4.3, 1.3],\n",
+       "       [5.1, 3.8, 1.5, 0.3],\n",
+       "       [6.8, 3. , 5.5, 2.1],\n",
+       "       [4.7, 3.2, 1.6, 0.2],\n",
+       "       [6.4, 2.8, 5.6, 2.1],\n",
+       "       [7.7, 3.8, 6.7, 2.2],\n",
+       "       [5.4, 3.9, 1.3, 0.4],\n",
+       "       [6.5, 2.8, 4.6, 1.5],\n",
+       "       [6.3, 2.5, 5. , 1.9],\n",
+       "       [7.9, 3.8, 6.4, 2. ],\n",
+       "       [6.7, 3.1, 4.4, 1.4],\n",
+       "       [6.3, 2.5, 4.9, 1.5],\n",
+       "       [5.5, 3.5, 1.3, 0.2],\n",
+       "       [6. , 2.7, 5.1, 1.6],\n",
+       "       [5.6, 2.7, 4.2, 1.3],\n",
+       "       [7.7, 3. , 6.1, 2.3],\n",
+       "       [6.2, 2.2, 4.5, 1.5],\n",
+       "       [6.3, 2.9, 5.6, 1.8],\n",
+       "       [5. , 3.5, 1.3, 0.3],\n",
+       "       [5.5, 2.4, 3.8, 1.1],\n",
+       "       [4.4, 2.9, 1.4, 0.2],\n",
+       "       [7.1, 3. , 5.9, 2.1],\n",
+       "       [6.8, 2.8, 4.8, 1.4],\n",
+       "       [7.6, 3. , 6.6, 2.1],\n",
+       "       [5.7, 2.6, 3.5, 1. ],\n",
+       "       [6.7, 3.3, 5.7, 2.5],\n",
+       "       [6.3, 3.4, 5.6, 2.4],\n",
+       "       [5. , 3.4, 1.6, 0.4],\n",
+       "       [6.7, 3.3, 5.7, 2.1],\n",
+       "       [6.6, 2.9, 4.6, 1.3],\n",
+       "       [4.7, 3.2, 1.3, 0.2],\n",
+       "       [6.4, 3.2, 5.3, 2.3],\n",
+       "       [4.6, 3.1, 1.5, 0.2],\n",
+       "       [6.4, 3.1, 5.5, 1.8],\n",
+       "       [5.8, 2.7, 4.1, 1. ],\n",
+       "       [5.9, 3. , 4.2, 1.5],\n",
+       "       [5.1, 3.8, 1.6, 0.2],\n",
+       "       [5.9, 3. , 5.1, 1.8],\n",
+       "       [7.2, 3.6, 6.1, 2.5],\n",
+       "       [4.8, 3.4, 1.6, 0.2],\n",
+       "       [5. , 3.5, 1.6, 0.6],\n",
+       "       [6.9, 3.1, 5.4, 2.1],\n",
+       "       [5.8, 2.7, 5.1, 1.9],\n",
+       "       [5.7, 2.8, 4.5, 1.3],\n",
+       "       [7.2, 3.2, 6. , 1.8],\n",
+       "       [5.2, 3.5, 1.5, 0.2],\n",
+       "       [7.7, 2.6, 6.9, 2.3],\n",
+       "       [5.5, 2.6, 4.4, 1.2],\n",
+       "       [5.7, 2.5, 5. , 2. ],\n",
+       "       [5.6, 2.8, 4.9, 2. ],\n",
+       "       [5.4, 3.4, 1.5, 0.4],\n",
+       "       [6. , 2.2, 4. , 1. ],\n",
+       "       [6.2, 2.9, 4.3, 1.3],\n",
+       "       [6.1, 2.8, 4.7, 1.2],\n",
+       "       [5.1, 2.5, 3. , 1.1],\n",
+       "       [6.1, 3. , 4.6, 1.4],\n",
+       "       [5.1, 3.5, 1.4, 0.2],\n",
+       "       [6. , 2.2, 5. , 1.5],\n",
+       "       [5.9, 3.2, 4.8, 1.8],\n",
+       "       [6.6, 3. , 4.4, 1.4],\n",
+       "       [5.4, 3.9, 1.7, 0.4],\n",
+       "       [5. , 3.3, 1.4, 0.2],\n",
+       "       [5.1, 3.7, 1.5, 0.4],\n",
+       "       [4.8, 3. , 1.4, 0.3],\n",
+       "       [5.8, 2.6, 4. , 1.2],\n",
+       "       [4.6, 3.2, 1.4, 0.2]])"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X_train"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.487475Z",
+     "start_time": "2024-08-24T08:46:54.484853Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n",
+       "       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n",
+       "       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,\n",
+       "       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,\n",
+       "       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,\n",
+       "       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,\n",
+       "       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "iris.target # 这个应该是这个数据集的标签"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Task:\n",
+    "Use GaussianNB from sklearn.naive_bayes to create an NB classifier on the training data and evaluate its acuracy on the test data.\n",
+    "\n",
+    "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.568414Z",
+     "start_time": "2024-08-24T08:46:54.564885Z"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# 导包\n",
+    "from sklearn.naive_bayes import GaussianNB"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[7.4, 2.8, 6.1, 1.9],\n",
+       "       [7.7, 2.8, 6.7, 2. ],\n",
+       "       [5.5, 2.4, 3.7, 1. ],\n",
+       "       [6.1, 2.8, 4. , 1.3],\n",
+       "       [5.5, 2.5, 4. , 1.3],\n",
+       "       [6.3, 3.3, 6. , 2.5],\n",
+       "       [4.6, 3.4, 1.4, 0.3],\n",
+       "       [6.3, 2.7, 4.9, 1.8],\n",
+       "       [4.8, 3.1, 1.6, 0.2],\n",
+       "       [6.2, 2.8, 4.8, 1.8],\n",
+       "       [5.1, 3.8, 1.9, 0.4],\n",
+       "       [6.4, 2.7, 5.3, 1.9],\n",
+       "       [5. , 2. , 3.5, 1. ],\n",
+       "       [5.5, 4.2, 1.4, 0.2],\n",
+       "       [5.2, 4.1, 1.5, 0.1],\n",
+       "       [5.8, 2.7, 3.9, 1.2],\n",
+       "       [7.2, 3. , 5.8, 1.6],\n",
+       "       [5.1, 3.5, 1.4, 0.3],\n",
+       "       [5.7, 4.4, 1.5, 0.4],\n",
+       "       [5.2, 2.7, 3.9, 1.4],\n",
+       "       [7. , 3.2, 4.7, 1.4],\n",
+       "       [6.9, 3.1, 4.9, 1.5],\n",
+       "       [5.3, 3.7, 1.5, 0.2],\n",
+       "       [5.6, 2.9, 3.6, 1.3],\n",
+       "       [6.7, 3. , 5.2, 2.3],\n",
+       "       [4.9, 3. , 1.4, 0.2],\n",
+       "       [6.8, 3.2, 5.9, 2.3],\n",
+       "       [6.3, 2.3, 4.4, 1.3],\n",
+       "       [6.9, 3.2, 5.7, 2.3],\n",
+       "       [5. , 3.6, 1.4, 0.2],\n",
+       "       [4.9, 3.1, 1.5, 0.2],\n",
+       "       [6.7, 3.1, 4.7, 1.5],\n",
+       "       [4.9, 3.1, 1.5, 0.1],\n",
+       "       [6.3, 2.8, 5.1, 1.5],\n",
+       "       [4.9, 3.6, 1.4, 0.1],\n",
+       "       [4.8, 3.4, 1.9, 0.2],\n",
+       "       [5.6, 3. , 4.1, 1.3],\n",
+       "       [5.1, 3.4, 1.5, 0.2],\n",
+       "       [6. , 2.9, 4.5, 1.5],\n",
+       "       [4.3, 3. , 1.1, 0.1],\n",
+       "       [4.8, 3. , 1.4, 0.1],\n",
+       "       [5.7, 3. , 4.2, 1.2],\n",
+       "       [5.8, 2.8, 5.1, 2.4],\n",
+       "       [5.8, 2.7, 5.1, 1.9],\n",
+       "       [5. , 3. , 1.6, 0.2],\n",
+       "       [6.5, 3.2, 5.1, 2. ],\n",
+       "       [6.4, 2.9, 4.3, 1.3],\n",
+       "       [5.1, 3.8, 1.5, 0.3],\n",
+       "       [6.8, 3. , 5.5, 2.1],\n",
+       "       [4.7, 3.2, 1.6, 0.2],\n",
+       "       [6.4, 2.8, 5.6, 2.1],\n",
+       "       [7.7, 3.8, 6.7, 2.2],\n",
+       "       [5.4, 3.9, 1.3, 0.4],\n",
+       "       [6.5, 2.8, 4.6, 1.5],\n",
+       "       [6.3, 2.5, 5. , 1.9],\n",
+       "       [7.9, 3.8, 6.4, 2. ],\n",
+       "       [6.7, 3.1, 4.4, 1.4],\n",
+       "       [6.3, 2.5, 4.9, 1.5],\n",
+       "       [5.5, 3.5, 1.3, 0.2],\n",
+       "       [6. , 2.7, 5.1, 1.6],\n",
+       "       [5.6, 2.7, 4.2, 1.3],\n",
+       "       [7.7, 3. , 6.1, 2.3],\n",
+       "       [6.2, 2.2, 4.5, 1.5],\n",
+       "       [6.3, 2.9, 5.6, 1.8],\n",
+       "       [5. , 3.5, 1.3, 0.3],\n",
+       "       [5.5, 2.4, 3.8, 1.1],\n",
+       "       [4.4, 2.9, 1.4, 0.2],\n",
+       "       [7.1, 3. , 5.9, 2.1],\n",
+       "       [6.8, 2.8, 4.8, 1.4],\n",
+       "       [7.6, 3. , 6.6, 2.1],\n",
+       "       [5.7, 2.6, 3.5, 1. ],\n",
+       "       [6.7, 3.3, 5.7, 2.5],\n",
+       "       [6.3, 3.4, 5.6, 2.4],\n",
+       "       [5. , 3.4, 1.6, 0.4],\n",
+       "       [6.7, 3.3, 5.7, 2.1],\n",
+       "       [6.6, 2.9, 4.6, 1.3],\n",
+       "       [4.7, 3.2, 1.3, 0.2],\n",
+       "       [6.4, 3.2, 5.3, 2.3],\n",
+       "       [4.6, 3.1, 1.5, 0.2],\n",
+       "       [6.4, 3.1, 5.5, 1.8],\n",
+       "       [5.8, 2.7, 4.1, 1. ],\n",
+       "       [5.9, 3. , 4.2, 1.5],\n",
+       "       [5.1, 3.8, 1.6, 0.2],\n",
+       "       [5.9, 3. , 5.1, 1.8],\n",
+       "       [7.2, 3.6, 6.1, 2.5],\n",
+       "       [4.8, 3.4, 1.6, 0.2],\n",
+       "       [5. , 3.5, 1.6, 0.6],\n",
+       "       [6.9, 3.1, 5.4, 2.1],\n",
+       "       [5.8, 2.7, 5.1, 1.9],\n",
+       "       [5.7, 2.8, 4.5, 1.3],\n",
+       "       [7.2, 3.2, 6. , 1.8],\n",
+       "       [5.2, 3.5, 1.5, 0.2],\n",
+       "       [7.7, 2.6, 6.9, 2.3],\n",
+       "       [5.5, 2.6, 4.4, 1.2],\n",
+       "       [5.7, 2.5, 5. , 2. ],\n",
+       "       [5.6, 2.8, 4.9, 2. ],\n",
+       "       [5.4, 3.4, 1.5, 0.4],\n",
+       "       [6. , 2.2, 4. , 1. ],\n",
+       "       [6.2, 2.9, 4.3, 1.3],\n",
+       "       [6.1, 2.8, 4.7, 1.2],\n",
+       "       [5.1, 2.5, 3. , 1.1],\n",
+       "       [6.1, 3. , 4.6, 1.4],\n",
+       "       [5.1, 3.5, 1.4, 0.2],\n",
+       "       [6. , 2.2, 5. , 1.5],\n",
+       "       [5.9, 3.2, 4.8, 1.8],\n",
+       "       [6.6, 3. , 4.4, 1.4],\n",
+       "       [5.4, 3.9, 1.7, 0.4],\n",
+       "       [5. , 3.3, 1.4, 0.2],\n",
+       "       [5.1, 3.7, 1.5, 0.4],\n",
+       "       [4.8, 3. , 1.4, 0.3],\n",
+       "       [5.8, 2.6, 4. , 1.2],\n",
+       "       [4.6, 3.2, 1.4, 0.2]])"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X_train"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.729039Z",
+     "start_time": "2024-08-24T08:46:54.725442Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([0, 1, 1, 1, 0, 1, 1, 2, 2, 2, 1, 2, 1, 1, 0, 0, 0, 1, 0, 1, 2, 1,\n",
+       "       2, 1, 2, 1, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 2, 1])"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "gnb = GaussianNB()\n",
+    "y_pred = gnb.fit(X_train, y_train).predict(X_test)\n",
+    "y_pred"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.876310Z",
+     "start_time": "2024-08-24T08:46:54.872509Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.9210526315789473"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "accuracy_score(y_test, y_pred) # 使用sklearn.metrics.accuracy_score来计算准确率"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 3. More performance measures: precision, recall and F1 score. Confusion matrix."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In addition to accuracy, we can calculate other performance measures - e.g. precision, recall and their combination - the F1-score. In sklearn this can be convenintly done using the <b>classification_report</b> method, which also shows the accuracy. The confusion matrix can be calculated using the <b>confusion_matrix</b> method.\n",
+    "\n",
+    "### Task: \n",
+    "1) Continuing on the previous exercise (NB classifier on the iris data), write the Python code to calculate precision, recall, F1 measure and confusion matrix on the test set by using the methods <b>classification_report</b> and <b>confusion_matrix</b>.\n",
+    "\n",
+    "See:\n",
+    "\n",
+    "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html\n",
+    "\n",
+    "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html\n",
+    "\n",
+    "2) Examine the results:\n",
+    "- How are the precision, recall and F1-score calculated - per class or overall for the test set?\n",
+    "- Making sense of the confusion matrix: Where are the correctly classified examples? How many examples from class 1 are incorrectly classified as class 2?\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:54.960431Z",
+     "start_time": "2024-08-24T08:46:54.956569Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[12,  0,  0],\n",
+       "       [ 0, 12,  1],\n",
+       "       [ 0,  2, 11]])"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 得到混淆矩阵\n",
+    "metrics.confusion_matrix(y_test, y_pred)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "混淆矩阵的$C_{ij}$的意思是说: 实际上是第$i$类, 但是预测为了第$j$类的样本数. 例如, $C_{12}$的意思是说: 实际上是第$1$类, 但是预测为了第$2$类的样本数."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:55.076637Z",
+     "start_time": "2024-08-24T08:46:55.069719Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'0': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 12.0},\n",
+       " '1': {'precision': 0.8571428571428571,\n",
+       "  'recall': 0.9230769230769231,\n",
+       "  'f1-score': 0.8888888888888888,\n",
+       "  'support': 13.0},\n",
+       " '2': {'precision': 0.9166666666666666,\n",
+       "  'recall': 0.8461538461538461,\n",
+       "  'f1-score': 0.88,\n",
+       "  'support': 13.0},\n",
+       " 'accuracy': 0.9210526315789473,\n",
+       " 'macro avg': {'precision': 0.9246031746031745,\n",
+       "  'recall': 0.923076923076923,\n",
+       "  'f1-score': 0.9229629629629629,\n",
+       "  'support': 38.0},\n",
+       " 'weighted avg': {'precision': 0.9226190476190477,\n",
+       "  'recall': 0.9210526315789473,\n",
+       "  'f1-score': 0.9209356725146198,\n",
+       "  'support': 38.0}}"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 得到分类报告\n",
+    "metrics.classification_report(y_test, y_pred, output_dict=True) # 可以看到里面的accuracy和上面我们算出来的是一样的"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 4. Cross-validation for evaluating performance"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Cross-validation, in particular <b>10-fold stratified cross-validation</b>, is the standard method in machine learning for evaluating the performance of classification and prediction models. Recall that we are interested in the generalization performance, i.e. how well a classifier will perform on new, previously unseen data.\n",
+    "\n",
+    "To perform cross-validation in sklearn, we can use the <b>cross_val_score</b> function. It takes as parameters the classifier we would like to evaluate and the data - the feature vectors and the target classes (also caled ground-truth labels). The parameter <b>cv</b> specifies the number of folds; the default value is 3, so we need to set it to 10 for 10-fold cross-validation. Note that this function performs <b>stratified</b> cross validation for classification tasks. \n",
+    "\n",
+    "Let's evaluate our NB classifier using 10-fold cross-validation:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2024-08-24T08:46:55.140884Z",
+     "start_time": "2024-08-24T08:46:55.125913Z"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Cross-validation scores: [0.93333333 0.93333333 1.         0.93333333 0.93333333 0.93333333\n",
+      " 0.86666667 1.         1.         1.        ]\n",
+      "Average cross-validation score: 0.95\n"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.naive_bayes import GaussianNB\n",
+    "nb = GaussianNB()\n",
+    "\n",
+    "from sklearn.model_selection import cross_val_score\n",
+    "scores = cross_val_score(nb, iris.data, iris.target, cv=10)\n",
+    "print(\"Cross-validation scores: {}\".format(scores)) #accuracy for each fold\n",
+    "print(\"Average cross-validation score: {:.2f}\".format(scores.mean())) #average accuracy over all folds"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "当你传入一个GaussianNB对象之后, `cross_val_value`函数会自动开始训练, 即调用`fit`函数, 对于每一折, 都会使用当前的训练数据训练一个新的朴素贝叶斯模型, 这个训练好的模型会在验证集上进行预测, 然后会计算这一折的得分. 这个训练会重复进行`cv`次(默认为5次). 每次都是从里面选不同的一块当作验证集. 每一折都会创建和训练一个全新的模型, 这意味着在k折交叉验证中, 实际上会有k个独立训练的模型. 最后, 对每一折都有一个准度, 这些准度取平均值后得到的就是交叉验证的整体的准度."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The most important result is the average cross-validation score (the average accuracy over the the 10 folds) but it is also useful to look at the accuracy for each fold. In our case, we can see that there is a relatively high variation between the 10 folds  - from 86% to 100% accuracy. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Task: \n",
+    "Compare NB's cross-validation accuracy with NB's accuracy when we used a single training/test split. How can you explain the difference? Which is the more reliable measure?\n",
+    "\n",
+    "- 使用单一训练集/测试集得到的准度: 0.9210526315789473\n",
+    "- 使用交叉验证得到的准度: 0.95\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Leave-one-out cross-validation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Leave-one-out is a special case of cross-validation where each fold is a single example:\n",
+    "\n",
+    "留一法就是将折数设置为样本数量, 就是说, 如果有n个样本, 就会进行n次模型训练, 每次使用n-1个样本进行训练, 剩下的一个样本进行测试. 这种方法的优点是在每次训练中, 除了一个样本之外, 其他的所有数据都用于训练, 因此可以最大化地利用训练数据. 并且这种方法不涉及随机抽样, 每次得到的结果都是一致的, 不会因为随机性有所不同. 缺点也非常明显, 那就是在训练集较大的情况下, 需要进行n次计算, 开销很大."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Number of evaluations:  150\n",
+      "Mean accuracy: 0.95\n"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.model_selection import LeaveOneOut\n",
+    "one_out = LeaveOneOut()\n",
+    "scores = cross_val_score(nb, iris.data, iris.target, cv=one_out)\n",
+    "print(\"Number of evaluations: \", len(scores))\n",
+    "print(\"Mean accuracy: {:.2f}\".format(scores.mean()))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 5. Grid search with cross-validation for parameter selection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can improve the generalization performance of machine learning algorithms by tuning their parameters. NB doesn't have many parameters but in the previous weeks we saw that the performance of k-Nearest Neighbor algorithm depends on the number of neighbors and distance measure type, the performance of regression models depends on the values of <b>alpha</b> and <b>C</b>. \n",
+    "\n",
+    "In sklearn we can use grid search with cross-validation to search through different parameter combinations and select the best one. \n",
+    "\n",
+    "我们可以使用网格搜索交叉验证法来搜索不同的参数组合, 并选择最佳的参数组合."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let's consider k-nearest neighbor (k-NN) as an example and tune two of its parameters by considering the following values:\n",
+    "- number of neareast neighbours <b>n_neighbours</b> = 1, 3, 5, 11 and 13\n",
+    "- distance measure - Manhattan and Euclidean, which can be controlled by the value of parameter <b>p</b>, 1 or 2 respectively\n",
+    "\n",
+    "This gives us 5 x 2 combinations of paramneter values. We would like to find the best combination - the one that we expect to generalise well on new examples.\n",
+    "\n",
+    "We will use the following procedure, called <b>grid-search with cross-validation for parameter tuning</b>:\n",
+    "\n",
+    "k和距离的测量方式总共有10种组合, 我们会使用网格搜索和交叉验证来选择最佳的参数组合. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Pseudocode:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Create the parameter grid (i.e. the parameter combinations)\n",
+    "Split the data into training set and test set\n",
+    "For each parameter combination\n",
+    "    Train a k-NN classifier on the training data using 10-fold cross-validation as an evaluation procedure\n",
+    "    Compute the cross-validation accuracy cv_acc\n",
+    "    If cv_acc > best_cv_acc \n",
+    "       best_cv_acc = cv_acc\n",
+    "       best_parameters = current parameters\n",
+    "Rebuild the k-NN model using the whole training data and best_parameters\n",
+    "Evaluate it on the test data and report the results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- The data is split into training set and test set\n",
+    "- The cross-validation loop uses the training data. It is performed for every parameter combination. Its purpose is to select the best parameter combination - the one with the highest cross-validation accuracy. This involves, for every parameter combination, building 10 models on 90% of the training data (9 folds) and evaluating them on the remaining 10% (1 fold).\n",
+    "- Once this is done, a new model is trained using the selected best parameter combination on the <b>whole training set</b> and evaluated on the test set."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Code for our example:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Parameter grid:\n",
+      "{'n_neighbors': [1, 3, 5, 11, 15], 'p': [1, 2]}\n",
+      "Test set score: 0.95\n",
+      "Best parameters: {'n_neighbors': 15, 'p': 2}\n",
+      "Best cross-validation score: 0.98\n",
+      "Best estimator:\n",
+      "KNeighborsClassifier(n_neighbors=15)\n"
+     ]
+    }
+   ],
+   "source": [
+    "param_grid = {'n_neighbors': [1, 3, 5, 11, 15],\n",
+    "              'p': [1, 2]} # 这两个参数分别代表的是k和距离的测量方式, 应该是官方文档中的参数\n",
+    "print(\"Parameter grid:\\n{}\".format(param_grid))\n",
+    "\n",
+    "from sklearn.model_selection import GridSearchCV\n",
+    "from sklearn.neighbors import KNeighborsClassifier\n",
+    "grid_search = GridSearchCV(KNeighborsClassifier(), param_grid, cv=10,\n",
+    "                          return_train_score=True) # 使用网格搜索10折交叉验证\n",
+    "\n",
+    "\n",
+    "grid_search.fit(X_train, y_train)\n",
+    "\n",
+    "print(\"Test set score: {:.2f}\".format(grid_search.score(X_test, y_test)))\n",
+    "print(\"Best parameters: {}\".format(grid_search.best_params_))\n",
+    "print(\"Best cross-validation score: {:.2f}\".format(grid_search.best_score_))\n",
+    "print(\"Best estimator:\\n{}\".format(grid_search.best_estimator_))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Explanation: We create an object of type GridSearchCV, which is then fitted to the <b>training</b> data. This fitting includes 2 things: \n",
+    "1. Searching for and determining the best parameter combination - the one with the best cross-validation accuracy <b>and</b> \n",
+    "2. Building a new model on the whole training set with the best parameter combination from 1.\n",
+    "\n",
+    "It is important to understand the difference between <b>best cross-validation score</b> and <b>test set score </b>:\n",
+    "- <b>best cross-validation score</b> is the mean cross-validation accuracy, with cross-validation performed on the <b>training set</b>. This step involves building 10 models on the training data, each time using 9 folds together (90% of the training data) to create the model and testing this model the remaining 10th fold (10% of the training data). The purpose of this step is to select the best parameter combination, which is the one with the highest cross-validation accuracy.\n",
+    "- <b>test set score</b> - this is the the accuracy on the test of a model that was created using the <b>whole training set</b> (100%) with the selected parameters. This is the result that we report as a measure of generalization performance."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Summary"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Test set score: 0.95\n"
+     ]
+    }
+   ],
+   "source": [
+    "nb = GaussianNB().fit(X_train, y_train)\n",
+    "scores = cross_val_score(nb, iris.data, iris.target, cv=10)\n",
+    "scores = cross_val_score(nb, iris.data, iris.target, cv=one_out)\n",
+    "\n",
+    "param_grid = {'n_neighbors': [1, 3, 5, 11, 15], 'p': [1, 2]}\n",
+    "grid_search = GridSearchCV(KNeighborsClassifier(), param_grid, cv=10, return_train_score=True)\n",
+    "grid_search.fit(X_train, y_train)\n",
+    "print(\"Test set score: {:.2f}\".format(grid_search.score(X_test, y_test)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Acknowledgements\n",
+    "\n",
+    "This tutorial is based on:\n",
+    "\n",
+    "Aurelien Geron (2022). Hands-on Machine Learning with Scikit-Learn, Keras and TensorFlow, O'Reilly.\n",
+    "\n",
+    "Andreas C. Mueller and Sarah Guido (2016). Introduction to Machine Learning with Python: A Guide for Data Scientists, O'Reilly.\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

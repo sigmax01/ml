@@ -1,0 +1,1987 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一个有待面面俱到的机器学习文档">
+      
+      
+        <meta name="author" content="ricolxwz">
+      
+      
+        <link rel="canonical" href="https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/">
+      
+      
+        <link rel="prev" href="../%E5%86%B3%E7%AD%96%E6%A0%91/">
+      
+      
+        <link rel="next" href="../%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>集成学习 - 机器学习</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.17 2.76A10.1 10.1 0 0 1 12 2c1.31 0 2.61.26 3.83.76 1.21.5 2.31 1.24 3.24 2.17s1.67 2.03 2.17 3.24c.5 1.22.76 2.52.76 3.83 0 2.65-1.05 5.2-2.93 7.07A9.97 9.97 0 0 1 12 22a10.1 10.1 0 0 1-3.83-.76 10 10 0 0 1-3.24-2.17A9.97 9.97 0 0 1 2 12c0-2.65 1.05-5.2 2.93-7.07.93-.93 2.03-1.67 3.24-2.17M12 17l1.56-3.42L17 12l-3.44-1.56L12 7l-1.57 3.44L7 12l3.43 1.58z"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<link href="example.com" rel="icon" /> 
+
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="机器学习" class="md-header__button md-logo" aria-label="机器学习" data-md-component="logo">
+      <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Logo -->
+<img id="logo_light_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg" alt="logo">
+<img id="logo_dark_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            机器学习
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              集成学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/%E7%AE%97%E6%B3%95/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  开始
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%A6%82%E7%8E%87/%E7%BB%AA%E8%AE%BA/" class="md-tabs__link">
+          
+  
+    
+  
+  概率
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E7%BB%AA%E8%AE%BA/" class="md-tabs__link">
+          
+  
+    
+  
+  算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%AB%9E%E8%B5%9B/titanic/" class="md-tabs__link">
+          
+  
+    
+  
+  竞赛
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PyTorch/Preface/" class="md-tabs__link">
+          
+  
+    
+  
+  PyTorch
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="机器学习" class="md-nav__button md-logo" aria-label="机器学习" data-md-component="logo">
+      <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Logo -->
+<img id="logo_light_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg" alt="logo">
+<img id="logo_dark_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg" alt="logo">
+    </a>
+    机器学习
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    开始
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            开始
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    概率
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            概率
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E7%BB%AA%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%A6%82%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    随机事件和概率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E4%B8%80%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一维随机变量及其分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多维随机变量及其分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    随机变量的数字特征
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B%E4%B8%8E%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大数定律与中心极限定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A6%82%E7%8E%87/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数理统计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%AA%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性回归
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%A2%84%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    预处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%9C%80%E9%82%BB%E8%BF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最邻近
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朴素贝叶斯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%84%E4%BC%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    评估
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%86%B3%E7%AD%96%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    决策树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    集成学习
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    集成学习
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0" class="md-nav__link">
+    <span class="md-ellipsis">
+      为何要集成学习
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E6%9E%84%E5%BB%BA%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建集成学习模型的方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bagging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bagging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机森林
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boosting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaboost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaboost
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adaboost">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E5%8E%9F%E7%90%86" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E5%85%83%E7%AE%97%E6%B3%95" class="md-nav__link">
+    <span class="md-ellipsis">
+      元算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    支持向量机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%99%8D%E7%BB%B4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    降维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    神经网络
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_11">
+            <span class="md-nav__icon md-icon"></span>
+            神经网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前馈神经网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    竞赛
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            竞赛
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AB%9E%E8%B5%9B/titanic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    titanic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PyTorch
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PyTorch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PyTorch/Preface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PyTorch/Foundations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Foundations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PyTorch/Workflows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workflows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0" class="md-nav__link">
+    <span class="md-ellipsis">
+      为何要集成学习
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E6%9E%84%E5%BB%BA%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建集成学习模型的方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bagging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bagging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机森林
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boosting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaboost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaboost
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adaboost">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E5%8E%9F%E7%90%86" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E5%85%83%E7%AE%97%E6%B3%95" class="md-nav__link">
+    <span class="md-ellipsis">
+      元算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+  
+    <a href="https://github.com/ricolxwz/ml/edit/master/docs/算法/集成学习.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ricolxwz/ml/raw/master/docs/算法/集成学习.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+  <h1>集成学习</h1>
+
+<details class="info" open="open">
+<summary>信息</summary>
+<ul>
+<li>这里的"基分类器"/"分类器"指的就是参与集成学习中使用的单个分类器. 事实上, "分类器"这个术语并不准确, 因为有一些问题不是分类问题, 而是回归问题, 我们可以使用更加通用的术语"基学习器"或者"基模型"来代替基分类器. 这里, 为了和网上广大的教程(包括悉大的课件)保持统一, 就称其为"基分类器".</li>
+<li>默认省略例子边框</li>
+</ul>
+</details>
+<p>传统的机器学习算法(如决策树, 人工神经网络, 支持向量机, 朴素贝叶斯等)的目标都是寻找一个最优分类器尽可能将训练数据分开. 集成学习, Ensemble Learning算法的基本思想就是将多个分类器组合, 从而实现一个预测效果更好的集成分类器. 集成算法可以描述为: "三个臭皮匠, 赛过诸葛亮".</p>
+<p>集成算法大致上可以分为: Bagging, Boosting和Stacking等类型.</p>
+<h2 id="%E4%B8%BA%E4%BD%95%E8%A6%81%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0">为何要集成学习<a class="headerlink" href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0" title="Permanent link">&para;</a></h2>
+<p>使用集成学习具有很多优势:</p>
+<ul>
+<li>统计上的优势: 一个学习算法可以理解为在一个假设空间中找到一个最好的假设(假设空间是指所有可能的模型或者假设的集合). 但是, 当训练样本的数据量小到不够用来准确的学习到目标假设的时候, 学习算法可以找到很多满足训练样本的分类器. 所以, 学习算法选择任何一个分类器都会面临一定错误预测的风险, 因此将多个假设集成起来可以降低错误分类器的风险</li>
+<li>计算上的优势: 很多学习算法在进行最优化搜索的时候很可能陷入局部最优的错误中, 因此对于学习算法而言很难得到一个全局最优的假设. 事实上人工神经网络和决策树已经被证明是一个NP问题. 集成算法可以从多个起始点进行局部搜索, 从而分散陷入局部最优的风险</li>
+<li>表示上的优势: 在现实中, 假设空间中的任意一个单一模型(假设)通常难以完美的表示(或者近似的表示)数据的真实分类函数. 换句话说, 一个单一的模型不足以捕捉数据的复杂性, 无法做出准确的预测. 集成学习算法, 如Boosting, 通过组合多个不同的基分类器来形成一个更强的模型. 这些基分类器不是简单的平均组合, 而是通过加权的方式, 赋予每个基分类器不同的权重. 加权组合的结果可以看作是在原本假设空间基础上扩展了一个新的假设空间, 这个扩展后的假设空间更加灵活, 更优能力去逼近真正的分类函数</li>
+</ul>
+<p>如我们通过组合25个二元基分类器得到了一个集成学习模型. 每一个二元基分类器的错误率<span class="arithmatex">\(\epsilon=0.35\)</span>, 即准度为<span class="arithmatex">\(0.65\)</span>.</p>
+<ol>
+<li>若所有的基分类器都是相同的, 即会犯同样的错误. 那么得到的集成学习模型在测试集上的错误率为<span class="arithmatex">\(0.35\)</span></li>
+<li>若所有的基分类器是独立的, 即他们犯的错误是没有关联的, 那么得到的集成学习模型是否错误取决于是否有超过半数的基分类器预测错误(假设采用投票的方式选出结果), 即有超过<span class="arithmatex">\(13\)</span>个基分类器预测错误. 我们需要计算的是<span class="arithmatex">\(13\)</span>个基分类器预测错误的概率+<span class="arithmatex">\(14\)</span>次基分类器预测错误的概率+...+<span class="arithmatex">\(25\)</span>次基分类器预测错误的概率, 即<span class="arithmatex">\(\sum_{i=13}^{25}\binom{25}{i}\epsilon^i(1-\epsilon)^{25-i}=0.06\)</span>(符合二项分布). 可以看到出错的概率显著减小, <span class="arithmatex">\(0.06&lt;0.35\)</span></li>
+</ol>
+<p>在上述例子中, 基分类器错误率和得到的集成学习模型错误率的关系如图所示:</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="https://img.ricolxwz.io/39c630377194dc1bd1310e8e5623aa6d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/39c630377194dc1bd1310e8e5623aa6d.png" alt="description" style="width: 600px;"></a>
+</div>
+
+<p>从图中我们可以看到, 当基分类器错误率大于<span class="arithmatex">\(0.5\)</span>的时候, 集成学习模型的错误率甚至会高于基分类器的错误率. 这种情况下基分类器的预测比在两个类别之间随机猜的结果还差.</p>
+<p>所以, 我们可以得出结论, 如果要使集成学习模型表现比单个基分类器更好:</p>
+<ul>
+<li>基分类器的错误率要低, 对于二元分类器来说, 至少至少你要比随机乱猜要好</li>
+<li>基分类器之间必须相互独立, 在实践中, 我们无法做到每个基分类器的所有训练样本都是不同的, 即我们无法做到基分类器之间的完全独立. 事实上, 经验表明, 当基分类器之间有轻微关联的时候, 往往得到的集成学习模型效果会更好</li>
+</ul>
+<h2 id="%E6%9E%84%E5%BB%BA%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95">构建集成学习模型的方法<a class="headerlink" href="#%E6%9E%84%E5%BB%BA%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95" title="Permanent link">&para;</a></h2>
+<p>构建学习模型本质上是要产生不同的, 尽量没有依赖的基分类器. 这个可以通过以下几种方式实现:</p>
+<ul>
+<li>操纵训练数据: 通过抽样产生不同的训练数据/或同一份数据但是样本不同权重用于训练模型, 典型的集成学习模型有Bagging和Boosting</li>
+<li>操作属性: 通过使用总体属性的子属性集用于训练模型, 典型的集成学习模型有随机森林, Random Subspace</li>
+<li>... 待添加</li>
+</ul>
+<h2 id="bagging">Bagging<a class="headerlink" href="#bagging" title="Permanent link">&para;</a></h2>
+<p>Bagging(Bootstrap Aggregating)由Breimam于1996年提出, 基本思想如下:</p>
+<ol>
+<li>每次采用有放回的抽样从训练集中取出<span class="arithmatex">\(n\)</span>个样本组成新的训练集</li>
+<li>利用新的训练集, 训练得到<span class="arithmatex">\(M\)</span>个子模型<span class="arithmatex">\(\{h_1, h_2, ..., h_M\}\)</span></li>
+<li>对于分类问题, 采用投票的方法, 得票最多的分类为最终的类别; 对于回归问题, 采用简单的取平均方法得到预测值</li>
+</ol>
+<p>注意, 初始状态是一个<span class="arithmatex">\(n\)</span>个元素的训练集, Bagging产生的训练集也有<span class="arithmatex">\(n\)</span>个元素, 是从原始训练集中有放回的抽样产生的, 所以其中有一些样本可能在新的训练集中出现多次, 有些可能一次都不出现. 任意一个样本不被选中的概率是<span class="arithmatex">\(1-\frac{1}{n}\)</span>, 因为我们进行的是有放回的抽样, 总共抽<span class="arithmatex">\(m\)</span>次, 每次抽样都是独立事件, 因此一个特定版本在<span class="arithmatex">\(m\)</span>次抽样中都不被选中的概率是<span class="arithmatex">\((1-\frac{1}{n})^m\)</span>, 那么, 这个样本至少被选中一次的概率就是<span class="arithmatex">\(1-(1-\frac{1}{n})^m\)</span>, 所以说, 对于<span class="arithmatex">\(n\)</span>个元素的原始训练集, 平均会有<span class="arithmatex">\(1-(1-\frac{1}{n})^m\)</span>的样本会被抽样到新的训练集中.</p>
+<p>如图所示, 这是一个<span class="arithmatex">\(3\)</span>次抽样的例子.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="https://img.ricolxwz.io/b8b387f29a640fa842dd29a87a5b6867.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/b8b387f29a640fa842dd29a87a5b6867.png" style="width: 600px"/></a>
+</div>
+
+<p>产生数个新的训练集后, 对于每一个训练集都训练一个基分类器, 获取所有基分类器的预测结果, 进行投票, 票数多的结果就是集成学习模型的预测结果. 注意, 这里所有的基分类器的权重都是一样的, 即所有基分类器的投票权都是相等的, 民主投票.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="https://img.ricolxwz.io/e4f4fae640b9d7fb6ab55027f1753911.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/e4f4fae640b9d7fb6ab55027f1753911.png" style="width: 500px;"/></a>
+</div>
+
+<h2 id="%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97">随机森林<a class="headerlink" href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97" title="Permanent link">&para;</a></h2>
+<p>随机森林(Random Forests)是一种利用决策树作为基分类器的Bagging集成学习算法. 随机森林的构建过程如下:</p>
+<ol>
+<li>
+<p>数据采样</p>
+<p>作为一种Bagging集成算法, 随机森林同样采取有放回的采样, 对于总体训练集<span class="arithmatex">\(T\)</span>, 抽样一个子集<span class="arithmatex">\(T_{sub}\)</span>作为训练样本集. 除此之外, 假设总体训练集的特征个数为<span class="arithmatex">\(d\)</span>, 每次仅选择<span class="arithmatex">\(k(k&lt;d)\)</span>个作为训练样本集的特征. 因此, 随机森林除了能够做到抗样本扰动外, 还添加了特征扰动, 对于特征的选择个数, 推荐值为<span class="arithmatex">\(k=\log_2 d\)</span>.</p>
+</li>
+<li>
+<p>树的构建</p>
+<p>每次根据采样得到的数据和特征构建一颗决策树. 在构建决策树的过程中, 会让决策树生长完全不进行预剪枝. 构建出的若干棵决策树组成了最终的随机森林. 预测的方法同Bagging. </p>
+</li>
+</ol>
+<h2 id="boosting">Boosting<a class="headerlink" href="#boosting" title="Permanent link">&para;</a></h2>
+<p>Boosting是一种提升算法, 可以将弱的学习算法提升为强的学习算法. 基本思想如下:</p>
+<ol>
+<li>初始训练: 首先, 从初始训练数据集训练一个基分类器(如决策树, 线性模型等). 这个基分类器可能并不完美, 但是它会对大多数样本做出合理的预测</li>
+<li>调整样本权重: 对于那些被机器学习错误预测的样本, 提高他们的权重. 这意味着在下一轮训练的时候, 这些错误分类的样本将获得更大的关注, 使得后续的基分类器能够更好地处理这些困难样本</li>
+<li>迭代训练: 在每一轮中, 利用调整后的样本权重训练新的基分类器. 这个过程会重复多次, 每次都会生成一个新的分类器, 并且每个新的分类器都试图修正前一个分类器的错误</li>
+<li>组合结果: 最终, 将所有的基分类器的结果进行组合. 对于分类问题, 采用有权重的投票方式来决定最终的分类结果; 对于回归问题, 采用甲醛平均的方式得到最终的预测值. 权重的分配依据每个基分类器的准确性, 表现好的分类器会获得更大的权重</li>
+</ol>
+<h3 id="adaboost">Adaboost<a class="headerlink" href="#adaboost" title="Permanent link">&para;</a></h3>
+<p>Adaboost由Freund和Schapire在1996年发明.</p>
+<p>Adaboost是Boosting的经典实现之一. 它的每一个训练样本都带有一个权重, 权重越高, 说明先前的基分类器在预测它的时候错误率较高, 表示这个样本“较难”预测. 这个样本在下一个新训练集中出现的可能性较高(出现的次数可能会多). 最终, 在所有基分类器结果组合的时候, 是非民主投票, 也就是说, 错误率小的分类器的投票权更大, 权重更高. </p>
+<p>可以用图表表示:</p>
+<p><div style="text-align: center">
+<a class="glightbox" href="https://img.ricolxwz.io/c3e20e67512f1075ba5c78b5af35121d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/c3e20e67512f1075ba5c78b5af35121d.png" style="width: 500px"/></a>
+</div></p>
+<p>其中, 1个矩形对应1个训练样本. 矩形的高度对应样本的权重. ✅和❌对应样本是否被当前的基分类器正确预测. 决策树图片的大小对应在最终预测结果里面的权重.</p>
+<p>算法如下:</p>
+<ol>
+<li>有<span class="arithmatex">\(N\)</span>个样本<span class="arithmatex">\(\{x_n, y_n\}\)</span>, <span class="arithmatex">\(y_n\in \{+1, -1\}\)</span></li>
+<li>初始化所有样本的权重<span class="arithmatex">\(w_1(n)=\frac{1}{n}\)</span></li>
+<li>对于<span class="arithmatex">\(t\)</span>从<span class="arithmatex">\(1\)</span>到<span class="arithmatex">\(T\)</span>:<ol>
+<li>使用当前的的训练集训练一个基分类器<span class="arithmatex">\(h_t(x)\)</span>, 最小化错误率<span class="arithmatex">\(\epsilon_t = \sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]\)</span>. 注意, <span class="arithmatex">\(\mathbb{I}\)</span>表示指示函数, 当条件为真时, <span class="arithmatex">\(\mathbb{I}[\)</span>条件<span class="arithmatex">\(]=1\)</span>, 当条件为假时, <span class="arithmatex">\(\mathbb{I}[\)</span>条件<span class="arithmatex">\(]=0\)</span></li>
+<li>计算基分类器在最终决策中的贡献<span class="arithmatex">\(\beta_t = \frac{1}{2}\log\frac{1-\epsilon_t}{\epsilon_t}\)</span></li>
+<li>更新当前训练集样本的权重<span class="arithmatex">\(w_{t+1}(n)\propto w_t(n)e^{-\beta_ty_nh_t(x_n)}\)</span>, 为什么用<span class="arithmatex">\(\propto\)</span>? 因为在更新权重之前, 还要进行归一化, 使得<span class="arithmatex">\(\sum_n w_{t+1}(n)=1\)</span></li>
+</ol>
+</li>
+<li>输出最终的分类器<span class="arithmatex">\(h[x]=sign[\sum_{t=1}^T\beta_th_t(x)]\)</span></li>
+</ol>
+<p>下面是一个例子:</p>
+<p>这里, 我们假设每次训练前抽样过程中被抽中的都是同一批样本.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">原始训练集<span class="arithmatex">\(D_1\)</span></label><label for="__tabbed_1_2">经过基分类器<span class="arithmatex">\(h_1\)</span>训练过后得到训练集<span class="arithmatex">\(D_2\)</span></label><label for="__tabbed_1_3">经过基分类器<span class="arithmatex">\(h_2\)</span>训练过后得到训练集<span class="arithmatex">\(D_3\)</span></label><label for="__tabbed_1_4">基分类器<span class="arithmatex">\(h_3\)</span>训练</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div style="text-align: center">
+    <a class="glightbox" href="https://img.ricolxwz.io/f271dee1805fd69aba2f4851b1fe72f2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/f271dee1805fd69aba2f4851b1fe72f2.png" style="width:250px"/></a>
+</div></p>
+<p>注意: </p>
+<ul>
+<li>这些数据点显然不是线性可分的</li>
+<li>在一开始的时候, 所以的样本的权重都是相同的, 注意图中+和-号的大小 </li>
+<li>选择的基分类器是一个很垃圾的分类器: 根据单一属性进行决策, 即"决策树桩", Decision Stump. 在图中会显示为横分割线或竖分割线</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+<a class="glightbox" href="https://img.ricolxwz.io/13d32a92192788b57deb82b52eddcff2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/13d32a92192788b57deb82b52eddcff2.png" style="width: 450px"/></a>
+</div></p>
+<p>可以看到, 图中圈出来的三个+号是预测错误的, 错误率<span class="arithmatex">\(\epsilon_1\)</span>为<span class="arithmatex">\(\frac{1}{10}+\frac{1}{10}+\frac{1}{10}=0.3\)</span>, 可以计算出该基分类器的权重为<span class="arithmatex">\(\beta_1 = 0.42\)</span>. 然后我们要更新当前训练集中样本的权重: 对于预测错误的样本, 其新的权重为<span class="arithmatex">\((\frac{1}{10}\times e^{-0.42\times 1\times -1})/[\frac{1}{10}\times e^{-0.42\times 1\times -1}\times 3 + \frac{1}{10}\times e^{-0.42\times 1\times 1}\times 2 + \frac{1}{10}\times e^{-0.42\times -1\times -1}\times 5]=0.072\)</span>. 对于预测正确的样本, 其新的权重为<span class="arithmatex">\(0.17\)</span>.</p>
+<p>计算权重使用的代码, <code>bn</code>表示在归一化之前, <code>an</code>表示在归一化之后.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">math</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">w_error_bn</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="mf">0.42</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">w_not_error_bn</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.42</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">w_bn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">w_error_bn</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="p">[</span><span class="n">w_not_error_bn</span><span class="p">]</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">w_an</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">w_bn</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w_bn</span><span class="p">))</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">w_an</span><span class="p">)</span>
+</code></pre></div>
+<p>输出:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[0.16605851 0.16605851 0.16605851 0.07168921 0.07168921 0.07168921
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>0.07168921 0.07168921 0.07168921 0.07168921]
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+<a class="glightbox" href="https://img.ricolxwz.io/23e5cef8f4e2efb2c9dbbfd247a1fe0c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/23e5cef8f4e2efb2c9dbbfd247a1fe0c.png" style="width: 650px"/></a>
+</div></p>
+<p>可以看到, 图中圈出来的三个-号是预测错误的, 错误率为<span class="arithmatex">\(\epsilon_2\)</span>为<span class="arithmatex">\(0.072\times 3=0.216\)</span>, 可以计算出该基分类器的权重为<span class="arithmatex">\(\beta_2=0.65\)</span>. 然后我们要更新当前训练集中样本的权重: 对于预测错误的样本, 其新的权重为<span class="arithmatex">\(0.158\)</span>, 对于预测正确的样本, 其新的权重为<span class="arithmatex">\(0.043\)</span>或<span class="arithmatex">\(0.099\)</span>.</p>
+<p>代码为:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">math</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">w_error_bn</span> <span class="o">=</span> <span class="mf">0.072</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="mf">0.65</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">w_not_error_bn_1</span> <span class="o">=</span> <span class="mf">0.072</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.65</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">w_not_error_bn_2</span> <span class="o">=</span> <span class="mf">0.166</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.65</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">w_bn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">w_error_bn</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="p">[</span><span class="n">w_not_error_bn_1</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="p">[</span><span class="n">w_not_error_bn_2</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">w_an</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">w_bn</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w_bn</span><span class="p">))</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">w_an</span><span class="p">)</span>
+</code></pre></div>
+<p>输出:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[0.15795432 0.15795432 0.15795432 0.04304758 0.04304758 0.04304758
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>0.09924858 0.09924858 0.09924858 0.09924858]
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><div style="text-align: center">
+<a class="glightbox" href="https://img.ricolxwz.io/054aa0fb9d74590599fd6136c39fe49f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/054aa0fb9d74590599fd6136c39fe49f.png" style="width: 650px"/></a>
+</div></p>
+<p>可以看到, 图中圈出来的2个+号和1个-号是预测错误的. 错误率<span class="arithmatex">\(\epsilon_3\)</span>为<span class="arithmatex">\(0.043*3=0.14\)</span>, 可以算出该分类器的权重为<span class="arithmatex">\(\beta_3=0.92\)</span>. 不用更新训练集的权重, 因为已经是最后一个了.</p>
+</div>
+</div>
+</div>
+<p>最终, 得到最终的分类器, 经过非民主投票, 可以得到某一个新样本的预测结果, 如图:</p>
+<div style="text-align: center">
+<a class="glightbox" href="https://img.ricolxwz.io/8062d0815ee0c39a7e4b92df8079183a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/8062d0815ee0c39a7e4b92df8079183a.png" style="width: 650px"/></a>
+</div>
+
+<h4 id="%E5%8E%9F%E7%90%86">原理<a class="headerlink" href="#%E5%8E%9F%E7%90%86" title="Permanent link">&para;</a></h4>
+<p>Adaboost最小化分类错误的损失函数. 假设我们现在有一个分类器<span class="arithmatex">\(h(x)=sign[f(x)]\)</span>, 如果<span class="arithmatex">\(f(x)&gt;0\)</span>, 则<span class="arithmatex">\(h(x)=1\)</span>; 如果<span class="arithmatex">\(f(x)&lt;0\)</span>, 则<span class="arithmatex">\(h(x)=-1\)</span>. 这里的<span class="arithmatex">\(f(x)\)</span>指的就是集成学习加权投票的值, 即<span class="arithmatex">\(f(x)=\sum_{t=1}^T \beta_th_t(x)\)</span>, 经过取符号<span class="arithmatex">\(sign()\)</span>之后就得到最终结果.</p>
+<p>一种比较自然的损失函数为0-1损失函数, 即如果<span class="arithmatex">\(yf(x)&gt;0\)</span>, 就是<span class="arithmatex">\(f(x)\)</span>和<span class="arithmatex">\(y\)</span>的符号相同, 则<span class="arithmatex">\(\ell(h(x), y)=0\)</span>; 如果<span class="arithmatex">\(yf(x)&lt;0\)</span>, 就是<span class="arithmatex">\(f(x)\)</span>和<span class="arithmatex">\(y\)</span>的符号不同, 则<span class="arithmatex">\(\ell(h(x), y)=1\)</span>. 但是这种函数不是凸的, 也就是说局部最小值不是全局最小值, 可能存在多个局部最小值, 这增加了找到全局最优解的难度. 所以, 我们一般使用一个代理损失函数, 如指数损失函数<span class="arithmatex">\(\ell^{EXP}(h(x),y)=e^{-yf(x)}\)</span>. 这个函数的图像如下:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b546c37bbdbdb4edff8eeecb4288968a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/b546c37bbdbdb4edff8eeecb4288968a.png" style="width: 300px" /></a></p>
+</figure>
+<p>那么, 假设我们现在已经有了第<span class="arithmatex">\(t-1\)</span>次训练后的集成学习的加权投票的值<span class="arithmatex">\(f_{t-1}(x)\)</span>, 现在需要加入一个新的基分类器<span class="arithmatex">\(h_t(x)\)</span>得到最终的加权投票的值<span class="arithmatex">\(f(x)=f_{t-1}(x)+\beta_t h_t(x)\)</span>, 那么, 我们应该怎么选择最优的分类器<span class="arithmatex">\(h_t(x)\)</span>和系数<span class="arithmatex">\(\beta_t\)</span>呢?</p>
+<p>我们使用<span class="arithmatex">\(h^*_t(x)\)</span>和<span class="arithmatex">\(\beta_t^*\)</span>表示<span class="arithmatex">\(t\)</span>轮训练的最优值. 也就是说, 我们要最小化<span class="arithmatex">\(t\)</span>轮的指数损失函数, <span class="arithmatex">\((h^*_t(x), \beta^*_t)=argmin_{(h_t(x), \beta_t)}\sum_n e^{-y_nf(x_n)}=argmin_{(h_t(x), \beta_t)}\sum_n e^{-y_n[f_{t-1}(x_n)+\beta_th_t(x_n)]}=argmin_{(h_t(x), \beta_t)}\sum_n w_t(n)e^{-y_n\beta_t h_t(x_n)}\)</span>, 其中<span class="arithmatex">\(w_t(n)=e^{-y_nf_{t-1}(x_n)}\)</span>. </p>
+<p>现在, 我们可以将这个损失函数拆分为两个部分, <span class="arithmatex">\(\sum_n w_t(n)e^{-y_n\beta_th_t(x_n)}=\sum_n w_t(n)e^{\beta_t}\mathbb{I}[y_n\neq h_t(x_n)]+\sum_n w_t(n)e^{-\beta_t}\mathbb{I}[y_n=h_t(x_n)]=\sum_n w_t(n)e^{\beta_t}\mathbb{I}[y_n\neq h_t(x_n)]+\sum_n w_t(n)e^{-\beta_t}(1-\mathbb{I}[y_n\neq h_t(x_n)])=(e^{\beta_t}-e^{-\beta_t})\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]+e^{-\beta_t}\sum_n w_t(n)\)</span>. </p>
+<p>我们可以这样拆分的原因是:</p>
+<ul>
+<li><span class="arithmatex">\(y_nh_t(x_n)\)</span>的结果不是<span class="arithmatex">\(1\)</span>就是<span class="arithmatex">\(-1\)</span></li>
+<li><span class="arithmatex">\(h_t(x_n)\)</span>是当前弱分类器的判断</li>
+<li>指示器函数<span class="arithmatex">\(\mathbb{I}[y_n=h_t(x_n)]\)</span>不是<span class="arithmatex">\(0\)</span>就是<span class="arithmatex">\(1\)</span>, 所以<span class="arithmatex">\(1-\mathbb{I}[y_n=h_t(x_n)]\)</span>不是<span class="arithmatex">\(0\)</span>就是<span class="arithmatex">\(1\)</span></li>
+</ul>
+<p>总结, <span class="arithmatex">\((h^*_t(x), \beta^*_t)=argmin_{(h_t(x), \beta_t)}(e^{\beta_t}-e^{-\beta_t})\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]+e^{-\beta_t}\sum_n w_t(n)\)</span>. 之前我们说过, <span class="arithmatex">\(w_t(n)=e^{-y_nf_{t-1}(x_n)}\)</span>, <span class="arithmatex">\(y_n\)</span>是第<span class="arithmatex">\(n\)</span>个样本的真实标签, <span class="arithmatex">\(f_{t-1}(x_n)\)</span>是第<span class="arithmatex">\(t-1\)</span>轮所有弱分类器加权投票后的值, 可以看出<span class="arithmatex">\(\sum_n w_t(n)\)</span>这一部分其实等于<span class="arithmatex">\(1\)</span>(因为在<span class="arithmatex">\(t-1\)</span>轮结束之前会对所有的样本权重进行归一化处理), 和选择<span class="arithmatex">\(h_t(x)\)</span>是没有关系的. 所以<span class="arithmatex">\(h^*_t(x)=argmin_{h_t(x)}\epsilon_t=\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]\)</span>, 正好对应于Adaboost算法的第3.1步. 细心的同学可能会发现, 那<span class="arithmatex">\(\beta_t\)</span>不是和这个损失函数也有关系吗? 不错, 是有关系, 但是我们首先选择的是最佳的<span class="arithmatex">\(h^*_t(x)\)</span>, 然后才选择最佳的<span class="arithmatex">\(\beta_t\)</span>. 我们可以通过损失函数对<span class="arithmatex">\(\beta_t\)</span>求导, 令其等于<span class="arithmatex">\(0\)</span>, 从而求解最优的<span class="arithmatex">\(\beta_t\)</span>, 可以解出<span class="arithmatex">\(\beta^*_t=\frac{1}{2}\log\frac{1-\epsilon_t}{\epsilon_t}\)</span>, 正好对应于Adaboost算法的第3.2步. </p>
+<p>当我们求出最优的弱分类器和它的权重之后, 我们就可以更新分类器<span class="arithmatex">\(f(x)=f_{t-1}(x)+\beta^*_t h_t^*(x)\)</span>. 第<span class="arithmatex">\(n\)</span>个样本的权重<span class="arithmatex">\(w_{t+1}(n)\propto e^{-y_nf(x_n)}=e^{-y_n[f_{t-1}(x)+\beta^*_t h^*_t(x_n)]}=w_t(n)e^{-y_n\beta^*_th^*_t(x_n)}\)</span>, 然后对其进行归一化处理. 从而, 分类错误的样本它的权重会增加, 分类正确的样本它的权重会减少.</p>
+<h4 id="%E5%85%83%E7%AE%97%E6%B3%95">元算法<a class="headerlink" href="#%E5%85%83%E7%AE%97%E6%B3%95" title="Permanent link">&para;</a></h4>
+<p>Adaboost是一种元算法. 因为它并不具体规定我们应该如何获取最优的弱分类器<span class="arithmatex">\(h^*_t(x)\)</span>. 它只关心在每一轮中, 我们选择的弱分类器能够最小化<span class="arithmatex">\(\epsilon_t=\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]\)</span>. 换句话说, 任何一种能够达到这一目标的分类器方法都可以被用于Adaboost中, 无论是决策树, 朴素贝叶斯, 支持向量机等, 都可以被作为Adaboost的弱分类器使用.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>范叶亮. (n.d.). 集成学习算法 (Ensemble Learning) - 范叶亮 | Leo Van. 范叶亮的个人网站 | Leo Van’s Personal Website. Retrieved August 26, 2024, from <a href="https://leovan.me/cn/2018/12/ensemble-learning/">https://leovan.me/cn/2018/12/ensemble-learning/</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月18日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月18日</span>
+  </span>
+
+    
+    
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="贡献者">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
+          
+          <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
+        </a>
+      
+        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
+          
+          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
+    
+  </aside>
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="sigmax01/ml"
+        data-repo-id="R_kgDOMNX2Cw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMNX2C84CgVid"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" >版权所有 &copy 2024 由 <span property="cc:attributionName">许文泽</span> 采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0&nbsp</a>许可证发布</p>
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://ricolxwz.de" target="_blank" rel="noopener" title="ricolxwz.de" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ricolxwz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://gitea.ricolxwz.io" target="_blank" rel="noopener" title="gitea.ricolxwz.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M88 0C74.7 0 64 10.7 64 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C120.5 112.3 128 119.9 128 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C119.5 47.7 112 40.1 112 24c0-13.3-10.7-24-24-24zM32 192c-17.7 0-32 14.3-32 32L0 416c0 53 43 96 96 96l192 0c53 0 96-43 96-96l16 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-48 0L32 192zm352 64l16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0-96zM224 24c0-13.3-10.7-24-24-24s-24 10.7-24 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C232.5 112.3 240 119.9 240 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C231.5 47.7 224 40.1 224 24z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://gitlab.com/ricolxwz" target="_blank" rel="noopener" title="gitlab.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://hub.docker.com/u/ricolxwz" target="_blank" rel="noopener" title="hub.docker.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1zm0-204.3h-66.1v60.7h66.1zm78.2 144.8H362v59.4h66.1zm-156.3-72.1h-66.1v60.1h66.1zm78.1 0h-66.1v60.1h66.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1zm78.1 0h-66.1v59.4h66.1zm-78.1-72.1h-66.1v60.1h66.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://t.me/ricolxwz" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M248 8C111 8 0 119 0 256S111 504 248 504 496 393 496 256 385 8 248 8zM363 176.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7 .2-.7 .3-3.1-1.2-4.4s-3.6-.8-5.1-.5q-3.3 .7-104.6 69.1-14.8 10.2-26.9 9.9c-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3q.8-6.7 18.5-13.7 108.4-47.2 144.6-62.3c68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6 .5 9.6 2.9a10.5 10.5 0 0 1 3.5 6.7A43.8 43.8 0 0 1 363 176.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:ricol.xwz@outlook.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256l0 32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32l0 80 0 32c0 17.7 14.3 32 32 32s32-14.3 32-32l0-32c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../javascripts/favicon.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/umami.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

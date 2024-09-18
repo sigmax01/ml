@@ -1,0 +1,2437 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Foundations\n",
+    "\n",
+    "## Import Packages"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2.4.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "import torch\n",
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "print(torch.__version__)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 设置代理, 如果要设置代理, 注释掉del行; 如果不需要设置代理, 直接无视就行\n",
+    "import os\n",
+    "proxy = 'socks5://127.0.0.1:5353'\n",
+    "os.environ['http_proxy'] = proxy\n",
+    "os.environ['HTTP_PROXY'] = proxy\n",
+    "os.environ['https_proxy'] = proxy\n",
+    "os.environ['HTTPS_PROXY'] = proxy\n",
+    "del os.environ['http_proxy']\n",
+    "del os.environ['https_proxy']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Tensor\n",
+    "\n",
+    "### Creation\n",
+    "\n",
+    "#### tensor function\n",
+    "\n",
+    "PyTorch的tensors可以通过 `torch.tensor()`创建."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor(7)"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Scalar\n",
+    "scalar = torch.tensor(7)\n",
+    "scalar"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "scalar.ndim"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.Size([])"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "scalar.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "7"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Get tensor back as Python int\n",
+    "scalar.item()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([7, 7])"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Vector\n",
+    "vector = torch.tensor([7, 7])\n",
+    "vector"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "vector.ndim"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.Size([2])"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "vector.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[ 7,  8],\n",
+       "        [ 9, 10]])"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# MATRIX\n",
+    "MATRIX = torch.tensor([[7, 8], [9, 10]])\n",
+    "MATRIX"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "2"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MATRIX.ndim"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([7, 8])"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MATRIX[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([ 9, 10])"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MATRIX[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.Size([2, 2])"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MATRIX.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[1, 2, 3],\n",
+       "         [3, 6, 9],\n",
+       "         [2, 4, 5]]])"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Tensor\n",
+    "\n",
+    "TENSOR = torch.tensor([[[1, 2, 3], [3, 6, 9], [2, 4, 5]]])\n",
+    "TENSOR"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "TENSOR.ndim"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.Size([1, 3, 3])"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "TENSOR.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 2, 3],\n",
+       "        [3, 6, 9],\n",
+       "        [2, 4, 5]])"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "TENSOR[0]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### rand function\n",
+    "\n",
+    "为什么是随机张量? 随机张量之所以重要, 是因为许多神经网络的学习方式是从充满随机数的张量开始, 并调整这些随机数以更好地表示数据.\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "    <p class=\"admonition-title\">Tip</p>\n",
+    "    <p style=\"margin: 10px;\">\n",
+    "        这个过程可以表达如下: 从随机数开始 -> 查看数据 -> 更新随机数 -> 查看数据 -> 更新随机数.\n",
+    "    </p>\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[0.1575, 0.5833, 0.8072, 0.2182],\n",
+       "        [0.4659, 0.2811, 0.2830, 0.2329],\n",
+       "        [0.7475, 0.3854, 0.0926, 0.2503]])"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Create a random tensor of size (3, 4)\n",
+    "random_tensor = torch.rand(3, 4)\n",
+    "random_tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.float32"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "random_tensor.dtype"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(torch.Size([244, 244, 3]), 3)"
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Create a random tensor with similar shape to run an image tensor\n",
+    "random_image_size_tensor = torch.rand(size=(244, 244, 3)) # Height, width, color channel (R, G, B)\n",
+    "random_image_size_tensor.shape, random_image_size_tensor.ndim"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[0.9866, 0.3198, 0.5298],\n",
+       "        [0.2432, 0.5376, 0.5298],\n",
+       "        [0.0975, 0.0088, 0.7621]])"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.rand(size=(3, 3))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### zeros/ones function"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[0., 0., 0., 0.],\n",
+       "        [0., 0., 0., 0.],\n",
+       "        [0., 0., 0., 0.]])"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Create a tensor of all zeros\n",
+    "zeros = torch.zeros(size=(3, 4))\n",
+    "zeros"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[0., 0., 0., 0.],\n",
+       "        [0., 0., 0., 0.],\n",
+       "        [0., 0., 0., 0.]])"
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "zeros*random_tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1., 1., 1., 1.],\n",
+       "        [1., 1., 1., 1.],\n",
+       "        [1., 1., 1., 1.]])"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Create a tensor of all ones\n",
+    "ones = torch.ones(size=(3, 4))\n",
+    "ones"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.float32"
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "ones.dtype"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### arange function"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10])"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Use torch.arange()\n",
+    "one_to_ten = torch.arange(start=0, end=11, step=1)\n",
+    "one_to_ten"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### zeros_like function\n",
+    "\n",
+    "用于创建和`input`相同形状的零tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Creating tensor zeros like\n",
+    "ten_zeros = torch.zeros_like(input=one_to_ten)\n",
+    "ten_zeros"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### ones_like function\n",
+    "\n",
+    "用于创建和`input`相同形状的一tensor."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Creating tensor ones like\n",
+    "ten_ones = torch.ones_like(input=one_to_ten)\n",
+    "ten_ones"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Datatype\n",
+    "\n",
+    "<div class=\"admonition note\">\n",
+    "    <p class=\"admonition-title\">笔记</p>\n",
+    "    <p style=\"margin: 10px\">\n",
+    "        Tensor的数据类型是学习PyTorch和深度学习中的三大难点之一:\n",
+    "            <ul>\n",
+    "                <li> Tensor的数据累不正确\n",
+    "                <li> Tensor的形状不正确\n",
+    "                <li> Tensor的设备不正确\n",
+    "            </ul>\n",
+    "    </p>\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([3., 6., 9.]), torch.float32)"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Float 32 tensor\n",
+    "float_32_tensor = torch.tensor([3.0, 6.0, 9.0], \n",
+    "                               dtype=None, # Tensor的数据类型是什么\n",
+    "                               device=\"cpu\", # Tensor运行的设备类型是什么\n",
+    "                               requires_grad=False # 是否跟踪该Tensor在后续操作中的梯度\n",
+    "                               )\n",
+    "float_32_tensor, float_32_tensor.dtype"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([3., 6., 9.], dtype=torch.float16)"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "float_16_tensor = float_32_tensor.type(torch.float16)\n",
+    "float_16_tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([ 9., 36., 81.])"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "float_16_tensor*float_32_tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([3, 6, 9], dtype=torch.int32)"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "int_32_tensor = torch.tensor([3, 6, 9], dtype=torch.int32)\n",
+    "int_32_tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([ 9., 36., 81.])"
+      ]
+     },
+     "execution_count": 34,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "float_32_tensor*int_32_tensor"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Information Acquisition"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(torch.float32, torch.Size([3, 4]), device(type='cpu'))"
+      ]
+     },
+     "execution_count": 35,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "random_tensor = torch.rand(3, 4)\n",
+    "# 获取数据类型信息, 获取形状信息, 获取设备信息\n",
+    "random_tensor.dtype, random_tensor.shape, random_tensor.device"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Manipulation\n",
+    "\n",
+    "Tensor操作包括:\n",
+    "\n",
+    "- 加法\n",
+    "- 减法\n",
+    "- 乘法\n",
+    "- 除法\n",
+    "- 点积"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tensor = torch.tensor([1, 2, 3])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Addition"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([11, 12, 13]), tensor([11, 12, 13]))"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor + 10, torch.add(tensor, 10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Subtraction"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([-9, -8, -7])"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor - 10"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Multiplication"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([10, 20, 30]), tensor([10, 20, 30]))"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor * 10, torch.mul(tensor, 10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Division"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([0.1000, 0.2000, 0.3000])"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor / 10"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Dot Product"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor(20), tensor(20))"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor_new = torch.tensor([2, 3, 4])\n",
+    "tensor_new @ tensor, torch.matmul(tensor, tensor_new)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "PyTorch实现的点积较手动用for循环实现的快了不少:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor(20)\n",
+      "CPU times: user 855 μs, sys: 0 ns, total: 855 μs\n",
+      "Wall time: 1.6 ms\n"
+     ]
+    }
+   ],
+   "source": [
+    "%%time\n",
+    "value = 0\n",
+    "for i in range(3): \n",
+    "    value += tensor[i] * tensor_new[i]\n",
+    "print(value)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "CPU times: user 48 μs, sys: 0 ns, total: 48 μs\n",
+      "Wall time: 111 μs\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor(20)"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%%time\n",
+    "tensor_new @ tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[18, 21, 24],\n",
+       "        [40, 47, 54],\n",
+       "        [62, 73, 84]])"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor_A = torch.tensor([[1, 2], [3, 4], [5, 6]])\n",
+    "tensor_B = torch.tensor([[4, 5, 6], [7, 8, 9]])\n",
+    "tensor_A @ tensor_B"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "RuntimeError",
+     "evalue": "mat1 and mat2 shapes cannot be multiplied (3x2 and 3x2)",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mRuntimeError\u001b[0m                              Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[45], line 3\u001b[0m\n\u001b[1;32m      1\u001b[0m tensor_A \u001b[38;5;241m=\u001b[39m torch\u001b[38;5;241m.\u001b[39mtensor([[\u001b[38;5;241m1\u001b[39m, \u001b[38;5;241m2\u001b[39m], [\u001b[38;5;241m3\u001b[39m, \u001b[38;5;241m4\u001b[39m], [\u001b[38;5;241m5\u001b[39m, \u001b[38;5;241m6\u001b[39m]])\n\u001b[1;32m      2\u001b[0m tensor_B \u001b[38;5;241m=\u001b[39m torch\u001b[38;5;241m.\u001b[39mtensor([[\u001b[38;5;241m7\u001b[39m, \u001b[38;5;241m10\u001b[39m], [\u001b[38;5;241m8\u001b[39m, \u001b[38;5;241m11\u001b[39m], [\u001b[38;5;241m9\u001b[39m, \u001b[38;5;241m12\u001b[39m]])\n\u001b[0;32m----> 3\u001b[0m \u001b[43mtensor_A\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;241;43m@\u001b[39;49m\u001b[43m \u001b[49m\u001b[43mtensor_B\u001b[49m\n",
+      "\u001b[0;31mRuntimeError\u001b[0m: mat1 and mat2 shapes cannot be multiplied (3x2 and 3x2)"
+     ]
+    }
+   ],
+   "source": [
+    "%%capture\n",
+    "tensor_A = torch.tensor([[1, 2], [3, 4], [5, 6]])\n",
+    "tensor_B = torch.tensor([[7, 10], [8, 11], [9, 12]])\n",
+    "tensor_A @ tensor_B"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[ 27,  30,  33],\n",
+       "        [ 61,  68,  75],\n",
+       "        [ 95, 106, 117]])"
+      ]
+     },
+     "execution_count": 46,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor_A = torch.tensor([[1, 2], [3, 4], [5, 6]])\n",
+    "tensor_B = torch.tensor([[7, 10], [8, 11], [9, 12]]).T\n",
+    "tensor_A @ tensor_B"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Aggregation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90])"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(0, 100, 10)\n",
+    "x"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor(0), tensor(0))"
+      ]
+     },
+     "execution_count": 48,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.min(x), x.min()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor(90), tensor(90))"
+      ]
+     },
+     "execution_count": 49,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.max(x), x.max()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor(45.), tensor(45.))"
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.mean(x.type(torch.float32)), x.type(torch.float32).mean()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor(450), tensor(450))"
+      ]
+     },
+     "execution_count": 51,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.sum(x), x.sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor(0)"
+      ]
+     },
+     "execution_count": 52,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.argmin(x)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor(9)"
+      ]
+     },
+     "execution_count": 53,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.argmax(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Reshaping"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([1, 2, 3, 4, 5, 6, 7, 8, 9]), torch.Size([9]))"
+      ]
+     },
+     "execution_count": 54,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10)\n",
+    "x, x.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "RuntimeError",
+     "evalue": "shape '[1, 7]' is invalid for input of size 9",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mRuntimeError\u001b[0m                              Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[55], line 1\u001b[0m\n\u001b[0;32m----> 1\u001b[0m x_reshaped \u001b[38;5;241m=\u001b[39m \u001b[43mx\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mreshape\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;241;43m1\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;241;43m7\u001b[39;49m\u001b[43m)\u001b[49m\n\u001b[1;32m      2\u001b[0m x_reshaped, x_reshaped\u001b[38;5;241m.\u001b[39mshape\n",
+      "\u001b[0;31mRuntimeError\u001b[0m: shape '[1, 7]' is invalid for input of size 9"
+     ]
+    }
+   ],
+   "source": [
+    "%%capture\n",
+    "x_reshaped = x.reshape(1, 7)\n",
+    "x_reshaped, x_reshaped.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9]]),\n",
+       " tensor([[1],\n",
+       "         [2],\n",
+       "         [3],\n",
+       "         [4],\n",
+       "         [5],\n",
+       "         [6],\n",
+       "         [7],\n",
+       "         [8],\n",
+       "         [9]]),\n",
+       " 2,\n",
+       " 2,\n",
+       " 1)"
+      ]
+     },
+     "execution_count": 56,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x_reshaped_1 = x.reshape(1, 9)\n",
+    "x_reshaped_2 = x.reshape(9, 1)\n",
+    "x_reshaped_1, x_reshaped_2, x_reshaped_1.ndim, x_reshaped_2.ndim, x.ndim"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[1, 2, 3],\n",
+       "         [4, 5, 6],\n",
+       "         [7, 8, 9]]),\n",
+       " 2)"
+      ]
+     },
+     "execution_count": 57,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x_reshaped_3 = x.reshape(3, 3)\n",
+    "x_reshaped_3, x_reshaped_3.ndim"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Stacking"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9]])"
+      ]
+     },
+     "execution_count": 58,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10)\n",
+    "x_stacked = torch.stack([x, x, x, x, x])\n",
+    "x_stacked"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9],\n",
+       "        [1, 2, 3, 4, 5, 6, 7, 8, 9]])"
+      ]
+     },
+     "execution_count": 59,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x_stacked_1 = torch.stack([x, x, x, x, x], dim=0)\n",
+    "x_stacked_1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 1, 1, 1, 1],\n",
+       "        [2, 2, 2, 2, 2],\n",
+       "        [3, 3, 3, 3, 3],\n",
+       "        [4, 4, 4, 4, 4],\n",
+       "        [5, 5, 5, 5, 5],\n",
+       "        [6, 6, 6, 6, 6],\n",
+       "        [7, 7, 7, 7, 7],\n",
+       "        [8, 8, 8, 8, 8],\n",
+       "        [9, 9, 9, 9, 9]])"
+      ]
+     },
+     "execution_count": 60,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x_stacked_2 = torch.stack([x, x, x, x, x], dim=1)\n",
+    "x_stacked_2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Squeezing\n",
+    "\n",
+    "把所有的形状为1为维度都给移除掉."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9]]),\n",
+       " tensor([1, 2, 3, 4, 5, 6, 7, 8, 9]),\n",
+       " torch.Size([9]))"
+      ]
+     },
+     "execution_count": 61,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10)\n",
+    "x_reshaped = x.reshape(1, 9)\n",
+    "x_reshaped, x_reshaped.squeeze(), x_reshaped.squeeze().shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Unsqueezing\n",
+    "\n",
+    "在原来的基础上在某一个位置添加一个维度."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([1, 2, 3, 4, 5, 6, 7, 8, 9]),\n",
+       " tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9]]),\n",
+       " torch.Size([9]),\n",
+       " torch.Size([1, 9]))"
+      ]
+     },
+     "execution_count": 62,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10)\n",
+    "x_reshaped = x.reshape(1, 9)\n",
+    "x_squeezed = x_reshaped.squeeze()\n",
+    "x_unsqueezed = x_squeezed.unsqueeze(dim=0)\n",
+    "x_squeezed, x_unsqueezed, x_squeezed.shape, x_unsqueezed.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([1, 2, 3, 4, 5, 6, 7, 8, 9]),\n",
+       " tensor([[1],\n",
+       "         [2],\n",
+       "         [3],\n",
+       "         [4],\n",
+       "         [5],\n",
+       "         [6],\n",
+       "         [7],\n",
+       "         [8],\n",
+       "         [9]]),\n",
+       " torch.Size([9]),\n",
+       " torch.Size([9, 1]))"
+      ]
+     },
+     "execution_count": 63,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10)\n",
+    "x_reshaped = x.reshape(1, 9)\n",
+    "x_squeezed = x_reshaped.squeeze()\n",
+    "x_unsqueezed = x_squeezed.unsqueeze(dim=1)\n",
+    "x_squeezed, x_unsqueezed, x_squeezed.shape, x_unsqueezed.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Permutation\n",
+    "\n",
+    "更改维度的排列已改变形状, 返回的是一个视图."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.Size([5, 2, 3])"
+      ]
+     },
+     "execution_count": 64,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.randn(2, 3, 5)\n",
+    "torch.permute(x, (2, 0, 1)).shape # 表示新的形状组成为(原先的第2个维度, 原先的第0个维度, 原先的第1个维度)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[[5.6223e-01, 9.7213e-01, 4.1128e-01,  ..., 8.5508e-01,\n",
+       "           7.0759e-01, 2.8391e-01],\n",
+       "          [5.1867e-01, 6.6098e-02, 8.1560e-01,  ..., 4.4344e-01,\n",
+       "           1.0722e-02, 3.8542e-01],\n",
+       "          [4.9393e-01, 8.2620e-01, 7.7434e-01,  ..., 7.8111e-01,\n",
+       "           4.4169e-01, 4.1900e-01],\n",
+       "          ...,\n",
+       "          [8.6868e-01, 6.7852e-01, 6.2231e-01,  ..., 7.5023e-01,\n",
+       "           8.2266e-01, 8.2864e-01],\n",
+       "          [8.0183e-01, 5.0804e-01, 2.3907e-01,  ..., 4.1028e-01,\n",
+       "           1.8167e-01, 9.9476e-01],\n",
+       "          [4.2145e-01, 7.4486e-02, 2.7470e-01,  ..., 4.9736e-01,\n",
+       "           5.1441e-01, 9.7739e-01]],\n",
+       " \n",
+       "         [[8.1130e-01, 3.9309e-02, 5.9719e-01,  ..., 3.9862e-02,\n",
+       "           9.0462e-01, 5.3017e-01],\n",
+       "          [9.8430e-01, 2.4814e-01, 2.2664e-01,  ..., 7.6368e-01,\n",
+       "           6.5321e-01, 4.3562e-01],\n",
+       "          [1.9876e-01, 7.6939e-01, 3.6711e-01,  ..., 5.2077e-01,\n",
+       "           5.4824e-01, 7.5161e-01],\n",
+       "          ...,\n",
+       "          [6.3796e-01, 8.8749e-01, 7.6753e-03,  ..., 5.5581e-04,\n",
+       "           2.4672e-01, 6.9907e-01],\n",
+       "          [1.8275e-01, 5.8041e-01, 4.8971e-01,  ..., 5.6765e-01,\n",
+       "           2.8867e-01, 7.7545e-02],\n",
+       "          [1.6940e-02, 4.5912e-01, 9.0412e-01,  ..., 4.4586e-01,\n",
+       "           4.6874e-01, 7.6490e-01]],\n",
+       " \n",
+       "         [[9.5192e-01, 4.5698e-02, 8.5972e-01,  ..., 5.3876e-01,\n",
+       "           2.3685e-01, 4.6556e-01],\n",
+       "          [4.9127e-01, 7.1077e-01, 5.8564e-01,  ..., 3.6662e-02,\n",
+       "           6.4514e-01, 7.0169e-01],\n",
+       "          [5.7500e-01, 3.3144e-01, 4.5819e-01,  ..., 4.8662e-01,\n",
+       "           1.0257e-01, 7.4363e-01],\n",
+       "          ...,\n",
+       "          [2.2150e-01, 6.8122e-01, 9.6109e-01,  ..., 1.8916e-01,\n",
+       "           6.8900e-01, 7.0961e-01],\n",
+       "          [1.6289e-01, 8.3112e-01, 6.6798e-01,  ..., 2.2843e-01,\n",
+       "           1.7703e-01, 3.2847e-01],\n",
+       "          [4.9071e-01, 6.0439e-01, 7.5328e-01,  ..., 6.0435e-01,\n",
+       "           9.9219e-01, 6.0324e-01]]]),\n",
+       " torch.Size([3, 224, 224]))"
+      ]
+     },
+     "execution_count": 65,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x_original = torch.rand(size=(224, 224, 3))\n",
+    "x_permuted = x_original.permute(2, 0, 1)\n",
+    "x_permuted, x_permuted.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### View"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9]]), torch.Size([1, 9]))"
+      ]
+     },
+     "execution_count": 66,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10)\n",
+    "z = x.view(1, 9)\n",
+    "z, z.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[10000000,        2,        3,        4,        5,        6,        7,\n",
+       "                 8,        9]]),\n",
+       " tensor([10000000,        2,        3,        4,        5,        6,        7,\n",
+       "                8,        9]))"
+      ]
+     },
+     "execution_count": 67,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "z[:, 0] = 10000000\n",
+    "z, x"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Indexing\n",
+    "\n",
+    "请参考NumPy的索引, 两者一摸一样."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([[[1, 2, 3],\n",
+       "          [4, 5, 6],\n",
+       "          [7, 8, 9]]]),\n",
+       " torch.Size([1, 3, 3]))"
+      ]
+     },
+     "execution_count": 68,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = torch.arange(1, 10).reshape(1, 3, 3)\n",
+    "x, x.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 2, 3],\n",
+       "        [4, 5, 6],\n",
+       "        [7, 8, 9]])"
+      ]
+     },
+     "execution_count": 69,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 2, 3]])"
+      ]
+     },
+     "execution_count": 70,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[:, 0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 4, 7]])"
+      ]
+     },
+     "execution_count": 71,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[:, :, 0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor(1)"
+      ]
+     },
+     "execution_count": 72,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[0][0][0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[1, 2, 3],\n",
+       "        [4, 5, 6],\n",
+       "        [7, 8, 9]])"
+      ]
+     },
+     "execution_count": 73,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[0, :, :]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[3, 6, 9]])"
+      ]
+     },
+     "execution_count": 74,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[:, :, 2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor(9)"
+      ]
+     },
+     "execution_count": 75,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[0, 2, 2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[1, 2, 3]]])"
+      ]
+     },
+     "execution_count": 76,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[:, 0:1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[1, 2, 3],\n",
+       "         [4, 5, 6]]])"
+      ]
+     },
+     "execution_count": 77,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[:, 0:2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[1, 2, 3],\n",
+       "         [4, 5, 6]]])"
+      ]
+     },
+     "execution_count": 78,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[0:1, 0:2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[2, 3],\n",
+       "         [5, 6],\n",
+       "         [8, 9]]])"
+      ]
+     },
+     "execution_count": 79,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[:, :, 1:3]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[1, 2, 3],\n",
+       "         [4, 5, 6],\n",
+       "         [7, 8, 9]]])"
+      ]
+     },
+     "execution_count": 80,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[0:1]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Integration with Numpy\n",
+    "\n",
+    "- 将NumPy中的数组转为Tensor: 使用`torch.from_numpy`函数\n",
+    "- 将Tensor转为NumPy中的数组: 使用`torch.numpy`函数"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(array([1., 2., 3., 4., 5., 6., 7.]),\n",
+       " tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))"
+      ]
+     },
+     "execution_count": 81,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "array = np.arange(1.0, 8.0)\n",
+    "tensor = torch.from_numpy(array)\n",
+    "array, tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(dtype('float64'), torch.float32)"
+      ]
+     },
+     "execution_count": 82,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "array.dtype, torch.arange(1.0, 8.0).dtype\n",
+    "# 从这里可以看出, NumPy的默认数据类型是float64. 从上面了解到Tensor浮点数的默认数据类型是float32, 经过转换之后数据类型从float32变成了floa64"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tensor([1., 2., 3., 4., 5., 6., 7.])"
+      ]
+     },
+     "execution_count": 83,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor.type(torch.float32) # 将其转换为float32"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 84,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(array([2., 3., 4., 5., 6., 7., 8.]),\n",
+       " tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))"
+      ]
+     },
+     "execution_count": 84,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 转换之后的Tensor和之前的NumPy数组不是同一个东西\n",
+    "array = array + 1\n",
+    "array, tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([1., 1., 1., 1., 1., 1., 1.]),\n",
+       " array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))"
+      ]
+     },
+     "execution_count": 85,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor = torch.ones(7)\n",
+    "numpy_tensor = tensor.numpy()\n",
+    "tensor, numpy_tensor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([2., 2., 2., 2., 2., 2., 2.]),\n",
+       " array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))"
+      ]
+     },
+     "execution_count": 86,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 转换之后的NumPy数组和之前的Tensor不是同一个东西\n",
+    "tensor = tensor + 1\n",
+    "tensor, numpy_tensor"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reproducibility\n",
+    "\n",
+    "简单的来说, 一个神经网络的学习流程是: 从一堆随机数开始 -> Tensor操作 -> 更新随机数使他们能够更好的表示数据 -> 重复上述操作.\n",
+    "\n",
+    "为了能够减少在生成随机数时候的随机性, 引入了一个新的概念: 随机种子, random seed. \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.9939, 0.6409, 0.9309, 0.6810],\n",
+      "        [0.0901, 0.0808, 0.8430, 0.2301],\n",
+      "        [0.9385, 0.1182, 0.9248, 0.0206]])\n",
+      "tensor([[0.7692, 0.9325, 0.5010, 0.3869],\n",
+      "        [0.0926, 0.8292, 0.4902, 0.7620],\n",
+      "        [0.3593, 0.0760, 0.2012, 0.3088]])\n",
+      "tensor([[False, False, False, False],\n",
+      "        [False, False, False, False],\n",
+      "        [False, False, False, False]])\n"
+     ]
+    }
+   ],
+   "source": [
+    "random_tensor_A = torch.rand(3, 4)\n",
+    "random_tensor_B = torch.rand(3, 4)\n",
+    "print(random_tensor_A)\n",
+    "print(random_tensor_B)\n",
+    "print(random_tensor_A == random_tensor_B)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.4963, 0.7682, 0.0885, 0.1320],\n",
+      "        [0.3074, 0.6341, 0.4901, 0.8964],\n",
+      "        [0.4556, 0.6323, 0.3489, 0.4017]])\n",
+      "tensor([[0.4963, 0.7682, 0.0885, 0.1320],\n",
+      "        [0.3074, 0.6341, 0.4901, 0.8964],\n",
+      "        [0.4556, 0.6323, 0.3489, 0.4017]])\n",
+      "tensor([[True, True, True, True],\n",
+      "        [True, True, True, True],\n",
+      "        [True, True, True, True]])\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 采用随机种子\n",
+    "\n",
+    "RANDOM_SEED = 0\n",
+    "torch.manual_seed(RANDOM_SEED)\n",
+    "random_tensor_C = torch.rand(3, 4)\n",
+    "torch.manual_seed(RANDOM_SEED)\n",
+    "random_tensor_D = torch.rand(3, 4)\n",
+    "print(random_tensor_C)\n",
+    "print(random_tensor_D)\n",
+    "print(random_tensor_C == random_tensor_D)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"admonition warning\">\n",
+    "    <p class=\"admonition-title\">注意</p>\n",
+    "    <p style=\"margin: 10px;\">\n",
+    "        torch.manual_seed函数仅仅只对其下方的第一个随机函数生效. \n",
+    "    </p>\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## GPUs\n",
+    "\n",
+    "NVIDIA+CUDA能够加速Pytorch的运算. 拿到GPU的简单方法:\n",
+    "\n",
+    "1. 最简单: 使用Google Colab, 提供免费的GPU算力\n",
+    "2. 使用自己的GPU, 需要金钱投资, 配置较费力\n",
+    "3. 使用云计算服务, 如aws, gcp, azure\n",
+    "\n",
+    "<div class=\"admonition warning\">\n",
+    "    <p class=\"admonition-title\">注意</p>\n",
+    "    <p style=\"margin: 10px;\">\n",
+    "        请在GPU环境下运行下列代码.\n",
+    "    </p>\n",
+    "</div>\n",
+    "\n",
+    "### Check for GPU Access"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 89,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/bin/bash: line 1: nvidia-smi: command not found\n"
+     ]
+    }
+   ],
+   "source": [
+    "!nvidia-smi"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 90,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "torch.cuda.is_available()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 91,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 若没有cuda, 则用cpu, 若有cuda, 则用cuda\n",
+    "device = \"cuda\" if torch.cuda.is_available() else \"cpu\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0"
+      ]
+     },
+     "execution_count": 92,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# cuda设备数量\n",
+    "torch.cuda.device_count()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Putting Tensors (and models) on the GPU"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 93,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([1, 2, 3]) cpu\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([1, 2, 3])"
+      ]
+     },
+     "execution_count": 93,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 将Tensor移到GPU(如果可用的话)\n",
+    "device = \"cuda\" if torch.cuda.is_available() else \"cpu\"\n",
+    "tensor = torch.tensor([1, 2, 3])\n",
+    "print(tensor, tensor.device)\n",
+    "tensor_on_gpu = tensor.to(device)\n",
+    "tensor_on_gpu"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Moving Tensors back to the CPU"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 94,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%%capture\n",
+    "# 如果Tensor在GPU上面, 那么无法将其转化为NumPy数组, 因为NumPy只支持在CPU上运行\n",
+    "device = \"cuda\" if torch.cuda.is_available() else \"cpu\"\n",
+    "tensor = torch.tensor([1, 2, 3])\n",
+    "print(tensor, tensor.device)\n",
+    "tensor_on_gpu = tensor.to(device)\n",
+    "tensor_on_gpu.numpy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 95,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([1, 2, 3])"
+      ]
+     },
+     "execution_count": 95,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tensor_back_on_cpu = tensor_on_gpu.cpu().numpy()\n",
+    "tensor_back_on_cpu"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "test",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
