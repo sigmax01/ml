@@ -2,28 +2,6 @@
 
 欢迎来到机器学习笔记项目.
 
-<img src="https://socialify.git.ci/ricolxwz/ml/image?font=Raleway&forks=1&issues=1&name=1&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Auto" alt="ml" class="skipbox" />
-
-## 分析
-
-https://link.ricolxwz.io/mlanalysis
-
-## 基础
-
-[https://py.ricolxwz.de](https://py.ricolxwz.de)
-
-## 联动
-
-- [https://py.ricolxwz.de](https://py.ricolxwz.de)
-- [https://ml.ricolxwz.de](https://ml.ricolxwz.de)
-- [https://js.ricolxwz.de](https://js.ricolxwz.de)
-- [https://rhce.ricolxwz.de](https://rhce.ricolxwz.de)
-- [https://gk.ricolxwz.de](https://gk.ricolxwz.de)
-- [https://go.ricolxwz.de](https://go.ricolxwz.de)
-- [https://ja.ricolxwz.de](https://ja.ricolxwz.de)
-- [https://pj.ricolxwz.de](https://pj.ricolxwz.de)
-- [https://misc.ricolxwz.de](https://misc.ricolxwz.de)
-
 ## 进度
 
 - [ ] 概率
@@ -47,12 +25,29 @@ https://link.ricolxwz.io/mlanalysis
     - [x] [降维](/算法/降维)
     - [ ] 神经网络
         - [x] [前馈神经网络](/算法/神经网络/前馈神经网络)
+        - [ ] [卷积神经网络](/算法/神经网络/卷积神经网络)
 - [ ] 竞赛
     - [ ] [titanic](/竞赛/titanic)
 - [ ] PyTorch
     - [x] [绪论](/PyTorch/绪论)
     - [x] [基础](/PyTorch/基础)
     - [ ] [流程](/PyTorch/流程)
+
+## 基础
+
+[https://py.ricolxwz.de](https://py.ricolxwz.de)
+
+## 联动
+
+- [https://py.ricolxwz.de](https://py.ricolxwz.de)
+- [https://ml.ricolxwz.de](https://ml.ricolxwz.de)
+- [https://js.ricolxwz.de](https://js.ricolxwz.de)
+- [https://rhce.ricolxwz.de](https://rhce.ricolxwz.de)
+- [https://gk.ricolxwz.de](https://gk.ricolxwz.de)
+- [https://go.ricolxwz.de](https://go.ricolxwz.de)
+- [https://ja.ricolxwz.de](https://ja.ricolxwz.de)
+- [https://pj.ricolxwz.de](https://pj.ricolxwz.de)
+- [https://misc.ricolxwz.de](https://misc.ricolxwz.de)
 
 ## 推荐
 
