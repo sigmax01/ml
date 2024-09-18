@@ -1131,6 +1131,16 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      层
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" class="md-nav__link">
     <span class="md-ellipsis">
       卷积层
@@ -1169,6 +1179,47 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0" class="md-nav__link">
+    <span class="md-ellipsis">
+      激活函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E6%B1%A0%E5%8C%96%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      池化层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      全连接层
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E5%A4%9A%E9%80%9A%E9%81%93" class="md-nav__link">
+    <span class="md-ellipsis">
+      多通道
+    </span>
+  </a>
   
 </li>
       
@@ -1438,6 +1489,16 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      层
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" class="md-nav__link">
     <span class="md-ellipsis">
       卷积层
@@ -1476,6 +1537,47 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0" class="md-nav__link">
+    <span class="md-ellipsis">
+      激活函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E6%B1%A0%E5%8C%96%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      池化层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      全连接层
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E5%A4%9A%E9%80%9A%E9%81%93" class="md-nav__link">
+    <span class="md-ellipsis">
+      多通道
+    </span>
+  </a>
   
 </li>
       
@@ -1537,23 +1639,37 @@
 <pre class="mermaid"><code>graph LR
     A[输入层] ---&gt; B[卷积层]
     subgraph 重复这一过程
-        B --&gt; C[RELU激活函数]
+        B --&gt; C[激活函数]
         C --&gt; D[池化层]
     end
     D --&gt; E[全连接层]</code></pre>
 <ul>
 <li>输入层: 接受像素值作为输入</li>
 <li>卷积层: CONV, 用于从输入中提取局部特征, 通过卷积核对图像进行滑动计算, 保留纹理等特征</li>
-<li>RELU激活函数: 引入非线性因素, 帮助模型学习更加复杂的特征</li>
+<li>激活函数: RELU, 引入非线性因素, 帮助模型学习更加复杂的特征</li>
 <li>池化层: POOL, 用于降低特征图的维度, 同时保留关键信息, 提高泛化能力</li>
 <li>全连接层: FC, 也被称为密集层, 每个神经元都与前一层的所有神经元相连</li>
 </ul>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<ul>
+<li>在CNN中, 通常不会特别详细地写出激活函数, 例如ReLU, 这是因为激活函数已经称为深度学习中一个非常标准和默认的操作, 尤其是在卷积层(CONV)之后, 一定会有一个激活函数. 在描述网络架构的时候, 通常将其省略.</li>
+<li>这只是一种非常简单的架构, CONV, POOL, FC可以有规律地进行组合, 已达到不同的效果, 如:<ul>
+<li>LeNet-5: 输入层 --&gt; 卷积层 --&gt; 池化层 --&gt; 卷积层 --&gt; 池化层 --&gt; 全连接层 --&gt; 输出层</li>
+<li>AlexNet: 输入层 --&gt; 卷积层x5 --&gt; 池化层 --&gt; 全连接层x3 --&gt; 输出层</li>
+<li>VGG-16: 输入层 --&gt; 卷积层x13 --&gt; 池化层 --&gt; 全连接层x3 --&gt; 输出层</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</details>
 <p>如下图所示, <span class="arithmatex">\(3\)</span>个重复的CONV-RELU-POOL和<span class="arithmatex">\(2\)</span>个全连接层.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b7804c495021a955d6ad5a6d7414a840.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b7804c495021a955d6ad5a6d7414a840.png" width="500" /></a></p>
 </figure>
 <p>CNN和全连接神经网络非常相似, 都由具有可学习权重的神经元组成. 每个神经元会接受一些输入, 然后执行点积运算, 之后再通过一个非线性的激活函数. 从原始的图像像素到分类得分, 整个网络可以被表示为一个可微分的函数, 使用反向传播算法, 逐步调整网络中的权重和截距以最小化误差. </p>
-<h2 id="%E5%8D%B7%E7%A7%AF%E5%B1%82">卷积层<a class="headerlink" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" title="Permanent link">&para;</a></h2>
+<h2 id="%E5%B1%82">层<a class="headerlink" href="#%E5%B1%82" title="Permanent link">&para;</a></h2>
+<h3 id="%E5%8D%B7%E7%A7%AF%E5%B1%82">卷积层<a class="headerlink" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" title="Permanent link">&para;</a></h3>
 <p>卷积类似于在矩阵上应用一个滑动窗口, 对应的元素(滤波器/卷积核的权重和图像的像素值)进行相乘并求和. 以一个黑白图片作为例子, 其中像素值为<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(0\)</span>. 这里使用了一个<span class="arithmatex">\(3\times 3\)</span>的卷积核, 它从左到右, 从上到下在图像上滑动, 在每一步都执行卷积操作. 卷积的结果称为"特征图"或者"激活图". 在上图中, 特征图的第一个值为<span class="arithmatex">\(4\)</span>, 计算过程为<span class="arithmatex">\(1\times 1 + 1\times 0 + 1\times 1 + 0\times 0 + 1\times 1 + 1\times 0 + 0\times 1 + 0\times 0 + 1\times 1 = 4\)</span>.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6428cf505ac1e9e1cf462e1ec8fe9a68.gif" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6428cf505ac1e9e1cf462e1ec8fe9a68.gif" width="300" /></a></p>
@@ -1574,7 +1690,7 @@
 <p>在这个区域进行卷积计算计算得到的值为<span class="arithmatex">\(0\)</span>. 这说明在图上没有任何和曲线卷积核相同的地方.</p>
 <p>所以说, 特征图会显示在图像中有曲线的部分, 较大的值就意味着有一根曲线"激活"了卷积核; 较小的值就意味着图像中没有曲线. 每个卷积层都可能有多个卷积核, 每个卷积核都会产生一个特征图, 如果某个卷积层有<span class="arithmatex">\(n\)</span>个卷积核, 卷积操作后, 这个卷积层将输出<span class="arithmatex">\(n\)</span>个不同的特征图, 每个特征图代表卷积核检测到的特定模式或特征, 比如, 某些卷积核可能检测出边缘, 某些卷积核可能检测到圆形或者线条.</p>
 <p>需要注意的是, 和上面例子不同的是, 在现实中, 卷积核是神经网络自动学习的, 它们的值不是预先设计好用于检验某种特定的特征, 而是通过训练数据自动进行学习的, 这里的关键就是反向传播算法的作用, 它使得卷积核可以通过训练不断更新, 从而适应不同的任务需求.</p>
-<h3 id="%E6%AD%A5%E5%B9%85">步幅<a class="headerlink" href="#%E6%AD%A5%E5%B9%85" title="Permanent link">&para;</a></h3>
+<h4 id="%E6%AD%A5%E5%B9%85">步幅<a class="headerlink" href="#%E6%AD%A5%E5%B9%85" title="Permanent link">&para;</a></h4>
 <p>在之前我们的例子中, 卷积核每次只右移动一个单位. 当它到达最右边的时候, 会下移动一格然后移动到最左边. 我们称这种情况下水平步幅和垂直步幅都是<span class="arithmatex">\(1\)</span>, 即<span class="arithmatex">\(s_h=1, s_v=1\)</span>. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0fc4e5268b9e6c471e5c29f62a353e90.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0fc4e5268b9e6c471e5c29f62a353e90.png" width="500" /></a></p>
@@ -1583,22 +1699,77 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/96700a8eb863fe63adef6d2617a6f336.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/96700a8eb863fe63adef6d2617a6f336.png" width="300" /></a></p>
 </figure>
-<h3 id="%E5%A1%AB%E5%85%85">填充<a class="headerlink" href="#%E5%A1%AB%E5%85%85" title="Permanent link">&para;</a></h3>
+<h4 id="%E5%A1%AB%E5%85%85">填充<a class="headerlink" href="#%E5%A1%AB%E5%85%85" title="Permanent link">&para;</a></h4>
 <p>当我们将卷积核移动到行尾或者列尾的时候, 可能会"超出"原图的边界. 超出边界的那一部分我们可以用<span class="arithmatex">\(0\)</span>来填充超出的部分. 填充的大小是一个超参数. 填充可以处理图像的边缘区域, 防止边缘区域信息丢失. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/e62b0910ddf7f9ed2b887dd5acc42d15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e62b0910ddf7f9ed2b887dd5acc42d15.png" width="500" /></a></p>
 </figure>
-<h3 id="%E6%84%9F%E5%8F%97%E9%87%8E">感受野<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#%E6%84%9F%E5%8F%97%E9%87%8E" title="Permanent link">&para;</a></h3>
+<h4 id="%E6%84%9F%E5%8F%97%E9%87%8E">感受野<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#%E6%84%9F%E5%8F%97%E9%87%8E" title="Permanent link">&para;</a></h4>
 <p>感受野, receptive field. 特征图上某个元素的计算受输入图像上的某个区域影响, 这个区域就是该元素的感受野. 在卷积神经网络中, 越深层的神经元看到的输入区域越大, 如下图所示, 卷积核的大小均为<span class="arithmatex">\(3\times 3\)</span>, 步幅均为<span class="arithmatex">\(1\)</span>. 第二层的每个神经元可以看到第一层的<span class="arithmatex">\(3\times 3\)</span>大小的区域, 第三层的每个神经元可以看到第二层上<span class="arithmatex">\(3\times 3\)</span>大小的区域, 又可以看到第一层上<span class="arithmatex">\(5\times 5\)</span>大小的区域.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/94958fe3ed2ac69fc5b4e3c91235d192.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/94958fe3ed2ac69fc5b4e3c91235d192.png" width="250" /></a></p>
 </figure>
 <p>所以, 感受野是一个相对的概念, 某层的特征图上的元素看到前面不同层的区域范围是不同的, 通常在不特殊指定的情况下, 感受野指的是看到输入图像上的区域.</p>
+<h3 id="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">激活函数<a class="headerlink" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0" title="Permanent link">&para;</a></h3>
+<p>在特征图上, 我们会使用激活函数, 通常是ReLU. ReLU比sigmoid或者tanh更简单, 意味着运算速度更快. 没有上限, 更少的<a href="/算法/前馈神经网络/#梯度消失">梯度消失</a>. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/481bdb01acf2586978cb74a8b0241600.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/481bdb01acf2586978cb74a8b0241600.png" width="300" /></a></p>
+</figure>
+<h3 id="%E6%B1%A0%E5%8C%96%E5%B1%82">池化层<a class="headerlink" href="#%E6%B1%A0%E5%8C%96%E5%B1%82" title="Permanent link">&para;</a></h3>
+<p>池化层的作用包括<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>:</p>
+<ul>
+<li>通过降采样增大网络的感受野</li>
+<li>通过信息提取抑制噪声, 进行特征选择, 降低信息的冗余</li>
+<li>通过减小特征图的尺寸降低模型的计算量, 降低网络优化难度, 减少过拟合风险</li>
+<li>使模型对输入图像中的特征位置变化(变形, 扭曲, 平移)更加鲁棒</li>
+</ul>
+<p>通用的池化方法包括最大池化, 平均池化, 混合池化, 分数最大池化, 等等. 下面的图片展示了一个<span class="arithmatex">\(2\times 2\)</span>的窗口和步长为<span class="arithmatex">\(2\)</span>的最大池化过程.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/8c6ed785207107115ddb8229d47052ae.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8c6ed785207107115ddb8229d47052ae.png" width="400" /></a></p>
+</figure>
+<p>原图像(左边<span class="arithmatex">\(4\times 4\)</span>的矩阵)通过最大池化操作, 每个<span class="arithmatex">\(2\times 2\)</span>区域中取最大值, 最终输出了一个<span class="arithmatex">\(2\times 2\)</span>的池化结果:</p>
+<ul>
+<li>左上角<span class="arithmatex">\(2\times 2\)</span>区域的最大值为<span class="arithmatex">\(6\)</span></li>
+<li>右上角<span class="arithmatex">\(2\times 2\)</span>区域的最大值为<span class="arithmatex">\(6\)</span></li>
+<li>左下角<span class="arithmatex">\(2\times 2\)</span>区域的最大值为<span class="arithmatex">\(3\)</span></li>
+<li>右下角<span class="arithmatex">\(2\times 2\)</span>区域的最大值为<span class="arithmatex">\(4\)</span></li>
+</ul>
+<p>而另一种池化的方法, 平均池化, 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b73fbed4981a06c10b518b859b9495de.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b73fbed4981a06c10b518b859b9495de.png" width="400" /></a></p>
+</figure>
+<p>哪种池化的方法好取决于给到的任务. MP会选择特征图中像素值最大的, 所以特别适合较黑的图像中较量的特征识别. 而AP会使得特征图更加平滑, 减少细节和噪声.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/67e8d8aff90b970d9c5baa6fa945713b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/67e8d8aff90b970d9c5baa6fa945713b.png" width="550" /></a></p>
+</figure>
+<h3 id="%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82">全连接层<a class="headerlink" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82" title="Permanent link">&para;</a></h3>
+<p>在CNN的末尾, 我们通常会附上一个或者多个全连接层.</p>
+<p>第一个全连接层接受上一个CONV或者POOL的输出. 然后第一件要做的事就是展平, flatten, 即将多维的矩阵转化为一个可以被FC接受的向量.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6250c57e0b2c114a04294e75ccde07c5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6250c57e0b2c114a04294e75ccde07c5.png" width="200" /></a></p>
+</figure>
+<p>FC的最后一层会输出一个<span class="arithmatex">\(n\)</span>维的向量, <span class="arithmatex">\(n\)</span>是类的数量, 我们通常使用softmax函数输出每个类的概率. </p>
+<h2 id="%E5%A4%9A%E9%80%9A%E9%81%93">多通道<a class="headerlink" href="#%E5%A4%9A%E9%80%9A%E9%81%93" title="Permanent link">&para;</a></h2>
+<p>前面我们讲过, 彩色图有<span class="arithmatex">\(3\)</span>个通道.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/9fc452848ab61a37f13b4e41c8cb79be.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9fc452848ab61a37f13b4e41c8cb79be.png" width="550" /></a></p>
+</figure>
+<p>如下图所示, 这是一个经过修改的用于多通道的CNN.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/753e450b8d33b6ebd540cd81e01c90fb.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/753e450b8d33b6ebd540cd81e01c90fb.png" width="550" /></a></p>
+</figure>
+<p>如下图, 输入图像的尺寸为<span class="arithmatex">\(32\times 32\times 3\)</span>, 这意味着输入图像是一个<span class="arithmatex">\(32\times 32\)</span>像素的彩色图像, <span class="arithmatex">\(3\)</span>代表图像的通道数, 即RGB的三个颜色通道. 卷积核的尺寸为<span class="arithmatex">\(5\times 5\times 3\)</span>, 这表示卷积核的空间尺寸为<span class="arithmatex">\(5\times 5\)</span>, 同时它在第三个维度上与输入图像的通道数相同, 这确保卷积核能够对图像的所有通道进行匹配, 这里的卷积核可以理解为由<span class="arithmatex">\(3\)</span>个单独的<span class="arithmatex">\(5\times 5\)</span>卷积核组成, 每个卷积核对因个输入图像的一个通道, 它们会分别在各自的通道上进行卷积操作. 然后, 将这三个通道的卷积结果相加, 得到综合后的一个<span class="arithmatex">\(28\times 28\times 1\)</span>的特征图.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/a16b34d538a9f16749f44a2fe03e2169.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/a16b34d538a9f16749f44a2fe03e2169.png" width="500" /></a></p>
+</figure>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
 <p>彻底搞懂感受野的含义与计算 - shine-lee - 博客园. (不详). 取读于 2024年9月18日, 从 <a href="https://www.cnblogs.com/shine-lee/p/12069176.html">https://www.cnblogs.com/shine-lee/p/12069176.html</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>郑之杰. (2002, 七月 21). 卷积神经网络中的池化(Pooling)层. 郑之杰的个人网站. <a href="https://0809zheng.github.io/2021/07/02/pool.html">https://0809zheng.github.io/2021/07/02/pool.html</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -1652,14 +1823,14 @@
     
     <nav>
       
-        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
-          
-          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
-        </a>
-      
         <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
           
           <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
+        </a>
+      
+        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
+          
+          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
         </a>
       
       
