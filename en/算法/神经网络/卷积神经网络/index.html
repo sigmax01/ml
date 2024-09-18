@@ -1518,25 +1518,26 @@
 </figure>
 <p>CNN和全连接神经网络非常相似, 都由具有可学习权重的神经元组成. 每个神经元会接受一些输入, 然后执行点积运算, 之后再通过一个非线性的激活函数. 从原始的图像像素到分类得分, 整个网络可以被表示为一个可微分的函数, 使用反向传播算法, 逐步调整网络中的权重和截距以最小化误差. </p>
 <h2 id="%E5%8D%B7%E7%A7%AF%E5%B1%82">卷积层<a class="headerlink" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" title="Permanent link">&para;</a></h2>
-<p>卷积类似于在矩阵上应用一个滑动窗口, 对应的元素(滤波器/卷积核的权重和图像的像素值)进行相乘并求和. 以一个黑白图片作为例子, 其中像素值为<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(0\)</span>. 这里使用了一个<span class="arithmatex">\(3\times 3\)</span>的滤波器, 它从左到右, 从上到下在图像上滑动, 在每一步都执行卷积操作. 卷积的结果称为"特征图"或者"激活图". 在上图中, 特征图的第一个值为<span class="arithmatex">\(4\)</span>, 计算过程为<span class="arithmatex">\(1\times 1 + 1\times 0 + 1\times 1 + 0\times 0 + 1\times 1 + 1\times 0 + 0\times 1 + 0\times 0 + 1\times 1 = 4\)</span>.</p>
+<p>卷积类似于在矩阵上应用一个滑动窗口, 对应的元素(滤波器/卷积核的权重和图像的像素值)进行相乘并求和. 以一个黑白图片作为例子, 其中像素值为<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(0\)</span>. 这里使用了一个<span class="arithmatex">\(3\times 3\)</span>的卷积核, 它从左到右, 从上到下在图像上滑动, 在每一步都执行卷积操作. 卷积的结果称为"特征图"或者"激活图". 在上图中, 特征图的第一个值为<span class="arithmatex">\(4\)</span>, 计算过程为<span class="arithmatex">\(1\times 1 + 1\times 0 + 1\times 1 + 0\times 0 + 1\times 1 + 1\times 0 + 0\times 1 + 0\times 0 + 1\times 1 = 4\)</span>.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6428cf505ac1e9e1cf462e1ec8fe9a68.gif" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6428cf505ac1e9e1cf462e1ec8fe9a68.gif" width="300" /></a></p>
 </figure>
-<p>我们可以将滤波器看作是一个特征发现器. 如下图是一个发现一条曲线的滤波器.</p>
+<p>我们可以将卷积核看作是一个特征发现器. 如下图是一个发现一条曲线的卷积核.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/89e8c73e0a019bc95d1a00d3bc6c7024.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/89e8c73e0a019bc95d1a00d3bc6c7024.png" width="400" /></a></p>
 </figure>
-<p>现在, 我们将这个滤波器用于一张我们想要分类图片(一张老鼠🐭的简笔画)的左上角上, </p>
+<p>现在, 我们将这个卷积核用于一张我们想要分类图片(一张老鼠🐭的简笔画)的左上角上, </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b74c44bf131469e142856c3840828728.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b74c44bf131469e142856c3840828728.png" width="500" /></a></p>
 </figure>
 <p>在这个区域进行卷积计算得到的值为<span class="arithmatex">\((50\times 30)+(50\times 30)+(50\times 30)+(20\times 30)+(50\times 30)=6600\)</span>, 这个值非常大! 说明这边很可能有一根类似的曲线.</p>
-<p>我们尝试将滤波器移到图片的另一个地方, 老鼠的耳朵上.</p>
+<p>我们尝试将卷积核移到图片的另一个地方, 老鼠的耳朵上.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6afdf8649d233e15c4c79991eaf53d25.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6afdf8649d233e15c4c79991eaf53d25.png" width="550" /></a></p>
 </figure>
-<p>在这个区域进行卷积计算计算得到的值为<span class="arithmatex">\(0\)</span>. 这说明在图上没有任何和曲线滤波器相同的地方.</p>
-<p>所以说, 特征图会显示在图像中有曲线的部分, 较大的值就意味着有一根曲线"激活"了滤波器; 较小的值就意味着图像中没有曲线. 我们可以使用更多的</p>
+<p>在这个区域进行卷积计算计算得到的值为<span class="arithmatex">\(0\)</span>. 这说明在图上没有任何和曲线卷积核相同的地方.</p>
+<p>所以说, 特征图会显示在图像中有曲线的部分, 较大的值就意味着有一根曲线"激活"了卷积核; 较小的值就意味着图像中没有曲线. 每个卷积层都可能有多个卷积核, 每个卷积核都会产生一个特征图, 如果某个卷积层有<span class="arithmatex">\(n\)</span>个卷积核, 卷积操作后, 这个卷积层将输出<span class="arithmatex">\(n\)</span>个不同的特征图, 每个特征图代表卷积核检测到的特定模式或特征, 比如, 某些卷积核可能检测出边缘, 某些卷积核可能检测到圆形或者线条.</p>
+<p>需要注意的是, 和上面例子不同的是, 在现实中, 卷积核是神经网络自动学习的, 它们的值不是预先设计好用于检验某种特定的特征, 而是通过训练数据自动进行学习的, 这里的关键就是反向传播算法的作用, 它使得卷积核可以通过训练不断更新, 从而适应不同的任务需求.</p>
 <h3 id="%E6%84%9F%E5%8F%97%E9%87%8E">感受野<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#%E6%84%9F%E5%8F%97%E9%87%8E" title="Permanent link">&para;</a></h3>
 <p>感受野, receptive field. 特征图上某个元素的计算受输入图像上的某个区域影响, 这个区域就是该元素的感受野. 在卷积神经网络中, 越深层的神经元看到的输入区域越大, 如下图所示, 卷积核的大小均为<span class="arithmatex">\(3\times 3\)</span>, 步幅(stide)均为<span class="arithmatex">\(1\)</span>. 第二层的每个神经元可以看到第一层的<span class="arithmatex">\(3\times 3\)</span>大小的区域, 第三层的每个神经元可以看到第二层上<span class="arithmatex">\(3\times 3\)</span>大小的区域, 又可以看到第一层上<span class="arithmatex">\(5\times 5\)</span>大小的区域.</p>
 <figure>
