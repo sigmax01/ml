@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
     
     
       
@@ -1130,6 +1130,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积层
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E6%84%9F%E5%8F%97%E9%87%8E" class="md-nav__link">
+    <span class="md-ellipsis">
+      感受野
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1395,6 +1419,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积层
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E6%84%9F%E5%8F%97%E9%87%8E" class="md-nav__link">
+    <span class="md-ellipsis">
+      感受野
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1464,10 +1512,44 @@
 <li>池化层: POOL, 用于降低特征图的维度, 同时保留关键信息, 提高泛化能力</li>
 <li>全连接层: FC, 也被称为密集层, 每个神经元都与前一层的所有神经元相连</li>
 </ul>
-<p>如下图所示, 3个重复的CONV-RELU-POOL和2个全连接层.</p>
+<p>如下图所示, <span class="arithmatex">\(3\)</span>个重复的CONV-RELU-POOL和<span class="arithmatex">\(2\)</span>个全连接层.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b7804c495021a955d6ad5a6d7414a840.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b7804c495021a955d6ad5a6d7414a840.png" width="500" /></a></p>
 </figure>
+<p>CNN和全连接神经网络非常相似, 都由具有可学习权重的神经元组成. 每个神经元会接受一些输入, 然后执行点积运算, 之后再通过一个非线性的激活函数. 从原始的图像像素到分类得分, 整个网络可以被表示为一个可微分的函数, 使用反向传播算法, 逐步调整网络中的权重和截距以最小化误差. </p>
+<h2 id="%E5%8D%B7%E7%A7%AF%E5%B1%82">卷积层<a class="headerlink" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" title="Permanent link">&para;</a></h2>
+<p>卷积类似于在矩阵上应用一个滑动窗口, 对应的元素(滤波器/卷积核的权重和图像的像素值)进行相乘并求和. 以一个黑白图片作为例子, 其中像素值为<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(0\)</span>. 这里使用了一个<span class="arithmatex">\(3\times 3\)</span>的滤波器, 它从左到右, 从上到下在图像上滑动, 在每一步都执行卷积操作. 卷积的结果称为"特征图"或者"激活图". 在上图中, 特征图的第一个值为<span class="arithmatex">\(4\)</span>, 计算过程为<span class="arithmatex">\(1\times 1 + 1\times 0 + 1\times 1 + 0\times 0 + 1\times 1 + 1\times 0 + 0\times 1 + 0\times 0 + 1\times 1 = 4\)</span>.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6428cf505ac1e9e1cf462e1ec8fe9a68.gif" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6428cf505ac1e9e1cf462e1ec8fe9a68.gif" width="300" /></a></p>
+</figure>
+<p>我们可以将滤波器看作是一个特征发现器. 如下图是一个发现一条曲线的滤波器.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/89e8c73e0a019bc95d1a00d3bc6c7024.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/89e8c73e0a019bc95d1a00d3bc6c7024.png" width="400" /></a></p>
+</figure>
+<p>现在, 我们将这个滤波器用于一张我们想要分类图片(一张老鼠🐭的简笔画)的左上角上, </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b74c44bf131469e142856c3840828728.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b74c44bf131469e142856c3840828728.png" width="500" /></a></p>
+</figure>
+<p>在这个区域进行卷积计算得到的值为<span class="arithmatex">\((50\times 30)+(50\times 30)+(50\times 30)+(20\times 30)+(50\times 30)=6600\)</span>, 这个值非常大! 说明这边很可能有一根类似的曲线.</p>
+<p>我们尝试将滤波器移到图片的另一个地方, 老鼠的耳朵上.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6afdf8649d233e15c4c79991eaf53d25.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6afdf8649d233e15c4c79991eaf53d25.png" width="550" /></a></p>
+</figure>
+<p>在这个区域进行卷积计算计算得到的值为<span class="arithmatex">\(0\)</span>. 这说明在图上没有任何和曲线滤波器相同的地方.</p>
+<h3 id="%E6%84%9F%E5%8F%97%E9%87%8E">感受野<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#%E6%84%9F%E5%8F%97%E9%87%8E" title="Permanent link">&para;</a></h3>
+<p>感受野, receptive field. 特征图上某个元素的计算受输入图像上的某个区域影响, 这个区域就是该元素的感受野. 在卷积神经网络中, 越深层的神经元看到的输入区域越大, 如下图所示, 卷积核的大小均为<span class="arithmatex">\(3\times 3\)</span>, 步幅(stide)均为<span class="arithmatex">\(1\)</span>. 第二层的每个神经元可以看到第一层的<span class="arithmatex">\(3\times 3\)</span>大小的区域, 第三层的每个神经元可以看到第二层上<span class="arithmatex">\(3\times 3\)</span>大小的区域, 又可以看到第一层上<span class="arithmatex">\(5\times 5\)</span>大小的区域.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/94958fe3ed2ac69fc5b4e3c91235d192.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/94958fe3ed2ac69fc5b4e3c91235d192.png" width="250" /></a></p>
+</figure>
+<p>所以, 感受野是一个相对的概念, 某层的特征图上的元素看到前面不同层的区域范围是不同的, 通常在不特殊指定的情况下, 感受野指的是看到输入图像上的区域.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>彻底搞懂感受野的含义与计算 - shine-lee - 博客园. (不详). 取读于 2024年9月18日, 从 <a href="https://www.cnblogs.com/shine-lee/p/12069176.html">https://www.cnblogs.com/shine-lee/p/12069176.html</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -1709,7 +1791,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
