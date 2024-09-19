@@ -31,6 +31,10 @@
 
 [https://py.ricolxwz.de](https://py.ricolxwz.de)
 
+## 流量
+
+[https://umami.ricolxwz.io/share/CUTl3qs7ajeXcjIY/ml.ricolxwz.de](https://umami.ricolxwz.io/share/CUTl3qs7ajeXcjIY/ml.ricolxwz.de)
+
 ## 联动
 
 - [https://py.ricolxwz.de](https://py.ricolxwz.de)
