@@ -961,6 +961,8 @@
       
         
       
+        
+      
     
     
       
@@ -1086,6 +1088,48 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lenet-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      LeNet-5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alexnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      AlexNet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgg" class="md-nav__link">
+    <span class="md-ellipsis">
+      VGG
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#googlenet" class="md-nav__link">
+    <span class="md-ellipsis">
+      GoogleNet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1190,6 +1234,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../算法/神经网络/循环神经网络" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    循环神经网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1253,6 +1318,48 @@
       架构
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lenet-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      LeNet-5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alexnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      AlexNet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgg" class="md-nav__link">
+    <span class="md-ellipsis">
+      VGG
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#googlenet" class="md-nav__link">
+    <span class="md-ellipsis">
+      GoogleNet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1387,7 +1494,7 @@
 
 <p>卷积神经网络, Convolutional Neural Networks, CNN, 是一种特殊类型的多层神经网络, 利用反向传播算法进行训练. 设计目标是直接从图像的像素中识别视觉部分, 而不需要做预处理, 如OCR. CNN对图像的扭曲和几何变化如平移有很强的鲁棒性, 在图像和声音设别中表现出色, 尤其是在手写数字识别, 面部检测和图像分类等任务上可以取得优异成绩.</p>
 <h2 id="%E5%8E%86%E5%8F%B2">历史<a class="headerlink" href="#%E5%8E%86%E5%8F%B2" title="Permanent link">&para;</a></h2>
-<p>1989年, Yan LeCun等人首次提出了卷积神经网络的概念, 这是CNN的最早发展阶段, 主要用于手写字符识别, OCR. 2012年, AlexNet(由Alex Krizhe等人提出的深度卷积神经网络)在ImageNet竞赛中获取了胜利, 标志着深度学习和CNN的重大突破. AlexNet的成功显著降低了错误率, 从<span class="arithmatex">\(26\%\)</span>降至<span class="arithmatex">\(15\%\)</span>, 使CNN称为计算机视觉领域的主流方法.</p>
+<p>1989年, Yan LeCun等人首次提出了卷积神经网络的概念, 这是CNN的最早发展阶段, 主要用于手写字符识别, OCR. 2012年, AlexNet(由Alex Krizhevsky等人提出的深度卷积神经网络)在ImageNet竞赛中获取了胜利, 标志着深度学习和CNN的重大突破. AlexNet的成功显著降低了错误率, 从<span class="arithmatex">\(26\%\)</span>降至<span class="arithmatex">\(15\%\)</span>, 使CNN称为计算机视觉领域的主流方法.</p>
 <h2 id="%E4%BC%98%E5%8A%BF">优势<a class="headerlink" href="#%E4%BC%98%E5%8A%BF" title="Permanent link">&para;</a></h2>
 <p>CNN主要用于图像的识别(也可以用于其他形式的数据). 图像由矩阵描述, 对于8位灰白图, 每个像素的取值范围是<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(255\)</span>, 每张图对应于一个矩阵; 对于8位彩色图, 有三种通道, 红色, 绿色和蓝色, 每个通道的的取值范围是<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(255\)</span>, 每个通道对应于一个矩阵, 所以每张图对应于三个矩阵.</p>
 <figure>
@@ -1420,22 +1527,44 @@
 </ul>
 <details class="tip" open="open">
 <summary>Tip</summary>
-<ul>
-<li>在CNN中, 通常不会特别详细地写出激活函数, 例如ReLU, 这是因为激活函数已经称为深度学习中一个非常标准和默认的操作, 尤其是在卷积层(CONV)之后, 一定会有一个激活函数. 在描述网络架构的时候, 通常将其省略.</li>
-<li>这只是一种非常简单的架构, CONV, POOL, FC可以有规律地进行组合, 已达到不同的效果, 如:<ul>
-<li>LeNet-5: 输入层 --&gt; 卷积层 --&gt; 池化层 --&gt; 卷积层 --&gt; 池化层 --&gt; 全连接层 --&gt; 输出层</li>
-<li>AlexNet: 输入层 --&gt; 卷积层x5 --&gt; 池化层 --&gt; 全连接层x3 --&gt; 输出层</li>
-<li>VGG-16: 输入层 --&gt; 卷积层x13 --&gt; 池化层 --&gt; 全连接层x3 --&gt; 输出层</li>
-<li>...</li>
-</ul>
-</li>
-</ul>
+<p>在CNN中, 通常不会特别详细地写出激活函数, 例如ReLU, 这是因为激活函数已经称为深度学习中一个非常标准和默认的操作, 尤其是在卷积层(CONV)之后, 一定会有一个激活函数. 在描述网络架构的时候, 通常将其省略.</p>
 </details>
 <p>如下图所示, <span class="arithmatex">\(3\)</span>个重复的CONV-RELU-POOL和<span class="arithmatex">\(2\)</span>个全连接层.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b7804c495021a955d6ad5a6d7414a840.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b7804c495021a955d6ad5a6d7414a840.png" width="500" /></a></p>
 </figure>
-<p>CNN和全连接神经网络非常相似, 都由具有可学习权重的神经元组成. 每个神经元会接受一些输入, 然后执行点积运算, 之后再通过一个非线性的激活函数. 从原始的图像像素到分类得分, 整个网络可以被表示为一个可微分的函数, 使用反向传播算法, 逐步调整网络中的权重和截距以最小化误差. </p>
+<p>CNN在架构上的变化非常灵活, 可能产生的问题有:</p>
+<ul>
+<li>组合CNN各个部分(CONV, RELU, POOL, FC)的正确方式</li>
+<li>需要多少层卷积层</li>
+<li>卷积核的大小</li>
+<li>池化层的频率, 是在每个卷积层之后还是更少</li>
+<li>池化层的大小, 是AP还是MP</li>
+</ul>
+<p>根据这些问题, 可能产生很多不同种类的CNN架构, 常见的CNN架构有LeNet-5, AlexNet, VGG和GoogleLeNet.</p>
+<h3 id="lenet-5">LeNet-5<a class="headerlink" href="#lenet-5" title="Permanent link">&para;</a></h3>
+<p>LeNet-5的架构为CONV*2, POOL*2, FC*3. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/447c6fb771b1b00c6d8a9719d703ce15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/447c6fb771b1b00c6d8a9719d703ce15.png" width="550" /></a></p>
+</figure>
+<h3 id="alexnet">AlexNet<a class="headerlink" href="#alexnet" title="Permanent link">&para;</a></h3>
+<p>AlexNet的架构为CONV*5, POOL*3, FC*3. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/0c9113eddbcf2549ead9cfb26ad8149f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0c9113eddbcf2549ead9cfb26ad8149f.png" width="550" /></a></p>
+</figure>
+<p>该就是2012年Krizhevsky等人在ImageNet竞赛上所使用的架构.它们将错误率降到了<span class="arithmatex">\(16.4\%\)</span>, 如图所示, 人类分类的错误率为<span class="arithmatex">\(5.1\%\)</span>.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/0207cc30e840fefc5597352648a16d0b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0207cc30e840fefc5597352648a16d0b.png" width="550" /></a></p>
+</figure>
+<h3 id="vgg">VGG<a class="headerlink" href="#vgg" title="Permanent link">&para;</a></h3>
+<p>VGG架构由Simonyan和Zisserman等人在2014年提出, 这是一个改进类型的更深的AlexNet. <a href="https://arxiv.org/abs/1409.1556">https://arxiv.org/abs/1409.1556</a></p>
+<p>该架构使用的是<span class="arithmatex">\(3\times 3\)</span>的卷积核, 步长为<span class="arithmatex">\(1\)</span>, 填充为<span class="arithmatex">\(1\)</span>, 使用的是MP, 池化步长为<span class="arithmatex">\(2\)</span>. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/517a23875de93e3a6aa6bb3f5f45151e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/517a23875de93e3a6aa6bb3f5f45151e.png" width="300" /></a></p>
+</figure>
+<h3 id="googlenet">GoogleNet<a class="headerlink" href="#googlenet" title="Permanent link">&para;</a></h3>
+<p>GoogleNet架构由Szegedy等人在2014年提出, 这是一个更深的, 计算上效率更高的架构. 它是ILSVRC'14分类竞赛的获胜者-<span class="arithmatex">\(6.7\%\)</span>的错误率. <a href="https://arxiv.org/abs/1409.4842">https://arxiv.org/abs/1409.4842</a></p>
+<p>GoogleNet总共包含了<span class="arithmatex">\(22\)</span>层深度神经网络, 仅有<span class="arithmatex">\(500\)</span>万个参数, 比AlexNet少<span class="arithmatex">\(12\)</span>倍, 比VGG-16少<span class="arithmatex">\(27\)</span>倍. 它没有全连接层, 改用绿全局平均池化, global average pooling. 采用了更加高效的"Inception"模块.</p>
 <h2 id="%E5%B1%82">层<a class="headerlink" href="#%E5%B1%82" title="Permanent link">&para;</a></h2>
 <h3 id="%E5%8D%B7%E7%A7%AF%E5%B1%82">卷积层<a class="headerlink" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82" title="Permanent link">&para;</a></h3>
 <p>卷积类似于在矩阵上应用一个滑动窗口, 对应的元素(滤波器/卷积核的权重和图像的像素值)进行相乘并求和. 以一个黑白图片作为例子, 其中像素值为<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(0\)</span>. 这里使用了一个<span class="arithmatex">\(3\times 3\)</span>的卷积核, 它从左到右, 从上到下在图像上滑动, 在每一步都执行卷积操作. 卷积的结果称为"特征图"或者"激活图". 在上图中, 特征图的第一个值为<span class="arithmatex">\(4\)</span>, 计算过程为<span class="arithmatex">\(1\times 1 + 1\times 0 + 1\times 1 + 0\times 0 + 1\times 1 + 1\times 0 + 0\times 1 + 0\times 0 + 1\times 1 = 4\)</span>.</p>
@@ -1484,7 +1613,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/481bdb01acf2586978cb74a8b0241600.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/481bdb01acf2586978cb74a8b0241600.png" width="300" /></a></p>
 </figure>
 <h3 id="%E6%B1%A0%E5%8C%96%E5%B1%82">池化层<a class="headerlink" href="#%E6%B1%A0%E5%8C%96%E5%B1%82" title="Permanent link">&para;</a></h3>
-<p>池化层的作用包括<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>:</p>
+<p>池化, 又叫作subsampling, 作用包括<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>:</p>
 <ul>
 <li>通过降采样增大网络的感受野</li>
 <li>通过信息提取抑制噪声, 进行特征选择, 降低信息的冗余</li>
@@ -1563,7 +1692,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月19日</span>
   </span>
 
     
