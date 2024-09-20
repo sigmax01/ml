@@ -1078,6 +1078,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="简单RNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E5%B1%95%E5%BC%80" class="md-nav__link">
+    <span class="md-ellipsis">
+      展开
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过时间反向传播
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1150,6 +1174,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="简单RNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E5%B1%95%E5%BC%80" class="md-nav__link">
+    <span class="md-ellipsis">
+      展开
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过时间反向传播
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1200,13 +1248,29 @@
 <h3 id="%E7%AE%80%E5%8D%95rnn">简单RNN<a class="headerlink" href="#%E7%AE%80%E5%8D%95rnn" title="Permanent link">&para;</a></h3>
 <p>简单RNN含有由<span class="arithmatex">\(1\)</span>个隐藏层构成的前馈神经网络, 这个隐藏层特别的, 含有一个记忆缓存, 会存储隐藏层之前一个时间点的状态. 在每一个时间点, 记忆缓存中的数据会和下一组输入结合作为隐藏层神经元的下一次输入.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" width="500" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" width="600" /></a></p>
 </figure>
 <p>我们定义如下符号:</p>
 <ul>
 <li><span class="arithmatex">\(x_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的输入向量</li>
 <li><span class="arithmatex">\(h_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的隐藏层激活值, 表示经过隐藏层计算后的中间状态. 在图中<span class="arithmatex">\(h_t\)</span>会结合前一个时间点的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>以及当前时间点的输入向量<span class="arithmatex">\(x_t\)</span>进行计算</li>
+<li><span class="arithmatex">\(y_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的输出向量</li>
+<li><span class="arithmatex">\(\bm{w}_{xh}\)</span>: 输入层和隐藏层之间的权重</li>
+<li><span class="arithmatex">\(\bm{w}_{hy}\)</span>: 隐藏层和输出层之间的权重</li>
+<li><span class="arithmatex">\(\bm{w}_{hh}\)</span>: 记忆缓存和隐藏层之间的权重</li>
 </ul>
+<p>我们就来考虑上述的情况, <span class="arithmatex">\(2\)</span>个输出层神经元, <span class="arithmatex">\(3\)</span>个隐藏层神经元, <span class="arithmatex">\(2\)</span>个输出层神经元. 在每一个时间点都会有一个新的输入向量. 每个隐藏层神经元都会接收到所有输入层神经元的输出和记忆缓存中的上一个状态信息. 隐藏层处理后, 将结果传递给输出层神经元, 同时将状态写到记忆缓存中.</p>
+<p><span class="arithmatex">\(h_t\)</span>的计算公式为<span class="arithmatex">\(h_t = f_{\bm{w}}(h_{t-1}, x_t)\)</span>. 其中<span class="arithmatex">\(h_{t-1}\)</span>是旧状态, <span class="arithmatex">\(x_t\)</span>是本次的输入向量. 函数<span class="arithmatex">\(f_{\bm{w}}\)</span>通常为反正切函数, 即<span class="arithmatex">\(h_t=\tanh (\bm{w}_{hh}h_{t-1}+\bm{w}_{xh}x_t+b_h)\)</span>. 而输出<span class="arithmatex">\(y_t = \bm{w}_{hy}h_t+b_y\)</span>.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/11265e875c7e0b8f052246f6603345f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/11265e875c7e0b8f052246f6603345f0.png" width="450" /></a></p>
+</figure>
+<h4 id="%E5%B1%95%E5%BC%80">展开<a class="headerlink" href="#%E5%B1%95%E5%BC%80" title="Permanent link">&para;</a></h4>
+<p>在上面RNN的架构图中, 这种循环结构使得理解在多个时间点之间的信息流动变得困难. 为了更好地理解RNN的信息流动的过程, 我们可以将RNN沿着时间展开, unroll, 然后每一个时间步的计算看作是一个独立的前馈神经网络. 展开后的RNN就像一系列相互连接的前馈神经网络层, 这样可以帮助我们更清晰地看到每个时间点的输入, 隐藏状态和输出之间的关系, 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" width="400" /></a></p>
+</figure>
+<p>注意, 上图中可以明显看到, 权重<span class="arithmatex">\(\bm{w}_{xh}\)</span>, <span class="arithmatex">\(\bm{w}_{hy}\)</span>, <span class="arithmatex">\(\bm{w}_{hh}\)</span>在每个时间点都是"共享"的, RNN在处理数据的时候, 会不断通过多个时间点来传播信息, 如果每个时间步的权重都不同, 那么模型会变得非常复杂, 不容易训练, 因此, 这种RNN采用的是权重共享机制.</p>
+<h4 id="%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD">通过时间反向传播<a class="headerlink" href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" title="Permanent link">&para;</a></h4>
 
 
 
@@ -1256,6 +1320,11 @@
 
     
     <nav>
+      
+        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
+          
+          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
+        </a>
       
         <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
           
