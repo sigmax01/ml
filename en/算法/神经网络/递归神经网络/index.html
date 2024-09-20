@@ -1243,34 +1243,41 @@
 
 <p>递归神经网络, Recurrent Neural Networks, RNN, 用于处理序列化的数据. 文字或者自然语言就是一种序列化的数据, 段落就是单词的序列, 每个段落可能有不同数量的单词, 每个段落中可能包含有长距离依赖关系的单词, 如`The dog in that house is aggressive"和"The dogs in that house are aggressive"中的🐕和谓语之间的长距离依赖关系. 处理这种类型的数据需要模型能够"记住"之前序列中的某些信息.</p>
 <h2 id="%E6%9E%B6%E6%9E%84">架构<a class="headerlink" href="#%E6%9E%B6%E6%9E%84" title="Permanent link">&para;</a></h2>
-<p>RNN一次处理序列中的一个元素, 例如一个单词. 举例来说, 句子"The dog in the house is aggreesive"会按照时间顺序分解为: <span class="arithmatex">\(t\)</span>时刻处理"the", <span class="arithmatex">\(t+1\)</span>时刻处理"dog"依次类推. RNN之所以被称为"递归神经网络"是因为它包含反馈连接, 即输出会反馈给输入, 这与前馈神经网络不同, 前馈神经网络是有向无环图, acyclic graph, 而递归神经网络是有向有环图, cyclic graph, 更具体的说, 一个神经元在某个时间点的输出会反馈到下一个时间点的相同神经元中, 因此, RNN具备一定的记忆能力, 可以记住之前的激活状态, 由于RNN能够记住过去的激活状态, 因此它能够捕捉长距离的依赖关系, 这种特性使得RNN特别适合用于处理序列数据, 例如语言模型和时间序列预测.</p>
+<p>RNN一次处理序列中的一个元素, 例如一个单词. 举例来说, 句子"The dog in the house is aggreesive"会按照时间顺序分解为: <span class="arithmatex">\(t\)</span>时刻处理"the", <span class="arithmatex">\(t+1\)</span>时刻处理"dog"依次类推. RNN之所以被称为"递归神经网络"是因为它包含反馈连接, 即输出会反馈给输入, 这与前馈神经网络不同, 前馈神经网络是有向无环图, acyclic graph, 而递归神经网络是有向有环图, cyclic graph, 更具体的说, 一个神经元在某个时间步的输出会反馈到下一个时间步的相同神经元中, 因此, RNN具备一定的记忆能力, 可以记住之前的激活状态, 由于RNN能够记住过去的激活状态, 因此它能够捕捉长距离的依赖关系, 这种特性使得RNN特别适合用于处理序列数据, 例如语言模型和时间序列预测.</p>
 <p>RNN有不同的架构, 其中包括简单的RNN, 又称为Elman网络和长短期记忆网络, LSTM. </p>
 <h3 id="%E7%AE%80%E5%8D%95rnn">简单RNN<a class="headerlink" href="#%E7%AE%80%E5%8D%95rnn" title="Permanent link">&para;</a></h3>
-<p>简单RNN含有由<span class="arithmatex">\(1\)</span>个隐藏层构成的前馈神经网络, 这个隐藏层特别的, 含有一个记忆缓存, 会存储隐藏层之前一个时间点的状态. 在每一个时间点, 记忆缓存中的数据会和下一组输入结合作为隐藏层神经元的下一次输入.</p>
+<p>简单RNN含有由<span class="arithmatex">\(1\)</span>个隐藏层构成的前馈神经网络, 这个隐藏层特别的, 含有一个记忆缓存, 会存储隐藏层之前一个时间步的状态. 在每一个时间步, 记忆缓存中的数据会和下一组输入结合作为隐藏层神经元的下一次输入.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" width="600" /></a></p>
 </figure>
 <p>我们定义如下符号:</p>
 <ul>
 <li><span class="arithmatex">\(x_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的输入向量</li>
-<li><span class="arithmatex">\(h_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的隐藏层激活值, 表示经过隐藏层计算后的中间状态. 在图中<span class="arithmatex">\(h_t\)</span>会结合前一个时间点的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>以及当前时间点的输入向量<span class="arithmatex">\(x_t\)</span>进行计算</li>
+<li><span class="arithmatex">\(h_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的隐藏层激活值, 表示经过隐藏层计算后的中间状态. 在图中<span class="arithmatex">\(h_t\)</span>会结合前一个时间步的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>以及当前时间步的输入向量<span class="arithmatex">\(x_t\)</span>进行计算</li>
 <li><span class="arithmatex">\(y_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的输出向量</li>
 <li><span class="arithmatex">\(\bm{w}_{xh}\)</span>: 输入层和隐藏层之间的权重</li>
 <li><span class="arithmatex">\(\bm{w}_{hy}\)</span>: 隐藏层和输出层之间的权重</li>
 <li><span class="arithmatex">\(\bm{w}_{hh}\)</span>: 记忆缓存和隐藏层之间的权重</li>
 </ul>
-<p>我们就来考虑上述的情况, <span class="arithmatex">\(2\)</span>个输出层神经元, <span class="arithmatex">\(3\)</span>个隐藏层神经元, <span class="arithmatex">\(2\)</span>个输出层神经元. 在每一个时间点都会有一个新的输入向量. 每个隐藏层神经元都会接收到所有输入层神经元的输出和记忆缓存中的上一个状态信息. 隐藏层处理后, 将结果传递给输出层神经元, 同时将状态写到记忆缓存中.</p>
+<p>我们就来考虑上述的情况, <span class="arithmatex">\(2\)</span>个输出层神经元, <span class="arithmatex">\(3\)</span>个隐藏层神经元, <span class="arithmatex">\(2\)</span>个输出层神经元. 在每一个时间步都会有一个新的输入向量. 每个隐藏层神经元都会接收到所有输入层神经元的输出和记忆缓存中的上一个状态信息. 隐藏层处理后, 将结果传递给输出层神经元, 同时将状态写到记忆缓存中.</p>
 <p><span class="arithmatex">\(h_t\)</span>的计算公式为<span class="arithmatex">\(h_t = f_{\bm{w}}(h_{t-1}, x_t)\)</span>. 其中<span class="arithmatex">\(h_{t-1}\)</span>是旧状态, <span class="arithmatex">\(x_t\)</span>是本次的输入向量. 函数<span class="arithmatex">\(f_{\bm{w}}\)</span>通常为反正切函数, 即<span class="arithmatex">\(h_t=\tanh (\bm{w}_{hh}h_{t-1}+\bm{w}_{xh}x_t+b_h)\)</span>. 而输出<span class="arithmatex">\(y_t = \bm{w}_{hy}h_t+b_y\)</span>.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/11265e875c7e0b8f052246f6603345f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/11265e875c7e0b8f052246f6603345f0.png" width="450" /></a></p>
 </figure>
 <h4 id="%E5%B1%95%E5%BC%80">展开<a class="headerlink" href="#%E5%B1%95%E5%BC%80" title="Permanent link">&para;</a></h4>
-<p>在上面RNN的架构图中, 这种循环结构使得理解在多个时间点之间的信息流动变得困难. 为了更好地理解RNN的信息流动的过程, 我们可以将RNN沿着时间展开, unroll, 然后每一个时间步的计算看作是一个独立的前馈神经网络. 展开后的RNN就像一系列相互连接的前馈神经网络层, 这样可以帮助我们更清晰地看到每个时间点的输入, 隐藏状态和输出之间的关系, 如下图所示.</p>
+<p>在上面RNN的架构图中, 这种循环结构使得理解在多个时间步之间的信息流动变得困难. 为了更好地理解RNN的信息流动的过程, 我们可以将RNN沿着时间展开, unroll, 然后每一个时间步的计算看作是一个独立的前馈神经网络. 展开后的RNN就像一系列相互连接的前馈神经网络层, 这样可以帮助我们更清晰地看到每个时间步的输入, 隐藏状态和输出之间的关系, 如下图所示.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" width="350" /></a></p>
 </figure>
-<p>注意, 上图中可以明显看到, 权重<span class="arithmatex">\(\bm{w}_{xh}\)</span>, <span class="arithmatex">\(\bm{w}_{hy}\)</span>, <span class="arithmatex">\(\bm{w}_{hh}\)</span>在每个时间点都是"共享"的, RNN在处理数据的时候, 会不断通过多个时间点来传播信息, 如果每个时间步的权重都不同, 那么模型会变得非常复杂, 不容易训练, 因此, 这种RNN采用的是权重共享机制.</p>
+<p>注意, 上图中可以明显看到, 权重<span class="arithmatex">\(\bm{w}_{xh}\)</span>, <span class="arithmatex">\(\bm{w}_{hy}\)</span>, <span class="arithmatex">\(\bm{w}_{hh}\)</span>在每个时间步都是"共享"的, RNN在处理数据的时候, 会不断通过多个时间步来传播信息, 如果每个时间步的权重都不同, 那么模型会变得非常复杂, 不容易训练, 因此, 这种RNN采用的是权重共享机制.</p>
 <h4 id="%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD">通过时间反向传播<a class="headerlink" href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" title="Permanent link">&para;</a></h4>
+<p>通过时间反向传播, Backpropagation Through Time, BPTT是训练RNN的关键算法, 它是标准的反向传播算法的扩展, 用来处理时间序列数据中的依赖关系. </p>
+<p>RNN的损失函数是每个时间步的输出<span class="arithmatex">\(y_t\)</span>和真实标签<span class="arithmatex">\(y_t^{true}\)</span>之间的误差之和, 假设我们使用均方误差作为损失函数, 那么损失<span class="arithmatex">\(L\)</span>为<span class="arithmatex">\(L=\sum_{t=1}^T(y_t-y_t^{true})^2\)</span>. 目标是通过最小化这个损失函数来更新RNN的权重. 在<span class="arithmatex">\(t\)</span>这个时间步的误差被反向传播到所有对其有贡献的参数, 这意味着它向网络先前的状态传播, 所以叫做"时间倒流". 如图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loadin="lazy" src="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" width="600" /></a></p>
+</figure>
+<p>举一个例子:</p>
+<p>假设我们有<span class="arithmatex">\(4\)</span>个字符: <span class="arithmatex">\(\{h, e, l, o\}\)</span>, 然后我们用"hello"这个单词进行训练, </p>
 
 
 
