@@ -1277,7 +1277,39 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loadin="lazy" src="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" width="600" /></a></p>
 </figure>
 <p>举一个例子:</p>
-<p>假设我们有<span class="arithmatex">\(4\)</span>个字符: <span class="arithmatex">\(\{h, e, l, o\}\)</span>, 然后我们用"hello"这个单词进行训练, </p>
+<p>假设我们有<span class="arithmatex">\(4\)</span>个字符: <span class="arithmatex">\(\{h, e, l, o\}\)</span>, 然后我们用"hello"这个单词进行训练.</p>
+<ol>
+<li>问题描述: 我们希望训练一个RNN, 根据前面的字符串来预测下一个字符, 对于单词"hello", 输入序列: "h", "e", "l", "l"; 目标序列: "e", "l", "l", "o"</li>
+<li>网络结构: <ul>
+<li>输入层: 每个字符采用one-hot编码, 维度为<span class="arithmatex">\(4\)</span>, 例如, 对于"h"来说, 编码为<span class="arithmatex">\(1000\)</span>, 对于"e"来说, 编码为<span class="arithmatex">\(0100\)</span></li>
+<li>隐藏层: 隐藏状态的维度设置为<span class="arithmatex">\(n\)</span>(可自定义)</li>
+<li>输出层: 输出对下一个字符的预测, 维度为<span class="arithmatex">\(4\)</span></li>
+</ul>
+</li>
+<li>正向传播:<ol>
+<li>初始化隐藏状态<span class="arithmatex">\(h_0\)</span>, 通常设置为零向量或者随机初始化</li>
+<li>对于每一个时间步<span class="arithmatex">\(t\)</span>:<ol>
+<li>输入向量<span class="arithmatex">\(x_t\)</span>: 当前字符的one-hot编码</li>
+<li>计算隐藏状态<span class="arithmatex">\(h_t\)</span>: <span class="arithmatex">\(h_t=\tanh(\bm{w}_{xh}x_t+\bm{w}_{hh}h_{t-1}+b_h)\)</span></li>
+<li>计算输出<span class="arithmatex">\(y_t\)</span>: <span class="arithmatex">\(y_t=\bm{w}_{hy}h_t+b_y\)</span></li>
+<li>预测下一个字符的概率分布: <span class="arithmatex">\(\hat{y_t}=softmax(y_t)\)</span></li>
+<li>计算损失: <span class="arithmatex">\(L_t=-\sum_{i=1}^4 y_{t, i}\log(\hat{y}_{t, i})\)</span></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>损失累积<ul>
+<li>何时发生: 完成所有时间步的正向传播后</li>
+<li>总损失计算: <span class="arithmatex">\(L=\sum{t=1}^T L_t\)</span></li>
+</ul>
+</li>
+<li>通过时间反向传播<ul>
+<li>何时发生: 完成整个序列的正向传播和总损失计算后</li>
+<li>具体过程:
+    从时间步<span class="arithmatex">\(t=T\)</span>反向到<span class="arithmatex">\(t=1\)</span>:</li>
+</ul>
+</li>
+</ol>
 
 
 
@@ -1328,14 +1360,14 @@
     
     <nav>
       
-        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
-          
-          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
-        </a>
-      
         <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
           
           <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
+        </a>
+      
+        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
+          
+          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
         </a>
       
       
