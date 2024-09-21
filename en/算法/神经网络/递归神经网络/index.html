@@ -1433,6 +1433,10 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/8ffafacdc432b1a17cc80bfd38baf999.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8ffafacdc432b1a17cc80bfd38baf999.png" width="250" /></a></p>
 </figure>
 <h4 id="%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82">输出门层<a class="headerlink" href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
+<p>输出门层决定到底输出什么, 输出的结果会基于当前细胞状态, 并且会经过过滤. 首先, 经过一个sigmoid激活函数, 计算出一个向量<span class="arithmatex">\(o_t\)</span>, 这个向量的每个元素取值在<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间, 决定了细胞状态中哪些信息需要被输出, 起到了过滤器的作用, 接下来, 先前更新后的细胞状态<span class="arithmatex">\(C_t\)</span>通过tanh激活函数处理, 将数值压缩到<span class="arithmatex">\(-1\)</span>和<span class="arithmatex">\(1\)</span>之间, 这一步使得数据更加稳定, 更适合下一步的计算, 然后, 将值和<span class="arithmatex">\(o_t\)</span>主元素相乘, 得到最终的输出结果.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/32e6c2c33a7da26cfd4cf1f64fd1f5c1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/32e6c2c33a7da26cfd4cf1f64fd1f5c1.png" width="250" /></a></p>
+</figure>
 
 
 
