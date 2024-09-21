@@ -1099,6 +1099,66 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#%E7%BC%BA%E9%99%B7" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺陷
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lstm" class="md-nav__link">
+    <span class="md-ellipsis">
+      LSTM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LSTM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      遗忘门层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入门层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E" class="md-nav__link">
+    <span class="md-ellipsis">
+      更新细胞
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出门层
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1195,6 +1255,66 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#%E7%BC%BA%E9%99%B7" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺陷
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lstm" class="md-nav__link">
+    <span class="md-ellipsis">
+      LSTM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LSTM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      遗忘门层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入门层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E" class="md-nav__link">
+    <span class="md-ellipsis">
+      更新细胞
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出门层
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1276,40 +1396,43 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loadin="lazy" src="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" width="600" /></a></p>
 </figure>
-<p>举一个例子:</p>
-<p>假设我们有<span class="arithmatex">\(4\)</span>个字符: <span class="arithmatex">\(\{h, e, l, o\}\)</span>, 然后我们用"hello"这个单词进行训练.</p>
-<ol>
-<li>问题描述: 我们希望训练一个RNN, 根据前面的字符串来预测下一个字符, 对于单词"hello", 输入序列: "h", "e", "l", "l"; 目标序列: "e", "l", "l", "o"</li>
-<li>网络结构: <ul>
-<li>输入层: 每个字符采用one-hot编码, 维度为<span class="arithmatex">\(4\)</span>, 例如, 对于"h"来说, 编码为<span class="arithmatex">\(1000\)</span>, 对于"e"来说, 编码为<span class="arithmatex">\(0100\)</span></li>
-<li>隐藏层: 隐藏状态的维度设置为<span class="arithmatex">\(n\)</span>(可自定义)</li>
-<li>输出层: 输出对下一个字符的预测, 维度为<span class="arithmatex">\(4\)</span></li>
-</ul>
-</li>
-<li>正向传播:<ol>
-<li>初始化隐藏状态<span class="arithmatex">\(h_0\)</span>, 通常设置为零向量或者随机初始化</li>
-<li>对于每一个时间步<span class="arithmatex">\(t\)</span>:<ol>
-<li>输入向量<span class="arithmatex">\(x_t\)</span>: 当前字符的one-hot编码</li>
-<li>计算隐藏状态<span class="arithmatex">\(h_t\)</span>: <span class="arithmatex">\(h_t=\tanh(\bm{w}_{xh}x_t+\bm{w}_{hh}h_{t-1}+b_h)\)</span></li>
-<li>计算输出<span class="arithmatex">\(y_t\)</span>: <span class="arithmatex">\(y_t=\bm{w}_{hy}h_t+b_y\)</span></li>
-<li>预测下一个字符的概率分布: <span class="arithmatex">\(\hat{y_t}=softmax(y_t)\)</span></li>
-<li>计算损失: <span class="arithmatex">\(L_t=-\sum_{i=1}^4 y_{t, i}\log(\hat{y}_{t, i})\)</span></li>
-</ol>
-</li>
-</ol>
-</li>
-<li>损失累积<ul>
-<li>何时发生: 完成所有时间步的正向传播后</li>
-<li>总损失计算: <span class="arithmatex">\(L=\sum{t=1}^T L_t\)</span></li>
-</ul>
-</li>
-<li>通过时间反向传播<ul>
-<li>何时发生: 完成整个序列的正向传播和总损失计算后</li>
-<li>具体过程:
-    从时间步<span class="arithmatex">\(t=T\)</span>反向到<span class="arithmatex">\(t=1\)</span>:</li>
-</ul>
-</li>
-</ol>
+<p>根据课件上所讲的, 在每个时间步都要计算前面所有时间步需要更新的权重, 所以这些权重会被累积, 直到这一轮的最后, 前面各个时间步的更新量被累积之后用于更新权重. 反向传播算法会被使用多次, 直到收敛. 在训练结束之后, 我们可以使用RNN来生成文字, 一个字接着一个字.</p>
+<p>RNN非常灵活, 它可以是一对一的, 也可以是一对多, 多对一, 多对多. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/58ed509bae8e34ea6f7ff4ffe2216ecf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/58ed509bae8e34ea6f7ff4ffe2216ecf.png" width="500" /></a></p>
+</figure>
+<p>在一些任务中, 如情感分析, RNN会在处理完整个句子之后输出一个单一的值, 代表正面或者负面的情感分类: 输入是一句包含多个单词的句子, 模型逐字处理, 每个单词被输入到RNN中, 生成一个隐藏状态<span class="arithmatex">\(h_i\)</span>, 这些隐藏状态会被传递给下一个时间步, 在处理玩所有单词后, 模型将最后的隐藏状态用于生成最终的输出.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6597f1530296644cb1677086036a97c3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6597f1530296644cb1677086036a97c3.png" width="500" /></a></p>
+</figure>
+<h4 id="%E7%BC%BA%E9%99%B7">缺陷<a class="headerlink" href="#%E7%BC%BA%E9%99%B7" title="Permanent link">&para;</a></h4>
+<p>简单RNN常常会面临"梯度消失"问题, 这是因为在反向传播过程中, 误差梯度会在每个时间步中与<span class="arithmatex">\(\bm{w}_{hh}\)</span>多次相乘, 如果这些权重过小, 这种多次相乘会导致梯度逐渐变得非常小, 最终几乎消失. 由于这种问题的存在, 它在实践中往往表现地不够好, 尤其当依赖距离较大的时候. 例如句子"The cloud are in the sky", 这里预测"sky"这个单词很容易, 因为前面的上下文信息"The clouds are in the"与它距离很近. 而句子"I grew up in Italy... I speak fluent Italian", 这里需要依赖较远的上下文信息, 由于距离远, 传统RNN很难有效学习这种长期依赖关系.</p>
+<h3 id="lstm">LSTM<a class="headerlink" href="#lstm" title="Permanent link">&para;</a></h3>
+<p>LSTM, 长短期记忆网络, 是一种改进型的RNN, 专门用于解决RNN在处理长期依赖关系时的局限性. 它由Hochreiter和Schmidhuber在1997年提出, 解决了传统RNN中梯度消失问题. LSTM的关键思想是网络可以选择记住什么, 丢弃什么以及从哪里读取信息, 它通过一系列的门来控制信息流动, 包括遗忘门, 输入门和输出门. 如下图所示, 左边为普通的RNN, 右边是LSTM.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/0be92245bcf1aa3bc5ad1560bad27322.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0be92245bcf1aa3bc5ad1560bad27322.png" width="500" /></a></p>
+</figure>
+<p>LSTM单元是LSTM网络的基本构件, 当前的输入向量<span class="arithmatex">\(x_t\)</span>和之前的短期状态<span class="arithmatex">\(h_{t-1}\)</span>会被喂给<span class="arithmatex">\(4\)</span>个不同的全连接层(而不是像简单RNN那样之后一个), 新的<span class="arithmatex">\(3\)</span>个层都有sigmoid激活函数, 用<span class="arithmatex">\(\sigma\)</span>表示, 它们的输出在<span class="arithmatex">\(0\)</span>和<span class="arithmatex">\(1\)</span>之间. 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/68cebed1e266d9c94a5ba24d34fb10da.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/68cebed1e266d9c94a5ba24d34fb10da.png" width="250" /></a></p>
+</figure>
+<p>在LSTM中, 状态分为两种: 细胞状态和隐藏状态, 它们分别对应长期记忆和短期记忆. 长期记忆, 或者称为细胞状态, cell state, 它类似于一个贯穿多个时间步的信息传递通道, 通过遗忘门和输入门控制, 允许信息在多个时间步之间持续保持或者更新. 短期记忆, 或者称为隐藏状态, hidden state, 反映了每个时间步的即时输出, 它携带的是当前输入和前一时间步信息的组合. </p>
+<h4 id="%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82">遗忘门层<a class="headerlink" href="#%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
+<p>遗忘门的作用是从上一个时间步的细胞状态<span class="arithmatex">\(C_{i-1}\)</span>中决定哪些信息应该被丢弃或者保留. 遗忘门使用上一个时间步的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>和当前输入<span class="arithmatex">\(x_t\)</span>, 将它们传递给一个sigmoid函数, sigmoid函数会输出一个<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间的值, 如果输出值接近于<span class="arithmatex">\(0\)</span>, 表示遗忘该信息; 如果输出值接近<span class="arithmatex">\(1\)</span>, 表示保留该信息, 数学公式表示为: <span class="arithmatex">\(f_t=\sigma(w_f[h_{t-1}, x_t]+b_f)\)</span>. 例如, 在语言模型中, 当预测下一个单词的时候, 可能前面的细胞状态包含了当前主语的性别信息, 如"he"或者"she", 如果在句子中出现了一个新主语, 遗忘门将决定是否遗忘旧的新别信息, 以适应新主语的信息. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/95f4828513acb64099c7f670c91199c0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/95f4828513acb64099c7f670c91199c0.png" width="250" /></a></p>
+</figure>
+<h4 id="%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82">输入门层<a class="headerlink" href="#%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
+<p>输入门的作用是控制当前时间步的输入<span class="arithmatex">\(x_t\)</span>和上一时间步的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>如何影响当前的细胞状态<span class="arithmatex">\(C_t\)</span>, 它通过两个步骤来决定哪些信息应该被添加到细胞状态中. 首先使用Tanh激活函数生成一个新的候选状态<span class="arithmatex">\(\tilde{C_t}=\tanh(W_C[h_{t-1}, x_t]+b_C)\)</span>, 这个候选状态的值在<span class="arithmatex">\(-1\)</span>和<span class="arithmatex">\(1\)</span>之间, 然后这个候选状态会和一个输入门的输出相乘<span class="arithmatex">\(i_t\cdot \tilde{C_t}\)</span>, 输入门的输出计算公式为<span class="arithmatex">\(i_t = \sigma(W_i[h_{t-1}, x_t]+b_i)\)</span>, 得到要更新到细胞状态中的新信息. 例如, 我们在预测一个新的主语的性别, 输入门层将会控制将新主语的性别信息更新到细胞状态中. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/4a7d76ea86c831766253f0f2097f001b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4a7d76ea86c831766253f0f2097f001b.png" width="250" /></a></p>
+</figure>
+<h4 id="%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E">更新细胞<a class="headerlink" href="#%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E" title="Permanent link">&para;</a></h4>
+<p>结合遗忘门层和输入门层, 我们会得到这两个信息: 旧的细胞状态和遗忘门层的输出相乘<span class="arithmatex">\(f_t\cdot C_{t-1}\)</span>, 输入门的输出和候选状态相乘<span class="arithmatex">\(i_t\cdot \tilde{C_t}\)</span>. 将这两个部分相加, 我们会得到新的细胞状态<span class="arithmatex">\(C_t = f_t\cdot C_{t-1}+i_t\cdot \tilde{C_t}\)</span>. 这意味着LSTM细胞既保留了过去重要的信息, 又根据当前输入加入了新的信息.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/8ffafacdc432b1a17cc80bfd38baf999.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8ffafacdc432b1a17cc80bfd38baf999.png" width="250" /></a></p>
+</figure>
+<h4 id="%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82">输出门层<a class="headerlink" href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
 
 
 
@@ -1332,7 +1455,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月20日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月21日</span>
   </span>
 
     
