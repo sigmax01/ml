@@ -1120,6 +1120,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      自注意力层
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1199,6 +1208,15 @@
   <a href="#%E7%BC%96%E7%A0%81%E5%99%A8" class="md-nav__link">
     <span class="md-ellipsis">
       编码器
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      自注意力层
     </span>
   </a>
   
@@ -1303,6 +1321,15 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png" width="500" /></a></p>
 </figure>
+<h2 id="%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82">自注意力层<a class="headerlink" href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" title="Permanent link">&para;</a></h2>
+<p>别被自注意力, self attention这么高大上的词给唬住了, 但是作者在读论文<em>Attension is All You Need</em>之前就没有听说过这个词, 下面来分析一下自注意力的机制.</p>
+<p>假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired. </p>
+<p>这个句子中的it是一个代词, 那么it指的是什么呢? 是animal还是street? 这个问题对人来说是简单的, 但是对机器来说不是那么容易, 当处理it的时候, 自注意力机制能够让it和animal关联起来. 即当处理每一个词的时候, 自注意力机制能够查找在输入序列中其他的能够让当前词编码更优的词.</p>
+<p>在RNN中, 处理每一个输入的时候, 会考虑前面传过来的隐藏状态. Transfommer使用的是自注意力机制, 把其他单词的理解融入处理当前的单词.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/a103df16bceed84e7dd0dac59042db48.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/a103df16bceed84e7dd0dac59042db48.png" width="400" /></a></p>
+</figure>
+<p>如上图, 当我们在第五层编码器(即最后一层编码器)编码it的时候, 有相当一部分的注意力集中在The animal上, 把这两个单词的信息融合到了it这个单词中.</p>
 <div class="footnote">
 <hr />
 <ol>

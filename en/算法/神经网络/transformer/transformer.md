@@ -90,6 +90,22 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 ![](https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png){ loading=lazy width='500' }
 </figure>
 
+## 自注意力层
+
+别被自注意力, self attention这么高大上的词给唬住了, 但是作者在读论文*Attension is All You Need*之前就没有听说过这个词, 下面来分析一下自注意力的机制.
+
+假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired. 
+
+这个句子中的it是一个代词, 那么it指的是什么呢? 是animal还是street? 这个问题对人来说是简单的, 但是对机器来说不是那么容易, 当处理it的时候, 自注意力机制能够让it和animal关联起来. 即当处理每一个词的时候, 自注意力机制能够查找在输入序列中其他的能够让当前词编码更优的词.
+
+在RNN中, 处理每一个输入的时候, 会考虑前面传过来的隐藏状态. Transfommer使用的是自注意力机制, 把其他单词的理解融入处理当前的单词.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/a103df16bceed84e7dd0dac59042db48.png){ loading=lazy width='400' }
+</figure>
+
+如上图, 当我们在第五层编码器(即最后一层编码器)编码it的时候, 有相当一部分的注意力集中在The animal上, 把这两个单词的信息融合到了it这个单词中.
+
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
 [^3]: 细节拉满，全网最详细的Transformer介绍（含大量插图）！. (不详). 知乎专栏. 取读于 2024年9月23日, 从 https://zhuanlan.zhihu.com/p/681532180
