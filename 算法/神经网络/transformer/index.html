@@ -1102,6 +1102,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#%E5%BC%A0%E9%87%8F" class="md-nav__link">
+    <span class="md-ellipsis">
+      张量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E7%BC%96%E7%A0%81%E5%99%A8" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码器
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1163,6 +1181,24 @@
   <a href="#%E6%9E%B6%E6%9E%84" class="md-nav__link">
     <span class="md-ellipsis">
       架构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E5%BC%A0%E9%87%8F" class="md-nav__link">
+    <span class="md-ellipsis">
+      张量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E7%BC%96%E7%A0%81%E5%99%A8" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码器
     </span>
   </a>
   
@@ -1251,6 +1287,21 @@
 <p>解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码-解码注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码-解码注意力层用于参考/关注编码器输入序列的编码表示. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" width="600" /></a></p>
+</figure>
+<h2 id="%E5%BC%A0%E9%87%8F">张量<a class="headerlink" href="#%E5%BC%A0%E9%87%8F" title="Permanent link">&para;</a></h2>
+<p>上面, 我们讲了Transformer的大致轮廓, 下面, 我们来看一下向量/张量在组件之间的流动. </p>
+<p>就如其他NLP模型一样, 我们最开始会使用<a href="https://aitutor.liduos.com/02-langchain/02-3.html">词嵌入算法, embedding algorithm</a>将类别数据(如单词或者符号)转换为连续的数值向量. 实际中向量一般是<span class="arithmatex">\(256\)</span>维或者<span class="arithmatex">\(512\)</span>维, 这里为了简化起见, 将每个词表示为一个<span class="arithmatex">\(4\)</span>维向量. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/226c51fe49f5d580c0554d4820df362e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/226c51fe49f5d580c0554d4820df362e.png" width="600" /></a></p>
+</figure>
+<p>这个词嵌入算法只会发生在最底部的编码器中, 相同的是所有的编码器都会收到一个由<span class="arithmatex">\(4\)</span>维向量组成的列表. 这个列表的大小是一个超参数, 如果一个句子达不到这个长度, 那么就填充全为<span class="arithmatex">\(0\)</span>的<span class="arithmatex">\(4\)</span>维词向量; 如果句子超出了这个长度, 则做截断. 第一个编码器输入的是词向量的列表, 后面的编码器的输入是上一个编码器的输出, 输入的词向量列表大小和输出的词向量列表大小是相同的.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/dbeb1331cff42a9f74fa2ff22148327f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/dbeb1331cff42a9f74fa2ff22148327f.png" width="500" /></a></p>
+</figure>
+<h2 id="%E7%BC%96%E7%A0%81%E5%99%A8">编码器<a class="headerlink" href="#%E7%BC%96%E7%A0%81%E5%99%A8" title="Permanent link">&para;</a></h2>
+<p>前面我们提到, 编码器会接受一个词向量的列表作为输入, 它会把向量列表输入到自注意力层, 然后经过前馈神经网络层, 最后得到输出, 传入下一个编码器. 每个位置的词向量都会经过自注意力层, 得到的每个输出向量都会单独经过前馈神经网络层, 每个向量经过的前馈神经网络都是一样的.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png" width="500" /></a></p>
 </figure>
 <div class="footnote">
 <hr />
