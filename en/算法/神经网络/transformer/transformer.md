@@ -151,7 +151,7 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 #### 使用矩阵计算自注意力
 
-注意这里涉及到多头注意力机制, 不懂的可以先看下面. 第一步是计算Query, Key, Value矩阵, 首先, 我们把嵌入向量放到一个矩阵$X$中, 然后分别和$3$个权重相乘, 得到Query, Key, Value矩阵, $W^Q, W^K, W^V$是我们通过训练得到的.
+第一步是计算Query, Key, Value矩阵, 首先, 我们把两个嵌入向量即Thinking和Machines放到一个矩阵$X$中, 然后分别和$3$个权重相乘, 得到Query, Key, Value矩阵, $W^Q, W^K, W^V$是我们通过训练得到的.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png){ loading=lazy width='400' }
@@ -160,8 +160,20 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 接着, 由于我们使用了矩阵计算, 我们可以把上面的第二步和第六步压缩为一步, 直接得到输出.
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png){ loading=lazy width='500' }
 </figure>
+
+### 多头注意力机制
+
+论文还通过增加多头注意力机制, 进一步完善了自注意力层. 注意力头是多头注意力机制中的一个子组件, 它是一个独立的注意力计算单元. 每个注意力头都有自己的Query, Key, Value矩阵. 多头注意力机制从下面的两个方面扩展了自注意力层的能力:
+
+- 它扩展了模型关注不同位置的能力. 就如在[计算注意力分数](#计算注意力分数)中的第四步讲到的那样, 最后生成的$z_1$向量被自己Thinking主导($0.88$), 而只包含了Machines的很小一部分信息($0.12$). 多头注意力则允许模型同时学习多个不同的注意力分布. 例如, 某些注意力头可能专注于局部信息, 而其他头可能捕捉更远距离的依赖
+- 多头注意力机制赋予自注意力层多个"子表示空间". 每个注意力头都有自己独立的矩阵, 会将输入映射到不同的向量空间. 这些空间可以理解为不同的"子表示空间". 不同的注意力头就像不同的"视角", 捕捉输入中不同的信息. 可以将每个注意力头理解为一个"专家", 每个专家会根据不同的规则和视角来分析输入数据, 并生成对一个输入的独特理解
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/ebef9242633eaeaa58c7ae3429b33d13.png){ loading=lazy width='600' }
+</figure>
+
 
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
