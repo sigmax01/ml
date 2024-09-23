@@ -1355,7 +1355,7 @@
   <h1>Transformer</h1>
 
 <h2 id="%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95">起源和发展<a class="headerlink" href="#%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95" title="Permanent link">&para;</a></h2>
-<p>2017年, Google在<em><a href="https://arxiv.org/abs/1706.03762">Attention is All You Need</a></em>中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的<a href="/算法/神经网络/递归神经网络">递归神经网络RNN</a>; 与此同时, Fast AI在<em>Universal Language Model Fint-tuning for Text Classification</em>中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的<a href="/算法/神经网络/递归神经网络#LSTM">LSTM模型</a>迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.</p>
+<p>2017年, Google在<em><a href="https://arxiv.org/abs/1706.03762">Attention is All You Need</a></em>中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的<a href="/算法/神经网络/递归神经网络">递归神经网络</a>; 与此同时, Fast AI在<em>Universal Language Model Fint-tuning for Text Classification</em>中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的<a href="/算法/神经网络/递归神经网络#LSTM">LSTM模型</a>迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.</p>
 <p>这些开创性的工作促成了两个著名的Transformer模型的出现:</p>
 <ul>
 <li><a href="https://ai.com">GPT</a> (the Generative Pretrained Transformer)</li>
@@ -1455,7 +1455,7 @@
 <h4 id="%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B">使用矩阵计算自注意力<a class="headerlink" href="#%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B" title="Permanent link">&para;</a></h4>
 <p>第一步是计算Query, Key, Value矩阵, 首先, 我们把两个嵌入向量即Thinking和Machines放到一个矩阵<span class="arithmatex">\(X\)</span>中, 然后分别和<span class="arithmatex">\(3\)</span>个权重相乘, 得到Query, Key, Value矩阵, <span class="arithmatex">\(W^Q, W^K, W^V\)</span>是我们通过训练得到的.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" width="300" /></a></p>
 </figure>
 <p>接着, 由于我们使用了矩阵计算, 我们可以把上面的第二步和第六步压缩为一步, 直接得到输出.</p>
 <figure>
@@ -1469,6 +1469,31 @@
 </ul>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/ebef9242633eaeaa58c7ae3429b33d13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/ebef9242633eaeaa58c7ae3429b33d13.png" width="600" /></a></p>
+</figure>
+<p>我们为每组注意力维护单独的<span class="arithmatex">\(W^Q, W^K, W^V\)</span>权重矩阵. 将输入<span class="arithmatex">\(X\)</span>和每组注意力<span class="arithmatex">\(W^Q, W^K, W^V\)</span>相乘, 得到<span class="arithmatex">\(8\)</span>组<span class="arithmatex">\(Q, K, V\)</span>矩阵. 接着, 我们用<span class="arithmatex">\(Q, K, V\)</span>计算每组的<span class="arithmatex">\(Z\)</span>矩阵, 就得到<span class="arithmatex">\(8\)</span>个<span class="arithmatex">\(Z\)</span>矩阵<span class="arithmatex">\(Z_0, Z_1, ..., Z_7\)</span>.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/9a245789280ff24b8637f0ffe7f2f8a0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9a245789280ff24b8637f0ffe7f2f8a0.png" width="500" /></a></p>
+</figure>
+<p>接下来就有点麻烦了, 因为前馈神经网络接受的是<span class="arithmatex">\(1\)</span>个矩阵(每个词的一个向量), 所以我们需要有一种方法把<span class="arithmatex">\(8\)</span>个矩阵整合为一个矩阵. 怎么才能做到呢? </p>
+<ol>
+<li>把<span class="arithmatex">\(8\)</span>个矩阵拼接起来</li>
+<li>把拼接后得到的矩阵和<span class="arithmatex">\(W^O\)</span>权重矩阵相乘, 这个<span class="arithmatex">\(W^O\)</span>是随着模型一起训练的</li>
+<li>得到最终的矩阵<span class="arithmatex">\(Z\)</span>, 这个矩阵包含了所有注意力头的信息, 输入到前馈神经网络</li>
+</ol>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/9a721b7e3b77140f0a51e6cb38117209.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9a721b7e3b77140f0a51e6cb38117209.png" width="600" /></a></p>
+</figure>
+<p>这就是多头注意力机制的全部内容, 下面是一张汇总图.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/3cd76d3e0d8a20d87dfa586b56cc1ad3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/3cd76d3e0d8a20d87dfa586b56cc1ad3.png" width="600" /></a></p>
+</figure>
+<p>既然我们已经谈到了多头注意力, 现在让我们重新回顾一下之前的翻译例子, 看下当我们编码单词it的时候, 不同的注意力头关注的是什么部分. 例如, 下图中含有<span class="arithmatex">\(2\)</span>个注意力头, 其中的一个注意力头最关注的是"The animal", 另外一个注意力头最关注的是<span class="arithmatex">\(tired\)</span>, 因此"it"在最后的输出中融合了"animal"和"tired".</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6cfe032799b48017bbb21103a0cc4892.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6cfe032799b48017bbb21103a0cc4892.png" width="400" /></a></p>
+</figure>
+<p>如果我们把所有的注意力头都在图上画出来, 会变成这个样子.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png" width="400" /></a></p>
 </figure>
 <div class="footnote">
 <hr />

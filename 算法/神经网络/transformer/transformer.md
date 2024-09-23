@@ -5,7 +5,7 @@ comments: true
 
 ## 起源和发展
 
-2017年, Google在*[Attention is All You Need](https://arxiv.org/abs/1706.03762)*中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的[递归神经网络RNN](/算法/神经网络/递归神经网络); 与此同时, Fast AI在*Universal Language Model Fint-tuning for Text Classification*中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的[LSTM模型](/算法/神经网络/递归神经网络#LSTM)迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.
+2017年, Google在*[Attention is All You Need](https://arxiv.org/abs/1706.03762)*中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的[递归神经网络](/算法/神经网络/递归神经网络); 与此同时, Fast AI在*Universal Language Model Fint-tuning for Text Classification*中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的[LSTM模型](/算法/神经网络/递归神经网络#LSTM)迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.
 
 这些开创性的工作促成了两个著名的Transformer模型的出现:
 
@@ -154,7 +154,7 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 第一步是计算Query, Key, Value矩阵, 首先, 我们把两个嵌入向量即Thinking和Machines放到一个矩阵$X$中, 然后分别和$3$个权重相乘, 得到Query, Key, Value矩阵, $W^Q, W^K, W^V$是我们通过训练得到的.
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png){ loading=lazy width='300' }
 </figure>
 
 接着, 由于我们使用了矩阵计算, 我们可以把上面的第二步和第六步压缩为一步, 直接得到输出.
@@ -174,6 +174,39 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 ![](https://img.ricolxwz.io/ebef9242633eaeaa58c7ae3429b33d13.png){ loading=lazy width='600' }
 </figure>
 
+我们为每组注意力维护单独的$W^Q, W^K, W^V$权重矩阵. 将输入$X$和每组注意力$W^Q, W^K, W^V$相乘, 得到$8$组$Q, K, V$矩阵. 接着, 我们用$Q, K, V$计算每组的$Z$矩阵, 就得到$8$个$Z$矩阵$Z_0, Z_1, ..., Z_7$.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/9a245789280ff24b8637f0ffe7f2f8a0.png){ loading=lazy width='500' }
+</figure>
+
+接下来就有点麻烦了, 因为前馈神经网络接受的是$1$个矩阵(每个词的一个向量), 所以我们需要有一种方法把$8$个矩阵整合为一个矩阵. 怎么才能做到呢? 
+
+1. 把$8$个矩阵拼接起来
+2. 把拼接后得到的矩阵和$W^O$权重矩阵相乘, 这个$W^O$是随着模型一起训练的
+3. 得到最终的矩阵$Z$, 这个矩阵包含了所有注意力头的信息, 输入到前馈神经网络
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/9a721b7e3b77140f0a51e6cb38117209.png){ loading=lazy width='600' }
+</figure>
+
+这就是多头注意力机制的全部内容, 下面是一张汇总图.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/3cd76d3e0d8a20d87dfa586b56cc1ad3.png){ loading=lazy width='600' }
+</figure>
+
+既然我们已经谈到了多头注意力, 现在让我们重新回顾一下之前的翻译例子, 看下当我们编码单词it的时候, 不同的注意力头关注的是什么部分. 例如, 下图中含有$2$个注意力头, 其中的一个注意力头最关注的是"The animal", 另外一个注意力头最关注的是$tired$, 因此"it"在最后的输出中融合了"animal"和"tired".
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/6cfe032799b48017bbb21103a0cc4892.png){ loading=lazy width='400' }
+</figure>
+
+如果我们把所有的注意力头都在图上画出来, 会变成这个样子.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png){ loading=lazy width='400' }
+</figure>
 
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
