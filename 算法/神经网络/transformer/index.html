@@ -12,13 +12,11 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E9%80%92%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/transformer/">
       
       
-        <link rel="prev" href="../%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+        <link rel="prev" href="../%E9%80%92%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
       
-      
-        <link rel="next" href="../transformer/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +24,7 @@
     
     
       
-        <title>递归神经网络 - 机器学习</title>
+        <title>Transformer - 机器学习</title>
       
     
     
@@ -99,7 +97,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#%E6%9E%B6%E6%9E%84" class="md-skip">
+        <a href="#%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95" class="md-skip">
           跳转至
         </a>
       
@@ -154,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              递归神经网络
+              Transformer
             
           </span>
         </div>
@@ -217,7 +215,7 @@
           </li>
         
           <li class="md-select__item">
-            <a href="../../../en/%E7%AE%97%E6%B3%95/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E9%80%92%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" hreflang="en" class="md-select__link">
+            <a href="../../../en/%E7%AE%97%E6%B3%95/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/transformer/" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
@@ -1021,6 +1019,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%92%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    递归神经网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1035,7 +1054,7 @@
           
   
   <span class="md-ellipsis">
-    递归神经网络
+    Transformer
   </span>
   
 
@@ -1046,7 +1065,7 @@
         
   
   <span class="md-ellipsis">
-    递归神经网络
+    Transformer
   </span>
   
 
@@ -1066,110 +1085,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#%E6%9E%B6%E6%9E%84" class="md-nav__link">
+  <a href="#%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95" class="md-nav__link">
     <span class="md-ellipsis">
-      架构
+      起源和发展
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="架构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#%E7%AE%80%E5%8D%95rnn" class="md-nav__link">
-    <span class="md-ellipsis">
-      简单RNN
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="简单RNN">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#%E5%B1%95%E5%BC%80" class="md-nav__link">
-    <span class="md-ellipsis">
-      展开
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" class="md-nav__link">
-    <span class="md-ellipsis">
-      通过时间反向传播
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E7%BC%BA%E9%99%B7" class="md-nav__link">
-    <span class="md-ellipsis">
-      缺陷
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lstm" class="md-nav__link">
-    <span class="md-ellipsis">
-      LSTM
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="LSTM">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82" class="md-nav__link">
-    <span class="md-ellipsis">
-      遗忘门层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82" class="md-nav__link">
-    <span class="md-ellipsis">
-      输入门层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E" class="md-nav__link">
-    <span class="md-ellipsis">
-      更新细胞
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" class="md-nav__link">
-    <span class="md-ellipsis">
-      输出门层
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1177,27 +1097,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../transformer/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Transformer
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1243,110 +1142,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#%E6%9E%B6%E6%9E%84" class="md-nav__link">
+  <a href="#%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95" class="md-nav__link">
     <span class="md-ellipsis">
-      架构
+      起源和发展
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="架构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#%E7%AE%80%E5%8D%95rnn" class="md-nav__link">
-    <span class="md-ellipsis">
-      简单RNN
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="简单RNN">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#%E5%B1%95%E5%BC%80" class="md-nav__link">
-    <span class="md-ellipsis">
-      展开
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" class="md-nav__link">
-    <span class="md-ellipsis">
-      通过时间反向传播
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E7%BC%BA%E9%99%B7" class="md-nav__link">
-    <span class="md-ellipsis">
-      缺陷
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lstm" class="md-nav__link">
-    <span class="md-ellipsis">
-      LSTM
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="LSTM">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82" class="md-nav__link">
-    <span class="md-ellipsis">
-      遗忘门层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82" class="md-nav__link">
-    <span class="md-ellipsis">
-      输入门层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E" class="md-nav__link">
-    <span class="md-ellipsis">
-      更新细胞
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" class="md-nav__link">
-    <span class="md-ellipsis">
-      输出门层
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1368,7 +1168,7 @@
                   
 
   
-    <a href="https://github.com/ricolxwz/ml/edit/master/docs/算法/神经网络/递归神经网络.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/ricolxwz/ml/edit/master/docs/算法/神经网络/transformer.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1377,91 +1177,41 @@
     
       
     
-    <a href="https://github.com/ricolxwz/ml/raw/master/docs/算法/神经网络/递归神经网络.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/ricolxwz/ml/raw/master/docs/算法/神经网络/transformer.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>递归神经网络</h1>
+  <h1>Transformer</h1>
 
-<p>递归神经网络, Recurrent Neural Networks, RNN, 用于处理序列化的数据. 文字或者自然语言就是一种序列化的数据, 段落就是单词的序列, 每个段落可能有不同数量的单词, 每个段落中可能包含有长距离依赖关系的单词, 如`The dog in that house is aggressive"和"The dogs in that house are aggressive"中的🐕和谓语之间的长距离依赖关系. 处理这种类型的数据需要模型能够"记住"之前序列中的某些信息.</p>
-<h2 id="%E6%9E%B6%E6%9E%84">架构<a class="headerlink" href="#%E6%9E%B6%E6%9E%84" title="Permanent link">&para;</a></h2>
-<p>RNN一次处理序列中的一个元素, 例如一个单词. 举例来说, 句子"The dog in the house is aggreesive"会按照时间顺序分解为: <span class="arithmatex">\(t\)</span>时刻处理"the", <span class="arithmatex">\(t+1\)</span>时刻处理"dog"依次类推. RNN之所以被称为"递归神经网络"是因为它包含反馈连接, 即输出会反馈给输入, 这与前馈神经网络不同, 前馈神经网络是有向无环图, acyclic graph, 而递归神经网络是有向有环图, cyclic graph, 更具体的说, 一个神经元在某个时间步的输出会反馈到下一个时间步的相同神经元中, 因此, RNN具备一定的记忆能力, 可以记住之前的激活状态, 由于RNN能够记住过去的激活状态, 因此它能够捕捉长距离的依赖关系, 这种特性使得RNN特别适合用于处理序列数据, 例如语言模型和时间序列预测.</p>
-<p>RNN有不同的架构, 其中包括简单的RNN, 又称为Elman网络和长短期记忆网络, LSTM. </p>
-<h3 id="%E7%AE%80%E5%8D%95rnn">简单RNN<a class="headerlink" href="#%E7%AE%80%E5%8D%95rnn" title="Permanent link">&para;</a></h3>
-<p>简单RNN含有由<span class="arithmatex">\(1\)</span>个隐藏层构成的前馈神经网络, 这个隐藏层特别的, 含有一个记忆缓存, 会存储隐藏层之前一个时间步的状态. 在每一个时间步, 记忆缓存中的数据会和下一组输入结合作为隐藏层神经元的下一次输入.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9af1c54b02f52241514fdb945d00fa2b.png" width="600" /></a></p>
-</figure>
-<p>我们定义如下符号:</p>
+<h2 id="%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95">起源和发展<a class="headerlink" href="#%E8%B5%B7%E6%BA%90%E5%92%8C%E5%8F%91%E5%B1%95" title="Permanent link">&para;</a></h2>
+<p>2017年, Google在<em>Attention is All You Need</em>中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的<a href="/算法/神经网络/递归神经网络">递归神经网络RNN</a>; 与此同时, Fast AI在<em>Universal Language Model Fint-tuning for Text Classification</em>中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的<a href="/算法/神经网络/递归神经网络/#LSTM">LSTM模型</a>迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.</p>
+<p>这些开创性的工作促成了两个著名的Transformer模型的出现:</p>
 <ul>
-<li><span class="arithmatex">\(x_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的输入向量</li>
-<li><span class="arithmatex">\(h_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的隐藏层激活值, 表示经过隐藏层计算后的中间状态. 在图中<span class="arithmatex">\(h_t\)</span>会结合前一个时间步的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>以及当前时间步的输入向量<span class="arithmatex">\(x_t\)</span>进行计算</li>
-<li><span class="arithmatex">\(y_t\)</span>: <span class="arithmatex">\(t\)</span>时刻的输出向量</li>
-<li><span class="arithmatex">\(\bm{w}_{xh}\)</span>: 输入层和隐藏层之间的权重</li>
-<li><span class="arithmatex">\(\bm{w}_{hy}\)</span>: 隐藏层和输出层之间的权重</li>
-<li><span class="arithmatex">\(\bm{w}_{hh}\)</span>: 记忆缓存和隐藏层之间的权重</li>
+<li><a href="https://ai.com">GPT</a> (the Generative Pretrained Transformer)</li>
+<li><a href="https://github.com/google-research/bert">BERT</a> (Bidirectional Encoder Representations from Transformers)</li>
 </ul>
-<p>我们就来考虑上述的情况, <span class="arithmatex">\(2\)</span>个输出层神经元, <span class="arithmatex">\(3\)</span>个隐藏层神经元, <span class="arithmatex">\(2\)</span>个输出层神经元. 在每一个时间步都会有一个新的输入向量. 每个隐藏层神经元都会接收到所有输入层神经元的输出和记忆缓存中的上一个状态信息. 隐藏层处理后, 将结果传递给输出层神经元, 同时将状态写到记忆缓存中.</p>
-<p><span class="arithmatex">\(h_t\)</span>的计算公式为<span class="arithmatex">\(h_t = f_{\bm{w}}(h_{t-1}, x_t)\)</span>. 其中<span class="arithmatex">\(h_{t-1}\)</span>是旧状态, <span class="arithmatex">\(x_t\)</span>是本次的输入向量. 函数<span class="arithmatex">\(f_{\bm{w}}\)</span>通常为反正切函数, 即<span class="arithmatex">\(h_t=\tanh (\bm{w}_{hh}h_{t-1}+\bm{w}_{xh}x_t+b_h)\)</span>. 而输出<span class="arithmatex">\(y_t = \bm{w}_{hy}h_t+b_y\)</span>.</p>
+<p>通过将Transformer结构和无监督学习相结合, 我们不再需要对每一个任务都从头开始训练模型, 并且几乎在所有NLP任务上都远远超过先前的最强基准. </p>
+<p>GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的模型, 其中比较有名的有:</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/11265e875c7e0b8f052246f6603345f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/11265e875c7e0b8f052246f6603345f0.png" width="450" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/aeac87fbc55d405f507b73b96ac912e4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/aeac87fbc55d405f507b73b96ac912e4.png" width="600" /></a></p>
 </figure>
-<h4 id="%E5%B1%95%E5%BC%80">展开<a class="headerlink" href="#%E5%B1%95%E5%BC%80" title="Permanent link">&para;</a></h4>
-<p>在上面RNN的架构图中, 这种循环结构使得理解在多个时间步之间的信息流动变得困难. 为了更好地理解RNN的信息流动的过程, 我们可以将RNN沿着时间展开, unroll, 然后每一个时间步的计算看作是一个独立的前馈神经网络. 展开后的RNN就像一系列相互连接的前馈神经网络层, 这样可以帮助我们更清晰地看到每个时间步的输入, 隐藏状态和输出之间的关系, 如下图所示.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b84aa790eb9534370b8dd379974e2801.png" width="350" /></a></p>
-</figure>
-<p>注意, 上图中可以明显看到, 权重<span class="arithmatex">\(\bm{w}_{xh}\)</span>, <span class="arithmatex">\(\bm{w}_{hy}\)</span>, <span class="arithmatex">\(\bm{w}_{hh}\)</span>在每个时间步都是"共享"的, RNN在处理数据的时候, 会不断通过多个时间步来传播信息, 如果每个时间步的权重都不同, 那么模型会变得非常复杂, 不容易训练, 因此, 这种RNN采用的是权重共享机制.</p>
-<h4 id="%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD">通过时间反向传播<a class="headerlink" href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD" title="Permanent link">&para;</a></h4>
-<p>通过时间反向传播, Backpropagation Through Time, BPTT是训练RNN的关键算法, 它是标准的反向传播算法的扩展, 用来处理时间序列数据中的依赖关系. </p>
-<p>RNN的损失函数是每个时间步的输出<span class="arithmatex">\(y_t\)</span>和真实标签<span class="arithmatex">\(y_t^{true}\)</span>之间的误差之和, 假设我们使用均方误差作为损失函数, 那么损失<span class="arithmatex">\(L\)</span>为<span class="arithmatex">\(L=\sum_{t=1}^T(y_t-y_t^{true})^2\)</span>. 目标是通过最小化这个损失函数来更新RNN的权重. 在<span class="arithmatex">\(t\)</span>这个时间步的误差被反向传播到所有对其有贡献的参数, 这意味着它向网络先前的状态传播, 所以叫做"时间倒流". 如图所示.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loadin="lazy" src="https://img.ricolxwz.io/e6fcd9d89c50433e4a2291b36ca56da2.png" width="600" /></a></p>
-</figure>
-<p>根据课件上所讲的, 在每个时间步都要计算前面所有时间步需要更新的权重, 所以这些权重会被累积, 直到这一轮的最后, 前面各个时间步的更新量被累积之后用于更新权重. 反向传播算法会被使用多次, 直到收敛. 在训练结束之后, 我们可以使用RNN来生成文字, 一个字接着一个字.</p>
-<p>RNN非常灵活, 它可以是一对一的, 也可以是一对多, 多对一, 多对多. </p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/58ed509bae8e34ea6f7ff4ffe2216ecf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/58ed509bae8e34ea6f7ff4ffe2216ecf.png" width="500" /></a></p>
-</figure>
-<p>在一些任务中, 如情感分析, RNN会在处理完整个句子之后输出一个单一的值, 代表正面或者负面的情感分类: 输入是一句包含多个单词的句子, 模型逐字处理, 每个单词被输入到RNN中, 生成一个隐藏状态<span class="arithmatex">\(h_i\)</span>, 这些隐藏状态会被传递给下一个时间步, 在处理玩所有单词后, 模型将最后的隐藏状态用于生成最终的输出.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/6597f1530296644cb1677086036a97c3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6597f1530296644cb1677086036a97c3.png" width="500" /></a></p>
-</figure>
-<h4 id="%E7%BC%BA%E9%99%B7">缺陷<a class="headerlink" href="#%E7%BC%BA%E9%99%B7" title="Permanent link">&para;</a></h4>
-<p>简单RNN常常会面临"梯度消失"问题, 这是因为在反向传播过程中, 误差梯度会在每个时间步中与<span class="arithmatex">\(\bm{w}_{hh}\)</span>多次相乘, 如果这些权重过小, 这种多次相乘会导致梯度逐渐变得非常小, 最终几乎消失. 由于这种问题的存在, 它在实践中往往表现地不够好, 尤其当依赖距离较大的时候. 例如句子"The cloud are in the sky", 这里预测"sky"这个单词很容易, 因为前面的上下文信息"The clouds are in the"与它距离很近. 而句子"I grew up in Italy... I speak fluent Italian", 这里需要依赖较远的上下文信息, 由于距离远, 传统RNN很难有效学习这种长期依赖关系.</p>
-<h3 id="lstm">LSTM<a class="headerlink" href="#lstm" title="Permanent link">&para;</a></h3>
-<p>LSTM, 长短期记忆网络, 是一种改进型的RNN, 专门用于解决RNN在处理长期依赖关系时的局限性. 它由Hochreiter和Schmidhuber在1997年提出, 解决了传统RNN中梯度消失问题. LSTM的关键思想是网络可以选择记住什么, 丢弃什么以及从哪里读取信息, 它通过一系列的门来控制信息流动, 包括遗忘门, 输入门和输出门. 如下图所示, 左边为普通的RNN, 右边是LSTM.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/0be92245bcf1aa3bc5ad1560bad27322.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0be92245bcf1aa3bc5ad1560bad27322.png" width="500" /></a></p>
-</figure>
-<p>LSTM单元是LSTM网络的基本构件, 当前的输入向量<span class="arithmatex">\(x_t\)</span>和之前的短期状态<span class="arithmatex">\(h_{t-1}\)</span>会被喂给<span class="arithmatex">\(4\)</span>个不同的全连接层(而不是像简单RNN那样之后一个), 新的<span class="arithmatex">\(3\)</span>个层都有sigmoid激活函数, 用<span class="arithmatex">\(\sigma\)</span>表示, 它们的输出在<span class="arithmatex">\(0\)</span>和<span class="arithmatex">\(1\)</span>之间. 如下图所示.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/68cebed1e266d9c94a5ba24d34fb10da.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/68cebed1e266d9c94a5ba24d34fb10da.png" width="250" /></a></p>
-</figure>
-<p>在LSTM中, 状态分为两种: 细胞状态和隐藏状态, 它们分别对应长期记忆和短期记忆. 长期记忆, 或者称为细胞状态, cell state, 它类似于一个贯穿多个时间步的信息传递通道, 通过遗忘门和输入门控制, 允许信息在多个时间步之间持续保持或者更新. 短期记忆, 或者称为隐藏状态, hidden state, 反映了每个时间步的即时输出, 它携带的是当前输入和前一时间步信息的组合. </p>
-<h4 id="%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82">遗忘门层<a class="headerlink" href="#%E9%81%97%E5%BF%98%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
-<p>遗忘门的作用是从上一个时间步的细胞状态<span class="arithmatex">\(C_{i-1}\)</span>中决定哪些信息应该被丢弃或者保留. 遗忘门使用上一个时间步的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>和当前输入<span class="arithmatex">\(x_t\)</span>, 将它们传递给一个sigmoid函数, sigmoid函数会输出一个<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间的值, 如果输出值接近于<span class="arithmatex">\(0\)</span>, 表示遗忘该信息; 如果输出值接近<span class="arithmatex">\(1\)</span>, 表示保留该信息, 数学公式表示为: <span class="arithmatex">\(f_t=\sigma(w_f[h_{t-1}, x_t]+b_f)\)</span>. 例如, 在语言模型中, 当预测下一个单词的时候, 可能前面的细胞状态包含了当前主语的性别信息, 如"he"或者"she", 如果在句子中出现了一个新主语, 遗忘门将决定是否遗忘旧的新别信息, 以适应新主语的信息. </p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/95f4828513acb64099c7f670c91199c0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/95f4828513acb64099c7f670c91199c0.png" width="250" /></a></p>
-</figure>
-<h4 id="%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82">输入门层<a class="headerlink" href="#%E8%BE%93%E5%85%A5%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
-<p>输入门的作用是控制当前时间步的输入<span class="arithmatex">\(x_t\)</span>和上一时间步的隐藏状态<span class="arithmatex">\(h_{t-1}\)</span>如何影响当前的细胞状态<span class="arithmatex">\(C_t\)</span>, 它通过两个步骤来决定哪些信息应该被添加到细胞状态中. 首先使用Tanh激活函数生成一个新的候选状态<span class="arithmatex">\(\tilde{C_t}=\tanh(W_C[h_{t-1}, x_t]+b_C)\)</span>, 这个候选状态的值在<span class="arithmatex">\(-1\)</span>和<span class="arithmatex">\(1\)</span>之间, 然后这个候选状态会和一个输入门的输出相乘<span class="arithmatex">\(i_t\cdot \tilde{C_t}\)</span>, 输入门的输出计算公式为<span class="arithmatex">\(i_t = \sigma(W_i[h_{t-1}, x_t]+b_i)\)</span>, 得到要更新到细胞状态中的新信息. 例如, 我们在预测一个新的主语的性别, 输入门层将会控制将新主语的性别信息更新到细胞状态中. </p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/4a7d76ea86c831766253f0f2097f001b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4a7d76ea86c831766253f0f2097f001b.png" width="250" /></a></p>
-</figure>
-<h4 id="%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E">更新细胞<a class="headerlink" href="#%E6%9B%B4%E6%96%B0%E7%BB%86%E8%83%9E" title="Permanent link">&para;</a></h4>
-<p>结合遗忘门层和输入门层, 我们会得到这两个信息: 旧的细胞状态和遗忘门层的输出相乘<span class="arithmatex">\(f_t\cdot C_{t-1}\)</span>, 输入门的输出和候选状态相乘<span class="arithmatex">\(i_t\cdot \tilde{C_t}\)</span>. 将这两个部分相加, 我们会得到新的细胞状态<span class="arithmatex">\(C_t = f_t\cdot C_{t-1}+i_t\cdot \tilde{C_t}\)</span>. 这意味着LSTM细胞既保留了过去重要的信息, 又根据当前输入加入了新的信息.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/8ffafacdc432b1a17cc80bfd38baf999.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8ffafacdc432b1a17cc80bfd38baf999.png" width="250" /></a></p>
-</figure>
-<h4 id="%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82">输出门层<a class="headerlink" href="#%E8%BE%93%E5%87%BA%E9%97%A8%E5%B1%82" title="Permanent link">&para;</a></h4>
-<p>输出门层决定到底输出什么, 输出的结果会基于当前细胞状态, 并且会经过过滤. 首先, 经过一个sigmoid激活函数, 计算出一个向量<span class="arithmatex">\(o_t\)</span>, 这个向量的每个元素取值在<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间, 决定了细胞状态中哪些信息需要被输出, 起到了过滤器的作用, 接下来, 先前更新后的细胞状态<span class="arithmatex">\(C_t\)</span>通过tanh激活函数处理, 将数值压缩到<span class="arithmatex">\(-1\)</span>和<span class="arithmatex">\(1\)</span>之间, 这一步使得数据更加稳定, 更适合下一步的计算, 然后, 将值和<span class="arithmatex">\(o_t\)</span>主元素相乘, 得到最终的输出结果.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/32e6c2c33a7da26cfd4cf1f64fd1f5c1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/32e6c2c33a7da26cfd4cf1f64fd1f5c1.png" width="250" /></a></p>
-</figure>
+<p>虽然新的Transformer模型层出不穷, 它们采用不同的预训练目标, 在不同的数据集上进行训练, 但是依然可以按照模型结构将它们大致分为三类:</p>
+<ul>
+<li>纯Encoder模型, 例如BERT, 又称为自编码(auto-encoding)Transformer模型</li>
+<li>纯Decoder模型, 例如GPT, 又称为自回归(auto-regressive)Transformer模型</li>
+<li>Encoder-Decoder模型, 例如BART, T5, 又称Seq2Seq(sequence-to-sequence)Transformer模型</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 <a href="https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82">https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -1484,7 +1234,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月23日</span>
   </span>
 
     
@@ -1494,7 +1244,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月19日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月23日</span>
   </span>
 
     
@@ -1515,11 +1265,6 @@
         <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
           
           <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
-        </a>
-      
-        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
-          
-          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
         </a>
       
       
