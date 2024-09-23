@@ -118,6 +118,37 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 上图中, 有两个嵌入向量$x_1$和$x_2$, $x_1$和$W^Q$权重矩阵做乘法得到Query向量$q_1$, ... 那么什么是Query, Key, Value呢? 它们本质上都是向量, 为了帮助我们更好的理解自注意力被抽象为三个名字, 往下面读, 你就会知道它们扮演什么角色.
 
+#### 计算注意力分数
+
+第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力. 
+
+这些分数, 是通过计算Thinking对应的Query向量和其他位置每个词的Key向量的点积得到的. 如果我们计算句子中第一个位置单词的Attension Score, 那么第一个分数就是$q_1$和$k_1$的点积, 第二个分数就是$q_1$和$k_2$的点积.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/f64cbdcf1d883ede36b26067e34f4e3e.png){ loading=lazy width='500' }
+</figure>
+
+第三步是把每个分数除以$8$(论文中Key向量的维度$64$开方得到的), 这一步是为了得到更稳定的梯度.
+
+第四步是把这些分数送到Softmax函数, 可以将这些分数归一化, 使得所有的分数加起来等于$1$.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/03d0a60b60a0a28f52ed903c76bb9a22.png){ loading=lazy width='500' }
+<!-- <figcaption>第四步</figcaption> -->
+</figure>
+
+这些分数决定了编码当前位置的词, 即Thinking的时候, 对所有位置的词分别有多少的注意力. 很明显, 在上图的例子中, 当前位置的词Thinking对自己有最高的注意力$0.88$, 但有时, 关注其他位置上的词也很有用.
+
+第五步是得到每个位置的分数后, 将每个分数和每个Value向量相乘, 这种做法背后的直觉理解是: 对于分数高的位置, 相乘后的值就越大, 我们把更多的注意力放到了它们的身上; 对于分数低的位置, 相乘后的值就越小, 这些位置的词可能相关性是不大的, 这样我们就忽略了这些位置的词.
+
+第六步是把上一步得到的向量相加, 就得到了自注意力层在这个位置即Thinking的输出. 
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png){ loading=lazy width='500' }
+</figure>
+
+上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.
+
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
 [^3]: 细节拉满，全网最详细的Transformer介绍（含大量插图）！. (不详). 知乎专栏. 取读于 2024年9月23日, 从 https://zhuanlan.zhihu.com/p/681532180
