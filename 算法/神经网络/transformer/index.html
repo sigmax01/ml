@@ -1149,6 +1149,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用矩阵计算自注意力
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1267,6 +1276,15 @@
   <a href="#%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0" class="md-nav__link">
     <span class="md-ellipsis">
       计算注意力分数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用矩阵计算自注意力
     </span>
   </a>
   
@@ -1416,6 +1434,15 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" width="500" /></a></p>
 </figure>
 <p>上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.</p>
+<h4 id="%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B">使用矩阵计算自注意力<a class="headerlink" href="#%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B" title="Permanent link">&para;</a></h4>
+<p>注意这里涉及到多头注意力机制, 不懂的可以先看下面. 第一步是计算Query, Key, Value矩阵, 首先, 我们把嵌入向量放到一个矩阵<span class="arithmatex">\(X\)</span>中, 然后分别和<span class="arithmatex">\(3\)</span>个权重相乘, 得到Query, Key, Value矩阵, <span class="arithmatex">\(W^Q, W^K, W^V\)</span>是我们通过训练得到的.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" width="400" /></a></p>
+</figure>
+<p>接着, 由于我们使用了矩阵计算, 我们可以把上面的第二步和第六步压缩为一步, 直接得到输出.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" width="400" /></a></p>
+</figure>
 <div class="footnote">
 <hr />
 <ol>

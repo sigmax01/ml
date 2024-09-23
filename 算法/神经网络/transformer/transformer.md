@@ -149,6 +149,20 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.
 
+#### 使用矩阵计算自注意力
+
+注意这里涉及到多头注意力机制, 不懂的可以先看下面. 第一步是计算Query, Key, Value矩阵, 首先, 我们把嵌入向量放到一个矩阵$X$中, 然后分别和$3$个权重相乘, 得到Query, Key, Value矩阵, $W^Q, W^K, W^V$是我们通过训练得到的.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png){ loading=lazy width='400' }
+</figure>
+
+接着, 由于我们使用了矩阵计算, 我们可以把上面的第二步和第六步压缩为一步, 直接得到输出.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png){ loading=lazy width='400' }
+</figure>
+
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
 [^3]: 细节拉满，全网最详细的Transformer介绍（含大量插图）！. (不详). 知乎专栏. 取读于 2024年9月23日, 从 https://zhuanlan.zhihu.com/p/681532180
