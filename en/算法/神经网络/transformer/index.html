@@ -1131,7 +1131,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F" class="md-nav__link">
+  <a href="#计算三个向量" class="md-nav__link">
     <span class="md-ellipsis">
       计算Query, Key, Value向量
     </span>
@@ -1193,6 +1193,15 @@
   <a href="#%E8%A7%A3%E7%A0%81%E5%99%A8" class="md-nav__link">
     <span class="md-ellipsis">
       解码器
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E7%BA%BF%E6%80%A7%E5%B1%82%E5%92%8Csoftmax%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性层和Softmax层
     </span>
   </a>
   
@@ -1293,7 +1302,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F" class="md-nav__link">
+  <a href="#计算三个向量" class="md-nav__link">
     <span class="md-ellipsis">
       计算Query, Key, Value向量
     </span>
@@ -1355,6 +1364,15 @@
   <a href="#%E8%A7%A3%E7%A0%81%E5%99%A8" class="md-nav__link">
     <span class="md-ellipsis">
       解码器
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E7%BA%BF%E6%80%A7%E5%B1%82%E5%92%8Csoftmax%E5%B1%82" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性层和Softmax层
     </span>
   </a>
   
@@ -1469,7 +1487,7 @@
 </figure>
 <p>如上图, 当我们在第五层编码器(即最后一层编码器)编码it的时候, 有相当一部分的注意力集中在The animal上, 把这两个单词的信息融合到了it这个单词中.</p>
 <p>下面我们来看如何使用向量来计算自注意力, 然后再看如何使用矩阵来实现自注意力.</p>
-<h3 id="%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F">计算Query, Key, Value向量<a class="headerlink" href="#%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F" title="Permanent link">&para;</a></h3>
+<h3 id="计算三个向量">计算Query, Key, Value向量<a class="headerlink" href="#计算三个向量" title="Permanent link">&para;</a></h3>
 <p>计算自注意力的第一步是, 对输入编码器的每个向量, 都创建三个向量, 分别是Query向量, Key向量, Value向量. 这三个向量是向量分别和三个矩阵相乘得到的, 这三个矩阵就是我们要学习的参数. 注意到这些新的向量比向量的维度更小, 如, 若编码器的输入/输出的向量的维度是<span class="arithmatex">\(512\)</span>, 则新的三个向量的维度是<span class="arithmatex">\(64\)</span>. 虽然在这里选用<span class="arithmatex">\(64\)</span>, 但是这并不是必须的, 选择较小维度主要是为了优化计算效率, 尤其是在多头注意力(后面会讲)的计算过程中.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" width="500" /></a></p>
@@ -1581,8 +1599,15 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/dce969fd736d3fc3535cc1222bceab2d.gif" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/dce969fd736d3fc3535cc1222bceab2d.gif" width="600" /></a></p>
 </figure>
-<p>解码器中的自注意力层和编码器中的自注意力层不太一样, 在解码器里面, 自注意力层只允许关注输出序列中早于当前位置的单词(后面的单词还没有生成...), 具体的做法是, 在自注意力层的分数经过Softmax层之前, 屏蔽当前位置之后的那些位置.</p>
+<p>解码器中的自注意力层和编码器中的自注意力层不太一样, 在解码器里面, 自注意力层只允许关注输出序列中早于当前位置的单词(后面的单词还没有生成...), 具体的做法是, 在自注意力层的分数经过Softmax层(注意这里的Softmax不是指最终的解码器经过的Softmax层, 是在计算自注意力的时候的Softmax层, 详情见<a href="#计算三个向量">这里</a>)之前, 屏蔽当前位置之后的那些位置.</p>
 <p>编码器-解码器注意力层的原理和<a href="#多头注意力机制">多头注意力机制</a>类似, 不同之处是, 编码器-解码器注意力层使用的是前一层解码器的输出来构造Query矩阵, 而Key矩阵和Value矩阵来自于解码器的最终输出.</p>
+<h2 id="%E7%BA%BF%E6%80%A7%E5%B1%82%E5%92%8Csoftmax%E5%B1%82">线性层和Softmax层<a class="headerlink" href="#%E7%BA%BF%E6%80%A7%E5%B1%82%E5%92%8Csoftmax%E5%B1%82" title="Permanent link">&para;</a></h2>
+<p>解码器在每个时间步的输出是一个向量, 其中的每个元素都是浮点数, 那么我们怎么把这个向量转化为单词呢? 这就是由线性层和后面的Softmax层来实现的.</p>
+<p>线性层是一个普通的全连接神经网络, 可以把解码器输出的向量映射到一个更长的的向量, 这个向量被称为logits向量. 假设我们的模型认识<span class="arithmatex">\(10000\)</span>个唯一的英文单词, 那么logits向量的维度就是<span class="arithmatex">\(10000\)</span>, 每个数表示一个单词的分数. </p>
+<p>然后, Softmax层会把这些分数转换为概率, 把所的分数转换为正数, 并且加起来等于<span class="arithmatex">\(1\)</span>. 然后选择最高概率的那个数字对应的词, 就是这个时间步的输出单词.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png" width="500" /></a></p>
+</figure>
 <div class="footnote">
 <hr />
 <ol>
@@ -1647,14 +1672,14 @@
     
     <nav>
       
-        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
-          
-          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
-        </a>
-      
         <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
           
           <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
+        </a>
+      
+        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
+          
+          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
         </a>
       
       
