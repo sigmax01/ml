@@ -60,7 +60,7 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 ![](https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png){ loading=lazy width='500' }
 </figure>
 
-解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码-解码注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码-解码注意力层用于参考/关注编码器输入序列的编码表示. 
+解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码器-解码器注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码器-解码器注意力层用于参考/关注编码器输入序列的编码表示. 
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png){ loading=lazy width='600' }
@@ -256,13 +256,31 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 可以看到, 在自注意力中, 输入的嵌入向量$x_1$和$x_2$经过自注意力机制处理后, 生成新的表示$z_1$和$z_2$, 残差连接会将输入的$x_1$和$x_2$直接与自注意力的输出$z_1$和$z_2$相加. 然后, 经过层归一化, 这一过程的输出将进一步被传递给前馈神经网络.
 
-在解码器的子层里面也有层标准化, 假设一个Transformer是由$2$层编码器和$2$层解码器组成的, 如下图所示.
+解码器的子层里面也有层标准化, 假设Transformer是由$2$层编码器和$2$层解码器组成的, 如下图所示.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png){ loading=lazy width='600' }
 </figure>
 
 ## 解码器
+
+我们已经了解了解码器中的大部分概念, 现在我们来看一下, 编码器和解码器是如何协同工作的.
+
+编码器的输出会进一步被处理为Key矩阵和Value注意力矩阵, 这些向量将在解码器的编码器-解码器注意力层中使用, 帮助解码器在生成输出的时候关注输入序列的相关部分.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/0973bef4fa0892557b1049e436f097e7.gif){ loading=lazy width='600' }
+</figure>
+
+解码阶段的每个时间步都会输出一个翻译后的单词. 重复这个过程, 知道输出一个结束符, 就完成了所有输出. 解码器每一步的输出都会在下一个时间步输入到第一个解码器. 正如对编码器的输入所做的处理, 我们把解码器的输入向量, 也加上位置编码向量, 来表示每一个词的位置.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/dce969fd736d3fc3535cc1222bceab2d.gif){ loading=lazy width='600' }
+</figure>
+
+解码器中的自注意力层和编码器中的自注意力层不太一样, 在解码器里面, 自注意力层只允许关注输出序列中早于当前位置的单词(后面的单词还没有生成...), 具体的做法是, 在自注意力层的分数经过Softmax层之前, 屏蔽当前位置之后的那些位置.
+
+编码器-解码器注意力层的原理和[多头注意力机制](#多头注意力机制)类似, 不同之处是, 编码器-解码器注意力层使用的是前一层解码器的输出来构造Query矩阵, 而Key矩阵和Value矩阵来自于解码器的最终输出.
 
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/

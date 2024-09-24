@@ -1440,7 +1440,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png" width="500" /></a></p>
 </figure>
-<p>解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码-解码注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码-解码注意力层用于参考/关注编码器输入序列的编码表示. </p>
+<p>解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码器-解码器注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码器-解码器注意力层用于参考/关注编码器输入序列的编码表示. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" width="600" /></a></p>
 </figure>
@@ -1567,11 +1567,22 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/b831c7d0981cae1f9e0127c27d1e5391.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b831c7d0981cae1f9e0127c27d1e5391.png" width="400" /></a></p>
 </figure>
 <p>可以看到, 在自注意力中, 输入的嵌入向量<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>经过自注意力机制处理后, 生成新的表示<span class="arithmatex">\(z_1\)</span>和<span class="arithmatex">\(z_2\)</span>, 残差连接会将输入的<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>直接与自注意力的输出<span class="arithmatex">\(z_1\)</span>和<span class="arithmatex">\(z_2\)</span>相加. 然后, 经过层归一化, 这一过程的输出将进一步被传递给前馈神经网络.</p>
-<p>在解码器的子层里面也有层标准化, 假设一个Transformer是由<span class="arithmatex">\(2\)</span>层编码器和<span class="arithmatex">\(2\)</span>层解码器组成的, 如下图所示.</p>
+<p>解码器的子层里面也有层标准化, 假设Transformer是由<span class="arithmatex">\(2\)</span>层编码器和<span class="arithmatex">\(2\)</span>层解码器组成的, 如下图所示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png" width="600" /></a></p>
 </figure>
 <h2 id="%E8%A7%A3%E7%A0%81%E5%99%A8">解码器<a class="headerlink" href="#%E8%A7%A3%E7%A0%81%E5%99%A8" title="Permanent link">&para;</a></h2>
+<p>我们已经了解了解码器中的大部分概念, 现在我们来看一下, 编码器和解码器是如何协同工作的.</p>
+<p>编码器的输出会进一步被处理为Key矩阵和Value注意力矩阵, 这些向量将在解码器的编码器-解码器注意力层中使用, 帮助解码器在生成输出的时候关注输入序列的相关部分.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/0973bef4fa0892557b1049e436f097e7.gif" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0973bef4fa0892557b1049e436f097e7.gif" width="600" /></a></p>
+</figure>
+<p>解码阶段的每个时间步都会输出一个翻译后的单词. 重复这个过程, 知道输出一个结束符, 就完成了所有输出. 解码器每一步的输出都会在下一个时间步输入到第一个解码器. 正如对编码器的输入所做的处理, 我们把解码器的输入向量, 也加上位置编码向量, 来表示每一个词的位置.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/dce969fd736d3fc3535cc1222bceab2d.gif" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/dce969fd736d3fc3535cc1222bceab2d.gif" width="600" /></a></p>
+</figure>
+<p>解码器中的自注意力层和编码器中的自注意力层不太一样, 在解码器里面, 自注意力层只允许关注输出序列中早于当前位置的单词(后面的单词还没有生成...), 具体的做法是, 在自注意力层的分数经过Softmax层之前, 屏蔽当前位置之后的那些位置.</p>
+<p>编码器-解码器注意力层的原理和<a href="#多头注意力机制">多头注意力机制</a>类似, 不同之处是, 编码器-解码器注意力层使用的是前一层解码器的输出来构造Query矩阵, 而Key矩阵和Value矩阵来自于解码器的最终输出.</p>
 <div class="footnote">
 <hr />
 <ol>
