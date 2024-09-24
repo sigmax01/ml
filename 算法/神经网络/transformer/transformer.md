@@ -314,6 +314,32 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 ## 损失函数
 
+假设我们正在训练模型, 并且是训练周期的第一步, 目标是把"merci"翻译为"thanks". 这意味着我们希望模型的最终输出的概率分布, 会指向"thanks", 表示这个词的可能性最高, 但是鉴于我们的模型还没有训练好, 它输出的概率分布可能和我们希望的概率分布相差甚远.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/74bf8db4543d6187960ee3cea18e1703.png){ loading=lazy width='500' }
+</figure>
+
+由于模型的参数都是随机初始化的. 第一步模型在每个词输出的概率都是随机的. 我们可以把这个概率和正确的概率做对比, 然后使用反向传播来调整模型的权重, 使得输出的概率分布更加接近真实输出. 
+
+那么要怎么比较两个概率分布, 我们可以借助信息论的工具, 详情见[交叉熵](https://gk.ricolxwz.de/信息论/什么是信息/#交叉熵)和[KL散度](https://gk.ricolxwz.de/信息论/什么是信息/#KL散度).
+
+但是注意我们这是一个过度简化的例子. 现实来说, 我们会翻译一个句子, 而不是一个词. 例如, 输入是"je suis étudiant", 期望输出是"i am a student". 这意味着, 我们模型需要输出多个概率分布, 满足如下条件:
+
+- 每个概率分布都是一个向量, 长度是词汇表的大小(在我们的例子中是$6$, 实际中是$30000$, ...)
+- 第一个概率分布中, 最高概率对应的单词是"i"
+- 第二个概率分布中, 最高概率对应的单词是"am"
+- 依此类推, 直到第$5$个概率分布中, 最高概率对应的单词是"<eos\>"表示没有单词了
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/cb2581e2f1b3f673f0e1b53e2c100a26.png){ loading=lazy width='500' }
+</figure>
+
+我们使用例子中的句子训练模型, 希望产生如上图所示的概率分布(最佳, 理想状态, 实际上很难达到), 我们的模型在一个足够大的数据集上, 经过长时间的训练后, 可能产生的概率分布如下图所示.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/3c8ce3f741d432fcadf75c93d13a20a5.png){ loading=lazy width='500' }
+</figure>
 
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
