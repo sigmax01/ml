@@ -1290,9 +1290,9 @@
 <li>已省略例子边框</li>
 </ul>
 </details>
-<h2 id="_1">动机<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">动机</h2>
 <p>有一些机器学习算法的样本可能包含成百上千个特征. 这就会导致训练时候的维度很高, 进而导致训练速度变慢, 不可靠的分类(样本在高维空间的分布非常稀疏), 过拟合, 不易于解释, 无法可视化(人类只能翻译低维数据, 最高<span class="arithmatex">\(3\)</span>维). 并且不是所有的特征对于结果都是重要的, 需要的是找到一小个必须的, 充分的特征子集以进行分类. 降维就是一个除去多余的, 重复的特征并减少噪音的过程.</p>
-<h2 id="pca">PCA<a class="headerlink" href="#pca" title="Permanent link">&para;</a></h2>
+<h2 id="pca">PCA</h2>
 <p>Principle Component Analysis (PCA), 主成分分析, 是一种最人们的降维方法, 又被称为特征投影方法. 主要思想是找到一个当前维度的子维度, 然后将数据投影到新的维度上. 新的维度对应的训练集(投影)可以被用作机器学习算法的输入用于训练模型.  </p>
 <p>现在, 我们来看一个例子, 请解答, 下列数据沿着哪根轴的离散程度最大, <span class="arithmatex">\(X\)</span>还是<span class="arithmatex">\(Y\)</span>?</p>
 <figure>
@@ -1313,7 +1313,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/369b36dea39de9c2e6a317ede6bdc7e7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/369b36dea39de9c2e6a317ede6bdc7e7.png" width="500" /></a></p>
 </figure>
-<h3 id="pc">确定PC的数量<a class="headerlink" href="#pc" title="Permanent link">&para;</a></h3>
+<h3 id="pc">确定PC的数量</h3>
 <p>由于所有的主成分都是正交的, 所以彼此之间是不相关的, 因此这些主成分之间的方差满足<span class="arithmatex">\(Var(X+Y)=Var(X)+Var(Y)\)</span>, 即样本的总方差等于所有主成分的方差之和.</p>
 <p>那么, 我们怎么选择需要多少的主成分呢? 是一个? 两个? 还是<span class="arithmatex">\(m-1\)</span>个? 主要的方法有两种:</p>
 <ol>
@@ -1325,7 +1325,7 @@
 </figure></p>
 </li>
 </ol>
-<h3 id="pc_1">确定PC<a class="headerlink" href="#pc_1" title="Permanent link">&para;</a></h3>
+<h3 id="pc_1">确定PC</h3>
 <p>我们可以通过奇异值分解, Singular Value Decomposition, SVD确定PC. 它是一种标准的矩阵分解方法, 能够进行坐标系的变换. 具体来说, 任何一个<span class="arithmatex">\(n\times m(n\geq m)\)</span>的矩阵<span class="arithmatex">\(\bm{X}\)</span>可以被分解为三个矩阵的乘积: <span class="arithmatex">\(\bm{X}=\bm{U}\times \bm{\Lambda} \times \bm{V^T}\)</span>, 其中:</p>
 <ul>
 <li><span class="arithmatex">\(\bm{U}\)</span>: 这是一个<span class="arithmatex">\(n\times m\)</span>的正交矩阵</li>
@@ -1341,7 +1341,7 @@
 </ul>
 <p>经过分解后, 原始样本数据可以被写为<span class="arithmatex">\(\bm{X}=\lambda_1\bm{u_1}\bm{v_1}^T+\lambda_2\bm{u_2}\bm{v_2}^T+...+\lambda_m\bm{u_m}\bm{v_m}^T\)</span>, 其中, <span class="arithmatex">\(\bm{v_1}\)</span>, <span class="arithmatex">\(\bm{v_2}, ..., \bm{v_m}\)</span>对应的就是第<span class="arithmatex">\(1\)</span>到第<span class="arithmatex">\(m\)</span>主成分. 对于降维操作来说, 我们只需要其中的<span class="arithmatex">\(k(k&lt;m)\)</span>个主成分, 所以<span class="arithmatex">\(\bm{X}_{reduced}=\lambda_1\bm{u_1}\bm{v_1}^T+\lambda_2\bm{u_2}\bm{v_2}^T+...+\lambda_k\bm{u_k}\bm{v_k}^T\)</span> </p>
 <p>可以在<a href="https://img.ricolxwz.io/a2a0de53ba8ad8088723f59d956c980c.png">这里</a>找到一个例子.</p>
-<h4 id="_2">压缩<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<h4 id="_2">压缩</h4>
 <p>举一个灰度图像压缩的例子. 对于一张没有压缩的灰度图像, 有<span class="arithmatex">\(n\times m\)</span>像素, 在未压缩之前, 我们需要存储<span class="arithmatex">\(n\times m\)</span>个整数. </p>
 <p>现在, 我们进行压缩. 我们会取前<span class="arithmatex">\(k\)</span>个主成分, 我们需要存储:</p>
 <ul>

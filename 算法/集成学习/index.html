@@ -1347,7 +1347,7 @@
 </details>
 <p>传统的机器学习算法(如决策树, 人工神经网络, 支持向量机, 朴素贝叶斯等)的目标都是寻找一个最优分类器尽可能将训练数据分开. 集成学习, Ensemble Learning算法的基本思想就是将多个分类器组合, 从而实现一个预测效果更好的集成分类器. 集成算法可以描述为: "三个臭皮匠, 赛过诸葛亮".</p>
 <p>集成算法大致上可以分为: Bagging, Boosting和Stacking等类型.</p>
-<h2 id="_1">为何要集成学习<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">为何要集成学习</h2>
 <p>使用集成学习具有很多优势:</p>
 <ul>
 <li>统计上的优势: 一个学习算法可以理解为在一个假设空间中找到一个最好的假设(假设空间是指所有可能的模型或者假设的集合). 但是, 当训练样本的数据量小到不够用来准确的学习到目标假设的时候, 学习算法可以找到很多满足训练样本的分类器. 所以, 学习算法选择任何一个分类器都会面临一定错误预测的风险, 因此将多个假设集成起来可以降低错误分类器的风险</li>
@@ -1370,14 +1370,14 @@
 <li>基分类器的错误率要低, 对于二元分类器来说, 至少至少你要比随机乱猜要好</li>
 <li>基分类器之间必须相互独立, 在实践中, 我们无法做到每个基分类器的所有训练样本都是不同的, 即我们无法做到基分类器之间的完全独立. 事实上, 经验表明, 当基分类器之间有轻微关联的时候, 往往得到的集成学习模型效果会更好</li>
 </ul>
-<h2 id="_2">构建集成学习模型的方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">构建集成学习模型的方法</h2>
 <p>构建学习模型本质上是要产生不同的, 尽量没有依赖的基分类器. 这个可以通过以下几种方式实现:</p>
 <ul>
 <li>操纵训练数据: 通过抽样产生不同的训练数据/或同一份数据但是样本不同权重用于训练模型, 典型的集成学习模型有Bagging和Boosting</li>
 <li>操作属性: 通过使用总体属性的子属性集用于训练模型, 典型的集成学习模型有随机森林, Random Subspace</li>
 <li>... 待添加</li>
 </ul>
-<h2 id="bagging">Bagging<a class="headerlink" href="#bagging" title="Permanent link">&para;</a></h2>
+<h2 id="bagging">Bagging</h2>
 <p>Bagging(Bootstrap Aggregating)由Breimam于1996年提出, 基本思想如下:</p>
 <ol>
 <li>每次采用有放回的抽样从训练集中取出<span class="arithmatex">\(n\)</span>个样本组成新的训练集</li>
@@ -1395,7 +1395,7 @@
     <a class="glightbox" href="https://img.ricolxwz.io/e4f4fae640b9d7fb6ab55027f1753911.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/e4f4fae640b9d7fb6ab55027f1753911.png" style="width: 500px;"/></a>
 </div>
 
-<h2 id="_3">随机森林<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">随机森林</h2>
 <p>随机森林(Random Forests)是一种利用决策树作为基分类器的Bagging集成学习算法. 随机森林的构建过程如下:</p>
 <ol>
 <li>
@@ -1407,7 +1407,7 @@
 <p>每次根据采样得到的数据和特征构建一颗决策树. 在构建决策树的过程中, 会让决策树生长完全不进行预剪枝. 构建出的若干棵决策树组成了最终的随机森林. 预测的方法同Bagging. </p>
 </li>
 </ol>
-<h2 id="boosting">Boosting<a class="headerlink" href="#boosting" title="Permanent link">&para;</a></h2>
+<h2 id="boosting">Boosting</h2>
 <p>Boosting是一种提升算法, 可以将弱的学习算法提升为强的学习算法. 基本思想如下:</p>
 <ol>
 <li>初始训练: 首先, 从初始训练数据集训练一个基分类器(如决策树, 线性模型等). 这个基分类器可能并不完美, 但是它会对大多数样本做出合理的预测</li>
@@ -1415,7 +1415,7 @@
 <li>迭代训练: 在每一轮中, 利用调整后的样本权重训练新的基分类器. 这个过程会重复多次, 每次都会生成一个新的分类器, 并且每个新的分类器都试图修正前一个分类器的错误</li>
 <li>组合结果: 最终, 将所有的基分类器的结果进行组合. 对于分类问题, 采用有权重的投票方式来决定最终的分类结果; 对于回归问题, 采用甲醛平均的方式得到最终的预测值. 权重的分配依据每个基分类器的准确性, 表现好的分类器会获得更大的权重</li>
 </ol>
-<h3 id="adaboost">Adaboost<a class="headerlink" href="#adaboost" title="Permanent link">&para;</a></h3>
+<h3 id="adaboost">Adaboost</h3>
 <p>Adaboost由Freund和Schapire在1996年发明.</p>
 <p>Adaboost是Boosting的经典实现之一. 它的每一个训练样本都带有一个权重, 权重越高, 说明先前的基分类器在预测它的时候错误率较高, 表示这个样本“较难”预测. 这个样本在下一个新训练集中出现的可能性较高(出现的次数可能会多). 最终, 在所有基分类器结果组合的时候, 是非民主投票, 也就是说, 错误率小的分类器的投票权更大, 权重更高. </p>
 <p>可以用图表表示:</p>
@@ -1506,7 +1506,7 @@
 <a class="glightbox" href="https://img.ricolxwz.io/8062d0815ee0c39a7e4b92df8079183a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://img.ricolxwz.io/8062d0815ee0c39a7e4b92df8079183a.png" style="width: 650px"/></a>
 </div>
 
-<h4 id="_4">原理<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<h4 id="_4">原理</h4>
 <p>Adaboost最小化分类错误的损失函数. 假设我们现在有一个分类器<span class="arithmatex">\(h(x)=sign[f(x)]\)</span>, 如果<span class="arithmatex">\(f(x)&gt;0\)</span>, 则<span class="arithmatex">\(h(x)=1\)</span>; 如果<span class="arithmatex">\(f(x)&lt;0\)</span>, 则<span class="arithmatex">\(h(x)=-1\)</span>. 这里的<span class="arithmatex">\(f(x)\)</span>指的就是集成学习加权投票的值, 即<span class="arithmatex">\(f(x)=\sum_{t=1}^T \beta_th_t(x)\)</span>, 经过取符号<span class="arithmatex">\(sign()\)</span>之后就得到最终结果.</p>
 <p>一种比较自然的损失函数为0-1损失函数, 即如果<span class="arithmatex">\(yf(x)&gt;0\)</span>, 就是<span class="arithmatex">\(f(x)\)</span>和<span class="arithmatex">\(y\)</span>的符号相同, 则<span class="arithmatex">\(\ell(h(x), y)=0\)</span>; 如果<span class="arithmatex">\(yf(x)&lt;0\)</span>, 就是<span class="arithmatex">\(f(x)\)</span>和<span class="arithmatex">\(y\)</span>的符号不同, 则<span class="arithmatex">\(\ell(h(x), y)=1\)</span>. 但是这种函数不是凸的, 也就是说局部最小值不是全局最小值, 可能存在多个局部最小值, 这增加了找到全局最优解的难度. 所以, 我们一般使用一个代理损失函数, 如指数损失函数<span class="arithmatex">\(\ell^{EXP}(h(x),y)=e^{-yf(x)}\)</span>. 这个函数的图像如下:</p>
 <figure>
@@ -1523,7 +1523,7 @@
 </ul>
 <p>总结, <span class="arithmatex">\((h^*_t(x), \beta^*_t)=argmin_{(h_t(x), \beta_t)}(e^{\beta_t}-e^{-\beta_t})\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]+e^{-\beta_t}\sum_n w_t(n)\)</span>. 之前我们说过, <span class="arithmatex">\(w_t(n)=e^{-y_nf_{t-1}(x_n)}\)</span>, <span class="arithmatex">\(y_n\)</span>是第<span class="arithmatex">\(n\)</span>个样本的真实标签, <span class="arithmatex">\(f_{t-1}(x_n)\)</span>是第<span class="arithmatex">\(t-1\)</span>轮所有弱分类器加权投票后的值, 可以看出<span class="arithmatex">\(\sum_n w_t(n)\)</span>这一部分其实等于<span class="arithmatex">\(1\)</span>(因为在<span class="arithmatex">\(t-1\)</span>轮结束之前会对所有的样本权重进行归一化处理), 和选择<span class="arithmatex">\(h_t(x)\)</span>是没有关系的. 所以<span class="arithmatex">\(h^*_t(x)=argmin_{h_t(x)}\epsilon_t=\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]\)</span>, 正好对应于Adaboost算法的第3.1步. 细心的同学可能会发现, 那<span class="arithmatex">\(\beta_t\)</span>不是和这个损失函数也有关系吗? 不错, 是有关系, 但是我们首先选择的是最佳的<span class="arithmatex">\(h^*_t(x)\)</span>, 然后才选择最佳的<span class="arithmatex">\(\beta_t\)</span>. 我们可以通过损失函数对<span class="arithmatex">\(\beta_t\)</span>求导, 令其等于<span class="arithmatex">\(0\)</span>, 从而求解最优的<span class="arithmatex">\(\beta_t\)</span>, 可以解出<span class="arithmatex">\(\beta^*_t=\frac{1}{2}\log\frac{1-\epsilon_t}{\epsilon_t}\)</span>, 正好对应于Adaboost算法的第3.2步. </p>
 <p>当我们求出最优的弱分类器和它的权重之后, 我们就可以更新分类器<span class="arithmatex">\(f(x)=f_{t-1}(x)+\beta^*_t h_t^*(x)\)</span>. 第<span class="arithmatex">\(n\)</span>个样本的权重<span class="arithmatex">\(w_{t+1}(n)\propto e^{-y_nf(x_n)}=e^{-y_n[f_{t-1}(x)+\beta^*_t h^*_t(x_n)]}=w_t(n)e^{-y_n\beta^*_th^*_t(x_n)}\)</span>, 然后对其进行归一化处理. 从而, 分类错误的样本它的权重会增加, 分类正确的样本它的权重会减少.</p>
-<h4 id="_5">元算法<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<h4 id="_5">元算法</h4>
 <p>Adaboost是一种元算法. 因为它并不具体规定我们应该如何获取最优的弱分类器<span class="arithmatex">\(h^*_t(x)\)</span>. 它只关心在每一轮中, 我们选择的弱分类器能够最小化<span class="arithmatex">\(\epsilon_t=\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]\)</span>. 换句话说, 任何一种能够达到这一目标的分类器方法都可以被用于Adaboost中, 无论是决策树, 朴素贝叶斯, 支持向量机等, 都可以被作为Adaboost的弱分类器使用.</p>
 <div class="footnote">
 <hr />

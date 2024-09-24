@@ -1279,7 +1279,7 @@
 <li>Jupyter Notebook练习: <a href="https://github.com/ricolxwz/ml/blob/master/docs/%E7%AE%97%E6%B3%95/KNN.ipynb">https://github.com/ricolxwz/ml/blob/master/docs/%E7%AE%97%E6%B3%95/KNN.ipynb</a></li>
 </ul>
 </details>
-<h2 id="_1">背景<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">背景</h2>
 <p>给定一组含有标签的记录.</p>
 <table>
 <thead>
@@ -1398,16 +1398,16 @@
 <li>1列标签: play</li>
 </ul>
 <p>任务就是开发一个模型, 这个模型能够基于给出的新的属性值来判断play的类型. 用于开发模型的记录集被称为训练集. 为了能够衡量模型的性能, 需要一组测试数据, 这组测试数据是不参与开发模型的, 它也是带有标签的. </p>
-<h2 id="1-">1-最邻近算法<a class="headerlink" href="#1-" title="Permanent link">&para;</a></h2>
+<h2 id="1-">1-最邻近算法</h2>
 <p>记住所有的训练样本. 通过<a href="/算法/预处理/#相似性测量">距离测量</a>得到离新样本(不含有标签)距离最近的样本, 这个样本的标签将会是新样本的预测标签. </p>
 <p>这个算法的边界可以参考Voronoi图(在计算机图形学中是一大章内容).</p>
-<h3 id="_2">复杂度<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_2">复杂度</h3>
 <p>没有建立模型, 只是存储了训练样本. 将每个未见过的样本和训练样本进行比较, 假设有m个已知训练样本, 每个训练样本为n维, 则查找每一个未见过的训练样本的时间复杂度是O(mn). </p>
 <p>对于大量的数据来说, 这个算法的效率不行. 但是也可以借助一些数据结构像是KD树或者是Ball树提高算法的效率.</p>
-<h2 id="k-">k-最邻近算法<a class="headerlink" href="#k-" title="Permanent link">&para;</a></h2>
+<h2 id="k-">k-最邻近算法</h2>
 <p>使用1个最近的训练样本来预测未知样本的标签的算法称为1-邻近算法, 使用k个最近的训练样本预测未知样本的标签的算法称为k-最邻近算法, 即KNN. </p>
 <p>k-最邻近算法对于k的值非常敏感, 经验法则为<span class="arithmatex">\(k\leq \sqrt{训练集}\)</span>, 商业的包一般使用的k是10. 参考更多的邻近样本能够增强抗干扰能力. K最邻近算法不仅用于分类, 还能用于回归. k-最邻近算法的结果基于k个最邻近样本的标签的均值.</p>
-<h2 id="_3">加权最邻近算法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">加权最邻近算法</h2>
 <p>这个算法的思想是离未知样本更近的训练样本的权值应该更大. </p>
 
 
