@@ -1676,6 +1676,9 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/3c8ce3f741d432fcadf75c93d13a20a5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/3c8ce3f741d432fcadf75c93d13a20a5.png" width="500" /></a></p>
 </figure>
+<p>在测试时, 如果你要翻译的句子是训练集中的一部分, 那输出的结果不能说明什么. 我们希望的是模型在没见过的句子上也能给出准确地翻译. 注意, 概率分布向量中, 每个位置都会有一点概率, 即使这个位置不是输出对应的单词, 这是Softmax中一个很有用的特性, 有助于训练过程. </p>
+<p>这种方法叫作贪心解码, greedy decoding, 在每个时间步, 模型会选择当前概率最高的单词作为输出, 这种优点是速度快, 缺点是只选择当前看起来最优的单词, 可能会错误全局更好的解决方案.</p>
+<p>还有一种方法是集束搜索, 与贪心解码不同, 集束搜索会保留多个单词. 假设bean size是<span class="arithmatex">\(2\)</span>, 这意味着模型在每一步中保留两个概率最高的单词作为候选项. 例如, 生成第一个单词的时候, 它可能会选择"I"和"a", 然后在下一个时间步中, 分别基于"I"和"a"生成后续的单词, 并继续计算这些路径的总得分, 模型会根据总和得分决定哪条路径最优. 这种方法可以避免贪心解码的局部最优解问题, 因为它在每一步都保留了多条候选路径, 允许模型在更大范围内搜索可能的最优解.</p>
 <div class="footnote">
 <hr />
 <ol>
