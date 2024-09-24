@@ -294,6 +294,27 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 ![](https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png){ loading=lazy width='500' }
 </figure>
 
+## 训练过程
+
+在上面, 我们了解的是一个已经训练好的Transformer的前向传播过程. 下面会讲讲是怎么训练的. 
+
+在训练的过程中, 模型会经过上面讲的所有前向传播的步骤. 不同的是, 因为我们是在有标签的数据集上训练, 所以可以比较模型的输出和真实的标签.
+
+为了可视化, 我们假定输出词汇表只包含$6$个单词: "a", "am", "i", "thanks", "student"和"<eos\>". "<eos\>"表示句子末尾. 注意, 这个输出词汇表是在训练之前的数据预处理阶段就构造好的. 
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/16f981983e1247ef0eec0459e97b737e.png){ loading=lazy width='500' }
+</figure>
+
+构造好输出词汇表后, 我们就可以使用One-Hot编码使用相同长度的向量来表示词汇表中的一个词. 例如, 我们可以把单词"am"用下面的向量来表示.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/085330e629dc9f7d6d5e49d5f9acec9b.png){ loading=lazy width='500' }
+</figure>
+
+## 损失函数
+
+
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
 [^3]: 细节拉满，全网最详细的Transformer介绍（含大量插图）！. (不详). 知乎专栏. 取读于 2024年9月23日, 从 https://zhuanlan.zhihu.com/p/681532180
