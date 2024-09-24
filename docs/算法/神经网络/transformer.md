@@ -238,7 +238,31 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 ![](https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png){ loading=lazy width='500' }
 </figure>
 
-## 残差
+## 残差连接
+
+残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题. 
+
+在编码器的每一个子层周围, 都会有一个围绕它的残差连接还有一个层标准化.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/01883e4cf179997b19a95c3826c83215.png){ loading=lazy width='400' }
+</figure>
+
+将Add&Normalize层可视化, 可以得到.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/b831c7d0981cae1f9e0127c27d1e5391.png){ loading=lazy width='400' }
+</figure>
+
+可以看到, 在自注意力中, 输入的嵌入向量$x_1$和$x_2$经过自注意力机制处理后, 生成新的表示$z_1$和$z_2$, 残差连接会将输入的$x_1$和$x_2$直接与自注意力的输出$z_1$和$z_2$相加. 然后, 经过层归一化, 这一过程的输出将进一步被传递给前馈神经网络.
+
+在解码器的子层里面也有层标准化, 假设一个Transformer是由$2$层编码器和$2$层解码器组成的, 如下图所示.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png){ loading=lazy width='600' }
+</figure>
+
+## 解码器
 
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
