@@ -1100,10 +1100,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="架构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#%E5%BC%A0%E9%87%8F" class="md-nav__link">
     <span class="md-ellipsis">
       张量
@@ -1111,8 +1110,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#%E7%BC%96%E7%A0%81%E5%99%A8" class="md-nav__link">
     <span class="md-ellipsis">
       编码器
@@ -1120,8 +1119,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" class="md-nav__link">
     <span class="md-ellipsis">
       自注意力层
@@ -1162,8 +1161,8 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6" class="md-nav__link">
     <span class="md-ellipsis">
       多头注意力机制
@@ -1171,9 +1170,22 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81" class="md-nav__link">
+    <span class="md-ellipsis">
+      位置编码
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E6%AE%8B%E5%B7%AE" class="md-nav__link">
+    <span class="md-ellipsis">
+      残差
+    </span>
+  </a>
   
 </li>
       
@@ -1241,10 +1253,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="架构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#%E5%BC%A0%E9%87%8F" class="md-nav__link">
     <span class="md-ellipsis">
       张量
@@ -1252,8 +1263,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#%E7%BC%96%E7%A0%81%E5%99%A8" class="md-nav__link">
     <span class="md-ellipsis">
       编码器
@@ -1261,8 +1272,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" class="md-nav__link">
     <span class="md-ellipsis">
       自注意力层
@@ -1303,8 +1314,8 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6" class="md-nav__link">
     <span class="md-ellipsis">
       多头注意力机制
@@ -1312,9 +1323,22 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81" class="md-nav__link">
+    <span class="md-ellipsis">
+      位置编码
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E6%AE%8B%E5%B7%AE" class="md-nav__link">
+    <span class="md-ellipsis">
+      残差
+    </span>
+  </a>
   
 </li>
       
@@ -1402,7 +1426,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" width="600" /></a></p>
 </figure>
-<h3 id="%E5%BC%A0%E9%87%8F">张量<a class="headerlink" href="#%E5%BC%A0%E9%87%8F" title="Permanent link">&para;</a></h3>
+<h2 id="%E5%BC%A0%E9%87%8F">张量<a class="headerlink" href="#%E5%BC%A0%E9%87%8F" title="Permanent link">&para;</a></h2>
 <p>上面, 我们讲了Transformer的大致轮廓, 下面, 我们来看一下向量/张量在组件之间的流动. </p>
 <p>就如其他NLP模型一样, 我们最开始会使用<a href="https://aitutor.liduos.com/02-langchain/02-3.html">词嵌入算法, embedding algorithm</a>将类别数据(如单词或者符号)转换为连续的数值向量. 实际中向量一般是<span class="arithmatex">\(256\)</span>维或者<span class="arithmatex">\(512\)</span>维, 这里为了简化起见, 将每个词表示为一个<span class="arithmatex">\(4\)</span>维向量. </p>
 <figure>
@@ -1412,12 +1436,12 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/dbeb1331cff42a9f74fa2ff22148327f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/dbeb1331cff42a9f74fa2ff22148327f.png" width="500" /></a></p>
 </figure>
-<h3 id="%E7%BC%96%E7%A0%81%E5%99%A8">编码器<a class="headerlink" href="#%E7%BC%96%E7%A0%81%E5%99%A8" title="Permanent link">&para;</a></h3>
+<h2 id="%E7%BC%96%E7%A0%81%E5%99%A8">编码器<a class="headerlink" href="#%E7%BC%96%E7%A0%81%E5%99%A8" title="Permanent link">&para;</a></h2>
 <p>前面我们提到, 编码器会接受一个向量的列表作为输入, 它会把向量列表输入到自注意力层, 然后经过前馈神经网络层, 最后得到输出, 传入下一个编码器. 每个位置的向量都会经过自注意力层, 得到的每个输出向量都会单独经过前馈神经网络层, 每个向量经过的前馈神经网络都是一样的.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb79b0cfd8d61a555d7f654cb4022e11.png" width="500" /></a></p>
 </figure>
-<h3 id="%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82">自注意力层<a class="headerlink" href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" title="Permanent link">&para;</a></h3>
+<h2 id="%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82">自注意力层<a class="headerlink" href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82" title="Permanent link">&para;</a></h2>
 <p>别被自注意力, self attention这么高大上的词给唬住了, 但是作者在读论文<em>Attension is All You Need</em>之前就没有听说过这个词, 下面来分析一下自注意力的机制.</p>
 <p>假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired. </p>
 <p>这个句子中的it是一个代词, 那么it指的是什么呢? 是animal还是street? 这个问题对人来说是简单的, 但是对机器来说不是那么容易, 当处理it的时候, 自注意力机制能够让it和animal关联起来. 即当处理每一个词的时候, 自注意力机制能够查找在输入序列中其他的能够让当前词编码更优的词.</p>
@@ -1427,13 +1451,13 @@
 </figure>
 <p>如上图, 当我们在第五层编码器(即最后一层编码器)编码it的时候, 有相当一部分的注意力集中在The animal上, 把这两个单词的信息融合到了it这个单词中.</p>
 <p>下面我们来看如何使用向量来计算自注意力, 然后再看如何使用矩阵来实现自注意力.</p>
-<h4 id="%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F">计算Query, Key, Value向量<a class="headerlink" href="#%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F" title="Permanent link">&para;</a></h4>
+<h3 id="%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F">计算Query, Key, Value向量<a class="headerlink" href="#%E8%AE%A1%E7%AE%97query-key-value%E5%90%91%E9%87%8F" title="Permanent link">&para;</a></h3>
 <p>计算自注意力的第一步是, 对输入编码器的每个向量, 都创建三个向量, 分别是Query向量, Key向量, Value向量. 这三个向量是向量分别和三个矩阵相乘得到的, 这三个矩阵就是我们要学习的参数. 注意到这些新的向量比向量的维度更小, 如, 若编码器的输入/输出的向量的维度是<span class="arithmatex">\(512\)</span>, 则新的三个向量的维度是<span class="arithmatex">\(64\)</span>. 虽然在这里选用<span class="arithmatex">\(64\)</span>, 但是这并不是必须的, 选择较小维度主要是为了优化计算效率, 尤其是在多头注意力(后面会讲)的计算过程中.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" width="500" /></a></p>
 </figure>
 <p>上图中, 有两个嵌入向量<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>, <span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(W^Q\)</span>权重矩阵做乘法得到Query向量<span class="arithmatex">\(q_1\)</span>, ... 那么什么是Query, Key, Value呢? 它们本质上都是向量, 为了帮助我们更好的理解自注意力被抽象为三个名字, 往下面读, 你就会知道它们扮演什么角色.</p>
-<h4 id="%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0">计算注意力分数<a class="headerlink" href="#%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0" title="Permanent link">&para;</a></h4>
+<h3 id="%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0">计算注意力分数<a class="headerlink" href="#%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%B0" title="Permanent link">&para;</a></h3>
 <p>第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力. </p>
 <p>这些分数, 是通过计算Thinking对应的Query向量和其他位置每个词的Key向量的点积得到的. 如果我们计算句子中第一个位置单词的Attension Score, 那么第一个分数就是<span class="arithmatex">\(q_1\)</span>和<span class="arithmatex">\(k_1\)</span>的点积, 第二个分数就是<span class="arithmatex">\(q_1\)</span>和<span class="arithmatex">\(k_2\)</span>的点积.</p>
 <figure>
@@ -1452,7 +1476,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" width="500" /></a></p>
 </figure>
 <p>上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.</p>
-<h4 id="%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B">使用矩阵计算自注意力<a class="headerlink" href="#%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B" title="Permanent link">&para;</a></h4>
+<h3 id="%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B">使用矩阵计算自注意力<a class="headerlink" href="#%E4%BD%BF%E7%94%A8%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B" title="Permanent link">&para;</a></h3>
 <p>第一步是计算Query, Key, Value矩阵, 首先, 我们把两个嵌入向量即Thinking和Machines放到一个矩阵<span class="arithmatex">\(X\)</span>中, 然后分别和<span class="arithmatex">\(3\)</span>个权重相乘, 得到Query, Key, Value矩阵, <span class="arithmatex">\(W^Q, W^K, W^V\)</span>是我们通过训练得到的.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" width="300" /></a></p>
@@ -1461,7 +1485,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" width="500" /></a></p>
 </figure>
-<h3 id="%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6">多头注意力机制<a class="headerlink" href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6" title="Permanent link">&para;</a></h3>
+<h2 id="%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6">多头注意力机制<a class="headerlink" href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6" title="Permanent link">&para;</a></h2>
 <p>论文还通过增加多头注意力机制, 进一步完善了自注意力层. 注意力头是多头注意力机制中的一个子组件, 它是一个独立的注意力计算单元. 每个注意力头都有自己的Query, Key, Value矩阵. 多头注意力机制从下面的两个方面扩展了自注意力层的能力:</p>
 <ul>
 <li>它扩展了模型关注不同位置的能力. 就如在<a href="#计算注意力分数">计算注意力分数</a>中的第四步讲到的那样, 最后生成的<span class="arithmatex">\(z_1\)</span>向量被自己Thinking主导(<span class="arithmatex">\(0.88\)</span>), 而只包含了Machines的很小一部分信息(<span class="arithmatex">\(0.12\)</span>). 多头注意力则允许模型同时学习多个不同的注意力分布. 例如, 某些注意力头可能专注于局部信息, 而其他头可能捕捉更远距离的依赖</li>
@@ -1495,6 +1519,26 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png" width="400" /></a></p>
 </figure>
+<h2 id="%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81">位置编码<a class="headerlink" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81" title="Permanent link">&para;</a></h2>
+<p>位置编码是为了让模型理解输入序列中元素的顺序信息而设计的. 在Transformer结构中, 自注意力机制本身是无序的, 为了解决这个问题, 位置编码被引入, 将位置信息注入到自注意力层的输入数据.</p>
+<p>为了让模型理解单词的顺序, 论文引入了一个带有位置编码的向量, 这种做法背后的直觉是: 将这些表示位置的向量添加到嵌入向量中, 会在它们运算<span class="arithmatex">\(Q, K, V\)</span>向量和点击的时候提供有用的距离信息.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/32993fd5f1b712dc93db93830d5900ec.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/32993fd5f1b712dc93db93830d5900ec.png" width="600" /></a></p>
+</figure>
+<p>如果我们假设嵌入向量的维度是<span class="arithmatex">\(4\)</span>, 那么位置编码向量可能如下所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/d1ad72abf15e81966a448248e7d4c8b7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/d1ad72abf15e81966a448248e7d4c8b7.png" width="600" /></a></p>
+</figure>
+<p>那么这些位置编码向量到底遵循什么模式呢?</p>
+<p>在下图中, 每一行带包一个位置编码向量. 第一行对应于序列中第一个单词的位置编码向量. 每一行都包含<span class="arithmatex">\(512\)</span>个值, 每个值的范围在<span class="arithmatex">\(-1\)</span>到<span class="arithmatex">\(1\)</span>之间. 对这些向量进行可视化处理, 可以看到向量遵循的模式.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/afad13e06cc0454f7d4a3ddafb6ccf32.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/afad13e06cc0454f7d4a3ddafb6ccf32.png" width="500" /></a></p>
+</figure>
+<p>这是一个真实的例子, 包含了<span class="arithmatex">\(20\)</span>个单词, 每个嵌入向量的维度是<span class="arithmatex">\(512\)</span>, 你可以看到, 它看起来像是从中间一分为二. 这是因为左半部分的值是由正弦函数产生的, 右半部分的值是由余弦函数产生的, 然后将它们拼接起来, 得到每个位置编码向量. 论文中的位置编码模式和上述略有不同, 它不是直接拼接两个向量, 而是将两个向量交织在一起, 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" width="500" /></a></p>
+</figure>
+<h2 id="%E6%AE%8B%E5%B7%AE">残差<a class="headerlink" href="#%E6%AE%8B%E5%B7%AE" title="Permanent link">&para;</a></h2>
 <div class="footnote">
 <hr />
 <ol>
@@ -1531,7 +1575,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月23日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月24日</span>
   </span>
 
     
@@ -1558,6 +1602,11 @@
 
     
     <nav>
+      
+        <a href="https://github.com/sigmax0124" class="md-author" title="@sigmax0124">
+          
+          <img src="https://avatars.githubusercontent.com/u/179358756?v=4&size=72" alt="sigmax0124">
+        </a>
       
         <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
           
