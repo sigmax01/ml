@@ -12,6 +12,7 @@ theme:
   logo_dark_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg
   language: zh
   custom_dir: overrides
+  font: false
   features:
     - content.code.annotate
     - content.code.copy
@@ -51,9 +52,9 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference 
-  font:
-    text: "Roboto"
-    code: "Ubuntu Mono"
+  # font:
+  #   text: "Roboto"
+  #   code: "Ubuntu Mono"
   icon:
     annotation: material/star-four-points-circle
     repo: fontawesome/brands/github
