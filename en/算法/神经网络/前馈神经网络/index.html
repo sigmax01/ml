@@ -1196,7 +1196,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
+  <a href="#动量" class="md-nav__link">
     <span class="md-ellipsis">
       动量
     </span>
@@ -1205,7 +1205,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_18" class="md-nav__link">
     <span class="md-ellipsis">
       初始化
     </span>
@@ -1219,7 +1219,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
+  <a href="#_19" class="md-nav__link">
     <span class="md-ellipsis">
       深度学习
     </span>
@@ -1256,7 +1256,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
+  <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       其他的损失函数
     </span>
@@ -1553,7 +1553,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
+  <a href="#动量" class="md-nav__link">
     <span class="md-ellipsis">
       动量
     </span>
@@ -1562,7 +1562,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_18" class="md-nav__link">
     <span class="md-ellipsis">
       初始化
     </span>
@@ -1576,7 +1576,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
+  <a href="#_19" class="md-nav__link">
     <span class="md-ellipsis">
       深度学习
     </span>
@@ -1613,7 +1613,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
+  <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       其他的损失函数
     </span>
@@ -2009,15 +2009,15 @@
 <li><span class="arithmatex">\(\eta_n = \eta_0 e^{-dn}\)</span></li>
 </ul>
 <p>其中, <span class="arithmatex">\(\eta_n\)</span>表示第<span class="arithmatex">\(n\)</span>批次的学习率, <span class="arithmatex">\(d\)</span>是一个超参数, 表示衰减率.</p>
-<h3 id="_18">动量<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<h3 id="动量">动量<a class="headerlink" href="#动量" title="Permanent link">&para;</a></h3>
 <p>动量, momentum, 通过在权重更新公式中引入一个额外的动量项, 使得当前的权重更新依赖于之前的更新, 从而减少振荡并允许使用更大的学习率. 计算公式为<span class="arithmatex">\(\Delta w_{pq}(t)=\eta\delta_q o_p + \mu(w_{pq}(t)-w_{pq}(t-1))\)</span>.</p>
-<h3 id="_19">初始化<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<h3 id="_18">初始化<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
 <p>神经网络模型的性能非常依赖于权重和截距的初始化.常见的做法有:</p>
 <ul>
 <li>标准的做法: 从<span class="arithmatex">\(-1\)</span>到<span class="arithmatex">\(1\)</span>之间选择小的随机数</li>
 <li>Xavier初始化: 权重从一个正态分布中产生, <span class="arithmatex">\(\sigma=\sqrt{\frac{2}{N_{in}+N_{out}}}\)</span>, 其中<span class="arithmatex">\(N_{in}\)</span>是输入神经元的数量, <span class="arithmatex">\(N_{out}\)</span>是输出神经元的数量, 注意, 这里的输入输出神经元不是整个神经网络的输入输出神经元, 是相对于当前层神经元来说的上一层/下一层神经元, 当前层神经元就是权重/截距待更新的神经元</li>
 </ul>
-<h2 id="_20">深度学习<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h2 id="_19">深度学习<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <p>深度学习和一般的神经网络的主要区别在于层数的深度以及能力的提升, 具体可以解释:</p>
 <ul>
 <li>层数的区别: 一般的神经网络通常指那些只有一层或者几层隐藏层的神经网络, 也叫做浅层神经网络. 虽然他们可以处理简单的任务, 但是其表现收到限制, 尤其在处理复杂的非线性问题时效果不佳. 深度学习则使用多层隐藏层, 这些隐藏层构成了一个深层神经网络(DNN), 通过多个隐藏层, 网络可以捕捉到更加复杂的特征和模式, 解决如图像识别, 语音识别等复杂的任务</li>
@@ -2054,7 +2054,7 @@
 <summary>例子</summary>
 <p>如三个输出神经元的输出为<span class="arithmatex">\(o_1=0.3, o_2=0.8, o_3=0.2\)</span>. 使用softmax函数之后<span class="arithmatex">\(p_1=0.28, p_2=0.46, p_3=0.26\)</span>.</p>
 </details>
-<h3 id="_21">其他的损失函数<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<h3 id="_20">其他的损失函数<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>可以使用交叉熵损失而不是MSE. 它衡量的是模型预测的概率分布和真实类别分布之间的差异, 例如通过softmax函数得到的输出 交叉熵损失用于反映模型对于正确类别的预测有多大的不确定性.</p>
 <p>对于单个样本的交叉熵损失公式为<span class="arithmatex">\(CCE_i=-\sum_{j=1}^C y_{ij}\cdot \log(\hat{y_{ij}})\)</span>. 其中, <span class="arithmatex">\(y_{ij}\)</span>是样本<span class="arithmatex">\(i\)</span>的真实one-hot编码向量的第<span class="arithmatex">\(j\)</span>个元素, 真实类别上为<span class="arithmatex">\(1\)</span>, 其他为<span class="arithmatex">\(0\)</span>. <span class="arithmatex">\(\hat{y_{ij}}\)</span>为模型预测的概率分布中对应第<span class="arithmatex">\(j\)</span>个类别的概率.</p>
 <p>对于<span class="arithmatex">\(N\)</span>个样本, 总的交叉熵损失是每个样本的交叉熵损失的总和: <span class="arithmatex">\(CCE=\sum_{i=1}^N CCE_i\)</span>.</p>

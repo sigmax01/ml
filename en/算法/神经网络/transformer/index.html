@@ -1140,7 +1140,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#计算注意力分数" class="md-nav__link">
     <span class="md-ellipsis">
       计算注意力分数
     </span>
@@ -1149,7 +1149,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       使用矩阵计算自注意力
     </span>
@@ -1163,7 +1163,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#多头注意力机制" class="md-nav__link">
     <span class="md-ellipsis">
       多头注意力机制
     </span>
@@ -1172,7 +1172,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       位置编码
     </span>
@@ -1181,7 +1181,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       残差连接
     </span>
@@ -1190,7 +1190,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       解码器
     </span>
@@ -1208,7 +1208,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       训练过程
     </span>
@@ -1217,7 +1217,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       损失函数
     </span>
@@ -1329,7 +1329,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#计算注意力分数" class="md-nav__link">
     <span class="md-ellipsis">
       计算注意力分数
     </span>
@@ -1338,7 +1338,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       使用矩阵计算自注意力
     </span>
@@ -1352,7 +1352,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#多头注意力机制" class="md-nav__link">
     <span class="md-ellipsis">
       多头注意力机制
     </span>
@@ -1361,7 +1361,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       位置编码
     </span>
@@ -1370,7 +1370,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       残差连接
     </span>
@@ -1379,7 +1379,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       解码器
     </span>
@@ -1397,7 +1397,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       训练过程
     </span>
@@ -1406,7 +1406,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       损失函数
     </span>
@@ -1529,7 +1529,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" width="500" /></a></p>
 </figure>
 <p>上图中, 有两个嵌入向量<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>, <span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(W^Q\)</span>权重矩阵做乘法得到Query向量<span class="arithmatex">\(q_1\)</span>, ... 那么什么是Query, Key, Value呢? 它们本质上都是向量, 为了帮助我们更好的理解自注意力被抽象为三个名字, 往下面读, 你就会知道它们扮演什么角色.</p>
-<h3 id="_6">计算注意力分数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="计算注意力分数">计算注意力分数<a class="headerlink" href="#计算注意力分数" title="Permanent link">&para;</a></h3>
 <p>第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力. </p>
 <p>这些分数, 是通过计算Thinking对应的Query向量和其他位置每个词的Key向量的点积得到的. 如果我们计算句子中第一个位置单词的Attension Score, 那么第一个分数就是<span class="arithmatex">\(q_1\)</span>和<span class="arithmatex">\(k_1\)</span>的点积, 第二个分数就是<span class="arithmatex">\(q_1\)</span>和<span class="arithmatex">\(k_2\)</span>的点积.</p>
 <figure>
@@ -1548,7 +1548,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" width="500" /></a></p>
 </figure>
 <p>上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.</p>
-<h3 id="_7">使用矩阵计算自注意力<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_6">使用矩阵计算自注意力<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>第一步是计算Query, Key, Value矩阵, 首先, 我们把两个嵌入向量即Thinking和Machines放到一个矩阵<span class="arithmatex">\(X\)</span>中, 然后分别和<span class="arithmatex">\(3\)</span>个权重相乘, 得到Query, Key, Value矩阵, <span class="arithmatex">\(W^Q, W^K, W^V\)</span>是我们通过训练得到的.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eea2dcbfa49df9fb799ef8e6997260bf.png" width="300" /></a></p>
@@ -1557,7 +1557,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" width="500" /></a></p>
 </figure>
-<h2 id="_8">多头注意力机制<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="多头注意力机制">多头注意力机制<a class="headerlink" href="#多头注意力机制" title="Permanent link">&para;</a></h2>
 <p>论文还通过增加多头注意力机制, 进一步完善了自注意力层. 注意力头是多头注意力机制中的一个子组件, 它是一个独立的注意力计算单元. 每个注意力头都有自己的Query, Key, Value矩阵. 多头注意力机制从下面的两个方面扩展了自注意力层的能力:</p>
 <ul>
 <li>它扩展了模型关注不同位置的能力. 就如在<a href="#计算注意力分数">计算注意力分数</a>中的第四步讲到的那样, 最后生成的<span class="arithmatex">\(z_1\)</span>向量被自己Thinking主导(<span class="arithmatex">\(0.88\)</span>), 而只包含了Machines的很小一部分信息(<span class="arithmatex">\(0.12\)</span>). 多头注意力则允许模型同时学习多个不同的注意力分布. 例如, 某些注意力头可能专注于局部信息, 而其他头可能捕捉更远距离的依赖</li>
@@ -1591,7 +1591,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png" width="400" /></a></p>
 </figure>
-<h2 id="_9">位置编码<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_7">位置编码<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>位置编码是为了让模型理解输入序列中元素的顺序信息而设计的. 在Transformer结构中, 自注意力机制本身是无序的, 为了解决这个问题, 位置编码被引入, 将位置信息注入到自注意力层的输入数据.</p>
 <p>为了让模型理解单词的顺序, 论文引入了一个带有位置编码的向量, 这种做法背后的直觉是: 将这些表示位置的向量添加到嵌入向量中, 会在它们运算<span class="arithmatex">\(Q, K, V\)</span>向量和点击的时候提供有用的距离信息.</p>
 <figure>
@@ -1610,7 +1610,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" width="500" /></a></p>
 </figure>
-<h2 id="_10">残差连接<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_8">残差连接<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题. </p>
 <p>在编码器的每一个子层周围, 都会有一个围绕它的残差连接还有一个层标准化.</p>
 <figure>
@@ -1625,7 +1625,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png" width="600" /></a></p>
 </figure>
-<h2 id="_11">解码器<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h2 id="_9">解码器<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>我们已经了解了解码器中的大部分概念, 现在我们来看一下, 编码器和解码器是如何协同工作的.</p>
 <p>编码器的输出会进一步被处理为Key矩阵和Value注意力矩阵, 这些向量将在解码器的编码器-解码器注意力层中使用, 帮助解码器在生成输出的时候关注输入序列的相关部分.</p>
 <figure>
@@ -1644,7 +1644,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png" width="500" /></a></p>
 </figure>
-<h2 id="_12">训练过程<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h2 id="_10">训练过程<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <p>在上面, 我们了解的是一个已经训练好的Transformer的前向传播过程. 下面会讲讲是怎么训练的. </p>
 <p>在训练的过程中, 模型会经过上面讲的所有前向传播的步骤. 不同的是, 因为我们是在有标签的数据集上训练, 所以可以比较模型的输出和真实的标签.</p>
 <p>为了可视化, 我们假定输出词汇表只包含<span class="arithmatex">\(6\)</span>个单词: "a", "am", "i", "thanks", "student"和"&lt;eos&gt;". "&lt;eos&gt;"表示句子末尾. 注意, 这个输出词汇表是在训练之前的数据预处理阶段就构造好的. </p>
@@ -1655,7 +1655,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/085330e629dc9f7d6d5e49d5f9acec9b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/085330e629dc9f7d6d5e49d5f9acec9b.png" width="500" /></a></p>
 </figure>
-<h2 id="_13">损失函数<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h2 id="_11">损失函数<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p>假设我们正在训练模型, 并且是训练周期的第一步, 目标是把"merci"翻译为"thanks". 这意味着我们希望模型的最终输出的概率分布, 会指向"thanks", 表示这个词的可能性最高, 但是鉴于我们的模型还没有训练好, 它输出的概率分布可能和我们希望的概率分布相差甚远.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/74bf8db4543d6187960ee3cea18e1703.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/74bf8db4543d6187960ee3cea18e1703.png" width="500" /></a></p>
