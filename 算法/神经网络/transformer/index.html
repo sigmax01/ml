@@ -1181,9 +1181,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#%E6%AE%8B%E5%B7%AE" class="md-nav__link">
+  <a href="#%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5" class="md-nav__link">
     <span class="md-ellipsis">
-      残差
+      残差连接
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E8%A7%A3%E7%A0%81%E5%99%A8" class="md-nav__link">
+    <span class="md-ellipsis">
+      解码器
     </span>
   </a>
   
@@ -1334,9 +1343,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#%E6%AE%8B%E5%B7%AE" class="md-nav__link">
+  <a href="#%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5" class="md-nav__link">
     <span class="md-ellipsis">
-      残差
+      残差连接
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#%E8%A7%A3%E7%A0%81%E5%99%A8" class="md-nav__link">
+    <span class="md-ellipsis">
+      解码器
     </span>
   </a>
   
@@ -1538,7 +1556,22 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" width="500" /></a></p>
 </figure>
-<h2 id="%E6%AE%8B%E5%B7%AE">残差<a class="headerlink" href="#%E6%AE%8B%E5%B7%AE" title="Permanent link">&para;</a></h2>
+<h2 id="%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5">残差连接<a class="headerlink" href="#%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5" title="Permanent link">&para;</a></h2>
+<p>残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题. </p>
+<p>在编码器的每一个子层周围, 都会有一个围绕它的残差连接还有一个层标准化.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/01883e4cf179997b19a95c3826c83215.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/01883e4cf179997b19a95c3826c83215.png" width="400" /></a></p>
+</figure>
+<p>将Add&amp;Normalize层可视化, 可以得到.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b831c7d0981cae1f9e0127c27d1e5391.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b831c7d0981cae1f9e0127c27d1e5391.png" width="400" /></a></p>
+</figure>
+<p>可以看到, 在自注意力中, 输入的嵌入向量<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>经过自注意力机制处理后, 生成新的表示<span class="arithmatex">\(z_1\)</span>和<span class="arithmatex">\(z_2\)</span>, 残差连接会将输入的<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>直接与自注意力的输出<span class="arithmatex">\(z_1\)</span>和<span class="arithmatex">\(z_2\)</span>相加. 然后, 经过层归一化, 这一过程的输出将进一步被传递给前馈神经网络.</p>
+<p>在解码器的子层里面也有层标准化, 假设一个Transformer是由<span class="arithmatex">\(2\)</span>层编码器和<span class="arithmatex">\(2\)</span>层解码器组成的, 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/406921881ee31e9f56f9d7300f41f57e.png" width="600" /></a></p>
+</figure>
+<h2 id="%E8%A7%A3%E7%A0%81%E5%99%A8">解码器<a class="headerlink" href="#%E8%A7%A3%E7%A0%81%E5%99%A8" title="Permanent link">&para;</a></h2>
 <div class="footnote">
 <hr />
 <ol>
