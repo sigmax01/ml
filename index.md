@@ -36,18 +36,6 @@
 
 [https://umami.ricolxwz.io/share/CUTl3qs7ajeXcjIY/ml.ricolxwz.de](https://umami.ricolxwz.io/share/CUTl3qs7ajeXcjIY/ml.ricolxwz.de)
 
-## 联动
-
-- [https://py.ricolxwz.de](https://py.ricolxwz.de)
-- [https://ml.ricolxwz.de](https://ml.ricolxwz.de)
-- [https://js.ricolxwz.de](https://js.ricolxwz.de)
-- [https://rhce.ricolxwz.de](https://rhce.ricolxwz.de)
-- [https://gk.ricolxwz.de](https://gk.ricolxwz.de)
-- [https://go.ricolxwz.de](https://go.ricolxwz.de)
-- [https://ja.ricolxwz.de](https://ja.ricolxwz.de)
-- [https://pj.ricolxwz.de](https://pj.ricolxwz.de)
-- [https://misc.ricolxwz.de](https://misc.ricolxwz.de)
-
 ## 推荐
 
 - [深度学习（DL/ML）学习路径](https://github.com/loveunk/machine-learning-deep-learning-notes/tree/master?tab=readme-ov-file)
