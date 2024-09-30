@@ -92,6 +92,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1072,6 +1077,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    聚类
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1081,6 +1097,41 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1111,6 +1162,32 @@
   
   
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1146,7 +1223,26 @@
 
   <h1>聚类</h1>
 
-
+<h2 id="_1">定义</h2>
+<p>聚类, Clustering, 是将数据对象分割为组(也叫作簇)的过程. 同一个簇内的对象特征相似, 不同簇内的对象特征不相似. 最简单的相似性测量方法是测量距离. 对象之间距离小说明相似度高, 对象之间距离大说明相似度小.</p>
+<p>聚类是一种无监督学习, 也就是说输入一个未标注的训练集和想要的簇的数量<span class="arithmatex">\(k\)</span>, 输出<span class="arithmatex">\(k\)</span>个簇.</p>
+<h2 id="_2">应用</h2>
+<p>聚类可以用于:</p>
+<ul>
+<li>作为独立的工具对数据进行分簇</li>
+<li>作为其他算法的构建模块, 例如, 作为<a href="/算法/降维">降维</a>的预处理工具</li>
+<li>...</li>
+</ul>
+<p>举几个例子把...</p>
+<ol>
+<li>根据购买历史, 浏览历史将顾客分为不同特征的群体, 利用这些信息开发针对性的营销活动 </li>
+<li>分析客户的行为, 找到可能丢失的客户群体, 例如转移到其他医疗保险, 电力或者电话公司</li>
+<li>找到具有相似结构和功能的基因, 使用微阵列从数千个基因🧬中同时分析</li>
+<li>基于文件的内容找到相似的其他文件, 如专利查询, 个性化新闻推荐</li>
+<li>了解特定群体(如年轻的亚洲人)的饮食习惯和饮食模式</li>
+<li>聚类像素点, 然后用几何中心的颜色替代达到图像压缩的效果</li>
+<li>基于不同的颜色将图像分割为不同的部分</li>
+</ol>
 
 
 
