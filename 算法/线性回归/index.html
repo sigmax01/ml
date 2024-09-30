@@ -2499,8 +2499,8 @@
 <p>也有一些自动测试是否收敛的方法, 例如将代价函数的变化值和某个阈值(例如0.0001)进行比较, 如果比阈值小, 就认为已经收敛. </p>
 <p>原则是: 有效的学习率可以让代价函数随着迭代不断减小. 但是太小的学习率会导致收敛得很慢.</p>
 <h3 id="_21">特征工程</h3>
-<p>特征工程是机器学习流程最花时间的步骤, 也是最重要的工作内容之一. 特征工程是一个过程, 这个过程将数据转换为能更好的表示业务逻辑的特征, 从而提高机器学习的性能. <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
-<p>机器学习模型的准确度取决于特征的精确几何和组成. 例如, 在推荐音乐播放列表的机器学习应用程序中, 特征可能包含歌曲评分, 播放历史以及播放时长. 创建特征可能需要大量的工程工作. 特征工程涉及从原始数据(如价目表, 产品说明和销售量)中提取和转换变量, 以便您可以使用特征进行训练和预测. 工程特征所需要的步骤包括数据提取和清理, 以及特征创建和存储. <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
+<p>特征工程是机器学习流程最花时间的步骤, 也是最重要的工作内容之一. 特征工程是一个过程, 这个过程将数据转换为能更好的表示业务逻辑的特征, 从而提高机器学习的性能.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
+<p>机器学习模型的准确度取决于特征的精确几何和组成. 例如, 在推荐音乐播放列表的机器学习应用程序中, 特征可能包含歌曲评分, 播放历史以及播放时长. 创建特征可能需要大量的工程工作. 特征工程涉及从原始数据(如价目表, 产品说明和销售量)中提取和转换变量, 以便您可以使用特征进行训练和预测. 工程特征所需要的步骤包括数据提取和清理, 以及特征创建和存储.<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
 <p>以房价预测为例. </p>
 <p>首先选择多变量线性回归, 选择长度和宽度作为特征输入: <span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1\times\)</span>长度<span class="arithmatex">\(+\theta_2\times\)</span>宽度.</p>
 <p>注意: </p>
@@ -2527,7 +2527,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/cd50bfc0f4566e6a9edbff070911b996.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/cd50bfc0f4566e6a9edbff070911b996.png" style="width:500px" /></a></p>
 <p>从图中可以看出, 在过拟合的情况下, 训练集的偏差很小, 方差很大. 在欠拟合的情况下, 训练集的偏差很大, 方差很小.</p>
 <p>关于偏差和方差的更详细解释和应用, 请见<a href="https://gk.ricolxwz.de/信息论/估计器">估计器</a>.</p>
-<h2 id="_23">正则化 <sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></h2>
+<h2 id="_23">正则化<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></h2>
 <p>正则化主要用于控制模型的复杂度和防止过拟合. 其核心目的是改善模型的泛化能力, 即模型在新未见数据上的表现. 正则化可以通过在模型的代价函数中添加一个额外的项来实现. </p>
 <ul>
 <li>防止过拟合: 过拟合发生在模型对训练数据学得"太好", 以至于它甚至学到了数据中的噪声和误差, 导致模型在新数据上的表现不佳. 正则化通过惩罚的复杂度(如, 通过惩罚过大的参数值)来避免这种情况. 如上图, 若<span class="arithmatex">\(\theta_3, \theta_4\)</span>趋近于0, 那么曲线会更加平滑, 对新数据上表现更加好</li>
@@ -2710,7 +2710,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月30日</span>
   </span>
 
     
