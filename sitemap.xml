@@ -92,6 +92,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/%E7%AE%97%E6%B3%95/%E7%BB%AA%E8%AE%BA/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E8%81%9A%E7%B1%BB/</loc>
+        <lastmod>2024-09-30</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E8%81%9A%E7%B1%BB/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/%E7%AE%97%E6%B3%95/%E8%81%9A%E7%B1%BB/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E8%AF%84%E4%BC%B0/</loc>
         <lastmod>2024-09-30</lastmod>
         <changefreq>daily</changefreq>
@@ -244,6 +251,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/%E7%AE%97%E6%B3%95/%E7%BB%AA%E8%AE%BA/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E7%BB%AA%E8%AE%BA/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/%E7%AE%97%E6%B3%95/%E8%81%9A%E7%B1%BB/</loc>
+        <lastmod>2024-09-30</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/%E7%AE%97%E6%B3%95/%E8%81%9A%E7%B1%BB/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/%E7%AE%97%E6%B3%95/%E8%81%9A%E7%B1%BB/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/%E7%AE%97%E6%B3%95/%E8%AF%84%E4%BC%B0/</loc>
