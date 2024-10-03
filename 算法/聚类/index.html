@@ -1129,6 +1129,96 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      测量
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      点的距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      簇的距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      质心和中心
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      划分式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="划分式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="K-means">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#质心选取" class="md-nav__link">
+    <span class="md-ellipsis">
+      质心选取
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1187,6 +1277,96 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      测量
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      点的距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      簇的距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      质心和中心
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      划分式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="划分式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="K-means">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#质心选取" class="md-nav__link">
+    <span class="md-ellipsis">
+      质心选取
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1224,9 +1404,7 @@
   <h1>聚类</h1>
 
 <h2 id="_1">定义</h2>
-<p>聚类, Clustering, 是将数据对象分割为组(也叫作簇)的过程. 同一个簇内的对象特征相似, 不同簇内的对象特征不相似. 最简单的相似性测量方法是测量距离. 对象之间距离小说明相似度高, 对象之间距离大说明相似度小.</p>
-<p>聚类是一种无监督学习, 也就是说输入一个未标注的训练集和想要的簇的数量<span class="arithmatex">\(k\)</span>, 输出<span class="arithmatex">\(k\)</span>个簇.</p>
-<p>一个好的聚类应该具备: 高内聚性(即簇内的高度相似性); 高分离度(即簇之间的低相似性).</p>
+<p>聚类, Clustering, 是将数据对象分割为组(也叫作簇)的过程. 同一个簇内的对象特征相似, 不同簇内的对象特征不相似. 最简单的相似性测量方法是测量距离. 对象之间距离小说明相似度高, 对象之间距离大说明相似度小. 它是一种无监督学习, 也就是说输入一个未标注的训练集和想要的簇的数量<span class="arithmatex">\(k\)</span>, 输出<span class="arithmatex">\(k\)</span>个簇. 一个好的聚类应该具备: 高内聚性(即簇内的高度相似性); 高分离度(即簇之间的低相似性).</p>
 <h2 id="_2">应用</h2>
 <p>聚类可以用于:</p>
 <ul>
@@ -1244,6 +1422,138 @@
 <li>聚类像素点, 然后用几何中心的颜色替代达到图像压缩的效果</li>
 <li>基于不同的颜色将图像分割为不同的部分</li>
 </ol>
+<h2 id="_3">测量</h2>
+<h3 id="_4">点的距离</h3>
+<p>数据点A和B之间的相似性是通过距离测量的. 距离测量的方式有很多种. 请参考<a href="/算法/预处理/#相似性测量">相似性测量</a>.</p>
+<h3 id="_5">簇的距离</h3>
+<h3 id="_6">质心和中心</h3>
+<p>考虑一个含有<span class="arithmatex">\(N\)</span>个点的簇<span class="arithmatex">\(\{p_1, ..., p_N\}\)</span>. 质心, Centroid, 是簇的几何中心, 通常不是簇中的一个数据点. 而中心点, Medoid, 是簇中一个具有代表性的数据点, 其选取方式是: 找到簇中所有点到该点的距离和最小的那个点, 如<a href="https://img.ricolxwz.io/e6cedeff0f7b2b51aa22fd01709d7a34.png">图</a>所示.</p>
+<hr />
+<p>簇的距离可以通过多种方式衡量.</p>
+<ul>
+<li>质心: 根据质心点之间的距离</li>
+<li>中心: 根据中心点之间的距离</li>
+<li>单链接: 根据簇A任意一个点和簇B任意一个点之间的最短距离</li>
+<li>全链接: 根据簇A任意一个点和簇B任意一个点之间的最大距离</li>
+<li>平均链接: 根据簇A所有点和簇B所有点之间的平均距离</li>
+</ul>
+<h2 id="_7">分类</h2>
+<p>聚类算法主要分为四种.</p>
+<ul>
+<li>划分式: Partional, 代表算法为K-menas, K-medoids. 通过划分数据集生成一个簇的集合, 每个簇都对应数据中的一个子集</li>
+<li>模型式: Model-based, 代表算法为高斯混合模型(GMM). 假设数据式由不同的概率分布生成的, 使用该模型来估计这些分布并分配数据点</li>
+<li>层次式: Hierarchical, 代表算法为聚合式(Agglomerative), 分裂式(Divisive). 构建嵌套的簇结构, 可以通过层次图展示, 层次聚类逐步合并或分裂数据, 创建不同层次的簇</li>
+<li>密度式: Density-based, 代表算法为DBSCAN. 基于数据点的密度进行聚类, 能够识别出形状不规则的簇, 并能够检测出噪声点</li>
+</ul>
+<h2 id="_8">划分式</h2>
+<h3 id="k-means">K-means</h3>
+<p>K均值聚类, K-means式一种非常流行且广泛使用的划分式聚类算法. 它通过将数据集划分为<span class="arithmatex">\(k\)</span>个簇来进行聚类. K-means因为其简单性和计算效率被广泛应用于各种领域的数据聚类任务. K-means算法要求用户预先定义簇的数量<span class="arithmatex">\(k\)</span>, 这是它的一个主要限制.</p>
+<p>算法的步骤为:</p>
+<ol>
+<li>选择<span class="arithmatex">\(k\)</span>个初始质心: 选择<span class="arithmatex">\(k\)</span>个样本作为初始质心</li>
+<li>迭代步骤<ol>
+<li>将每个样本分配到最近质心: 将每个样本分配到距离最近的质心所属的簇中, 形成<span class="arithmatex">\(k\)</span>个簇, 这个步骤通过最小化样本和质心的距离来完成, 通常使用欧几里得距离</li>
+<li>重新计算质心: 每次迭代后, 重新计算每个簇的质心, 注意, 不一定是实际的数据点</li>
+</ol>
+</li>
+<li>检查停止条件: 当质心不再发生变化, 则算法终止; 否则, 重复第2步, 用新的质心重新进行样本分配和质心计算</li>
+</ol>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/fd9096289dd73f230d6b032b260d8949.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/fd9096289dd73f230d6b032b260d8949.png" width="600" /></a></p>
+</figure>
+<details class="note" open="open">
+<summary>细节</summary>
+<ul>
+<li>最初的质心通常是随机选取的, 而且选的是实际存在的点</li>
+<li>质心的选取会对结果产生严重影响, 详情请见<a href="#质心选取">这里</a></li>
+<li>绝大多数的收敛发生在前几个轮次</li>
+<li>通常情况下, 停止的条件是"直到较少的质心发生变化"而不是"没有质心发生变化"</li>
+<li>复杂度为<span class="arithmatex">\(O(n*k*i*d)\)</span>, 其中<span class="arithmatex">\(n\)</span>为数据点的数量, <span class="arithmatex">\(k\)</span>是簇的数量, <span class="arithmatex">\(i\)</span>是迭代的次数, <span class="arithmatex">\(d\)</span>是属性的数量</li>
+</ul>
+</details>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>下表是五个数据点之间的距离.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>0</td>
+<td>2</td>
+<td>7</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>2</td>
+<td>0</td>
+<td>3</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>7</td>
+<td>3</td>
+<td>0</td>
+<td>5</td>
+<td>9</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>10</td>
+<td>4</td>
+<td>5</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>1</td>
+<td>6</td>
+<td>9</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>现在, 使用K-means算法将其聚类为<span class="arithmatex">\(2\)</span>个簇. 初始的质心为A和B. 展示第一轮之后的簇.</p>
+<ul>
+<li>C和A之间的距离是<span class="arithmatex">\(7\)</span>, C和B之间的距离是<span class="arithmatex">\(3\)</span>, 所以C被分配到簇<span class="arithmatex">\(2\)</span></li>
+<li>D和A之间的距离是<span class="arithmatex">\(10\)</span>, D和B之间的距离是<span class="arithmatex">\(4\)</span>, 所以D被分配到簇<span class="arithmatex">\(2\)</span></li>
+<li>E和A之间的距离是<span class="arithmatex">\(1\)</span>, E和B之间的距离是<span class="arithmatex">\(6\)</span>, 所以E被分配到簇<span class="arithmatex">\(1\)</span></li>
+</ul>
+</details>
+<h4 id="质心选取">质心选取</h4>
+<p>算法对于初始的质心很敏感, 不同的初始质心可能会产生不同的簇.</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">好的初始质心</label><label for="__tabbed_1_2">差的初始质心</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/713548f4d06b34edda13ffe7aaaddd66.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/713548f4d06b34edda13ffe7aaaddd66.png" width="500" /></a>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/c74b14d48e7e9e679ee96535450ff907.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c74b14d48e7e9e679ee96535450ff907.png" width="500" /></a>
+</figure></p>
+</div>
+</div>
+</div>
+</details>
 
 
 
@@ -1266,7 +1576,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月3日</span>
   </span>
 
     
