@@ -77,8 +77,6 @@ extra:
       link: https://ricolxwz.de
     - icon: fontawesome/brands/github
       link: https://github.com/ricolxwz
-    - icon: fontawesome/mug-hot-solid
-      link: https://gitea.ricolxwz.io
     - icon: fontawesome/brands/gitlab
       link: https://gitlab.com/ricolxwz
     - icon: fontawesome/brands/docker
