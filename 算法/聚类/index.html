@@ -1300,6 +1300,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      GMM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GMM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gmm-vs-k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      GMM vs. K-means
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1529,6 +1568,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      GMM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GMM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gmm-vs-k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      GMM vs. K-means
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1699,8 +1777,6 @@
 </details>
 <h4 id="质心选取">质心选取</h4>
 <p>算法对于初始的质心很敏感, 不同的初始质心可能会产生不同的簇.</p>
-<details class="example" open="open">
-<summary>例子</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">好的初始质心</label><label for="__tabbed_1_2">差的初始质心</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1715,7 +1791,6 @@
 </div>
 </div>
 </div>
-</details>
 <p>选取初始质心的方法大致有两种:</p>
 <ol>
 <li>运行数次初始质心不同的K-means算法, 然后找到Sum of Squared Error(SSE)最小的初始质心. 什么是SSE? 对于每一个点来说, 它的误差是到最近质心的距离, SSE就是这些距离的总和. 也就是<span class="arithmatex">\(SSE=\sum_{i=1}^k\sum_{x\in k_i}d(c_i, x)^2\)</span>, 其中<span class="arithmatex">\(c_i\)</span>是质心, <span class="arithmatex">\(k\)</span>是簇的数量, <span class="arithmatex">\(x\)</span>是数据点.</li>
@@ -1756,17 +1831,12 @@
 <li>选择SSE最大的簇</li>
 <li>基于大小和SSE的综合指标</li>
 </ul>
-<details class="example" open="open">
-<summary>例子</summary>
 <p>如图所示, 是一个使用二分K-means算法聚类的过程.</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/2acfb8b14da20e49c79e2c88bfc5fe28.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2acfb8b14da20e49c79e2c88bfc5fe28.png" width="500" /></a>
-</figure></p>
-</details>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/2acfb8b14da20e49c79e2c88bfc5fe28.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2acfb8b14da20e49c79e2c88bfc5fe28.png" width="500" /></a></p>
+</figure>
 <h4 id="_13">缺陷</h4>
 <p>K-means算法在以球形分类, 同等大小, 分裂明显的原始数据上的表现非常好. 但是在非球形分类的, 复杂的, 大小不一致, 密度不一致的原始数据上表现不佳.</p>
-<details class="example" open="open">
-<summary>例子</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">非球形分类的原始数据</label><label for="__tabbed_2_2">大小不一致的原始数据</label><label for="__tabbed_2_3">密度不一致的原始数据</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1788,7 +1858,39 @@
 </div>
 </div>
 </div>
+<h2 id="_14">模型式</h2>
+<h3 id="gmm">GMM</h3>
+<p>高斯混合模型, Gaussian Mixture Model, 可以看作是对单一高斯分布的扩展, 它假设数据是由多个高斯分布混合而成的, 每个分布在模型中具有一定的权重. </p>
+<p>对于一个单一的高斯分布, 它的概率密度函数为<span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>, 其中<span class="arithmatex">\(\mu\)</span>是均值, <span class="arithmatex">\(\sigma\)</span>是标准差. 我们假设数据是由<span class="arithmatex">\(k\)</span>个高斯分布混合而成的, 每一个分布都有自己的均值和标准差, 一个高斯分布对应的是一个簇. 我们并不知道这些高斯分布的均值和标准差, 我们的目标是通过观察到的数据来估计这些参数. 在每一轮的估计结束后, 我们会重新计算每个数据点属于每个簇的概率, 然后重新估计参数, 如此循环直至收敛. 算法可以表示为:</p>
+<ol>
+<li>初始化参数: 随机初始化每个高斯分布的均值和标准差, 以及每个高斯分布的权重</li>
+<li>重复以下步骤:<ol>
+<li>E步: 计算每个数据点属于每个簇的概率, 也就是每个高斯分布的概率</li>
+<li>M步: 重新估计每个高斯分布的均值, 标准差和权重</li>
+</ol>
+</li>
+<li>检查停止条件: 当参数不再发生变化, 或者达到最大迭代次数时, 算法终止</li>
+</ol>
+<p>其中, E步指的是Expectation Step, M步指的是Maximization Step. E步相当于K-means算法中的分配数据点到簇的过程, M步相当于重新计算质心的过程.</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>假设有<span class="arithmatex">\(20000\)</span>个数据点, 从两个高斯分布构成, 分布1和分布2.</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/44e79b3181b5e130d898eac1dea29026.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/44e79b3181b5e130d898eac1dea29026.png" width="500" /></a>
+</figure></p>
+<p>为了简化起见, 假设我们已经知道了它们的标准差<span class="arithmatex">\(\sigma_1\)</span>和<span class="arithmatex">\(\sigma_2\)</span>, <span class="arithmatex">\(\sigma_1=\sigma_2=2\)</span>.</p>
+<ol>
+<li>第一步, 初始化每个高斯分布的均值和标准差, 由于我们已经知道标准差了, 所以只需要初始化均值. 随机初始化均值为<span class="arithmatex">\(\mu_1=-2, \mu_2=3\)</span>. 那么初始状态下两个分布的参数为<span class="arithmatex">\(\theta_1=(-2, 2), \theta_2=(3, 2)\)</span>. 整体参数<span class="arithmatex">\(\theta=(\theta_1, \theta_2)\)</span></li>
+<li>E步, 计算每一个数据点属于分布<span class="arithmatex">\(j(j=1, 2)\)</span>的概率. <span class="arithmatex">\(p(distribution\ j|x_i, \theta)=\frac{w_jp(x_i|\theta_j)}{w_1p(x_i|\theta_1)+w_2p(x_i|\theta_2)}\)</span>. 其中, <span class="arithmatex">\(w_j\)</span>是每一个分布的权重(也就是分布<span class="arithmatex">\(j\)</span>产生数据点的概率), 所有的权重加起来应该等于<span class="arithmatex">\(1\)</span>, 即<span class="arithmatex">\(w_1+w_2=1\)</span>. 假设<span class="arithmatex">\(w_1=w_2=0.5\)</span>, 那么<span class="arithmatex">\(p(distribution\ j|x_i, \theta)=\frac{0.5p(x_i|\theta_j)}{0.5p(x_i|\theta_1)+0.5p(x_i|\theta_2)}\)</span>, 对于数据点<span class="arithmatex">\(x_i=0\)</span>, 根据概率密度分布函数有<span class="arithmatex">\(p(x_i|\theta_1)=0.12, p(x_i|\theta_2)=0.06\)</span>, 那么<span class="arithmatex">\(p(distribution\ 1|x=0, \theta)=\frac{0.12}{0.12+0.06}=0.66, p(distribution\ 2|x=0, \theta)=\frac{0.06}{0.12+0.06}=0.33\)</span>, <span class="arithmatex">\(20000\)</span>个数据点都要算一遍</li>
+<li>M步, 重新估计每一个高斯分布的均值. <span class="arithmatex">\(\mu_1=\sum_{i=1}^n x_i\frac{p(distribution\ 1|x_i, \theta)}{\sum_{i=1}^n p(distribution\ 1|x_i, \theta)}\)</span>, <span class="arithmatex">\(\mu_2=\sum_{i=1}^n x_i\frac{p(distribution\ 2|x_i, \theta)}{\sum_{i=1}^n p(distribution\ 2|x_i, \theta)}\)</span>. 可以看到, 新的均值是基于数据点的加权平均值计算的. 权重由每个数据点属于特定分布的概率决定</li>
+<li>迭代和收敛, 重复步骤2和步骤3, 直到<span class="arithmatex">\(\mu_1\)</span>和<span class="arithmatex">\(\mu_2\)</span>的不再产生变化或变化非常小, 数据点最终分配给概率更高的分布</li>
+</ol>
 </details>
+<h4 id="gmm-vs-k-means">GMM vs. K-means</h4>
+<p>GMM其实是K-means算法的推广. K-means算法假设每个簇是圆形的, 而GMM则放宽了这个假设, 允许簇的形状为椭圆形, 因此更加灵活. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/9927e4cc93c42ff8a27e38e94dee29f7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9927e4cc93c42ff8a27e38e94dee29f7.png" width="500" /></a></p>
+</figure>
 
 
 
