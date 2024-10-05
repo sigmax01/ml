@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -1207,6 +1207,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="质心选取">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kmeans++" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means++
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      空簇
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      离群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1354,6 +1402,54 @@
       质心选取
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="质心选取">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kmeans++" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means++
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      空簇
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      离群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1554,6 +1650,27 @@
 </div>
 </div>
 </details>
+<p>选取初始质心的方法大致有两种:</p>
+<ol>
+<li>运行数次初始质心不同的K-means算法, 然后找到Sum of Squared Error(SSE)最小的初始质心. 什么是SSE? 对于每一个点来说, 它的误差是到最近质心的距离, SSE就是这些距离的总和. 也就是<span class="arithmatex">\(SSE=\sum_{i=1}^k\sum_{x\in k_i}d(c_i, x)^2\)</span>, 其中<span class="arithmatex">\(c_i\)</span>是质心, <span class="arithmatex">\(k\)</span>是簇的数量, <span class="arithmatex">\(x\)</span>是数据点.</li>
+<li>使用K-means++算法</li>
+</ol>
+<h5 id="kmeans++">K-means++</h5>
+<p>K-means++是一种K-means算法的变种, 它使用不同的方法选取初始质心. 剩余的和标准的K-means算法是相同的. 它的初始质心选取方法为: </p>
+<p>质心是逐个选择的, 直到选出<span class="arithmatex">\(k\)</span>个质心为止. 每一步中, 每个数据点都有一定的概率被选为质心, 该概率与该点到当前与其最近的质心的距离平方成正比, 这意味着离现有质心最远的点更有可能被选中, 这样能够确保质心分布良好, 互相分隔. </p>
+<p>该方法在实际使用中能够显著改进初始质心的选择, 从而提高K-means算法的整体效果. BTW, 在<a href="https://www.sydney.edu.au/units/COMP5045/2024-S1C-ND-CC">COMP5045(Computational Geometry)</a>中, 其中第11周讲到的Approximation Algorithms使用的也是这个思想, 那里叫"K-Clustering"算法, 过程是一样的.</p>
+<h4 id="_9">问题</h4>
+<h5 id="_10">空簇</h5>
+<p>K-means会产生空簇, 也就是没有点会被分配到一个簇中, 只包含一个初始质心. 解决方法有:</p>
+<ul>
+<li>选取离当前质心最远的点 </li>
+<li>使用<a href="#kmeans++">K-means++算法</a></li>
+<li>从具有最高SSE的簇中选取一个新的质心来分裂该簇</li>
+</ul>
+<p>如果有多个空簇出现, 可以重复上述步骤多次, 直至所有的簇都有点被分配.</p>
+<h5 id="_11">离群</h5>
+<p>离群点, OUtliers, 是指在数据集中明显偏离其他数据点的样本点. 它们与大多数数据点的分布有很大的差异, 可能在空间中距离其他数据点较远. 当数据集中存在离群点的时候, 计算得到的质心往往不够代表性, 并且会导致SSE增加. 尤其是在多次聚类运行过程中, 离群点的影响会比较明显.</p>
+<p>一种常见的解决方法是在进行聚类之前移除掉离群点. 但是对于某些应用场景, 离群点非常重要, 移除它们可能导致信息丢失. 例如, 数据压缩, 金融分析. 另一种方法是在聚类完成之后再移除这些离群点: 通过跟踪每个点对SSE的贡献, 特别是对贡献异常高的数据点, 可以移除. </p>
 
 
 
@@ -1576,7 +1693,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月5日</span>
   </span>
 
     
@@ -1738,17 +1855,6 @@
       
       
     
-    <a href="https://gitea.ricolxwz.io" target="_blank" rel="noopener" title="gitea.ricolxwz.io" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M88 0C74.7 0 64 10.7 64 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C120.5 112.3 128 119.9 128 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C119.5 47.7 112 40.1 112 24c0-13.3-10.7-24-24-24zM32 192c-17.7 0-32 14.3-32 32L0 416c0 53 43 96 96 96l192 0c53 0 96-43 96-96l16 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-48 0L32 192zm352 64l16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0-96zM224 24c0-13.3-10.7-24-24-24s-24 10.7-24 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C232.5 112.3 240 119.9 240 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C231.5 47.7 224 40.1 224 24z"/></svg>
-    </a>
-  
-    
-    
-    
-    
-      
-      
-    
     <a href="https://gitlab.com/ricolxwz" target="_blank" rel="noopener" title="gitlab.com" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82"/></svg>
     </a>
@@ -1798,7 +1904,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
       
         <script src="../../javascripts/favicon.js"></script>
       
