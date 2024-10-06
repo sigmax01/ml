@@ -1428,6 +1428,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#epsminpts" class="md-nav__link">
+    <span class="md-ellipsis">
+      选取Eps和MinPts
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1790,6 +1799,15 @@
   <a href="#_21" class="md-nav__link">
     <span class="md-ellipsis">
       三种点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epsminpts" class="md-nav__link">
+    <span class="md-ellipsis">
+      选取Eps和MinPts
     </span>
   </a>
   
@@ -2236,6 +2254,103 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" width="400" /></a></p>
 </figure>
+<hr />
+<p>DBSCAN的算法步骤为: </p>
+<ol>
+<li>将数据点标注为核心点, 边界点, 噪声点</li>
+<li>抛弃噪声点</li>
+<li>将剩余的点根据如下方式聚类:<ol>
+<li>任何两个核心点, 若各自在对方的Eps内, 则属于同一个簇</li>
+<li>任何的边界点都放在与其相关联的核心点所属的簇中. 若边界点同时和多个核心点相关联, 需要解决冲突</li>
+</ol>
+</li>
+</ol>
+<details class="example" open="open">
+<summary>例子</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">例子1</label><label for="__tabbed_4_2">例子2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>给出原始数据(邻接矩阵).</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/714fabd7f1a6ae4d9577a2b69f32aff0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/714fabd7f1a6ae4d9577a2b69f32aff0.png" width="300" /></a>
+</figure></p>
+<ul>
+<li>Eps = <span class="arithmatex">\(2\)</span></li>
+<li>
+<p>MinPts = <span class="arithmatex">\(3\)</span></p>
+</li>
+<li>
+<p>对于每一个点, 找到其邻居(在半径为Eps的圆内的点)</p>
+<ul>
+<li>A ---&gt; A, B</li>
+<li>B ---&gt; B, A, C</li>
+<li>C ---&gt; C, B</li>
+<li>D ---&gt; D, E</li>
+<li>E ---&gt; E, D</li>
+</ul>
+</li>
+<li>
+<p>根据MinPts将所有的点做标注</p>
+<ul>
+<li>核心点: B</li>
+<li>边界点: A, C</li>
+<li>噪声点: D, E</li>
+</ul>
+</li>
+<li>
+<p>找到簇: A, B, C</p>
+</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>给出原始数据(邻接矩阵).</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/5a288f9877c7a1f5771995e176046ca2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/5a288f9877c7a1f5771995e176046ca2.png" width="300" /></a>
+</figure></p>
+<ul>
+<li>Eps = <span class="arithmatex">\(1\)</span></li>
+<li>
+<p>MinPts = <span class="arithmatex">\(2\)</span></p>
+</li>
+<li>
+<p>对于每一个点, 找到其邻居(在半径为Eps的圆内的点)</p>
+<ul>
+<li>A ---&gt; A, B</li>
+<li>B ---&gt; B, A</li>
+<li>C ---&gt; C</li>
+<li>D ---&gt; D, E</li>
+<li>E ---&gt; E, D</li>
+</ul>
+</li>
+<li>
+<p>根据MinPts将所有的点做标注</p>
+<ul>
+<li>核心点: A, B, D, E</li>
+<li>边界点: 无</li>
+<li>噪声点: C</li>
+</ul>
+</li>
+<li>
+<p>找到簇</p>
+<ul>
+<li>A, B</li>
+<li>D, E</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</details>
+<h4 id="epsminpts">选取Eps和MinPts</h4>
+<p>不同的Eps和MinPts可能会对结果产生很大影响.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/baa3b7f497ca64173309b9cc5ad73a1f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/baa3b7f497ca64173309b9cc5ad73a1f.png" width="600" /></a></p>
+</figure>
+<ul>
+<li>如果Eps太大的话, 那么所有的点都会变成核心点</li>
+<li>如果Eps太小的话, 那么所有的点都会变成噪声点</li>
+</ul>
 
 
 
