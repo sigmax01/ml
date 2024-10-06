@@ -1474,6 +1474,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="评估">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无监督">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      凝聚度和分离度
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1862,6 +1901,45 @@
   <a href="#_24" class="md-nav__link">
     <span class="md-ellipsis">
       优缺点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="评估">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无监督">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      凝聚度和分离度
     </span>
   </a>
   
@@ -2459,6 +2537,46 @@
 <li>对输入参数Eps和MinPts敏感</li>
 <li>Eps和MinPts选择通常不是直观的, 需要通过一些启发方法</li>
 </ul>
+<h2 id="_25">评估</h2>
+<p>给出<span class="arithmatex">\(1000\)</span>个随机生成的数据点, 这些点没有任何明显的自然聚类结构, 只是纯粹的噪声数据. K-means算法和聚合式算法被设置为寻找<span class="arithmatex">\(3\)</span>个簇, 即使数据是随机的, 没有明显的聚类结构. </p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>理论上聚合式聚类不需要指定簇的数量, 但是有时候, 为了方便或者对比结果, 人们会提前指定提取的簇的数量. </p>
+</details>
+<p>这提示我们, 即使数据是完全随机的, 聚类算法仍然能够划分出簇. 因此, 在使用聚类算法的时候, 需要对结果进行评估, 以确保我们没有在噪声中"发现"不存在的模式的可能性.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/dd3e986b080ac523658d640c12f53635.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/dd3e986b080ac523658d640c12f53635.png" width="400" /></a></p>
+</figure>
+<p>有两种方式评估聚类的质量:</p>
+<ul>
+<li>无监督评估: 又叫做internal evaluation. 不依赖任何正确答案(标签)来评价聚类结果的质量. 理想的聚类应该是簇内相似度高, 簇间相似度低. 常见的内部评估指标包括轮廓系数(sihouette score), 簇内误差平方和(SSE)等</li>
+<li>有监督评估: 又叫做external evaluation. 即某些领域已有的专家或已有的数据为每个点提供了正确的簇标签. 在这种情况下, 聚类结果会和已知的正确簇标签进行比较, 以评估聚类的准确性. 常见的外部评估指标包括调整兰德系数(Adjusted Rand Index, ARI), 互信息(MI)等</li>
+</ul>
+<p>我们在这里侧重于讲解无监督评估.</p>
+<h3 id="_26">无监督</h3>
+<h4 id="_27">凝聚度和分离度</h4>
+<p>一个好的聚类会产生高凝聚度和高分离度的簇.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/fae31b619ceba5cd790a22a12106e818.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/fae31b619ceba5cd790a22a12106e818.png" width="500" /></a></p>
+</figure>
+<p>一个簇<span class="arithmatex">\(k_i\)</span>的凝聚度计算公式为<span class="arithmatex">\(cohesion(k_i)=\sum_{x\in k_i} dist(x, c_i)\)</span>. 其中, <span class="arithmatex">\(c_i\)</span>是簇的质心, <span class="arithmatex">\(x\)</span>是簇中所有的数据点. 总的凝聚度为所有簇的凝聚度之和.</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>如簇1和簇2的凝聚度.</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/453d31029f49420825a92fe6edca5ccd.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/453d31029f49420825a92fe6edca5ccd.png" width="500" /></a>
+</figure></p>
+<p>这里的距离采用的是<a href="/算法/预处理/#曼哈顿距离">曼哈顿距离</a>. 得到<span class="arithmatex">\(cohesion(k_1)=1\)</span>, <span class="arithmatex">\(cohesion(k_2)=1\)</span>. 总的凝聚度为两者之和<span class="arithmatex">\(cohesion = 2\)</span>.</p>
+</details>
+<p>一个簇<span class="arithmatex">\(k_i\)</span>和其他簇的分离度计算公式为<span class="arithmatex">\(separation(k_i)=dist(c_i, c)\)</span>. 其中, <span class="arithmatex">\(c\)</span>是所有点的质心, <span class="arithmatex">\(c_i\)</span>是簇<span class="arithmatex">\(k_i\)</span>的质心. 总的分离度是所有簇的分离度的加权和<span class="arithmatex">\(separation=\sum_{i=1}^k|k_i|dist(c_i, c)\)</span>.</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>如簇1和簇2的分离度.</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/60703076c2e2e08db9a3662858f251db.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/60703076c2e2e08db9a3662858f251db.png" width="500" /></a>
+</figure></p>
+<p>所有点的质心坐标为<span class="arithmatex">\(3\)</span>, 计算得到<span class="arithmatex">\(separation(k_1)=1.5\)</span>, <span class="arithmatex">\(separation(k_2)=1.5\)</span>. 总的分离度是所有簇的加权和, 权重是簇内点的数量, <span class="arithmatex">\(sparation=2*1.5+2*1.5=6\)</span>.</p>
+</details>
 
 
 
