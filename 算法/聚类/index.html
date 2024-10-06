@@ -1527,6 +1527,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      相似度矩阵的相关性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      相似度矩阵的可视化
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1990,6 +2008,24 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      相似度矩阵的相关性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      相似度矩阵的可视化
+    </span>
+  </a>
   
 </li>
         
@@ -2654,6 +2690,32 @@
 <p>轮廓系数是簇内所有点的轮廓系数的平均值.</p>
 <p>对于某个聚类:</p>
 <p>轮廓系数是所有簇的轮廓系数的平均值.</p>
+<h4 id="_30">相似度矩阵的相关性</h4>
+<p>使用相似度矩阵的相关性来评估聚类质量的原理是找到相似的数据点(即彼此距离较近的数据点)是否被分配到相同的簇中. </p>
+<ul>
+<li>第一个相似度矩阵从距离得出</li>
+<li>第二个相似度矩阵从聚类结果得出</li>
+</ul>
+<p>计算这两个相似度矩阵的相关性.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/95d386981583dd623f16f7c177b8f877.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/95d386981583dd623f16f7c177b8f877.png" width="500" /></a></p>
+</figure>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>有<span class="arithmatex">\(4\)</span>个数据点被分到了两个簇, p1, p2和p3, p4.</p>
+<p>其相似度矩阵为:</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/4ab78bb8e74fec45c35227a40a4876fb.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4ab78bb8e74fec45c35227a40a4876fb.png" width="200" /></a>
+</figure></p>
+<p>该相似度矩阵是基于点之间的距离生成的. </p>
+<p>基于聚类结果, 可以得到另一个相似度矩阵, 叫做聚类相似度矩阵:</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/44b8c7c4856be6985fa0f5dd4540388e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/44b8c7c4856be6985fa0f5dd4540388e.png" width="200" /></a>
+</figure></p>
+<p>这个相似度矩阵表示哪些数据点被分到了同一个簇中. 值为<span class="arithmatex">\(1\)</span>表示两个数据点在同一个簇中, 值为<span class="arithmatex">\(0\)</span>表示两个数据点不在同一个簇中.</p>
+<p>然后, 计算这两个相似度矩阵的相关性. 如果相关性高, 说明相似的数据点被分配到了同一个簇中, 聚类效果好. 如果相关性低, 说明相似的数据点没有被分配到同一个簇中, 聚类效果差.</p>
+</details>
+<h4 id="_31">相似度矩阵的可视化</h4>
 
 
 
