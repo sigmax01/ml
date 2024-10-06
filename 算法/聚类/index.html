@@ -2248,11 +2248,11 @@
 </ul>
 <p>若MinPts = <span class="arithmatex">\(7\)</span>:</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/6135b5f3f955d0c60f60a27007a57275.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6135b5f3f955d0c60f60a27007a57275.png" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6135b5f3f955d0c60f60a27007a57275.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6135b5f3f955d0c60f60a27007a57275.png" width="300" /></a></p>
 </figure>
 <p>若MinPts = <span class="arithmatex">\(4\)</span>:</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" width="300" /></a></p>
 </figure>
 <hr />
 <p>DBSCAN的算法步骤为: </p>
@@ -2351,6 +2351,11 @@
 <li>如果Eps太大的话, 那么所有的点都会变成核心点</li>
 <li>如果Eps太小的话, 那么所有的点都会变成噪声点</li>
 </ul>
+<p>我们可以使用k-距离, k-dist来选取适当的Eps和MinPts.</p>
+<p>k-距离是指从一个点到其第<span class="arithmatex">\(k\)</span>个最近邻居的距离. 对于属于某个簇的点, k-距离会比较小; 对于不属于任何簇的点, 如噪声点, k-距离会比较大. 我们可以为数据集中的所有点计算其k-距离, 然后将这些距离按照升序排列并绘制成图表. 在图中, k-距离的突然上升表示在这个位置对应的Eps和MinPts是合适的.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/f3724bfa6246c2d1b2b3697b0f990f9f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/f3724bfa6246c2d1b2b3697b0f990f9f.png" width="500" /></a></p>
+</figure>
 
 
 
