@@ -1416,6 +1416,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DBSCAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      三种点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1767,6 +1782,21 @@
       DBSCAN
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="DBSCAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      三种点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2184,6 +2214,27 @@
 <p>不同于K-means只能找圆形的簇, DBSCAN能找任意复杂形状的簇, 如S形, 半圆形...</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/c5306dba12bcc732151af1e8be634d85.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c5306dba12bcc732151af1e8be634d85.png" width="500" /></a></p>
+</figure>
+<p>DBSCAN的主要思想是, 如果A是一个簇, 那么它的密度应该高于一个阈值. 点A的领域是指在一个给定半径(成为Eps)的范围内, 围绕点A的区域. 密度是指在A的领域内点的数量, 包括A本身. 所以, A的密度就是在这个Eps半径内点的总数. 密度的阈值MinPts是密度的最低要求, 如果A的领域中的点数达到或者超过这个阈值, 即A的密度超过这个阈值, 则点A被认为是高密度点; 如果低于这个阈值, A可能被视为边界点或者噪声点.</p>
+<p>一个点的密度取决于半径Eps. 如果:</p>
+<ul>
+<li>Eps太大: 所有的点都会有一个较大的密度<span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(m\)</span>是数据集中所有的点的数量</li>
+<li>Eps太小: 所有的点的密度都等于<span class="arithmatex">\(1\)</span>, 即只有一个自身</li>
+</ul>
+<h4 id="_21">三种点</h4>
+<p>DBSCAN中有三种点:</p>
+<ul>
+<li>核心点: core point, 如果一个点的Eps领域内包含至少MinPts个点, 那么这个点被认为是核心点, 核心点通常位于密度聚类的内部</li>
+<li>边界点: border point, 它虽然其Eps领域内的点数不足以达到MinPts, 但是它位于某个核心点的领域内, 边界点可能位于多个核心点的领域中</li>
+<li>噪声点: noise point, 既不是核心点, 又不是边界点</li>
+</ul>
+<p>若MinPts = <span class="arithmatex">\(7\)</span>:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6135b5f3f955d0c60f60a27007a57275.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6135b5f3f955d0c60f60a27007a57275.png" width="400" /></a></p>
+</figure>
+<p>若MinPts = <span class="arithmatex">\(4\)</span>:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cae80e834b70837364d7afdbc8d07362.png" width="400" /></a></p>
 </figure>
 
 
