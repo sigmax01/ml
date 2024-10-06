@@ -1361,7 +1361,7 @@
           <li class="md-nav__item">
   <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
-      分类
+      缺陷
     </span>
   </a>
   
@@ -1370,7 +1370,25 @@
           <li class="md-nav__item">
   <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
       聚合式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      分裂式
     </span>
   </a>
   
@@ -1671,7 +1689,7 @@
           <li class="md-nav__item">
   <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
-      分类
+      缺陷
     </span>
   </a>
   
@@ -1680,7 +1698,25 @@
           <li class="md-nav__item">
   <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
       聚合式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      分裂式
     </span>
   </a>
   
@@ -1980,10 +2016,22 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0eee368bd98d0ffe70ddd197c3261992.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0eee368bd98d0ffe70ddd197c3261992.png" width="400" /></a></p>
 </figure>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>可以通过层次聚类对多个时间序列进行分组, 每条线代表一个时间序列, 图中右侧的柱状图展示了这些时间序列之间的相似性和聚类过程.</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/95e3ffe4afc2c2a24487a4a81847ea99.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/95e3ffe4afc2c2a24487a4a81847ea99.png" width="300" /></a>
+</figure></p>
+</details>
 <h3 id="_15">优势</h3>
 <p>使用层次式聚类无需在开始之前就明确簇的数量, 可以通过在树状图的不同层级进行"切割"得到所需的簇数量. </p>
 <p>树状图提供了一种可视化过程, 帮助理解不同的数据点如何逐步合并为簇. 通过观察树状图, 有时可以发现数据的有意义的层次结构或分类规则.</p>
-<h3 id="_16">分类</h3>
+<p>它特别适合处理具有层次结构或者分类方法(如生物分类)的数据, 因为它能够反应数据中的嵌套关系.</p>
+<h3 id="_16">缺陷</h3>
+<p>层次式聚类的计算复杂度较大, 限制了其在大规模数据集上的应用. 若<span class="arithmatex">\(n\)</span>为样本数量, 其空间复杂度为<span class="arithmatex">\(O(n^2)\)</span>(存储邻近矩阵和树状图); 时间复杂度是<span class="arithmatex">\(O(n^3)\)</span>(每次迭代都要搜索一遍邻近矩阵).</p>
+<p>其二是它不是增量的, incremental, 不像某些增量算法一样动态地处理新数据.</p>
+<p>噪声和离群点会对聚类结果产生较大影响, 特别是对于Ward法. 但是对单链接, 全链接, 平均链接的影响较小. 离群点通常会形成单独的小簇, 在聚类过程中不会和其他簇合并, 可以通过去除小簇来解决这个问题.</p>
+<h3 id="_17">分类</h3>
 <p>层次式聚合主要分为两种: </p>
 <ul>
 <li>聚合式, Agglomerative, bottom-up. 是一个自下往上构建树状图的过程. 即从各自的簇开始, 慢慢合并簇直到所有的数据点都属于一个簇</li>
@@ -1997,7 +2045,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/4accd298e44978a6fb715d72c1693c60.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4accd298e44978a6fb715d72c1693c60.png" width="500" /></a></p>
 </figure>
 <p>由于分裂式比聚合式的热度更低, 所以我们会注重讲解聚合式.</p>
-<h3 id="_17">聚合式</h3>
+<h3 id="_18">聚合式</h3>
 <p>聚合式式最热门的一种层次式聚合方案. 最关键的步骤就是计算两个簇之间的距离, 或者说是邻近矩阵, proximity matrix. 如何合并簇有不同的方法, 我们采用的方法是合并两个距离最近的簇.</p>
 <ol>
 <li>计算邻近矩阵</li>
@@ -2066,6 +2114,19 @@
 </div>
 </div>
 </details>
+<h3 id="_19">分裂式</h3>
+<p>分裂式聚合相比于聚合是聚合更少见. 它是基于最小生成树, MST的一种算法.</p>
+<ol>
+<li>首先, 将数据点的距离关系表示为一个邻近图, 生成MST</li>
+<li>重复过程:<ol>
+<li>通过切断MST中的最长边来创建新簇</li>
+</ol>
+</li>
+<li>结束条件: 直到所有的点都被分割为单独的簇</li>
+</ol>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/7853562a1ce61712453679f9547630c3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7853562a1ce61712453679f9547630c3.png" width="500" /></a></p>
+</figure>
 
 
 
