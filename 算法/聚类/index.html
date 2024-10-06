@@ -1501,6 +1501,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="凝聚度和分离度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      平方距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮廓系数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1942,6 +1966,30 @@
       凝聚度和分离度
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="凝聚度和分离度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      平方距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮廓系数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2572,11 +2620,40 @@
 <details class="example" open="open">
 <summary>例子</summary>
 <p>如簇1和簇2的分离度.</p>
-<p><figure markdown='1'>
+<p><figure markdown='œ1'>
 <a class="glightbox" href="https://img.ricolxwz.io/60703076c2e2e08db9a3662858f251db.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/60703076c2e2e08db9a3662858f251db.png" width="500" /></a>
 </figure></p>
 <p>所有点的质心坐标为<span class="arithmatex">\(3\)</span>, 计算得到<span class="arithmatex">\(separation(k_1)=1.5\)</span>, <span class="arithmatex">\(separation(k_2)=1.5\)</span>. 总的分离度是所有簇的加权和, 权重是簇内点的数量, <span class="arithmatex">\(sparation=2*1.5+2*1.5=6\)</span>.</p>
 </details>
+<h5 id="_28">平方距离</h5>
+<p>我们可以使用平方距离来表示凝聚度和分离度.</p>
+<ul>
+<li><span class="arithmatex">\(SSE=\sum_{i=1}^k\sum_{x\in k_i}(c_i, x)^2\)</span></li>
+<li><span class="arithmatex">\(BSE=\sum_{i=1}^k|k_i|(c_i, c)^2\)</span></li>
+</ul>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>计算簇1和簇2的凝聚度和分离度.</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/596183cd721dec4cf07deaeaf71709bb.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/596183cd721dec4cf07deaeaf71709bb.png" width="400" /></a>
+</figure></p>
+<ul>
+<li><span class="arithmatex">\(SSE=(1-1.5)^2+(2-1.5)^2+(4-4.5)^2+(5-4.5)^2=1\)</span></li>
+<li><span class="arithmatex">\(BSE=2*(3-1.5)^2+2*(4.5-3)^2=9\)</span></li>
+</ul>
+</details>
+<h5 id="_29">轮廓系数</h5>
+<p>轮廓系数, Sihouette Coefficient. 可以为单个点, 簇或者整个聚类结果进行计算, 它结合了凝聚度和分离度, 是一个综合的衡量指标.</p>
+<p>对于某个点<span class="arithmatex">\(i\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(a_i\)</span>: 点<span class="arithmatex">\(i\)</span>到簇内所有其他点的平均距离, 代表凝聚度</li>
+<li><span class="arithmatex">\(b_i\)</span>: 首先找到点<span class="arithmatex">\(i\)</span>到另一个簇中所有点的平均距离, 然后取这些平均距离的最小值</li>
+</ul>
+<p>轮廓系数的计算公式为<span class="arithmatex">\(s_i=\frac{b_i-a_i}{max(a_i, b_i)}\)</span>. <span class="arithmatex">\(s_i\)</span>的范围是<span class="arithmatex">\([-1, 1]\)</span>. 当<span class="arithmatex">\(s_i\)</span>接近<span class="arithmatex">\(-1\)</span>的时候, 表示该点可能被错误聚类, 它与其他簇的点更接近; 当<span class="arithmatex">\(s_i\)</span>接近<span class="arithmatex">\(1\)</span>的时候, 表示该点聚类质量高, 具有高凝聚度和高分离度.</p>
+<p>对于某个簇:</p>
+<p>轮廓系数是簇内所有点的轮廓系数的平均值.</p>
+<p>对于某个聚类:</p>
+<p>轮廓系数是所有簇的轮廓系数的平均值.</p>
 
 
 
