@@ -322,7 +322,7 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 由于模型的参数都是随机初始化的. 第一步模型在每个词输出的概率都是随机的. 我们可以把这个概率和正确的概率做对比, 然后使用反向传播来调整模型的权重, 使得输出的概率分布更加接近真实输出. 
 
-那么要怎么比较两个概率分布, 我们可以借助信息论的工具, 详情见[交叉熵](https://gk.ricolxwz.de/信息论/什么是信息/#交叉熵)和[KL散度](https://gk.ricolxwz.de/信息论/什么是信息/#KL散度).
+那么要怎么比较两个概率分布, 我们可以借助信息论的工具, 详情见[交叉熵](https://gk.ricolxwz.de/information-theory/what-is-information/#交叉熵)和[KL散度](https://gk.ricolxwz.de/information-theory/what-is-information/#KL散度).
 
 但是注意我们这是一个过度简化的例子. 现实来说, 我们会翻译一个句子, 而不是一个词. 例如, 输入是"je suis étudiant", 期望输出是"i am a student". 这意味着, 我们模型需要输出多个概率分布, 满足如下条件:
 

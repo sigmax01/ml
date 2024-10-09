@@ -15,7 +15,7 @@ comments: true
 
 ## 信息增益
 
-详见[不确定性和熵](https://gk.ricolxwz.de/信息论/不确定性和熵).
+详见[不确定性和熵](https://gk.ricolxwz.de/information-theory/uncertainty-and-entropy).
 
 信息熵代表的是随机变量的不确定性程度, 条件熵代表某一条件下, 不确定性减少的程度. 在决策树算法中, 我们的关键就是每次选择一个特征, 特征有多个, 那么到底按照什么标准来选择哪一个特征. 这个问题就可以用信息增益来度量. 如果选择一个特征之后, 信息增益最大, 那么我们就选择这个特征.
 
@@ -74,7 +74,7 @@ comments: true
 
 那么我们怎么获得较小的决策树呢? 较小的决策树意味着我们要尽快获得"纯度"较高的子集. 当一个子集中的所有样本都属于同一个类的时候, 那么这个子集被认为是"纯"的. 如果一个子集中的样本属于的类别越多, 通常纯度就越低. 这个其实就是熵的概念, 即表示一个子集中数据的不确定性/混乱程度. 我们的目标就是选取最有的属性, 使得产生的子集的纯度更高, 也就是信息增益更大. 
 
-熵, 信息增益, 互信息..等等知识请见[什么是信息](https://gk.ricolxwz.de/信息论/什么是信息), [不确定性和熵](https://gk.ricolxwz.de/信息论/不确定性和熵).
+熵, 信息增益, 互信息..等等知识请见[什么是信息](https://gk.ricolxwz.de/information-theory/what-is-information), [不确定性和熵](https://gk.ricolxwz.de/information-theory/uncertainty-and-entropy).
 
 ???+ example "例子"
 
