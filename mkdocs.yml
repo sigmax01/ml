@@ -172,21 +172,21 @@ nav:
     - 随机变量的数字特征: 概率/随机变量的数字特征.md
     - 大数定律与中心极限定理: 概率/大数定律与中心极限定理.md
   - 算法:
-    - 绪论: 算法/绪论.md
-    - 线性回归: 算法/线性回归.md
-    - 预处理: 算法/预处理.md
-    - 最邻近: 算法/最邻近.md
-    - 朴素贝叶斯: 算法/朴素贝叶斯.md
-    - 评估: 算法/评估.md
-    - 决策树: 算法/决策树.md
-    - 集成学习: 算法/集成学习.md
-    - 支持向量机: 算法/支持向量机.md
-    - 降维: 算法/降维.md
+    - 绪论: algorithm/index.md
+    - 线性回归: algorithm/linear-regression.md
+    - 预处理: algorithm/preprocessing.md
+    - 最邻近: algorithm/knn.md
+    - 朴素贝叶斯: algorithm/naive-bayes.md
+    - 评估: algorithm/evaluation.md
+    - 决策树: algorithm/decision-tree.md
+    - 集成学习: algorithm/ensemble-learning.md
+    - 支持向量机: algorithm/svm.md
+    - 降维: algorithm/dimensional-reduction.md
     - 神经网络:
-      - 前馈神经网络: 算法/神经网络/前馈神经网络.md
-      - 卷积神经网络: 算法/神经网络/卷积神经网络.md
-      - 递归神经网络: 算法/神经网络/递归神经网络.md
-      - Transformer: 算法/神经网络/transformer.md
-    - 聚类: 算法/clustering.md
-    - 马尔可夫链: 算法/马尔可夫链.md
-    - 强化学习: 算法/强化学习.md
+      - 前馈神经网络: algorithm/neural-network/fnn.md
+      - 卷积神经网络: algorithm/neural-network/cnn.md
+      - 递归神经网络: algorithm/neural-network/rnn.md
+      - Transformer: algorithm/neural-network/transformer.md
+    - 聚类: algorithm/clustering.md
+    - 马尔可夫链: algorithm/markov-chain.md
+    - 强化学习: algorithm/reinforcement-learning.md
