@@ -165,12 +165,12 @@ nav:
   - 开始:
     - index.md
   - 概率:
-    - 绪论: 概率/绪论.md
-    - 随机事件和概率: 概率/随机事件与概率.md
-    - 一维随机变量及其分布: 概率/一维随机变量及其分布.md
-    - 多维随机变量及其分布: 概率/多维随机变量及其分布.md
-    - 随机变量的数字特征: 概率/随机变量的数字特征.md
-    - 大数定律与中心极限定理: 概率/大数定律与中心极限定理.md
+    - 绪论: probability/index.md
+    - 随机事件和概率: probability/random-event-and-probability.md
+    - 一维随机变量及其分布: probability/one-dimensional-random-variable-distribution.md
+    - 多维随机变量及其分布: probability/multi-dimensional-random-variable-distribution.md
+    - 随机变量的数字特征: probability/numerical-characteristics-of-random-variable.md
+    - 大数定律与中心极限定理: probability/large-number-central-limit-theorem.md
   - 算法:
     - 绪论: algorithm/index.md
     - 线性回归: algorithm/linear-regression.md

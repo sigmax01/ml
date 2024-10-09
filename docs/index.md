@@ -5,12 +5,12 @@
 ## 进度
 
 - [ ] 概率
-    - [x] [绪论](/概率/绪论)
-    - [x] [随机事件与概率](/概率/随机事件与概率)
-    - [x] [一维随机变量及其分布](/概率/一维随机变量及其分布)
-    - [x] [多维随机变量及其分布](/概率/多维随机变量及其分布)
-    - [x] [随机变量的数字特征](/概率/随机变量的数字特征)
-    - [ ] [大数定律与中心极限定理](/概率/大数定律与中心极限定理)
+    - [x] [绪论](/probability/index)
+    - [x] [随机事件与概率](/probability/random-event-and-probability)
+    - [x] [一维随机变量及其分布](/probability/one-dimensional-random-variable-distribution)
+    - [x] [多维随机变量及其分布](/probability/multi-dimensional-random-variable-distribution)
+    - [x] [随机变量的数字特征](/probability/numerical-characteristics-of-random-variable)
+    - [ ] [大数定律与中心极限定理](/probability/large-number-central-limit-theorem)
 - [ ] 算法
     - [x] [绪论](/algorithm/index)
     - [x] [线性回归](/algorithm/linear-regression)
