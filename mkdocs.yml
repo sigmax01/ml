@@ -165,14 +165,14 @@ nav:
   - 开始:
     - index.md
   - 概率:
-    - 绪论: probability/index.md
+    - probability/index.md
     - 随机事件和概率: probability/random-event-and-probability.md
     - 一维随机变量及其分布: probability/one-dimensional-random-variable-distribution.md
     - 多维随机变量及其分布: probability/multi-dimensional-random-variable-distribution.md
     - 随机变量的数字特征: probability/numerical-characteristics-of-random-variable.md
     - 大数定律与中心极限定理: probability/large-number-central-limit-theorem.md
   - 算法:
-    - 绪论: algorithm/index.md
+    - algorithm/index.md
     - 线性回归: algorithm/linear-regression.md
     - 预处理: algorithm/preprocessing.md
     - 最邻近: algorithm/knn.md
@@ -183,8 +183,11 @@ nav:
     - 支持向量机: algorithm/svm.md
     - 降维: algorithm/dimensional-reduction.md
     - 神经网络:
+      - algorithm/neural-network/index.md
       - 前馈神经网络: algorithm/neural-network/fnn.md
-      - 卷积神经网络: algorithm/neural-network/cnn.md
+      - 卷积神经网络:
+        - algorithm/neural-network/cnn/index.md
+        - ResNet: algorithm/neural-network/cnn/resnet.md
       - 递归神经网络: algorithm/neural-network/rnn.md
       - Transformer: algorithm/neural-network/transformer.md
     - 聚类: algorithm/clustering.md
