@@ -141,11 +141,11 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/</loc>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnn/</loc>
         <lastmod>2024-10-09</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnn/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnn/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/probability/</loc>
@@ -330,11 +330,11 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/</loc>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnn/</loc>
         <lastmod>2024-10-09</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnn/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnn/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/probability/</loc>
