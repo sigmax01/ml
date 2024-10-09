@@ -5,7 +5,7 @@ comments: true
 
 ## 起源和发展
 
-2017年, Google在*[Attention is All You Need](https://arxiv.org/abs/1706.03762)*中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的[递归神经网络](/算法/神经网络/递归神经网络); 与此同时, Fast AI在*Universal Language Model Fint-tuning for Text Classification*中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的[LSTM模型](/算法/神经网络/递归神经网络#LSTM)迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.
+2017年, Google在*[Attention is All You Need](https://arxiv.org/abs/1706.03762)*中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的[递归神经网络](/algorithm/neural-network/rnn); 与此同时, Fast AI在*Universal Language Model Fint-tuning for Text Classification*中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的[LSTM模型](/algorithm/neural-network/递归神经网络#LSTM)迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.
 
 这些开创性的工作促成了两个著名的Transformer模型的出现:
 
@@ -54,7 +54,7 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 所有的编码器的结构都是相同的, 虽然它们的权重不一样. 每个编码器都可以分为两层.
 
 - 第一层是自注意力层, self-attention. 当编码器处理输入句子中的一个特定单词的时候, 不仅仅单独编码这个单词, 还会去关注输入句子中的其他单词, 这样就可以理解这个单词在整个句子的上下文关系
-- 第二层是[前馈神经网络](/算法/神经网络/前馈神经网络)
+- 第二层是[前馈神经网络](/algorithm/neural-network/fnn)
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png){ loading=lazy width='500' }

@@ -2129,7 +2129,7 @@
 <p>聚类可以用于:</p>
 <ul>
 <li>作为独立的工具对数据进行分簇</li>
-<li>作为其他算法的构建模块, 例如, 作为<a href="/算法/降维">降维</a>的预处理工具</li>
+<li>作为其他算法的构建模块, 例如, 作为<a href="/algorithm/降维">降维</a>的预处理工具</li>
 <li>...</li>
 </ul>
 <p>举几个例子把...</p>
@@ -2144,7 +2144,7 @@
 </ol>
 <h2 id="_3">测量</h2>
 <h3 id="_4">点的距离</h3>
-<p>数据点A和B之间的相似性是通过距离测量的. 距离测量的方式有很多种. 请参考<a href="/算法/预处理/#相似性测量">相似性测量</a>.</p>
+<p>数据点A和B之间的相似性是通过距离测量的. 距离测量的方式有很多种. 请参考<a href="/algorithm/preprocessing/#相似性测量">相似性测量</a>.</p>
 <h3 id="簇的距离">簇的距离</h3>
 <h3 id="_5">质心和中心</h3>
 <p>考虑一个含有<span class="arithmatex">\(N\)</span>个点的簇<span class="arithmatex">\(\{p_1, ..., p_N\}\)</span>. 质心, Centroid, 是簇的几何中心, 通常不是簇中的一个数据点. 而中心点, Medoid, 是簇中一个具有代表性的数据点, 其选取方式是: 找到簇中所有点到该点的距离和最小的那个点, 如<a href="https://img.ricolxwz.io/e6cedeff0f7b2b51aa22fd01709d7a34.png">图</a>所示.</p>
@@ -2698,7 +2698,7 @@
 <p><figure markdown='1'>
 <a class="glightbox" href="https://img.ricolxwz.io/453d31029f49420825a92fe6edca5ccd.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/453d31029f49420825a92fe6edca5ccd.png" width="500" /></a>
 </figure></p>
-<p>这里的距离采用的是<a href="/算法/预处理/#曼哈顿距离">曼哈顿距离</a>. 得到<span class="arithmatex">\(cohesion(k_1)=1\)</span>, <span class="arithmatex">\(cohesion(k_2)=1\)</span>. 总的凝聚度为两者之和<span class="arithmatex">\(cohesion = 2\)</span>.</p>
+<p>这里的距离采用的是<a href="/algorithm/preprocessing/#曼哈顿距离">曼哈顿距离</a>. 得到<span class="arithmatex">\(cohesion(k_1)=1\)</span>, <span class="arithmatex">\(cohesion(k_2)=1\)</span>. 总的凝聚度为两者之和<span class="arithmatex">\(cohesion = 2\)</span>.</p>
 </details>
 <p>一个簇<span class="arithmatex">\(k_i\)</span>和其他簇的分离度计算公式为<span class="arithmatex">\(separation(k_i)=dist(c_i, c)\)</span>. 其中, <span class="arithmatex">\(c\)</span>是所有点的质心, <span class="arithmatex">\(c_i\)</span>是簇<span class="arithmatex">\(k_i\)</span>的质心. 总的分离度是所有簇的分离度的加权和<span class="arithmatex">\(separation=\sum_{i=1}^k|k_i|dist(c_i, c)\)</span>.</p>
 <details class="example" open="open">
@@ -2775,7 +2775,7 @@
 </figure>
 <p>可以看到, 主对角线的块状结构是不太清晰的.</p>
 <h3 id="_32">选取簇的数量</h3>
-<p>可以参考PCA中的<a href="/算法/降维/#确定PC的数量">肘方法</a>. 对于不同的<span class="arithmatex">\(k\)</span>运行聚类算法, 使用无监督评估评估聚类结果, 如SSE, 轮廓系数. 然后, 找到SSE, 轮廓系数骤然下降对应的簇的数量.</p>
+<p>可以参考PCA中的<a href="/algorithm/dimensional-reduction/#确定PC的数量">肘方法</a>. 对于不同的<span class="arithmatex">\(k\)</span>运行聚类算法, 使用无监督评估评估聚类结果, 如SSE, 轮廓系数. 然后, 找到SSE, 轮廓系数骤然下降对应的簇的数量.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png" width="500" /></a></p>
 </figure>

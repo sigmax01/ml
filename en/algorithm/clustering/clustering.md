@@ -12,7 +12,7 @@ comments: true
 聚类可以用于:
 
 - 作为独立的工具对数据进行分簇
-- 作为其他算法的构建模块, 例如, 作为[降维](/算法/降维)的预处理工具
+- 作为其他算法的构建模块, 例如, 作为[降维](/algorithm/降维)的预处理工具
 - ...
 
 举几个例子把...
@@ -29,7 +29,7 @@ comments: true
 
 ### 点的距离
 
-数据点A和B之间的相似性是通过距离测量的. 距离测量的方式有很多种. 请参考[相似性测量](/算法/预处理/#相似性测量).
+数据点A和B之间的相似性是通过距离测量的. 距离测量的方式有很多种. 请参考[相似性测量](/algorithm/preprocessing/#相似性测量).
 
 ### 簇的距离 {#簇的距离}
 
@@ -610,7 +610,7 @@ DBSCAN无法很好的处理密度不同的簇, 结果会取决于不同的Eps和
     ![](https://img.ricolxwz.io/453d31029f49420825a92fe6edca5ccd.png){ loading=lazy width='500' }
     </figure>
 
-    这里的距离采用的是[曼哈顿距离](/算法/预处理/#曼哈顿距离). 得到$cohesion(k_1)=1$, $cohesion(k_2)=1$. 总的凝聚度为两者之和$cohesion = 2$.
+    这里的距离采用的是[曼哈顿距离](/algorithm/preprocessing/#曼哈顿距离). 得到$cohesion(k_1)=1$, $cohesion(k_2)=1$. 总的凝聚度为两者之和$cohesion = 2$.
 
 一个簇$k_i$和其他簇的分离度计算公式为$separation(k_i)=dist(c_i, c)$. 其中, $c$是所有点的质心, $c_i$是簇$k_i$的质心. 总的分离度是所有簇的分离度的加权和$separation=\sum_{i=1}^k|k_i|dist(c_i, c)$.
 
@@ -716,7 +716,7 @@ DBSCAN无法很好的处理密度不同的簇, 结果会取决于不同的Eps和
 
 ### 选取簇的数量
 
-可以参考PCA中的[肘方法](/算法/降维/#确定PC的数量). 对于不同的$k$运行聚类算法, 使用无监督评估评估聚类结果, 如SSE, 轮廓系数. 然后, 找到SSE, 轮廓系数骤然下降对应的簇的数量.
+可以参考PCA中的[肘方法](/algorithm/dimensional-reduction/#确定PC的数量). 对于不同的$k$运行聚类算法, 使用无监督评估评估聚类结果, 如SSE, 轮廓系数. 然后, 找到SSE, 轮廓系数骤然下降对应的簇的数量.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png){ loading=lazy width='500' }

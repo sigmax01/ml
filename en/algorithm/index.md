@@ -51,16 +51,16 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 
 |周数|主题|
 |-|-|
-|第一周|绪论, [预处理](/算法/预处理)|
-|第二周|[最邻近](/算法/最邻近)|
-|第三周|[线性回归](/算法/线性回归)|
-|第四周|[朴素贝叶斯](/算法/朴素贝叶斯), [评估](/算法/评估)|
-|第五周|[决策树](/算法/决策树), [集成学习](/算法/集成学习)|
-|第六周|[支持向量机](/算法/支持向量机), [降维](/算法/降维)|
-|第七周|[前馈神经网络](/算法/神经网络/前馈神经网络)|
-|第八周|[卷积神经网络](/算法/神经网络/卷积神经网络), [递归神经网络](/算法/神经网络/递归神经网络)|
-|第九周|[Transformer](/算法/神经网络/Transformer)|
-|第十周|[聚类](/算法/聚类)|
+|第一周|绪论, [预处理](/algorithm/预处理)|
+|第二周|[最邻近](/algorithm/最邻近)|
+|第三周|[线性回归](/algorithm/线性回归)|
+|第四周|[朴素贝叶斯](/algorithm/朴素贝叶斯), [评估](/algorithm/评估)|
+|第五周|[决策树](/algorithm/决策树), [集成学习](/algorithm/集成学习)|
+|第六周|[支持向量机](/algorithm/支持向量机), [降维](/algorithm/降维)|
+|第七周|[前馈神经网络](/algorithm/neural-network/fnn)|
+|第八周|[卷积神经网络](/algorithm/neural-network/cnn), [递归神经网络](/algorithm/neural-network/rnn)|
+|第九周|[Transformer](/algorithm/neural-network/Transformer)|
+|第十周|[聚类](/algorithm/聚类)|
 
 ### 备注
 

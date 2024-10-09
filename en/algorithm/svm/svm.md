@@ -37,7 +37,7 @@ comments: true
 
 ## 线性支持向量机
 
-现在我们有一个二分类问题, 一共有$N$个训练样本(输入向量). 我们定义$\boldsymbol{x}$为输入向量, $y$为分类值, 即$\boldsymbol{x_i}=(x_{i1}, x_{i2}, ..., x_{im})^T, y_i=\{-1, 1\}$. 参考[线性分类](/算法/线性回归/#线性分类). 我们有一个符号函数$sign$, 如果$\boldsymbol{w}\cdot \boldsymbol{x}+b$的结果$>0$, 说明样本点在决策边界的上方; 如果$\boldsymbol{w}\cdot \boldsymbol{x}+b$的结果$<0$, 说明样本点在决策边界的下方. $y=\boldsymbol{w}\cdot \boldsymbol{x} + b$就是决策边界. 
+现在我们有一个二分类问题, 一共有$N$个训练样本(输入向量). 我们定义$\boldsymbol{x}$为输入向量, $y$为分类值, 即$\boldsymbol{x_i}=(x_{i1}, x_{i2}, ..., x_{im})^T, y_i=\{-1, 1\}$. 参考[线性分类](/algorithm/linear-regression/#线性分类). 我们有一个符号函数$sign$, 如果$\boldsymbol{w}\cdot \boldsymbol{x}+b$的结果$>0$, 说明样本点在决策边界的上方; 如果$\boldsymbol{w}\cdot \boldsymbol{x}+b$的结果$<0$, 说明样本点在决策边界的下方. $y=\boldsymbol{w}\cdot \boldsymbol{x} + b$就是决策边界. 
 
 ### 超平面方程式
 

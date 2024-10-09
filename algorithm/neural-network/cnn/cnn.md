@@ -183,7 +183,7 @@ GoogleNet总共包含了$22$层深度神经网络, 仅有$500$万个参数, 比A
 
 ### 激活函数
 
-在特征图上, 我们会使用激活函数, 通常是ReLU. ReLU比sigmoid或者tanh更简单, 意味着运算速度更快. 没有上限, 更少的[梯度消失](/算法/神经网络/前馈神经网络/#梯度消失). 
+在特征图上, 我们会使用激活函数, 通常是ReLU. ReLU比sigmoid或者tanh更简单, 意味着运算速度更快. 没有上限, 更少的[梯度消失](/algorithm/neural-network/fnn/#梯度消失). 
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/481bdb01acf2586978cb74a8b0241600.png){ loading=lazy width='300' }

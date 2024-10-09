@@ -1500,7 +1500,7 @@
   <h1>Transformer</h1>
 
 <h2 id="_1">起源和发展</h2>
-<p>2017年, Google在<em><a href="https://arxiv.org/abs/1706.03762">Attention is All You Need</a></em>中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的<a href="/算法/神经网络/递归神经网络">递归神经网络</a>; 与此同时, Fast AI在<em>Universal Language Model Fint-tuning for Text Classification</em>中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的<a href="/算法/神经网络/递归神经网络#LSTM">LSTM模型</a>迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.</p>
+<p>2017年, Google在<em><a href="https://arxiv.org/abs/1706.03762">Attention is All You Need</a></em>中提出了Transformer结构用于序列标注, 在翻译任务中超过了之前最优秀的<a href="/algorithm/neural-network/rnn">递归神经网络</a>; 与此同时, Fast AI在<em>Universal Language Model Fint-tuning for Text Classification</em>中提出了一种名为ULMFiT的迁移训练方法, 将在大规模数据上预训练好的<a href="/algorithm/neural-network/递归神经网络#LSTM">LSTM模型</a>迁移用于文本分类, 只用很少的标注数据就达到了最佳性能.</p>
 <p>这些开创性的工作促成了两个著名的Transformer模型的出现:</p>
 <ul>
 <li><a href="https://ai.com">GPT</a> (the Generative Pretrained Transformer)</li>
@@ -1538,7 +1538,7 @@
 <p>所有的编码器的结构都是相同的, 虽然它们的权重不一样. 每个编码器都可以分为两层.</p>
 <ul>
 <li>第一层是自注意力层, self-attention. 当编码器处理输入句子中的一个特定单词的时候, 不仅仅单独编码这个单词, 还会去关注输入句子中的其他单词, 这样就可以理解这个单词在整个句子的上下文关系</li>
-<li>第二层是<a href="/算法/神经网络/前馈神经网络">前馈神经网络</a></li>
+<li>第二层是<a href="/algorithm/neural-network/fnn">前馈神经网络</a></li>
 </ul>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png" width="500" /></a></p>
