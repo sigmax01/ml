@@ -5,14 +5,14 @@
 ## 进度
 
 - [ ] 概率
-    - [x] [绪论](/probability/index)
+    - [x] [绪论](/probability/)
     - [x] [随机事件与概率](/probability/random-event-and-probability)
     - [x] [一维随机变量及其分布](/probability/one-dimensional-random-variable-distribution)
     - [x] [多维随机变量及其分布](/probability/multi-dimensional-random-variable-distribution)
     - [x] [随机变量的数字特征](/probability/numerical-characteristics-of-random-variable)
     - [ ] [大数定律与中心极限定理](/probability/large-number-central-limit-theorem)
 - [ ] 算法
-    - [x] [绪论](/algorithm/index)
+    - [x] [绪论](/algorithm/)
     - [x] [线性回归](/algorithm/linear-regression)
     - [x] [预处理](/algorithm/preprocessing)
     - [x] [最邻近](/algorithm/knn)
@@ -22,9 +22,10 @@
     - [x] [集成学习](/algorithm/ensemble-learning)
     - [x] [支持向量机](/algorithm/svm)
     - [x] [降维](/algorithm/dimensional-reduction)
-    - [x] 神经网络
+    - [x] [神经网络](/algorithm/neural-network)
         - [x] [前馈神经网络](/algorithm/neural-network/fnn)
         - [x] [卷积神经网络](/algorithm/neural-network/cnn)
+            - [ ] [ResNet](/algorithm/neural-network/cnn/resnet)
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
         - [x] [Transformer](/algorithm/neural-network/transformer)
     - [x] [聚类](/algorithm/clustering)
