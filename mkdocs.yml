@@ -187,7 +187,7 @@ nav:
       - 前馈神经网络: algorithm/neural-network/fnn.md
       - 卷积神经网络:
         - algorithm/neural-network/cnn/index.md
-        - ResNet: algorithm/neural-network/cnn/residual-nn.md
+        - ResNet: algorithm/neural-network/cnn/resnet.md
       - 递归神经网络: algorithm/neural-network/rnn.md
       - Transformer: algorithm/neural-network/transformer.md
     - 聚类: algorithm/clustering.md
