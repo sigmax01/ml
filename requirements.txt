@@ -2,7 +2,7 @@ mkdocs-material
 mkdocs-open-in-new-tab
 mkdocs-glightbox
 jieba
-# mkdocs-jupyter
+mkdocs-jupyter
 mkdocs-git-revision-date-localized-plugin
 mkdocs-git-committers-plugin-2
 mkdocs-static-i18n
