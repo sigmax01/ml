@@ -1397,9 +1397,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#multi-channel" class="md-nav__link">
     <span class="md-ellipsis">
       多通道
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      升降维
     </span>
   </a>
   
@@ -1602,7 +1611,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/6250c57e0b2c114a04294e75ccde07c5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6250c57e0b2c114a04294e75ccde07c5.png" width="200" /></a></p>
 </figure>
 <p>FC的最后一层会输出一个<span class="arithmatex">\(n\)</span>维的向量, <span class="arithmatex">\(n\)</span>是类的数量, 我们通常使用softmax函数输出每个类的概率. </p>
-<h2 id="_14">多通道</h2>
+<h2 id="multi-channel">多通道</h2>
 <p>前面我们讲过, 彩色图有<span class="arithmatex">\(3\)</span>个通道.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9fc452848ab61a37f13b4e41c8cb79be.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9fc452848ab61a37f13b4e41c8cb79be.png" width="550" /></a></p>
@@ -1615,6 +1624,10 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/a16b34d538a9f16749f44a2fe03e2169.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/a16b34d538a9f16749f44a2fe03e2169.png" width="500" /></a></p>
 </figure>
+<h2 id="_14">升降维</h2>
+<p>使用<span class="arithmatex">\(1\times 1\)</span>的卷积核可以对输入进行升降维.</p>
+<p>从<a href="#multi-channel">多通道</a>, 可以了解, 当输入有多个通道的时候, 如RGB图片的<span class="arithmatex">\(3\)</span>个通道, 每个卷积核的深度就是通道数. 这点对特征图来说也是一样的, 例如, 对于一张RGB图片, 我们在第一个卷积层用了<span class="arithmatex">\(128\)</span>个<span class="arithmatex">\(3\times 3\times 3\)</span>的卷积核, 那么会生成<span class="arithmatex">\(128\)</span>张特征图, 第二层我们使用了<span class="arithmatex">\(64\)</span>个<span class="arithmatex">\(1\times 1\times 128\)</span>的卷积核, 即卷积核的深度<span class="arithmatex">\(128\)</span>和特征图的通道(即它的数量<span class="arithmatex">\(128\)</span>)相同. 每个卷积核都会处理<span class="arithmatex">\(128\)</span>个通道的信息, 生成一个新的特征图, 而我们有<span class="arithmatex">\(64\)</span>个卷积核, 所以会生成<span class="arithmatex">\(64\)</span>个特征图. 并且, 这些特征图的长度和宽度和第一层卷积之后特征图的长度和宽度是相等的. </p>
+<p>这种操作能够在不改变长度和宽度的情况下, <strong>调整特征图的通道数</strong>, 从而控制参数量和计算复杂度.</p>
 <div class="footnote">
 <hr />
 <ol>
