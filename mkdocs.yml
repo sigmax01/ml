@@ -158,9 +158,6 @@ plugins:
       repository: ricolxwz/ml
       branch: master
       enabled: !ENV [CI, false]
-  - encryptcontent:
-      default_expire_dalay: 48
-      decryption_failure_message: '密码错误'
 nav:
   - 开始:
     - index.md
