@@ -94,6 +94,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1161,6 +1166,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    马尔可夫链
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1170,6 +1186,32 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1222,6 +1264,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1256,7 +1315,13 @@
 
   <h1>马尔可夫链</h1>
 
-<p>马尔科夫链因俄国数学家Andrey Andreyevich Markov得名, 为状态空间中从一个状态到另一个状态转换的随机过程, 该过程要求具备"无记忆"的性质, 下一状态的概率分布只能由当前状态决定, 在时间序列中和它前面的事件无关, 这种特定类型的"无记忆性"称作马尔可夫性质.</p>
+<p>马尔可夫链因俄国数学家Andrey Andreyevich Markov得名, 为状态空间中从一个状态到另一个状态转换的随机过程, 该过程要求具备"无记忆"的性质, 下一状态的概率分布只能由当前状态决定, 在时间序列中和它前面的事件无关, 这种特定类型的"无记忆性"称作马尔可夫性质.</p>
+<h2 id="_1">性质</h2>
+<p>马尔可夫性质是马尔可夫链的基础. 公式可以表示为<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1})\)</span>. 它说明, 当前状态<span class="arithmatex">\(S_{t}\)</span>只依赖于上一个状态<span class="arithmatex">\(S_{t-1}\)</span>, 而与之前的状态<span class="arithmatex">\(S_{1}, ..., S_{t-2}\)</span>无关. 对于其余状态也是同理的.</p>
+<p>上述只是一阶马尔可夫假设, 即假定当前的状态仅依赖于前面一个状态. 由此衍生出<span class="arithmatex">\(k\)</span>阶马尔可夫假设, 即假设当前状态依赖于最近的<span class="arithmatex">\(k\)</span>个状态, 即<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1}, ..., S_{t-k})\)</span>. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/7b64c88a1a92c1805aecf02b76d5c679.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7b64c88a1a92c1805aecf02b76d5c679.png" width="400" /></a></p>
+</figure>
 
 
 
