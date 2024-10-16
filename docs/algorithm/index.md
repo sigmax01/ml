@@ -40,7 +40,7 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 |作业|截止日期|完成情况|完成日期|备注|
 |-|-|-|-|-|
 |大作业1|第七周(9月9日)|✅|-|2人组队, 可以是不同的补习课的队友. 通过Canvas提交. 用Python写一个电脑程序解决特定的问题|
-|大作业2|第十一周(10月14日)|||多人组队, 可以是不同的补习课的队友. 通过Canvas提交, 运用机器学习算法解决一个问题. 需要提交一个报告来讨论结果|
+|大作业2|第十一周(10月14日)|✅||多人组队, 可以是不同的补习课的队友. 通过Canvas提交, 运用机器学习算法解决一个问题. 需要提交一个报告来讨论结果|
 |期末考试|考试周||||
 
 ### 惩罚措施
@@ -61,6 +61,7 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 |第八周|[卷积神经网络](/algorithm/neural-network/cnn), [递归神经网络](/algorithm/neural-network/rnn)|
 |第九周|[Transformer](/algorithm/neural-network/transformer)|
 |第十周|[聚类](/algorithm/clustering)|
+|第十一周|[马尔可夫链](/algorithm/markov-chain)|
 
 ### 备注
 
