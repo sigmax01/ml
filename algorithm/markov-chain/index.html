@@ -1489,7 +1489,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <ul>
 <li>概率计算问题: 给定模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 计算观测序列<span class="arithmatex">\(O\)</span>出现的概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>. 即评估模型<span class="arithmatex">\(\lambda\)</span>与观测序列<span class="arithmatex">\(\bm{O}\)</span>之间的匹配程度</li>
 <li>学习问题: 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
-<li>预测问题(也称为解码问题): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
+<li>预测问题(也称为解码问题): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}|\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
 </ul>
 <div class="footnote">
 <hr />
