@@ -1436,11 +1436,11 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </figure></p>
 </details>
 <h3 id="_3">参数</h3>
-<p>HMM的参数通常包括以下三个主要组成部分, 定义隐状态的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
+<p>HMM的参数可以表示为<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>, 定义隐状态的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
 <ol>
 <li>初始状态概率向量<span class="arithmatex">\(\bm{\pi}\)</span>. 它是一个长度为<span class="arithmatex">\(N\)</span>的向量, 其中<span class="arithmatex">\(\pi_i\)</span>表示在初始时刻<span class="arithmatex">\(t=1\)</span>时处于隐状态<span class="arithmatex">\(i\)</span>的概率, 所有的初始状态满足<span class="arithmatex">\(\sum_{i=1}^N \pi_i=1\)</span></li>
 <li>状态转移概率矩阵<span class="arithmatex">\(\bm{A}\)</span>, <span class="arithmatex">\(\bm{A}=[a_{ij}]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(a_{ij}\)</span>表示在时刻<span class="arithmatex">\(t\)</span>处于隐状态<span class="arithmatex">\(i\)</span>时, 下一时刻<span class="arithmatex">\(t+1\)</span>转移到隐状态<span class="arithmatex">\(j\)</span>的概率, 所有的转移概率满足<span class="arithmatex">\(\sum_{j=1}^N a_{ij}=1\)</span></li>
-<li>观测概率矩阵<span class="arithmatex">\(\bm{B}\)</span>, <span class="arithmatex">\(\bm{B}=[b_j(o_k)]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(b_j(o_k)\)</span>表示在隐状态<span class="arithmatex">\(j\)</span>下生成观测值<span class="arithmatex">\(o_k\)</span>的概率. </li>
+<li>观测概率矩阵<span class="arithmatex">\(\bm{B}\)</span>, <span class="arithmatex">\(\bm{B}=[b_j(o_k)]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(b_j(o_k)\)</span>表示在隐状态<span class="arithmatex">\(j\)</span>下生成观测值<span class="arithmatex">\(o_k\)</span>的概率. 对于连续的观测值, 可以使用概率密度函数来表示概率</li>
 </ol>
 <div class="footnote">
 <hr />
