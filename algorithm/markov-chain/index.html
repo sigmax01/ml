@@ -1216,6 +1216,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="隐马尔可夫模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1295,6 +1310,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="隐马尔可夫模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1370,12 +1400,12 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <p>在普通的马尔可夫模型中, 系统的状态是完全可见的. 也就是说, 每个时刻系统处于哪个状态是已知的, 可以直接观测到. 而在隐马尔可夫模型, HMM中, 系统的状态是隐藏的, 无法直接观测到, 但是受状态影像的某些变量是可见的. 每一个状态在可能输出的序号上都有一概率分布, 因此输出符号的序列能够透露出状态序列的一些信息.</p>
 <details class="example" open="open">
 <summary>例子</summary>
-<p>假设现在我们漂到了一个岛上, 这里没有天气预报, 只有一片片的海藻, 而这些海藻的状态如干燥, 潮湿等和天气的变换有一定的关系, 既然海藻是能看到的, 那它就是<em>观察状态</em>, 天气信息看不到就是<em>隐藏状态</em>.</p>
+<p>假设现在我们漂到了一个岛上, 这里没有天气预报, 只有一片片的海藻, 而这些海藻的状态如干燥, 潮湿等和天气的变换有一定的关系, 既然海藻是能看到的, 那它就是<em>观测状态</em>, 天气信息看不到就是<em>隐藏状态</em>.</p>
 <p>再举一个例子, 如下图所示是一个普通马尔可夫模型.</p>
 <p><figure markdown='1'>
 <a class="glightbox" href="https://img.ricolxwz.io/2e166902b66dc31881b927e274c403a4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2e166902b66dc31881b927e274c403a4.png" width="400" /></a>
 </figure></p>
-<p>HMM就是在这个基础上, 加入了一个隐藏状态和观察状态的概念.</p>
+<p>HMM就是在这个基础上, 加入了一个隐藏状态和观测状态的概念.</p>
 <p><figure markdown='1'>
 <a class="glightbox" href="https://img.ricolxwz.io/015f83e68047ff2b374f6a36781a7bd6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/015f83e68047ff2b374f6a36781a7bd6.png" width="400" /></a>
 </figure></p>
@@ -1386,7 +1416,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <p>我们的任务就是从这个人穿的衣物类型预测天气变化. 在这里, 有两种类型的概率:</p>
 <ul>
 <li>转换概率: transition probabilities, 从一个隐藏状态到另一个隐藏状态的概率</li>
-<li>观察概率: emission probabilities, 从一个隐藏状态到一个观察变量的过程</li>
+<li>观测概率: emission probabilities, 从一个隐藏状态到一个观测变量的过程</li>
 </ul>
 <p><figure markdown='1'>
 <a class="glightbox" href="https://img.ricolxwz.io/3faef5ee59ce156c08236dbc928ce456.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/3faef5ee59ce156c08236dbc928ce456.png" width="300" /></a>
@@ -1405,6 +1435,21 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <a class="glightbox" href="https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png" width="400" /></a>
 </figure></p>
 </details>
+<h3 id="_3">参数</h3>
+<p>HMM的参数通常包括以下三个主要组成部分, 定义隐状态的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
+<ol>
+<li>初始状态概率向量<span class="arithmatex">\(\bm{\pi}\)</span>. 它是一个长度为<span class="arithmatex">\(N\)</span>的向量, 其中<span class="arithmatex">\(\pi_i\)</span>表示在初始时刻<span class="arithmatex">\(t=1\)</span>时处于隐状态<span class="arithmatex">\(i\)</span>的概率, 所有的初始状态满足<span class="arithmatex">\(\sum_{i=1}^N \pi_i=1\)</span></li>
+<li>状态转移概率矩阵<span class="arithmatex">\(\bm{A}\)</span>, <span class="arithmatex">\(\bm{A}=[a_{ij}]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(a_{ij}\)</span>表示在时刻<span class="arithmatex">\(t\)</span>处于隐状态<span class="arithmatex">\(i\)</span>时, 下一时刻<span class="arithmatex">\(t+1\)</span>转移到隐状态<span class="arithmatex">\(j\)</span>的概率, 所有的转移概率满足<span class="arithmatex">\(\sum_{j=1}^N a_{ij}=1\)</span></li>
+<li>观测概率矩阵<span class="arithmatex">\(\bm{B}\)</span>, <span class="arithmatex">\(\bm{B}=[b_j(o_k)]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(b_j(o_k)\)</span>表示在隐状态<span class="arithmatex">\(j\)</span>下生成观测值<span class="arithmatex">\(o_k\)</span>的概率. </li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://blog.csdn.net/HUSTHY/article/details/104840693">https://blog.csdn.net/HUSTHY/article/details/104840693</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
