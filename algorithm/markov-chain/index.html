@@ -1228,6 +1228,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1317,6 +1335,24 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
     </span>
   </a>
   
@@ -1436,12 +1472,25 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </figure></p>
 </details>
 <h3 id="_3">参数</h3>
-<p>HMM的参数可以表示为<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>, 定义隐状态的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
-<ol>
+<p>HMM的参数可以表示为<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>, 定义隐状态的可能的取值的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的可能的取值的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
+<ul>
 <li>初始状态概率向量<span class="arithmatex">\(\bm{\pi}\)</span>. 它是一个长度为<span class="arithmatex">\(N\)</span>的向量, 其中<span class="arithmatex">\(\pi_i\)</span>表示在初始时刻<span class="arithmatex">\(t=1\)</span>时处于隐状态<span class="arithmatex">\(i\)</span>的概率, 所有的初始状态满足<span class="arithmatex">\(\sum_{i=1}^N \pi_i=1\)</span></li>
 <li>状态转移概率矩阵<span class="arithmatex">\(\bm{A}\)</span>, <span class="arithmatex">\(\bm{A}=[a_{ij}]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(a_{ij}\)</span>表示在时刻<span class="arithmatex">\(t\)</span>处于隐状态<span class="arithmatex">\(i\)</span>时, 下一时刻<span class="arithmatex">\(t+1\)</span>转移到隐状态<span class="arithmatex">\(j\)</span>的概率, 所有的转移概率满足<span class="arithmatex">\(\sum_{j=1}^N a_{ij}=1\)</span></li>
 <li>观测概率矩阵<span class="arithmatex">\(\bm{B}\)</span>, <span class="arithmatex">\(\bm{B}=[b_j(o_k)]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(b_j(o_k)\)</span>表示在隐状态<span class="arithmatex">\(j\)</span>下生成观测值<span class="arithmatex">\(o_k\)</span>的概率. 对于连续的观测值, 可以使用概率密度函数来表示概率</li>
-</ol>
+</ul>
+<h3 id="_4">假设</h3>
+<p>HMM做了两个基本假设, 在上面的例子中也提到了.</p>
+<ul>
+<li>齐次性假设: 即假设隐藏的马尔可夫链在任意时刻<span class="arithmatex">\(t\)</span>的状态只依赖于它在前一时刻的状态, 与其他时刻的状态和观测无关, 也与时刻<span class="arithmatex">\(t\)</span>本身无关</li>
+<li>观测独立性假设: 即假设任意时刻的观测值只依赖于该时刻的马尔可夫链的状态, 与其他观测及状态无关</li>
+</ul>
+<h3 id="_5">问题</h3>
+<p>HMM的三个基本问题:</p>
+<ul>
+<li>概率计算问题: 给定模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 计算观测序列<span class="arithmatex">\(O\)</span>出现的概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>. 即评估模型<span class="arithmatex">\(\lambda\)</span>与观测序列<span class="arithmatex">\(\bm{O}\)</span>之间的匹配程度</li>
+<li>学习问题: 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
+<li>预测问题(也称为解码问题): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>
