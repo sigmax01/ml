@@ -52,7 +52,7 @@ comments: false
 
 ???+ example "例子"
 
-    假设现在我们漂到了一个岛上, 这里没有天气预报, 只有一片片的海藻, 而这些海藻的状态如干燥, 潮湿等和天气的变换有一定的关系, 既然海藻是能看到的, 那它就是*观察状态*, 天气信息看不到就是*隐藏状态*.
+    假设现在我们漂到了一个岛上, 这里没有天气预报, 只有一片片的海藻, 而这些海藻的状态如干燥, 潮湿等和天气的变换有一定的关系, 既然海藻是能看到的, 那它就是*观测状态*, 天气信息看不到就是*隐藏状态*.
 
     再举一个例子, 如下图所示是一个普通马尔可夫模型.
 
@@ -60,7 +60,7 @@ comments: false
     ![](https://img.ricolxwz.io/2e166902b66dc31881b927e274c403a4.png){ loading=lazy width='400' }
     </figure>
 
-    HMM就是在这个基础上, 加入了一个隐藏状态和观察状态的概念.
+    HMM就是在这个基础上, 加入了一个隐藏状态和观测状态的概念.
 
     <figure markdown='1'>
     ![](https://img.ricolxwz.io/015f83e68047ff2b374f6a36781a7bd6.png){ loading=lazy width='400' }
@@ -75,7 +75,7 @@ comments: false
     我们的任务就是从这个人穿的衣物类型预测天气变化. 在这里, 有两种类型的概率:
 
     - 转换概率: transition probabilities, 从一个隐藏状态到另一个隐藏状态的概率
-    - 观察概率: emission probabilities, 从一个隐藏状态到一个观察变量的过程
+    - 观测概率: emission probabilities, 从一个隐藏状态到一个观测变量的过程
 
     <figure markdown='1'>
     ![](https://img.ricolxwz.io/3faef5ee59ce156c08236dbc928ce456.png){ loading=lazy width='300' }
@@ -97,3 +97,13 @@ comments: false
     <figure markdown='1'>
     ![](https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png){ loading=lazy width='400' }
     </figure>
+
+### 参数
+
+HMM的参数通常包括以下三个主要组成部分, 定义隐状态的数量为$N$, 如雨天, 阴天, 晴天, $N=3$. 观测变量的数量为$M$, 如穿夹克, 穿棉袄, $M=2$. 
+
+1. 初始状态概率向量$\bm{\pi}$. 它是一个长度为$N$的向量, 其中$\pi_i$表示在初始时刻$t=1$时处于隐状态$i$的概率, 所有的初始状态满足$\sum_{i=1}^N \pi_i=1$
+2. 状态转移概率矩阵$\bm{A}$, $\bm{A}=[a_{ij}]$, 它是一个$N\times M$的矩阵. $a_{ij}$表示在时刻$t$处于隐状态$i$时, 下一时刻$t+1$转移到隐状态$j$的概率, 所有的转移概率满足$\sum_{j=1}^N a_{ij}=1$
+3. 观测概率矩阵$\bm{B}$, $\bm{B}=[b_j(o_k)]$, 它是一个$N\times M$的矩阵. $b_j(o_k)$表示在隐状态$j$下生成观测值$o_k$的概率. 
+
+[^1]: https://blog.csdn.net/HUSTHY/article/details/104840693
