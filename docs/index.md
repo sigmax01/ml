@@ -34,10 +34,6 @@
 
 [https://py.ricolxwz.de](https://py.ricolxwz.de)
 
-## 流量
-
-[https://umami.ricolxwz.io/share/CUTl3qs7ajeXcjIY/ml.ricolxwz.de](https://umami.ricolxwz.io/share/CUTl3qs7ajeXcjIY/ml.ricolxwz.de)
-
 ## 推荐
 
 - [深度学习（DL/ML）学习路径](https://github.com/loveunk/machine-learning-deep-learning-notes/tree/master?tab=readme-ov-file)
