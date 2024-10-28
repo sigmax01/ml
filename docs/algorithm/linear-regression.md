@@ -5,8 +5,6 @@ comments: true
 
 ???+ info "信息"
 
-    - 前置知识
-		- [概率论](/数学/概率论)
     - 默认省略例子边框
 	- Jupyter Notebook练习: 
 		- 魔改版: 点击[这里](https://drive.google.com/file/d/1jBR4gyvUiFLpiWij5gYdzDhV4LNJv01q/view?usp=sharing)
