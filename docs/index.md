@@ -2,6 +2,12 @@
 
 欢迎来到机器学习笔记项目.
 
+## 联动
+
+- [基石库](https://gk.ricolxwz.de)
+- [Python](https://py.ricolxwz.de)
+- [杂七杂八档案室](https://misc.ricolxwz.de)
+
 ## 进度
 
 - [ ] [概率](/probability/)
@@ -29,10 +35,6 @@
     - [x] [聚类](/algorithm/clustering)
     - [ ] [马尔可夫链](/algorithm/markov-chain)
     - [ ] [强化学习](/algorithm/reinforcement-learning)
-
-## 基础
-
-[https://py.ricolxwz.de](https://py.ricolxwz.de)
 
 ## 推荐
 
