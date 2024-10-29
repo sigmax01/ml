@@ -1244,7 +1244,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="问题">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
@@ -1262,6 +1263,11 @@
       前向算法
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1380,7 +1386,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="问题">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
@@ -1398,6 +1405,11 @@
       前向算法
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1539,7 +1551,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <li>学习问题(也叫做Learning Problem): 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
 <li>预测问题(也叫做Decoding Problem): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}|\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
 </ul>
-<h3 id="_6">概率计算问题</h3>
+<h4 id="_6">概率计算问题</h4>
 <p>概率计算问题, Evaluation Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算该观测序列出现的概率.</p>
 <details class="example" open="open">
 <summary>例子</summary>
@@ -1561,7 +1573,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.0144\)</span>. 对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率. </p>
 <p>可以看到, 计算一个简单的观测序列Short, Hoodie的过程就进行了<span class="arithmatex">\(4\times 9=36\)</span>次乘法. 令<span class="arithmatex">\(N\)</span>为可能的状态的数量, 在这里有三个可能的状态, Rainy, Cloudy, Sunny. 令<span class="arithmatex">\(T\)</span>为观测序列的长度, 在这里是<span class="arithmatex">\(2\)</span>. 那么复杂度就是<span class="arithmatex">\(2TN^T\)</span>. 在实际中, 观测序列<span class="arithmatex">\(T\)</span>往往很大, 而状态数<span class="arithmatex">\(N\)</span>相对来说较小, 导致该算法的复杂度异常高. 解决这种问题的方法是使用前向算法.</p>
 </details>
-<h4 id="_7">前向算法</h4>
+<h5 id="_7">前向算法</h5>
 <p>前向算法, Forward Algorithm, 是一种动态规划算法, 用于高效计算给定观察序列的概率. 就像之前我们干的一样, 对于所有可能的隐藏状态序列, 前向算法都会求观测序列的条件概率, 但是在计算过程中会存储中间值来加速计算.</p>
 <p>前向概率<span class="arithmatex">\(f_k(i)\)</span>表示在时间<span class="arithmatex">\(i\)</span>时处于状态<span class="arithmatex">\(k\)</span>的条件下, 观察到<em>部分</em>观测序列的概率. <span class="arithmatex">\(f_k(i)=e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>, 其中<span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>是状态<span class="arithmatex">\(k\)</span>下观察到观测序列<span class="arithmatex">\(x_i\)</span>的观测概率, <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>是从状态<span class="arithmatex">\(j\)</span>转移到状态<span class="arithmatex">\(k\)</span>的转移概率. 通过上述公式, 可以递归地计算<span class="arithmatex">\(f_k(i)\)</span>, 因为<span class="arithmatex">\(f_k(i)\)</span>依赖于上一个时刻<span class="arithmatex">\(i-1\)</span>地前向概率<span class="arithmatex">\(f_j(i-1)\)</span>. 这种递归计算不需要重新计算已经求得的中间结果, 大大减少了重复计算的次数.</p>
 <p>前向算法的时间复杂度为<span class="arithmatex">\(N^2T\)</span>, 其中<span class="arithmatex">\(T\)</span>是观测序列长度, <span class="arithmatex">\(N\)</span>是状态数量, 相比枚举法的<span class="arithmatex">\(2TN^T\)</span>的复杂度, 前向算法的效率显著提高.</p>
