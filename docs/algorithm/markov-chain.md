@@ -234,3 +234,37 @@ Viterbi得分可以给出最终状态结束的最佳路径的概率, 但是仅�
 	1. 确定最终状态: 在最后一个时间步$m$, 找到具有最高Viterbi得分的状态$\pi_m=argmax_k V_k(m)$
 
 	2. 回溯路径: 从最后的状态开始, 通过回溯指针逐步确定前一个时间步的最佳状态: $\pi_{i-1}=Ptr_{\pi_i}(i)$
+
+???+ example "例子"
+
+	还是上面的例子. 给定一个模型:
+
+	<figure markdown='1'>
+	![](https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png){ loading=lazy width='400' }
+	</figure>	
+
+	和观测序列$X=$ Shirt, Hoodie.
+
+	1. 初始化
+
+		- $V_{Rainy}(1)=A_0(Rainy)e_{Rainy}(Shirt)=0.6\times 0.8=0.48$
+		- $V_{Cloudy}(1)=A_0(Cloudy)e_{Cloudy}(Shirt)=0.3\times 0.5=0.15$
+		- $V_{Sunny}(1)=A_0(Sunny)e_{Sunny}(Shirt)=0.1\times 0.01=0.001$
+
+	2. 迭代
+
+		这里要计算Viterbi得分和获取回溯指针.
+
+		- Rainy: 
+			- $V_{Rainy}(2)=e_{Rainy}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Rainy}, V_{Cloudy}(1)a_{Cloudy, Rainy}, V_{Sunny}(1)a_{Sunny, Rainy})=0.01\times max(0.48\times 0.6, 0.15\times 0.4 , 0.001\times 0.1)=0.01\times 0.48\times0.6=0.0029$
+			- $Ptr_{Rainy}(2)=argmax(0.48\times 0.6, 0.15\times 0.4, 0.001\times 0.1)=1$, 如$1$是Rainy
+		- Cloudy: 
+			- $V_{Cloudy}(2)=e_{Cloudy}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Cloudy}, V_{Cloudy}(1)a_{Cloudy, Cloudy}, V_{Sunny}(1)a_{Sunny, Cloudy})=0.1\times max(0.48\times 0.3, 0.15\times 0.3 , 0.001\times 0.4)=0.1\times 0.48\times0.3=0.0144$
+			- $Ptr_{Cloudy}(2)=argmax(0.48\times 0.3, 0.15\times 0.3, 0.001\times 0.4)=1$, 如$1$是Rainy
+		- Sunny: 
+			- $V_{Sunny}(2)=e_{Sunny}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Sunny}, V_{Cloudy}(1)a_{Cloudy, Sunny}, V_{Sunny}(1)a_{Sunny, Sunny})=0.01\times max(0.48\times 0.1, 0.15\times 0.3 , 0.001\times 0.5)=0.79\times 0.48\times0.1=0.0379$
+			- $Ptr_{Sunny}(2)=argmax(0.48\times 0.1, 0.15\times 0.3, 0.001\times 0.5)=1$, 如$1$是Rainy
+
+	3. 终止
+
+		时间步$2$的最终状态可由下列公式计算$argmax(V_{Rainy}(2), V_{Cloudy}(2), V_{Sunny}(2))=argmax(0.0029, 0.0144, 0.0379)=3$, 如$3$是Sunny. 由于$Ptr_{Sunny}=Rainy$, 所以最有可能的状态序列为Rainy, Sunny.
