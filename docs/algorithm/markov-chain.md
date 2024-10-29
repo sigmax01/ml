@@ -169,4 +169,32 @@ HMM的三个基本问题:
 
 3. 终止
 
-	在最后一个时间步$m$结束后, 对所有状态的前向概率求和. $p(x)=\sum_{k}f_k(m)$.
+	在最后一个时间步$m$结束后, 对所有状态的前向概率求和. $p(X)=\sum_{k}f_k(m)$.
+
+???+ example "例子"
+
+	继续上面的例子.
+
+	$1$的初始状态向量 + $2$个矩阵:
+
+	<figure markdown='1'>
+	![](https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png){ loading=lazy width='400' }
+	</figure>	
+
+	1. 初始化
+
+		- $f_{Rainy}(1)=A_0(Rainy)e_{Rainy}(Shirt)=0.6\times 0.8=0.48$
+		- $f_{Cloudy}(1)=A_0(Cloudy)e_{Cloudy}(Shirt)=0.3\times 0.5=0.15$
+		- $f_{Sunny}(1)=A_0(Sunny)e_{Sunny}(Shirt)=0.1\times 0.01=0.001$
+
+	2. 迭代
+
+		迭代计算第$i$个时间步的前向概率.
+
+		- $f_{Rainy}(2)=e_{Rainy}(Hoodie)(f_{Rainy}(1)a_{Rainy, Rainy}+f_{Cloudy}(1)a_{Cloudy, Rainy}+f_{Sunny}(1)a_{Sunny, Rainy})=0.01\times(0.48\times 0.6+0.15\times 0.4 + 0.001\times 0.1)=0.0035$
+		- $f_{Cloudy}(2)=e_{Cloudy}(Hoodie)(f_{Rainy}(1)a_{Rainy, Cloudy}+f_{Cloudy}(1)a_{Cloudy, Cloudy}+f_{Sunny}(1)a_{Sunny, Cloudy})=0.1\times(0.48\times 0.3+0.15\times 0.3 + 0.001\times 0.4)=0.0189$
+		- $f_{Sunny}(2)=e_{Sunny}(Hoodie)(f_{Rainy}(1)a_{Rainy, Sunny}+f_{Cloudy}(1)a_{Cloudy, Sunny}+f_{Sunny}(1)a_{Sunny, Sunny})=0.79\times(0.48\times 0.1+0.15\times 0.3 + 0.001\times 0.5)=0.0739$
+
+	3. 终止
+
+		当前最后一个时间步$m=2$, $p(X)=p(Shirt, Hoodie)=f_{Rainy}(2)+f_{Cloudy}(2)+f_{Sunny}(2)=0.0035+0.0189+0.0739=0.0963$.
