@@ -1246,6 +1246,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率计算问题
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1353,6 +1362,15 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率计算问题
     </span>
   </a>
   
@@ -1487,10 +1505,32 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <h3 id="_5">问题</h3>
 <p>HMM的三个基本问题:</p>
 <ul>
-<li>概率计算问题: 给定模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 计算观测序列<span class="arithmatex">\(O\)</span>出现的概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>. 即评估模型<span class="arithmatex">\(\lambda\)</span>与观测序列<span class="arithmatex">\(\bm{O}\)</span>之间的匹配程度</li>
-<li>学习问题: 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
-<li>预测问题(也称为解码问题): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}|\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
+<li>概率计算问题(也叫做Evaluation Problem): 给定模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 计算观测序列<span class="arithmatex">\(O\)</span>出现的概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>. 即评估模型<span class="arithmatex">\(\lambda\)</span>与观测序列<span class="arithmatex">\(\bm{O}\)</span>之间的匹配程度.</li>
+<li>学习问题(也叫做Learning Problem): 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
+<li>预测问题(也叫做Decoding Problem): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}|\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
 </ul>
+<h3 id="_6">概率计算问题</h3>
+<p>概率计算问题, Evaluation Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算该观测序列出现的概率.</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>给定一个HMM模型如下(包含初始状态向量, 状态转移概率矩阵, 观测概率矩阵):</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" width="400" /></a>
+</figure></p>
+<p>计算观测序列<span class="arithmatex">\(X=\)</span> Shirt, Hoodie出现的概率. </p>
+<p>我们可以使用枚举法: 首先, 列举出所有可能的状态序列, 由于我们的观测序列长度是<span class="arithmatex">\(2\)</span>, 所以长度为<span class="arithmatex">\(2\)</span>的状态序列有<span class="arithmatex">\(3^2=9\)</span>种组合, 如, Rainy, Rainy; Rainy, Cloudy; Rainy, Sunny; ... 对于每一种状态序列, 计算其对应的观察序列<span class="arithmatex">\(X=\)</span> Shirt, Hoodie的条件概率, 例如, 对于状态序列Rainy, Cloudy, 计算观测序列条件概率<span class="arithmatex">\(p(X, \{Rainy, Cloudy\})\)</span>的步骤为:</p>
+<ul>
+<li>初始状态: 状态从Rainy开始, 所以初始概率参见初始状态向量, 是<span class="arithmatex">\(0.6\)</span></li>
+<li>状态转移: 从Rainy转移到Cloudy的概率参见状态转移概率矩阵, 是<span class="arithmatex">\(0.3\)</span></li>
+<li>观测概率:<ul>
+<li>在第一个时刻Rainy观察到Shirt的概率参考观测概率矩阵, 是<span class="arithmatex">\(0.8\)</span></li>
+<li>在第二个时刻Cloudy观测到Hoodie的概率参考观测概率矩阵, 是<span class="arithmatex">\(0.1\)</span></li>
+</ul>
+</li>
+</ul>
+<p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.0144\)</span>. </p>
+<p>对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率.</p>
+</details>
 <div class="footnote">
 <hr />
 <ol>
