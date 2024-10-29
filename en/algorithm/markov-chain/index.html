@@ -1711,6 +1711,49 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </ol>
 </li>
 </ol>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>还是上面的例子. 给定一个模型:</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" width="400" /></a>
+</figure>   </p>
+<p>和观测序列<span class="arithmatex">\(X=\)</span> Shirt, Hoodie.</p>
+<ol>
+<li>
+<p>初始化</p>
+<ul>
+<li><span class="arithmatex">\(V_{Rainy}(1)=A_0(Rainy)e_{Rainy}(Shirt)=0.6\times 0.8=0.48\)</span></li>
+<li><span class="arithmatex">\(V_{Cloudy}(1)=A_0(Cloudy)e_{Cloudy}(Shirt)=0.3\times 0.5=0.15\)</span></li>
+<li><span class="arithmatex">\(V_{Sunny}(1)=A_0(Sunny)e_{Sunny}(Shirt)=0.1\times 0.01=0.001\)</span></li>
+</ul>
+</li>
+<li>
+<p>迭代</p>
+<p>这里要计算Viterbi得分和获取回溯指针.</p>
+<ul>
+<li>Rainy: <ul>
+<li><span class="arithmatex">\(V_{Rainy}(2)=e_{Rainy}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Rainy}, V_{Cloudy}(1)a_{Cloudy, Rainy}, V_{Sunny}(1)a_{Sunny, Rainy})=0.01\times max(0.48\times 0.6, 0.15\times 0.4 , 0.001\times 0.1)=0.01\times 0.48\times0.6=0.0029\)</span></li>
+<li><span class="arithmatex">\(Ptr_{Rainy}(2)=argmax(0.48\times 0.6, 0.15\times 0.4, 0.001\times 0.1)=1\)</span>, 如<span class="arithmatex">\(1\)</span>是Rainy</li>
+</ul>
+</li>
+<li>Cloudy: <ul>
+<li><span class="arithmatex">\(V_{Cloudy}(2)=e_{Cloudy}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Cloudy}, V_{Cloudy}(1)a_{Cloudy, Cloudy}, V_{Sunny}(1)a_{Sunny, Cloudy})=0.1\times max(0.48\times 0.3, 0.15\times 0.3 , 0.001\times 0.4)=0.1\times 0.48\times0.3=0.0144\)</span></li>
+<li><span class="arithmatex">\(Ptr_{Cloudy}(2)=argmax(0.48\times 0.3, 0.15\times 0.3, 0.001\times 0.4)=1\)</span>, 如<span class="arithmatex">\(1\)</span>是Rainy</li>
+</ul>
+</li>
+<li>Sunny: <ul>
+<li><span class="arithmatex">\(V_{Sunny}(2)=e_{Sunny}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Sunny}, V_{Cloudy}(1)a_{Cloudy, Sunny}, V_{Sunny}(1)a_{Sunny, Sunny})=0.01\times max(0.48\times 0.1, 0.15\times 0.3 , 0.001\times 0.5)=0.79\times 0.48\times0.1=0.0379\)</span></li>
+<li><span class="arithmatex">\(Ptr_{Sunny}(2)=argmax(0.48\times 0.1, 0.15\times 0.3, 0.001\times 0.5)=1\)</span>, 如<span class="arithmatex">\(1\)</span>是Rainy</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>终止</p>
+<p>时间步<span class="arithmatex">\(2\)</span>的最终状态可由下列公式计算<span class="arithmatex">\(argmax(V_{Rainy}(2), V_{Cloudy}(2), V_{Sunny}(2))=argmax(0.0029, 0.0144, 0.0379)=3\)</span>, 如<span class="arithmatex">\(3\)</span>是Sunny. 由于<span class="arithmatex">\(Ptr_{Sunny}=Rainy\)</span>, 所以最有可能的状态序列为Rainy, Sunny.</p>
+</li>
+</ol>
+</details>
 <div class="footnote">
 <hr />
 <ol>
