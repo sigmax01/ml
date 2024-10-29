@@ -1295,6 +1295,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      学习问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      期望最大化算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1451,6 +1475,30 @@
   <a href="#viterbi" class="md-nav__link">
     <span class="md-ellipsis">
       Viterbi算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      学习问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      期望最大化算法
     </span>
   </a>
   
@@ -1755,6 +1803,28 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </li>
 </ol>
 </details>
+<h4 id="_9">学习问题</h4>
+<p>学习问题, Learning Problem. 指的是给定一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>. 找出HMM模型<span class="arithmatex">\(\lambda=(\bm{\pi}, \bm{A}, \bm{A_0})\)</span>.</p>
+<h5 id="_10">期望最大化算法</h5>
+<p>期望最大发算法, Expectation Maximization, 用于计算HMM模型. 它分为4步:</p>
+<ol>
+<li>
+<p>初始化</p>
+<p>将模型参数<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>随机初始化. </p>
+</li>
+<li>
+<p>期望步骤</p>
+<p>基于当前的参数<span class="arithmatex">\(\lambda\)</span>, 计算各隐藏状态的概率分布.</p>
+</li>
+<li>
+<p>最大化步骤</p>
+<p>利用前一步计算的概率, 更新模型参数<span class="arithmatex">\(\lambda\)</span>, 使得给定观测数据的似然函数最大化. 这涉及预测最可能的观测序列并与实际观测序列进行比较.</p>
+</li>
+<li>
+<p>收敛判断</p>
+<p>如果模型参数更新后, <span class="arithmatex">\(p(X\lambda)\)</span>增加, 则返回第二步继续迭代, 否则停止迭代.</p>
+</li>
+</ol>
 <div class="footnote">
 <hr />
 <ol>
