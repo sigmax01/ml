@@ -1577,9 +1577,40 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </li>
 <li>
 <p>终止</p>
-<p>在最后一个时间步<span class="arithmatex">\(m\)</span>结束后, 对所有状态的前向概率求和. <span class="arithmatex">\(p(x)=\sum_{k}f_k(m)\)</span>.</p>
+<p>在最后一个时间步<span class="arithmatex">\(m\)</span>结束后, 对所有状态的前向概率求和. <span class="arithmatex">\(p(X)=\sum_{k}f_k(m)\)</span>.</p>
 </li>
 </ol>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>继续上面的例子.</p>
+<p><span class="arithmatex">\(1\)</span>的初始状态向量 + <span class="arithmatex">\(2\)</span>个矩阵:</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" width="400" /></a>
+</figure>   </p>
+<ol>
+<li>
+<p>初始化</p>
+<ul>
+<li><span class="arithmatex">\(f_{Rainy}(1)=A_0(Rainy)e_{Rainy}(Shirt)=0.6\times 0.8=0.48\)</span></li>
+<li><span class="arithmatex">\(f_{Cloudy}(1)=A_0(Cloudy)e_{Cloudy}(Shirt)=0.3\times 0.5=0.15\)</span></li>
+<li><span class="arithmatex">\(f_{Sunny}(1)=A_0(Sunny)e_{Sunny}(Shirt)=0.1\times 0.01=0.001\)</span></li>
+</ul>
+</li>
+<li>
+<p>迭代</p>
+<p>迭代计算第<span class="arithmatex">\(i\)</span>个时间步的前向概率.</p>
+<ul>
+<li><span class="arithmatex">\(f_{Rainy}(2)=e_{Rainy}(Hoodie)(f_{Rainy}(1)a_{Rainy, Rainy}+f_{Cloudy}(1)a_{Cloudy, Rainy}+f_{Sunny}(1)a_{Sunny, Rainy})=0.01\times(0.48\times 0.6+0.15\times 0.4 + 0.001\times 0.1)=0.0035\)</span></li>
+<li><span class="arithmatex">\(f_{Cloudy}(2)=e_{Cloudy}(Hoodie)(f_{Rainy}(1)a_{Rainy, Cloudy}+f_{Cloudy}(1)a_{Cloudy, Cloudy}+f_{Sunny}(1)a_{Sunny, Cloudy})=0.1\times(0.48\times 0.3+0.15\times 0.3 + 0.001\times 0.4)=0.0189\)</span></li>
+<li><span class="arithmatex">\(f_{Sunny}(2)=e_{Sunny}(Hoodie)(f_{Rainy}(1)a_{Rainy, Sunny}+f_{Cloudy}(1)a_{Cloudy, Sunny}+f_{Sunny}(1)a_{Sunny, Sunny})=0.79\times(0.48\times 0.1+0.15\times 0.3 + 0.001\times 0.5)=0.0739\)</span></li>
+</ul>
+</li>
+<li>
+<p>终止</p>
+<p>当前最后一个时间步<span class="arithmatex">\(m=2\)</span>, <span class="arithmatex">\(p(X)=p(Shirt, Hoodie)=f_{Rainy}(2)+f_{Cloudy}(2)+f_{Sunny}(2)=0.0035+0.0189+0.0739=0.0963\)</span>.</p>
+</li>
+</ol>
+</details>
 <div class="footnote">
 <hr />
 <ol>
