@@ -1603,7 +1603,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <p>概率计算问题, Evaluation Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算该观测序列出现的概率.</p>
 <details class="warning" open="open">
 <summary>注意</summary>
-<p>这边的<span class="arithmatex">\(\bm{\pi}\)</span>很鸡肋, 其实不用写的, 直接写一个状态转移矩阵<span class="arithmatex">\(A\)</span>就够了. 然后这边的<span class="arithmatex">\(\pi\)</span>也不是我上面说的意思, 他这里的<span class="arithmatex">\(\pi_i\)</span>是指时间步<span class="arithmatex">\(i\)</span>的状态, 而我上面说的<span class="arithmatex">\(\pi_i\)</span>是初始时刻处于隐状态<span class="arithmatex">\(i\)</span>的概率. 但是为了保持和课件的统一, 下面用它的写法.</p>
+<p>这边的<span class="arithmatex">\(\bm{\pi}\)</span>很鸡肋, 其实不用写的, 直接写一个状态转移矩阵<span class="arithmatex">\(A\)</span>就够了. 然后这边的<span class="arithmatex">\(\pi\)</span>也不是我上面说的意思, 他这里的<span class="arithmatex">\(\pi_i\)</span>是指时间步<span class="arithmatex">\(i\)</span>的状态, 而我上面说的<span class="arithmatex">\(\pi_i\)</span>是初始时刻处于隐状态<span class="arithmatex">\(i\)</span>的概率. 最后应该加上一个观测概率矩阵<span class="arithmatex">\(\bm{E}\)</span>, 这边漏了. 但是为了保持和课件的统一, 下面都用它的写法.</p>
 </details>
 <details class="example" open="open">
 <summary>例子</summary>
@@ -1681,6 +1681,36 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <p>Viterbi算法是一种动态规划算法, 用于计算每个状态的最优路径的概率, 称之为Viterbi得分. 由于它在每个时间点, 只需要维护每个状态的最高得分路径, 所以和前向算法类似, 能提高计算效率.</p>
 <p>给定时间<span class="arithmatex">\(i\)</span>和状态<span class="arithmatex">\(k\)</span>. 状态的Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>表示到达该状态的最优路径的概率, 计算公式为<span class="arithmatex">\(V_k(i)=e_k(x_i)max_j V_j(i-1)a_{jk}\)</span>. 其中, <span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>表示在当前状态<span class="arithmatex">\(k\)</span>下, 观测到<span class="arithmatex">\(x_i\)</span>的观测概率. <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>表示从前一状态<span class="arithmatex">\(j\)</span>转移到当前状态<span class="arithmatex">\(k\)</span>的转移概率. <span class="arithmatex">\(max_j V_j(i-1)a_{jk}\)</span>用于选择上一个时间步中到达当前状态<span class="arithmatex">\(k\)</span>的最优路径.</p>
 <p>Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>可以递归地基于上一时间步的得分<span class="arithmatex">\(V_j(i-1)\)</span>计算, 因此, 不需要重复计算所有路径, 而是逐步优化路径选择.</p>
+<p>Viterbi得分可以给出最终状态结束的最佳路径的概率, 但是仅仅只靠得分本身, 我们无法确定从起始状态到最终状态的整个路径. 为了确定完整的路径, 需要从最终状态回溯到其实状态, 为了实现回溯, 在计算Viterbi得分的过程中, 需要为每个状态保存一个指针, 这个指针记录了每一步使得Viterbi得分最大的前一状态. 数学表达为<span class="arithmatex">\(Ptr_k(i)=argmax_j V_j(i-1)a_{jk}\)</span>, 指向时间<span class="arithmatex">\(i-1\)</span>时能提供最高得分的状态<span class="arithmatex">\(j\)</span>. </p>
+<p>与前向算法类似, Viterbi算法也分为三步:</p>
+<ol>
+<li>
+<p>初始化</p>
+<p>在初始时间步<span class="arithmatex">\(t=1\)</span>的时候, 计算每个状态的Viterbi得分, 公式为<span class="arithmatex">\(V_k(1)=A_0(k)e_k(x_1)\)</span>. 其中<span class="arithmatex">\(A_0(k)\)</span>是初始时刻状态<span class="arithmatex">\(k\)</span>的概率, 参考初始状态向量; <span class="arithmatex">\(e_k(x_1)=p(x_1|\pi_1=k)\)</span>是在状态<span class="arithmatex">\(k\)</span>下观察到第一个观测值<span class="arithmatex">\(x_1\)</span>的概率. </p>
+</li>
+<li>
+<p>迭代</p>
+<ol>
+<li>
+<p>Viterbi得分: 计算状态<span class="arithmatex">\(k\)</span>在时间<span class="arithmatex">\(i\)</span>的得分<span class="arithmatex">\(V_k(i)=e_k(x_i)max_j V_j(i-1)a_{jk}\)</span></p>
+</li>
+<li>
+<p>回溯指针: 记录状态<span class="arithmatex">\(k\)</span>在时间<span class="arithmatex">\(i\)</span>的回溯路径, 用于后续的路径回溯<span class="arithmatex">\(Ptr_k(i)=argmax_j V_j(i-1)a_{jk}\)</span>  </p>
+</li>
+</ol>
+</li>
+<li>
+<p>终止</p>
+<ol>
+<li>
+<p>确定最终状态: 在最后一个时间步<span class="arithmatex">\(m\)</span>, 找到具有最高Viterbi得分的状态<span class="arithmatex">\(\pi_m=argmax_k V_k(m)\)</span></p>
+</li>
+<li>
+<p>回溯路径: 从最后的状态开始, 通过回溯指针逐步确定前一个时间步的最佳状态: <span class="arithmatex">\(\pi_{i-1}=Ptr_{\pi_i}(i)\)</span></p>
+</li>
+</ol>
+</li>
+</ol>
 <div class="footnote">
 <hr />
 <ol>
