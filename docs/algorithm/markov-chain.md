@@ -117,8 +117,34 @@ HMM做了两个基本假设, 在上面的例子中也提到了.
 
 HMM的三个基本问题:
 
-- 概率计算问题: 给定模型$\lambda = (\bm{A}, \bm{B}, \bm{\pi})$和观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 计算观测序列$O$出现的概率$p(\bm{O}; \lambda)$. 即评估模型$\lambda$与观测序列$\bm{O}$之间的匹配程度
-- 学习问题: 已知观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 估计模型$\lambda=(\bm{A}, \bm{B}, \bm{\pi})$的参数, 使得在该模型下的观测序列概率$p(\bm{O}; \lambda)$最大, 即用极大似然估计的方法估计参数
-- 预测问题(也称为解码问题): 已知模型$\lambda = (\bm{A}, \bm{B}, \bm{\pi})$和观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 求对给定观测序列的条件概率$P(\bm{I}|\bm{O})$最大的状态序列$\bm{I}=(i_1, i_2, ..., i_r)$, 即给定观测序列, 求最可能的对应的状态序列
+- 概率计算问题(也叫做Evaluation Problem): 给定模型$\lambda = (\bm{A}, \bm{B}, \bm{\pi})$和观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 计算观测序列$O$出现的概率$p(\bm{O}; \lambda)$. 即评估模型$\lambda$与观测序列$\bm{O}$之间的匹配程度.
+- 学习问题(也叫做Learning Problem): 已知观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 估计模型$\lambda=(\bm{A}, \bm{B}, \bm{\pi})$的参数, 使得在该模型下的观测序列概率$p(\bm{O}; \lambda)$最大, 即用极大似然估计的方法估计参数
+- 预测问题(也叫做Decoding Problem): 已知模型$\lambda = (\bm{A}, \bm{B}, \bm{\pi})$和观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 求对给定观测序列的条件概率$P(\bm{I}|\bm{O})$最大的状态序列$\bm{I}=(i_1, i_2, ..., i_r)$, 即给定观测序列, 求最可能的对应的状态序列
 
 [^1]: https://blog.csdn.net/HUSTHY/article/details/104840693
+
+### 概率计算问题
+
+概率计算问题, Evaluation Problem. 指的是给定一个HMM模型$\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})$和一个观测序列$X=x_1, x_2, ..., x_m$, 计算该观测序列出现的概率.
+
+???+ example "例子"
+
+	给定一个HMM模型如下(包含初始状态向量, 状态转移概率矩阵, 观测概率矩阵):
+
+	<figure markdown='1'>
+	![](https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png){ loading=lazy width='400' }
+	</figure>
+
+	计算观测序列$X=$ Shirt, Hoodie出现的概率. 
+
+	我们可以使用枚举法: 首先, 列举出所有可能的状态序列, 由于我们的观测序列长度是$2$, 所以长度为$2$的状态序列有$3^2=9$种组合, 如, Rainy, Rainy; Rainy, Cloudy; Rainy, Sunny; ... 对于每一种状态序列, 计算其对应的观察序列$X=$ Shirt, Hoodie的条件概率, 例如, 对于状态序列Rainy, Cloudy, 计算观测序列条件概率$p(X, \{Rainy, Cloudy\})$的步骤为:
+
+	- 初始状态: 状态从Rainy开始, 所以初始概率参见初始状态向量, 是$0.6$
+	- 状态转移: 从Rainy转移到Cloudy的概率参见状态转移概率矩阵, 是$0.3$
+	- 观测概率:
+		- 在第一个时刻Rainy观察到Shirt的概率参考观测概率矩阵, 是$0.8$
+		- 在第二个时刻Cloudy观测到Hoodie的概率参考观测概率矩阵, 是$0.1$
+
+	所以, 结果为$0.6\times 0.3\times 0.8\times 0.0144$. 
+
+	对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这$9$个条件概率, 得到最终的观测序列概率.
