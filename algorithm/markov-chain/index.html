@@ -1253,6 +1253,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="概率计算问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      前向算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1374,6 +1389,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="概率计算问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      前向算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1420,7 +1450,7 @@
 <p>马尔可夫链因俄国数学家Andrey Andreyevich Markov得名, 为状态空间中从一个状态到另一个状态转换的随机过程, 该过程要求具备"无记忆"的性质, 下一状态的概率分布只能由当前状态决定, 在时间序列中和它前面的事件无关, 这种特定类型的"无记忆性"称作马尔可夫性质.</p>
 <h2 id="_1">马尔可夫假设</h2>
 <p>马尔可夫假设是马尔可夫链的基础.公式可以表示为<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1})\)</span>. 它说明, 当前状态<span class="arithmatex">\(S_{t}\)</span>只依赖于上一个状态<span class="arithmatex">\(S_{t-1}\)</span>, 而与之前的状态<span class="arithmatex">\(S_{1}, ..., S_{t-2}\)</span>无关. 对于其余状态也是同理的.</p>
-<p>上述只是一阶马尔可夫假设, 即假定当前的状态仅依赖于前面一个状态. 由此衍生出<span class="arithmatex">\(k\)</span>阶马尔可夫假设, 即假设当前状态依赖于最近的<span class="arithmatex">\(k\)</span>个状态, 即<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1}, ..., S_{t-k})\)</span>. 这个概率又叫作状态转换概率.</p>
+<p>上述只是一阶马尔可夫假设, 即假定当前的状态仅依赖于前面一个状态. 由此衍生出<span class="arithmatex">\(k\)</span>阶马尔可夫假设, 即假设当前状态依赖于最近的<span class="arithmatex">\(k\)</span>个状态, 即<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1}, ..., S_{t-k})\)</span>. 这个概率又叫作状态转移概率.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/7b64c88a1a92c1805aecf02b76d5c679.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7b64c88a1a92c1805aecf02b76d5c679.png" width="400" /></a></p>
 </figure>
@@ -1440,7 +1470,7 @@ S_{31} &amp; S_{32} &amp; \cdots &amp; S_{3N} \\
 S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 \end{bmatrix}
 \]</div>
-<p>其中<span class="arithmatex">\(S_{ij}=p(S_t=j|S_{t-1}=i)\)</span>, 表示从<span class="arithmatex">\(i\)</span>到<span class="arithmatex">\(j\)</span>的转换概率. 那么, 我们可不可以从任意的初始状态开始, 推导出后面的所有状态呢? 假设起始概率为<span class="arithmatex">\(\pi_i\)</span>, 表示马尔可夫链从状态<span class="arithmatex">\(i\)</span>开始. </p>
+<p>其中<span class="arithmatex">\(S_{ij}=p(S_t=j|S_{t-1}=i)\)</span>, 表示从<span class="arithmatex">\(i\)</span>到<span class="arithmatex">\(j\)</span>的转移概率. 那么, 我们可不可以从任意的初始状态开始, 推导出后面的所有状态呢? 假设起始概率为<span class="arithmatex">\(\pi_i\)</span>, 表示马尔可夫链从状态<span class="arithmatex">\(i\)</span>开始. </p>
 <p><figure markdown='1'>
 <a class="glightbox" href="https://img.ricolxwz.io/89db496511dfb7d4cedd80c50aad8a05.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/89db496511dfb7d4cedd80c50aad8a05.png" width="300" /></a>
 </figure></p>
@@ -1469,7 +1499,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </figure></p>
 <p>我们的任务就是从这个人穿的衣物类型预测天气变化. 在这里, 有两种类型的概率:</p>
 <ul>
-<li>转换概率: transition probabilities, 从一个隐藏状态到另一个隐藏状态的概率</li>
+<li>转移概率: transition probabilities, 从一个隐藏状态到另一个隐藏状态的概率</li>
 <li>观测概率: emission probabilities, 从一个隐藏状态到一个观测变量的过程</li>
 </ul>
 <p><figure markdown='1'>
@@ -1529,8 +1559,27 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </li>
 </ul>
 <p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.0144\)</span>. 对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率. </p>
-<p>可以看到, 计算一个简单的观测序列Short, Hoodie的过程就进行了<span class="arithmatex">\(4\times 9=36\)</span>次乘法. 令<span class="arithmatex">\(N\)</span>为可能的状态的数量, 在这里有三个可能的状态, Rainy, Cloudy, Sunny. 令<span class="arithmatex">\(T\)</span>为观测序列的长度, 在这里是<span class="arithmatex">\(2\)</span>. 那么复杂度就是<span class="arithmatex">\(2TN^T\)</span>. 在实际中, 观测序列<span class="arithmatex">\(T\)</span>往往很大, 而状态数<span class="arithmatex">\(N\)</span>相对来说较小, 导致该算法的复杂度异常高.</p>
+<p>可以看到, 计算一个简单的观测序列Short, Hoodie的过程就进行了<span class="arithmatex">\(4\times 9=36\)</span>次乘法. 令<span class="arithmatex">\(N\)</span>为可能的状态的数量, 在这里有三个可能的状态, Rainy, Cloudy, Sunny. 令<span class="arithmatex">\(T\)</span>为观测序列的长度, 在这里是<span class="arithmatex">\(2\)</span>. 那么复杂度就是<span class="arithmatex">\(2TN^T\)</span>. 在实际中, 观测序列<span class="arithmatex">\(T\)</span>往往很大, 而状态数<span class="arithmatex">\(N\)</span>相对来说较小, 导致该算法的复杂度异常高. 解决这种问题的方法是使用前向算法.</p>
 </details>
+<h4 id="_7">前向算法</h4>
+<p>前向算法, Forward Algorithm, 是一种动态规划算法, 用于高效计算给定观察序列的概率. 就像之前我们干的一样, 对于所有可能的隐藏状态序列, 前向算法都会求观测序列的条件概率, 但是在计算过程中会存储中间值来加速计算.</p>
+<p>前向概率<span class="arithmatex">\(f_k(i)\)</span>表示在时间<span class="arithmatex">\(i\)</span>时处于状态<span class="arithmatex">\(k\)</span>的条件下, 观察到<em>部分</em>观测序列的概率. <span class="arithmatex">\(f_k(i)=e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>, 其中<span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>是状态<span class="arithmatex">\(k\)</span>下观察到观测序列<span class="arithmatex">\(x_i\)</span>的观测概率, <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>是从状态<span class="arithmatex">\(j\)</span>转移到状态<span class="arithmatex">\(k\)</span>的转移概率. 通过上述公式, 可以递归地计算<span class="arithmatex">\(f_k(i)\)</span>, 因为<span class="arithmatex">\(f_k(i)\)</span>依赖于上一个时刻<span class="arithmatex">\(i-1\)</span>地前向概率<span class="arithmatex">\(f_j(i-1)\)</span>. 这种递归计算不需要重新计算已经求得的中间结果, 大大减少了重复计算的次数.</p>
+<p>前向算法的时间复杂度为<span class="arithmatex">\(N^2T\)</span>, 其中<span class="arithmatex">\(T\)</span>是观测序列长度, <span class="arithmatex">\(N\)</span>是状态数量, 相比枚举法的<span class="arithmatex">\(2TN^T\)</span>的复杂度, 前向算法的效率显著提高.</p>
+<p>前向算法主要由<span class="arithmatex">\(3\)</span>步计算过程组成:</p>
+<ol>
+<li>
+<p>初始化</p>
+<p>计算在时间步<span class="arithmatex">\(t=1\)</span>时每个状态<span class="arithmatex">\(k\)</span>的前向概率<span class="arithmatex">\(f_k(1)\)</span>, 公式为<span class="arithmatex">\(f_k(1)=A_0(k)e_k(x_1)\)</span>, 其中<span class="arithmatex">\(A_0(k)\)</span>是初始时刻状态<span class="arithmatex">\(k\)</span>的概率, 参考初始状态向量; <span class="arithmatex">\(e_k(x_1)=p(x_1|\pi_1=k)\)</span>是在状态<span class="arithmatex">\(k\)</span>下观察到第一个观测值<span class="arithmatex">\(x_1\)</span>的概率.</p>
+</li>
+<li>
+<p>迭代</p>
+<p>对于接下来的时间步<span class="arithmatex">\(t=2, ..., m\)</span>, 计算每个状态<span class="arithmatex">\(k\)</span>的前向概率<span class="arithmatex">\(f_k(i)\)</span>. <span class="arithmatex">\(f_k(i)=e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>. 各部分的含义参见上方.</p>
+</li>
+<li>
+<p>终止</p>
+<p>在最后一个时间步<span class="arithmatex">\(m\)</span>结束后, 对所有状态的前向概率求和. <span class="arithmatex">\(p(x)=\sum_{k}f_k(m)\)</span>.</p>
+</li>
+</ol>
 <div class="footnote">
 <hr />
 <ol>
