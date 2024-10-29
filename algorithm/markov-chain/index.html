@@ -1271,6 +1271,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      预测问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="预测问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viterbi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viterbi算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1403,6 +1427,30 @@
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       前向算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      预测问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="预测问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viterbi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viterbi算法
     </span>
   </a>
   
@@ -1553,6 +1601,10 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </ul>
 <h4 id="_6">概率计算问题</h4>
 <p>概率计算问题, Evaluation Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算该观测序列出现的概率.</p>
+<details class="warning" open="open">
+<summary>注意</summary>
+<p>这边的<span class="arithmatex">\(\bm{\pi}\)</span>很鸡肋, 其实不用写的, 直接写一个状态转移矩阵<span class="arithmatex">\(A\)</span>就够了. 然后这边的<span class="arithmatex">\(\pi\)</span>也不是我上面说的意思, 他这里的<span class="arithmatex">\(\pi_i\)</span>是指时间步<span class="arithmatex">\(i\)</span>的状态, 而我上面说的<span class="arithmatex">\(\pi_i\)</span>是初始时刻处于隐状态<span class="arithmatex">\(i\)</span>的概率. 但是为了保持和课件的统一, 下面用它的写法.</p>
+</details>
 <details class="example" open="open">
 <summary>例子</summary>
 <p>给定一个HMM模型如下(包含初始状态向量, 状态转移概率矩阵, 观测概率矩阵):</p>
@@ -1623,6 +1675,12 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </li>
 </ol>
 </details>
+<h4 id="_8">预测问题</h4>
+<p>预测问题, Decoding Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda=(\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算最可能对应的隐藏序列.</p>
+<h5 id="viterbi">Viterbi算法</h5>
+<p>Viterbi算法是一种动态规划算法, 用于计算每个状态的最优路径的概率, 称之为Viterbi得分. 由于它在每个时间点, 只需要维护每个状态的最高得分路径, 所以和前向算法类似, 能提高计算效率.</p>
+<p>给定时间<span class="arithmatex">\(i\)</span>和状态<span class="arithmatex">\(k\)</span>. 状态的Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>表示到达该状态的最优路径的概率, 计算公式为<span class="arithmatex">\(V_k(i)=e_k(x_i)max_j V_j(i-1)a_{jk}\)</span>. 其中, <span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>表示在当前状态<span class="arithmatex">\(k\)</span>下, 观测到<span class="arithmatex">\(x_i\)</span>的观测概率. <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>表示从前一状态<span class="arithmatex">\(j\)</span>转移到当前状态<span class="arithmatex">\(k\)</span>的转移概率. <span class="arithmatex">\(max_j V_j(i-1)a_{jk}\)</span>用于选择上一个时间步中到达当前状态<span class="arithmatex">\(k\)</span>的最优路径.</p>
+<p>Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>可以递归地基于上一时间步的得分<span class="arithmatex">\(V_j(i-1)\)</span>计算, 因此, 不需要重复计算所有路径, 而是逐步优化路径选择.</p>
 <div class="footnote">
 <hr />
 <ol>
