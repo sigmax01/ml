@@ -1528,8 +1528,8 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </ul>
 </li>
 </ul>
-<p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.0144\)</span>. </p>
-<p>对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率.</p>
+<p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.0144\)</span>. 对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率. </p>
+<p>可以看到, 计算一个简单的观测序列Short, Hoodie的过程就进行了<span class="arithmatex">\(4\times 9=36\)</span>次乘法. 令<span class="arithmatex">\(N\)</span>为可能的状态的数量, 在这里有三个可能的状态, Rainy, Cloudy, Sunny. 令<span class="arithmatex">\(T\)</span>为观测序列的长度, 在这里是<span class="arithmatex">\(2\)</span>. 那么复杂度就是<span class="arithmatex">\(2TN^T\)</span>. 在实际中, 观测序列<span class="arithmatex">\(T\)</span>往往很大, 而状态数<span class="arithmatex">\(N\)</span>相对来说较小, 导致该算法的复杂度异常高.</p>
 </details>
 <div class="footnote">
 <hr />
