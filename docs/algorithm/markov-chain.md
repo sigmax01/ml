@@ -121,8 +121,6 @@ HMM的三个基本问题:
 - 学习问题(也叫做Learning Problem): 已知观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 估计模型$\lambda=(\bm{A}, \bm{B}, \bm{\pi})$的参数, 使得在该模型下的观测序列概率$p(\bm{O}; \lambda)$最大, 即用极大似然估计的方法估计参数
 - 预测问题(也叫做Decoding Problem): 已知模型$\lambda = (\bm{A}, \bm{B}, \bm{\pi})$和观测序列$\bm{O}=(o_1, o_2, ..., o_M)$, 求对给定观测序列的条件概率$P(\bm{I}|\bm{O})$最大的状态序列$\bm{I}=(i_1, i_2, ..., i_r)$, 即给定观测序列, 求最可能的对应的状态序列
 
-[^1]: https://blog.csdn.net/HUSTHY/article/details/104840693
-
 #### 概率计算问题
 
 概率计算问题, Evaluation Problem. 指的是给定一个HMM模型$\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})$和一个观测序列$X=x_1, x_2, ..., x_m$, 计算该观测序列出现的概率.
