@@ -33,7 +33,7 @@
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
         - [x] [Transformer](/algorithm/neural-network/transformer)
     - [x] [聚类](/algorithm/clustering)
-    - [ ] [马尔可夫链](/algorithm/markov-chain)
+    - [x] [马尔可夫链](/algorithm/markov-chain)
     - [ ] [强化学习](/algorithm/reinforcement-learning)
 
 ## 推荐
