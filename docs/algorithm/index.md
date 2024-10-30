@@ -34,7 +34,6 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 - 大作业1: 15%, 写一个程序解决特定问题并汇报结果, n/a
 - 大作业2: 25%, 写一个程序解决特定问题并汇报结果, n/a
 
-
 ### 截止日期
 
 |作业|截止日期|完成情况|完成日期|备注|
@@ -62,6 +61,17 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 |第九周|[Transformer](/algorithm/neural-network/transformer)|
 |第十周|[聚类](/algorithm/clustering)|
 |第十一周|[马尔可夫链](/algorithm/markov-chain)|
+
+### 考试
+
+- 时间: 2024-11-11, 2h+10min
+- 形式: 闭卷, 可带经过认证的计算器
+- 分数: 100, 占比50%, Hurdle
+- 问题: 19个
+    - 简短回答
+        - 给出True/False和解释
+        - 给出解释
+    - 问题解决/计算题
 
 ### 备注
 
