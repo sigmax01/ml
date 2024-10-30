@@ -1,0 +1,3076 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一个有待面面俱到的机器学习文档">
+      
+      
+        <meta name="author" content="ricolxwz">
+      
+      
+        <link rel="canonical" href="https://ml.ricolxwz.de/en/algorithm/linear-regression/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../preprocessing/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>线性回归 - 机器学习</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.17 2.76A10.1 10.1 0 0 1 12 2c1.31 0 2.61.26 3.83.76 1.21.5 2.31 1.24 3.24 2.17s1.67 2.03 2.17 3.24c.5 1.22.76 2.52.76 3.83 0 2.65-1.05 5.2-2.93 7.07A9.97 9.97 0 0 1 12 22a10.1 10.1 0 0 1-3.83-.76 10 10 0 0 1-3.24-2.17A9.97 9.97 0 0 1 2 12c0-2.65 1.05-5.2 2.93-7.07.93-.93 2.03-1.67 3.24-2.17M12 17l1.56-3.42L17 12l-3.44-1.56L12 7l-1.57 3.44L7 12l3.43 1.58z"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<link href="example.com" rel="icon" /> 
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/mononoki@5.1.0/index.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css">
+
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="机器学习" class="md-header__button md-logo" aria-label="机器学习" data-md-component="logo">
+      <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Logo -->
+<img id="logo_light_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg" alt="logo">
+<img id="logo_dark_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            机器学习
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              线性回归
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../algorithm/linear-regression/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  开始
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../probability/" class="md-tabs__link">
+          
+  
+    
+  
+  概率
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  算法
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="机器学习" class="md-nav__button md-logo" aria-label="机器学习" data-md-component="logo">
+      <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Logo -->
+<img id="logo_light_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg" alt="logo">
+<img id="logo_dark_mode" src="https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg" alt="logo">
+    </a>
+    机器学习
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    开始
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            开始
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../probability/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    概率
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            概率
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/random-event-and-probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    随机事件和概率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/one-dimensional-random-variable-distribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一维随机变量及其分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/multi-dimensional-random-variable-distribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多维随机变量及其分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/numerical-characteristics-of-random-variable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    随机变量的数字特征
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/large-number-central-limit-theorem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大数定律与中心极限定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    算法
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    线性回归
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    线性回归
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      单变量线性回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单变量线性回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      术语
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代价函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      代价函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代价函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小二乘估计
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解代价函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="求解代价函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#梯度下降" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="梯度下降">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      直观理解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#在线性回归中的应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      在单变量线性回归中的应用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      多变量线性回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多变量线性回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      术语
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代价函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      代价函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解代价函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="求解代价函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="梯度下降">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      在多变量线性回归中的应用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征缩放
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征缩放">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据标准化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      学习率
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征工程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多项式回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      多项式回归
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      欠拟合和过拟合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="欠拟合和过拟合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#偏差和方差" class="md-nav__link">
+    <span class="md-ellipsis">
+      偏差和方差
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正则化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1正则化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2" class="md-nav__link">
+    <span class="md-ellipsis">
+      L2正则化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机梯度下降
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      小批量梯度下降
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#线性分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线性分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估预测结果
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      似然函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="似然函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      对数似然函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉熵误差函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      对数似然损失函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      多项式逻辑回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多项式逻辑回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      多分类问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Softmax函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      对数似然函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉熵误差函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#哑变量" class="md-nav__link">
+    <span class="md-ellipsis">
+      哑变量
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="哑变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么时候需要哑变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    预处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最邻近
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naive-bayes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朴素贝叶斯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    评估
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decision-tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    决策树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ensemble-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    集成学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../svm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    支持向量机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dimensional-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    降维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../neural-network/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    神经网络
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_11">
+            <span class="md-nav__icon md-icon"></span>
+            神经网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neural-network/fnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前馈神经网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../neural-network/cnn/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    卷积神经网络
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_11_3" id="__nav_3_11_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_11_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_11_3">
+            <span class="md-nav__icon md-icon"></span>
+            卷积神经网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neural-network/cnn/resnet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ResNet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neural-network/rnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    递归神经网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neural-network/transformer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    聚类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markov-chain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    马尔可夫链
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      单变量线性回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单变量线性回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      术语
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代价函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      代价函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代价函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小二乘估计
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解代价函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="求解代价函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#梯度下降" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="梯度下降">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      直观理解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#在线性回归中的应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      在单变量线性回归中的应用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      多变量线性回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多变量线性回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      术语
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代价函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      代价函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      求解代价函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="求解代价函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="梯度下降">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      在多变量线性回归中的应用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征缩放
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征缩放">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据标准化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      学习率
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征工程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多项式回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      多项式回归
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      欠拟合和过拟合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="欠拟合和过拟合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#偏差和方差" class="md-nav__link">
+    <span class="md-ellipsis">
+      偏差和方差
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正则化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1正则化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2" class="md-nav__link">
+    <span class="md-ellipsis">
+      L2正则化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机梯度下降
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      小批量梯度下降
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#线性分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线性分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估预测结果
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      似然函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="似然函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      对数似然函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉熵误差函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      对数似然损失函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      多项式逻辑回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多项式逻辑回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      多分类问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Softmax函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      对数似然函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉熵误差函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#哑变量" class="md-nav__link">
+    <span class="md-ellipsis">
+      哑变量
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="哑变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么时候需要哑变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+  
+    <a href="https://github.com/ricolxwz/ml/edit/master/docs/algorithm/linear-regression.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ricolxwz/ml/raw/master/docs/algorithm/linear-regression.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+  <h1>线性回归</h1>
+
+<details class="info" open="open">
+<summary>信息</summary>
+<ul>
+<li>默认省略例子边框</li>
+<li>Jupyter Notebook练习: <ul>
+<li>魔改版: 点击<a href="https://drive.google.com/file/d/1jBR4gyvUiFLpiWij5gYdzDhV4LNJv01q/view?usp=sharing">这里</a></li>
+<li>原始版: 点击<a href="https://share.ricolxwz.io/machine-learning/notebook/andrew-ng/ex1_linear_regression.ipynb">这里</a></li>
+</ul>
+</li>
+<li>推荐阅读<ul>
+<li><a href="http://zh.gluon.ai/chapter_optimization/gd-sgd.html">梯度下降和随机梯度下降</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="bug" open="open">
+<summary>Bug</summary>
+<p>向量和标量之间表示不清楚, 向量应该由粗体注明.</p>
+</details>
+<p>线性回归属于监督学习, 同时是一个回归问题.</p>
+<h2 id="_1">单变量线性回归</h2>
+<p class="annotate">单变量线性回归(1), 指的是只有一个特征的回归模型. </p>
+<ol>
+<li>univariate linear regression</li>
+</ol>
+<h3 id="_2">模型表示</h3>
+<h4 id="_3">问题</h4>
+<p>例子: 预测住房价格.</p>
+<p>数据集: 已知一个数据集, 包括某个城市的住房价格. 每个样本包括住房尺寸和售价.</p>
+<p>要求: 根据不同住房尺寸所出售的价格, 画出数据集.</p>
+<p>问题: 对于一个给定的住房尺寸, 预测它的售价.</p>
+<p>这个数据集可以用坐标表示:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/d4c6115e385685ac90d37dd9785af78e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/d4c6115e385685ac90d37dd9785af78e.png" style="width:400px" /></a></p>
+<p>也可以用表格表示:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">房屋大小 (<span class="arithmatex">\(x\)</span>)</th>
+<th style="text-align: center;">价格 (<span class="arithmatex">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">2104</td>
+<td style="text-align: center;">460</td>
+</tr>
+<tr>
+<td style="text-align: center;">1416</td>
+<td style="text-align: center;">232</td>
+</tr>
+<tr>
+<td style="text-align: center;">1534</td>
+<td style="text-align: center;">315</td>
+</tr>
+<tr>
+<td style="text-align: center;">852</td>
+<td style="text-align: center;">178</td>
+</tr>
+<tr>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+<tr>
+<td style="text-align: center;">3210</td>
+<td style="text-align: center;">870</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_4">术语</h4>
+<p>用如下符号来描述这个问题:</p>
+<ul>
+<li><span class="arithmatex">\(m\)</span>: 代表数据集中样本数量</li>
+<li><span class="arithmatex">\(x\)</span>: 代表输入</li>
+<li><span class="arithmatex">\(y\)</span>: 代表输出, 数据集中的实际真实值</li>
+<li><span class="arithmatex">\(\hat{y}\)</span>: <span class="arithmatex">\(y\)</span>的估计或预测</li>
+<li>(<span class="arithmatex">\(x, y\)</span>): 代表数据集中的一个样本</li>
+<li>(<span class="arithmatex">\(x^{(i)}, y^{(i)}\)</span>): 代表第<span class="arithmatex">\(i\)</span>个样本</li>
+<li><span class="arithmatex">\(h\)</span>: 代表学习算法的模型或函数也称为假设(hypothesis)</li>
+</ul>
+<h4 id="_5">流程</h4>
+<pre class="mermaid"><code>graph LR
+  A[数据集] --&gt; B[学习算法];
+  B --&gt; D;
+  C[输入] --&gt; D[h];
+  D --&gt; E[输出的预测]</code></pre>
+<ol>
+<li>把数据集输入到学习算法</li>
+<li>学习算法计算出函数<span class="arithmatex">\(h\)</span>. 函数的输入是输入<span class="arithmatex">\(x\)</span>, 输出是输出的预测<span class="arithmatex">\(\hat{y}\)</span></li>
+</ol>
+<h4 id="_6">模型</h4>
+<p>对于房价预测问题, 模型/函数<span class="arithmatex">\(h\)</span>可能的表述如下:</p>
+<p><span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1 x\)</span></p>
+<p>将<span class="arithmatex">\(\theta_0\)</span>和<span class="arithmatex">\(\theta_1\)</span>称为模型/函数的参数. 在机器学习中, 模型的参数是可以在训练期间调整以改进模型的变量. 对于线性回归, 要做的就是选择参数的值以便更好的拟合数据, 选择的参数决定了<span class="arithmatex">\(h\)</span>相对与数据集的准确程度.</p>
+<p class="annotate">定义建模误差(1)为模型所预测的值<span class="arithmatex">\(\hat{y}\)</span>和实际值<span class="arithmatex">\(y\)</span>之间的差距(蓝线表示):</p>
+<ol>
+<li>modeling error</li>
+</ol>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6168b654649a0537c67df6f2454dc9ba.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/6168b654649a0537c67df6f2454dc9ba.png" style="width:400px" /></a></p>
+<h3 id="代价函数">代价函数</h3>
+<ul>
+<li>基于均方误差函数最小化来进行模型求解的方法成为"最小二乘法"/"最小二乘估计".</li>
+</ul>
+<h4 id="_7">最小二乘估计</h4>
+<p class="annotate">为了求解模型并衡量模型<span class="arithmatex">\(h\)</span>的性能, 常见的方法是定义代价函数(1). 最常用的是均方误差函数(2):</p>
+<ol>
+<li>cost function</li>
+<li>mean squared error</li>
+</ol>
+<p><span class="arithmatex">\(J(\theta_0, \theta_1)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})^2=\frac{1}{2m}\sum^m_{i=1}(\hat{y}^{(i)}-y^{(i)})^2\)</span></p>
+<p>选取参数<span class="arithmatex">\(\theta_1\)</span>和<span class="arithmatex">\(\theta_2\)</span>以最小化代价函数<span class="arithmatex">\(J\)</span>, 从而优化模型<span class="arithmatex">\(h\)</span>.</p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>除以<span class="arithmatex">\(2\)</span>是为了让后面的计算看起来更加整洁, 无论是否除以<span class="arithmatex">\(2\)</span>, 代价函数都有效.</p>
+</details>
+<p>可以绘制这个函数, 三个坐标分别为<span class="arithmatex">\(\theta_0\)</span>, <span class="arithmatex">\(\theta_1\)</span>, <span class="arithmatex">\(J(\theta_0, \theta_1)\)</span>, 可以看到在三维空间中存在一个使得代价函数<span class="arithmatex">\(J(\theta_0, \theta_1)\)</span>最小的点:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/82189072956cb8486a0a5da96d3bd25.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/82189072956cb8486a0a5da96d3bd25.png" style="width:400px" /></a></p>
+<p>将其呈现为等高线图:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/132051406ce50036d6f9d1efae279e0e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/132051406ce50036d6f9d1efae279e0e.png" style="width:550px" /></a></p>
+<p>根据上图, 人工的方法很容易找到代价函数最小时对应的<span class="arithmatex">\(\theta_0, \theta_1\)</span>, 但是我们真正需要的是一种有效的算法, 能够自动找出这些使代价函数达到最小值的参数, 参见下面的解法.</p>
+<h3 id="_8">求解代价函数</h3>
+<h4 id="梯度下降">梯度下降</h4>
+<p>梯度下降是一种求函数最小值的算法. </p>
+<p>梯度下降的思想是开始时随机选择一个参数组合<span class="arithmatex">\(\theta_0, \theta_1\)</span>, 计算代价函数. 然后寻找下一个能让代价函数值下降最多的参数组合. 持续这么做会找到一个局部最小值, 因为我们没有尝试完所有的参数组合, 所以无法确定得到的局部最小值是否是全局最小值, 选择不同的初始参数组合, 可能会得到不同的局部最小值.</p>
+<p>以输入为两个参数的代价函数为例, 不同的起始点导致不同的局部最小值:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/5a689f52b3d32a1326fc8a605d4c86b0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/5a689f52b3d32a1326fc8a605d4c86b0.png" style="width:400px" /></a></p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>为了理解梯度下降, 可以想象站在山的一点上, 并且希望用最短的时间下山. 在梯度下降算法中, 要做的就是旋转360度, 看看周围, 要在某个方向上用小碎步尽快下山, 这些小碎步需要朝向什么方向? 如果我们站在山坡上的这一点, 看一下周围, 你会发现最佳的下山方向, 按照自己的判断迈出一步. 重复上述的步骤, 从新的位置, 环顾四周, 并决定从什么方向将会最快下山, 然后又迈进了一小步, 并依次类推, 直到你接近局部最低点的位置.</p>
+</details>
+<p class="annotate">单变量线性回归的批量梯度下降(1)算法可以抽象为公式:</p>
+<ol>
+<li>batch gradient descent</li>
+</ol>
+<p><span class="arithmatex">\(\mathrm{Repeat} \ \{\theta_j:=\theta_j-\alpha\frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1)\}\)</span>, <span class="arithmatex">\(j=0, 1\)</span></p>
+<details class="note" open="open">
+<summary>笔记</summary>
+<p>"批量"指的是在梯度下降的每一步中, 都用到了所有的训练样本. 详情见<a href="#在线性回归中的应用">这里</a>.</p>
+</details>
+<p>其中<span class="arithmatex">\(\alpha\)</span>是学习率(1), 它决定了沿着能让代价函数下降程度最大的方向向下迈出的步子有多大; 在批量梯度下降中, 每一次同时让所有的参数减去学习速率乘以代价函数的偏导数. </p>
+<details class="warning" open="open">
+<summary>注意</summary>
+<p>更新的时候需要同时更新所有的参数, 而不是逐个更新. 这种更新的方式确保了在计算下一个参数的梯度的时候, 其他参数的值保持不变. 在同步更新中, 所有的偏导数都是基于同一组参数值<span class="arithmatex">\(\theta_0, \theta_1\)</span>计算的.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/e4ab2e484fd9cfafaf0b36941b8c4991.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/e4ab2e484fd9cfafaf0b36941b8c4991.png" style="width:400px" /></a></p>
+</details>
+<h5 id="_9">直观理解</h5>
+<p>考虑梯度下降的公示. 其中求导, 就是取下图红点的切线. 红色直线的斜率正好是三角形的高度除以水平长度, 这条线的斜率为正数, 也就是说它有正导数. 因此, <span class="arithmatex">\(\theta_1\)</span>更新后等于<span class="arithmatex">\(\theta_1\)</span>减去一个正数乘以<span class="arithmatex">\(\alpha\)</span>.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/944f6113c29a5c8416914975df789d6c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/944f6113c29a5c8416914975df789d6c.png" style="width:550px" /></a></p>
+<p><span class="arithmatex">\(\alpha\)</span>的取值的影响:</p>
+<ul>
+<li>如果<span class="arithmatex">\(\alpha\)</span>太小, 红点一点一点挪动, 需要很多步才能到达最低点</li>
+<li>如果<span class="arithmatex">\(\alpha\)</span>太大, 红点可能会直接越过最低点, 斜率的绝对值也有可能变大, 可能导致无法收敛</li>
+</ul>
+<p><a class="glightbox" href="https://img.ricolxwz.io/e8bb9742ef0b48c8a1e48f6b5620c195.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/e8bb9742ef0b48c8a1e48f6b5620c195.png" style="width:550px" /></a></p>
+<p>如果我们预先把<span class="arithmatex">\(\theta_1\)</span>放在局部的最低点, 下一步是什么?</p>
+<p>假设将<span class="arithmatex">\(\theta_1\)</span>初始化在局部最低点, 局部最低点的偏导数等于<span class="arithmatex">\(0\)</span>. 因此<span class="arithmatex">\(\theta_1\)</span>不再改变. 所以如果参数已经处于局部最低点, 那么对于那个参数来说, 梯度下降法什么都没做. </p>
+<p>从品红点开始, 前进一步到绿点, 偏导数会减小, 在到新的红点, 偏导数继续减小, 所以每一步<span class="arithmatex">\(\theta_1\)</span>更新的幅度都是在自动减小的. 直到最终的幅度趋近于<span class="arithmatex">\(0\)</span>, 这个时候已经收敛到局部最小值.</p>
+<details class="abstract" open="open">
+<summary>总结</summary>
+<ul>
+<li>在梯度下降法中, 当接近局部最低点的时候, 会自动采取更小的幅度. 这是因为偏导数会变得越来越小</li>
+<li>可以用梯度下降法最小化任何代价函数, 而不知是线性回归的代价函数</li>
+</ul>
+</details>
+<h5 id="在线性回归中的应用">在单变量线性回归中的应用</h5>
+<p>在单变量线性回归中, 我们选择的<a href="#代价函数">代价函数</a>是均方误差函数:</p>
+<p><span class="arithmatex">\(J(\theta_0, \theta_1)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})^2\)</span></p>
+<ul>
+<li>
+<p>对于<span class="arithmatex">\(\theta_0\)</span>的偏导数为:</p>
+<p><span class="arithmatex">\(\frac{\partial}{\partial \theta_0}J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_0}\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})^2=\frac{\partial}{\partial \theta_0}\frac{1}{2m}\sum^m_{i=1}(\theta_0+\theta_1 x^{(i)}-y^{(i)})^2=\frac{1}{m}\sum^m_{i=1}(\theta_0+\theta_1 x^{(i)}-y^{(i)})=\frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})\)</span></p>
+</li>
+<li>
+<p>对于<span class="arithmatex">\(\theta_1\)</span>的偏导数为:</p>
+<p><span class="arithmatex">\(\frac{\partial}{\partial \theta_1}J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_1}\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})^2=\frac{\partial}{\partial \theta_1}\frac{1}{2m}\sum^m_{i=1}(\theta_0+\theta_1 x^{(i)}-y^{(i)})^2=\frac{1}{m}\sum^m_{i=1}(\theta_0+\theta_1 x^{(i)}-y^{(i)})x^{(i)}=\frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x^{(i)}\)</span></p>
+</li>
+</ul>
+<p>根据批量梯度下降算法, 可以写出如下公式:</p>
+<p><span class="arithmatex">\(\mathrm{Repeat}\ \{\theta_0:=\theta_0-\alpha \frac{1}{m}\sum_{i=1}^m(h_{\theta}(x^{(i)})-y^{(i)})\quad \theta_1:=\theta_1-\alpha \frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x^{(i)}\}\)</span></p>
+<p>所谓"批量"由来是: 在梯度下降, 计算偏导数时, 需要求和运算, 对于每一个单独的梯度下降中, 最终都要计算这样一个东西, 我们用到了所有的训练样本.</p>
+<h2 id="_10">多变量线性回归</h2>
+<h3 id="_11">模型表示</h3>
+<h4 id="_12">问题</h4>
+<p>在之前的房价预测问题里面, 只考虑了一个特征, 即房屋大小, 这里我们考虑多个特征的问题, 比如在房价预测问题中, 引入房间数, 楼层, 年限等.</p>
+<p>下面是一个示例数据:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">房屋大小</th>
+<th style="text-align: center;">房间数</th>
+<th style="text-align: center;">楼层</th>
+<th style="text-align: center;">年限</th>
+<th style="text-align: center;">价格 (<span class="arithmatex">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">2104</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">460</td>
+</tr>
+<tr>
+<td style="text-align: center;">1416</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">232</td>
+</tr>
+<tr>
+<td style="text-align: center;">1534</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">315</td>
+</tr>
+<tr>
+<td style="text-align: center;">852</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">178</td>
+</tr>
+<tr>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_13">术语</h4>
+<p>由于多维的特性, 需要引入更多的术语:</p>
+<ul>
+<li><span class="arithmatex">\(n\)</span>: 特征的数量</li>
+<li><span class="arithmatex">\(x^{(i)}\)</span>: 第<span class="arithmatex">\(i\)</span>个样本/输入</li>
+<li><span class="arithmatex">\(x_j^{(i)}\)</span>: 第<span class="arithmatex">\(i\)</span>个样本/输入中的第<span class="arithmatex">\(j\)</span>个特征</li>
+</ul>
+<h4 id="_14">模型</h4>
+<p>对于房价预测问题, 模型/函数<span class="arithmatex">\(h\)</span>可能的表述如下:</p>
+<p><span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1 x_1+\theta_2 x_2+...+\theta_n x_n\)</span></p>
+<p>上述的公式中有<span class="arithmatex">\(n+1\)</span>个参数和<span class="arithmatex">\(n\)</span>个变量, 为了简化公式, 引入<span class="arithmatex">\(x_0=1\)</span>, 上式写作:</p>
+<p><span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1 x_1+\theta_2 x_2+...+\theta_n x_n=\theta^TX\)</span>, <span class="arithmatex">\(T\)</span>表示矩阵转置.</p>
+<h3 id="代价函数">代价函数</h3>
+<p>在多变量线性回归中, 也可以构建一个代价函数, 选取均方误差函数表示为:</p>
+<p><span class="arithmatex">\(J(\theta_0, \theta_1, ..., \theta_n)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})\)</span></p>
+<h3 id="_15">求解代价函数</h3>
+<h4 id="_16">梯度下降</h4>
+<p>多变量梯度下降的目标和单变量线性回归中的一样, 要找出使代价函数最小的一些列参数. 多变量线性回归的批量梯度下降算法可以抽象为公式:</p>
+<p><span class="arithmatex">\(\mathrm{Repeat}\ \{\theta_j:=\theta_j-\alpha\frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ..., \theta_n)\}\)</span>, <span class="arithmatex">\(j=0, 1, ..., n\)</span></p>
+<h5 id="_17">在多变量线性回归中的应用</h5>
+<p>在多变量线性回归中, 我们选择的<a href="#代价函数">代价函数</a>为均方误差函数:</p>
+<p><span class="arithmatex">\(J(\theta_0, \theta_1, ..., \theta_n)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})\)</span></p>
+<p>对于<span class="arithmatex">\(\theta_j\)</span>的偏导数为:</p>
+<p><span class="arithmatex">\(\frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x_j^{(i)}\)</span></p>
+<p>根据批量梯度下降算法, 可以写出如下公式:</p>
+<p><span class="arithmatex">\(\mathrm{Repeat}\ \{\theta_j:=\theta_j-\alpha\frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x_j^{(i)}, j=0, 1, ..., n\}\)</span></p>
+<h5 id="_18">特征缩放</h5>
+<p>在面对多变量线性回归时, 要保证特征具有相近的尺度, 使梯度下降算法更快收敛.</p>
+<p>以房价问题为例, 假如有两个特征, 房屋尺寸和房间数量. 尺寸值为<span class="arithmatex">\(0-2000\)</span>平方英尺, 房间数量为<span class="arithmatex">\(0-5\)</span>. 以这两个参数为横纵坐标, 绘制代价函数的等高线图, 可以看出图像会很扁. 梯度下降算法需要非常多次的迭代才能收敛.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/f4990470cacff936fce9bd4b435174ea.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/f4990470cacff936fce9bd4b435174ea.jpg" style="width:200px" /></a></p>
+<details class="bug" open="open">
+<summary>Bug</summary>
+<p>上图中<span class="arithmatex">\(J(\theta)\)</span>函数是一个关于<span class="arithmatex">\(\theta_0\)</span>的函数, 在上图中没有很好的体现出来.</p>
+</details>
+<p>解决方法是尝试将所有特征的尺度都尽量缩放到<span class="arithmatex">\(-1\)</span>和<span class="arithmatex">\(1\)</span>之间.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/97c5e67685e77eb3bfab5d14903a8b81.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/97c5e67685e77eb3bfab5d14903a8b81.png" style="width:550px" /></a></p>
+<h6 id="_19">数据标准化</h6>
+<p>对于特征缩放, 一个更正规的方法是做数据标准化, 将所有的数据都限制到一个合理的区间内.</p>
+<p>标准化公式为:</p>
+<p><span class="arithmatex">\(x_n=\frac{x_n-\mu_n}{s_n}\)</span></p>
+<p>其中<span class="arithmatex">\(\mu_n\)</span>是平均值, <span class="arithmatex">\(s_n\)</span>是标准差.</p>
+<h5 id="_20">学习率</h5>
+<p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同, 虽然不能提前预知, 但是可以画出迭代次数和代价函数的图标连观测算法在何时趋于收敛. 如下图所示, 可以看到代价函数随着迭代次数增加而不断减小. 当迭代次数来到300次后, 代价函数降低的趋势已经非常小了, 说明已经收敛.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/cd4e3df45c34f6a8e2bb7cd3a2849e6c.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/cd4e3df45c34f6a8e2bb7cd3a2849e6c.jpg" style="width:400px" /></a></p>
+<p>也有一些自动测试是否收敛的方法, 例如将代价函数的变化值和某个阈值(例如0.0001)进行比较, 如果比阈值小, 就认为已经收敛. </p>
+<p>原则是: 有效的学习率可以让代价函数随着迭代不断减小. 但是太小的学习率会导致收敛得很慢.</p>
+<h3 id="_21">特征工程</h3>
+<p>特征工程是机器学习流程最花时间的步骤, 也是最重要的工作内容之一. 特征工程是一个过程, 这个过程将数据转换为能更好的表示业务逻辑的特征, 从而提高机器学习的性能.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
+<p>机器学习模型的准确度取决于特征的精确几何和组成. 例如, 在推荐音乐播放列表的机器学习应用程序中, 特征可能包含歌曲评分, 播放历史以及播放时长. 创建特征可能需要大量的工程工作. 特征工程涉及从原始数据(如价目表, 产品说明和销售量)中提取和转换变量, 以便您可以使用特征进行训练和预测. 工程特征所需要的步骤包括数据提取和清理, 以及特征创建和存储.<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
+<p>以房价预测为例. </p>
+<p>首先选择多变量线性回归, 选择长度和宽度作为特征输入: <span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1\times\)</span>长度<span class="arithmatex">\(+\theta_2\times\)</span>宽度.</p>
+<p>注意: </p>
+<ul>
+<li>基于大量数据的简单模型优于基于少量数据的复杂模型</li>
+<li>更多的数据优于聪明的算法, 而好的数据优于多的数据</li>
+</ul>
+<p>上述的房价预测模型应该改为更加高效的单变量线性回归, 用面积来代替宽度和长度, 作为特征输入: <span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1\times\)</span>面积.</p>
+<h3 id="多项式回归">多项式回归</h3>
+<p>线性回归并不适用于所有数据, 有时需要曲线来适应我们的数据, 比如一个二次方模型: <span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1x+\theta_2x^2\)</span>或者三次方模型<span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1x+\theta_2 x^2+\theta_3 x^3\)</span>. 通常, 我们需要先观察数据然后再决定模型的类型.</p>
+<h2 id="_22">欠拟合和过拟合</h2>
+<p><a class="glightbox" href="https://img.ricolxwz.io/f899ef4cde8fc21ff7cf929789da7b88.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/f899ef4cde8fc21ff7cf929789da7b88.png" sytle="width:600px" /></a></p>
+<p>在<a href="#多项式回归">多项式回归</a>模型中, 存在欠拟合(Underfitting)和过拟合(Overfitting).</p>
+<ul>
+<li>欠拟合: 发生在我们使用过于简单的模型时. 例如, 用一条水平直线来拟合所有的数据点. 这条线可能会忽略数据中明显的趋势, 导致在训练数据和新数据上表现都不佳</li>
+<li>过拟合: 开起来可能不像是一条直线, 而更像是非常复杂的曲线. 这条曲线会试图通过每一个训练数据点, 看起来在训练集熵的表现极佳, 但是它可能对数据中的噪音极度敏感, 导致在新数据熵的表现糟糕</li>
+</ul>
+<p><a class="glightbox" href="https://img.ricolxwz.io/5f48f45bc05b1799abdd8e3cd8b29d73.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/5f48f45bc05b1799abdd8e3cd8b29d73.png" style="width:500px" /></a></p>
+<p>在上图中, 水平轴表示模型的复杂度. 简单的模型位于左侧(欠拟合), 复杂的模型位于右侧(过拟合). 垂直轴表示误差, 数值越低表示模型的表现越好. 经验风险(empirical risk)是在训练数据上测量的误差. 随着模型复杂度的增加, 经验风险会一直下降. 真实风险(true risk)是模型在从未见过的数据(如测试集)上的实际表现. 在模型复杂度较低时, 真实风险会较高, 因为模型欠拟合. 随着复杂度的增加, 真实风险逐渐降低. 然而, 当模型变得过于复杂度的时候, 真实风险又开始上升, 因为此时模型过拟合, 变得过于依赖训练数据, 导致泛化能力的下降.</p>
+<h3 id="偏差和方差">偏差和方差</h3>
+<p>首先, 我们用一个例子来解释偏差和方差之间的关系.</p>
+<p>假设我们在射击馆, 我们的一次射击就是对一个样本进行预测, 用红色靶心表示真实值, 蓝色的命中点作为预测值. 偏差表示的就是蓝色的命中点和红色的命中点之间距离的远近, 若距离大, 则偏差大; 若距离小, 则偏差小. 方差表示的是蓝色的命中点的位置是否聚集, 蓝色的命中点之间越集中, 则表示方差越小, 反之方差越大.</p>
+<p>以过拟合作为示例, 过拟合的情况下, 模型在训练集上的偏差很小, 但是在测试集上的偏差很大, 也就是说, 它的方差很大, 对训练集中的数据做一点轻微的扰动都会导致偏差上升. 对于欠拟合来说, 模型在训练集和测试集的偏差都很大, 但是两个偏差的差异不大, 及方差较小. </p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/cd50bfc0f4566e6a9edbff070911b996.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/cd50bfc0f4566e6a9edbff070911b996.png" style="width:500px" /></a></p>
+<p>从图中可以看出, 在过拟合的情况下, 训练集的偏差很小, 方差很大. 在欠拟合的情况下, 训练集的偏差很大, 方差很小.</p>
+<p>关于偏差和方差的更详细解释和应用, 请见<a href="https://gk.ricolxwz.de/information-theory/estimator">估计器</a>.</p>
+<h2 id="_23">正则化<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></h2>
+<p>正则化主要用于控制模型的复杂度和防止过拟合. 其核心目的是改善模型的泛化能力, 即模型在新未见数据上的表现. 正则化可以通过在模型的代价函数中添加一个额外的项来实现. </p>
+<ul>
+<li>防止过拟合: 过拟合发生在模型对训练数据学得"太好", 以至于它甚至学到了数据中的噪声和误差, 导致模型在新数据上的表现不佳. 正则化通过惩罚的复杂度(如, 通过惩罚过大的参数值)来避免这种情况. 如上图, 若<span class="arithmatex">\(\theta_3, \theta_4\)</span>趋近于0, 那么曲线会更加平滑, 对新数据上表现更加好</li>
+<li>选择特征: 某些类型的正则化(如L1正则化)可以帮助进行特征选择, 因为它们倾向于将某些参数的估计值压缩到0. 这种性质使得L1正则化特别适用于处理那些具有大量特征, 但只有少数几个特征真正重要的情形</li>
+</ul>
+<p>正则化主要分为L1正则化, L2正则化和弹性网(L1和L2的集合).</p>
+<h3 id="l1">L1正则化</h3>
+<p>L1正则化, 也称为Lasso回归. 添加了L1正则化的损失函数一般可以表示为<span class="arithmatex">\(||X\omega-y||^2_2+\alpha||\omega||_1\)</span>. L1正则化容易产生稀疏系数矩阵, 即较多参数为0, 因此也可以用于特征选择.</p>
+<h3 id="l2">L2正则化</h3>
+<p>L2正则化, 也称为Ridge回归, 岭回归. 添加了L2正则化的损失函数一般可以表示为<span class="arithmatex">\(||X\omega-y||_2^2+\alpha||\omega||_2^2\)</span>. L2正则化倾向于让参数值减小, 但是不会完全为0.</p>
+<h2 id="_24">随机梯度下降</h2>
+<p>随机梯度下降, Stochastic Gradient Descent, SGD. 它的代价函数可以被表示为<span class="arithmatex">\(f_j(\omega)\simeq (\omega x^{(j)}-y^{(j)})^2\)</span>, 其中<span class="arithmatex">\(x^{(j)}\)</span>和<span class="arithmatex">\(y^{(j)}\)</span>是每次下降中随机选取的特征和标签, 在SGD中, 代价函数是会随着下降的过程产生变化的, 即<span class="arithmatex">\(x^{(j)}\)</span>和<span class="arithmatex">\(y^{(j)}\)</span>在每一次下降中都不同. 我们的目标就是要最小化这个变化的代价函数. 这个函数的导数为<span class="arithmatex">\(x^{(j)}(\omega x^{(j)}-y^{(j)})\)</span>, 同样的, 这个导数也是一直在变化的. 如果我们考虑将变量换成向量的形式(即将所有的<span class="arithmatex">\(k\)</span>个参数表示为一个向量), 我们可以得到<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i(w_i^Tx^{(j)}-y^{(j)})x^{(j)}\)</span>, 即<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i\nabla f_j(w_i)\)</span>, <span class="arithmatex">\(\nabla f_j(w_i)=[\frac{\partial f_j(\omega)}{\partial \omega_1}, ..., \frac{\partial f_j(\omega)}{\partial \omega_k}]\)</span>.</p>
+<p>与正常的梯度下降比较, SGD能够耗费更少的算力. 每次下降都只用随机选择一个特征和标签, 每次下降都少算<span class="arithmatex">\(n\)</span>次, 所以在时间复杂度上是<span class="arithmatex">\(O(k)\)</span>. 但是也有缺点, 它可能需要更多次的下降才会收敛, 并且更不稳定, 如图:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/2c6bb6de8391fa8fdfaf784be5390441.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/2c6bb6de8391fa8fdfaf784be5390441.png" /></a></p>
+<h2 id="_25">小批量梯度下降</h2>
+<p>小批量梯度下降, mini-batch SGD. 它介于随机梯度下降和梯度下降之间, 即选取一部分特征和标签用于计算每次下降的导数. 它的表达式为<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i\sum_{j\in B_i}^n(w_i^Tx^{(j)}-y^{(j)})x^{(j)}\)</span>即<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i\nabla f_{B_i}(w_i), j\in B_i\)</span>. 每次选取的特征和标签应该在<span class="arithmatex">\(B_i\)</span>这个集合里面.</p>
+<p>这里是一张更为直观的三种梯度下降方式的对比图.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/79812ab60fc6faa5ccccd7f6bbbd8be7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/79812ab60fc6faa5ccccd7f6bbbd8be7.png" style="width:500px" /></a></p>
+<p>它的性能应该介于SGD和GD之间, 可以通过调整<span class="arithmatex">\(B_i\)</span>这个集合的大小对模型进行微调. 对比GD, 它收敛地更慢.</p>
+<h2 id="线性分类">线性分类</h2>
+<p>线性分类其实是线性回归的一种衍生, 线性回归的预测结果放到一个符号函数<span class="arithmatex">\(sign\)</span>里面产生的结果就是线性分类的预测结果.</p>
+<p>如我们根据线性回归预测得到的模型为<span class="arithmatex">\(3x_1-4x_2-1=0\)</span>, 这个又被称为"决策边界", 对于样本向量<span class="arithmatex">\(x=[1, 2, 3]^T\)</span>来说, 预测结果为<span class="arithmatex">\(w^Tx=1\)</span>, 这个结果放到符号函数里面, 得到线性分类的预测结果<span class="arithmatex">\(\hat{y}=sign(1)=1\)</span>. 再来举一个例子, 对于样本向量<span class="arithmatex">\(x=[1, 3, 2.5]^T\)</span>, 预测结果为<span class="arithmatex">\(w^Tx=-2\)</span>, 这个结果放到符号函数里面, 得到线性分类的预测结果<span class="arithmatex">\(\hat{y}=sign(-2)=-1\)</span>. </p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/62c309e63e41dc8196816a50e735c95d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/62c309e63e41dc8196816a50e735c95d.png" style="width: 600px" /></a></p>
+<h3 id="_26">评估预测结果</h3>
+<p>线性回归评估标签和预测结果的"近似程度", 即通过一个方差来评估. 而线性分类的值本身就是离散的, 对的就是对的, 错的就是错的.</p>
+<h2 id="_27">逻辑回归</h2>
+<p>逻辑回归用于分类问题, 特别二分类问题. 我们想要知道在给定某些输入特征(比如身高, 体重, 年龄等)时, 某个事件发生的可能性有多大. 逻辑回归的目标就是估计这个概率, 即给定输入特征<span class="arithmatex">\(X\)</span>, 事件<span class="arithmatex">\(y=1\)</span>发生的概率(比如购买产品), 这就是条件概率<span class="arithmatex">\(p(y=1|X)\)</span>.</p>
+<p>Again, 逻辑回归是线性回归的一种衍生. 线性回归返回的是一个实数, 而逻辑回归先要转为一个<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间的概率, 然后用这个概率判断属于哪一各类或者也可以直接使用这个概率作为预测结果. 和线性分类类似, 我们需要有一个函数来完成概率的转换, 这里用到的就是逻辑函数<span class="arithmatex">\(\sigma\)</span>.</p>
+<p>逻辑函数的表达式为<span class="arithmatex">\(\sigma(z)=\frac{1}{1+exp(-z)}\)</span>. 这个函数的图像如下:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/13510394c11b284db9f3e937e5b5894a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/13510394c11b284db9f3e937e5b5894a.png" style="width:400px" /></a></p>
+<p>可以看到, 当输入是一个很大的正数的时候, 趋近于<span class="arithmatex">\(1\)</span>, 输入是一个很大的负数的时候, 趋近于<span class="arithmatex">\(0\)</span>. 一般来说, 我们将输出趋近于<span class="arithmatex">\(1\)</span>表示为预测结果分类为<span class="arithmatex">\(1\)</span>, 输出趋近于<span class="arithmatex">\(0\)</span>表示为预测结果分类为<span class="arithmatex">\(0\)</span>. 因此, 输出的概率越大, 表示的是分类为<span class="arithmatex">\(1\)</span>的概率越大, 这是事先规定好的.</p>
+<p>这里, 我们的输入是线性回归的预测结果<span class="arithmatex">\(w^Tx\)</span>, 可以得到:</p>
+<ul>
+<li><span class="arithmatex">\(p[y=1|X]=\sigma(w^Tx)\)</span>, 表示的属于分类<span class="arithmatex">\(y=1\)</span>的概率</li>
+<li><span class="arithmatex">\(p[y=0|X]=1-\sigma(w^Tx)\)</span>, 表示的是属于分类<span class="arithmatex">\(y=0\)</span>的概率</li>
+</ul>
+<p>为了定义逻辑回归的结果属于哪一个类, 我们可以定一个分水岭, 默认的分水岭就是<span class="arithmatex">\(0.5\)</span>, 即<span class="arithmatex">\(p[y=1|X]&gt;0.5\Rightarrow \hat{y}=1\)</span>.</p>
+<p>或者说, 直接使用概率作为预测结果. 概率能够提供更多的信息, 比如置信度, 还允许我们将不同来源的信息结合起来, 这在许多不同来源的信息结合起来, 这在许多复杂的决策场景中非常有用. 还有, 我们可以用逻辑损失来评估模型的优劣.</p>
+<h3 id="_28">似然函数</h3>
+<p>我们选取某一个样本, 它的预测结果是<span class="arithmatex">\(1\)</span>的概率是<span class="arithmatex">\(\sigma(w^Tx_i)\)</span>, 预测结果是<span class="arithmatex">\(0\)</span>的概率为<span class="arithmatex">\(1-\sigma(w^Tx_i)\)</span>, 这两个式子本质上是一样的, 设预测结果为<span class="arithmatex">\(\hat{y_i}\)</span>, 那么和真实标签<span class="arithmatex">\(y_i=\{0, 1\}\)</span>相同的概率为<span class="arithmatex">\(p(y_i|x_i; w)=\sigma(w^Tx_i)^{y_i}[1-\sigma(w^Tx)]^{1-y_i}\)</span>, 这个式子怎么看取决于<span class="arithmatex">\(y_i\)</span>, 它的结果是和真实标签<span class="arithmatex">\(y_i\)</span>相同的概率, 它结合了两个函数得到了一个更加精简的函数, 如<a href="https://img.ricolxwz.io/8c57a39838b1374b236108e2be915fc0.png">图</a>. 这个就是似然函数.</p>
+<h4 id="_29">对数似然函数</h4>
+<p>对似然函数左右取对数, 就得到了对数似然函数. 整个训练集<span class="arithmatex">\(D\)</span>的对数似然函数为<span class="arithmatex">\(\log p(D)=\sum_{i=1}^n(y_i\log\sigma(w^Tx_i)+(1-y_i)\log[1-\sigma(w^Tx_i)])\)</span>. 这个对数似然函数的结果就是所有的样本和真实标签相等的可能性之和, 所以这个对数似然函数应该越大越好.</p>
+<h4 id="_30">交叉熵误差函数</h4>
+<p>对对数似然函数取反就得到了交叉熵误差函数: <span class="arithmatex">\(f(w)=-\sum_{i=1}^n(y_i\log\sigma(w^Tx_i)+(1-y_i)\log[1-\sigma(w^Tx_i)])\)</span>. 交叉熵误差函数通常作为逻辑回归的代价函数, 即目标就是最小化交叉熵误差函数, 使得其导数为<span class="arithmatex">\(0\)</span>, 求得局部最小值下的回归系数. 为什么呢? 因为我们刚才在对数似然函数里面说过, 对数似然函数是所有的样本和真实标签相等的可能性之和, 那么交叉熵误差函数是对数似然函数取反, 所以说交叉熵误差函数是越小越好.</p>
+<p>那么, 怎么使交叉熵误差函数取到最小值呢? 也就是找到<span class="arithmatex">\(w*\)</span>使得<span class="arithmatex">\(f(w)\)</span>最小. 可以通过梯度下降解决, 对<span class="arithmatex">\(f(w)\)</span>求梯度可以得到<span class="arithmatex">\(\nabla f(w)=\sum_{i=1}^n\{\sigma(w^Tx_i)-y_i\}x_i\)</span>. 每次迭代的更新策略就是<span class="arithmatex">\(w_{t+1}=w_t-\alpha_t \sum_{i=1}^n (\sigma(w_t^T x^{(i)})-y^{(i)})x^{(i)}\)</span>.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/3fa32c508830b64c1e28061a4a73b218.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/3fa32c508830b64c1e28061a4a73b218.png" style="width:400px" /></a></p>
+<h4 id="_31">对数似然损失函数</h4>
+<p>对于真实标签为<span class="arithmatex">\(y_i=1\)</span>的时候, 其损失函数可以表示为<span class="arithmatex">\(-\log(p)\)</span>, 其中<span class="arithmatex">\(p\)</span>是标签为<span class="arithmatex">\(1\)</span>的概率. 显然, 当<span class="arithmatex">\(p\)</span>趋近于<span class="arithmatex">\(1\)</span>的时候, 表示属于分类<span class="arithmatex">\(1\)</span>的概率更大, 所以此时<span class="arithmatex">\(-\log(p)\)</span>趋近于<span class="arithmatex">\(0\)</span>, 表示损失最小.</p>
+<p>对于真实标签为<span class="arithmatex">\(y_i=0\)</span>的时候, 其损失函数可以表示为<span class="arithmatex">\(-\log(1-p)\)</span>, 其中<span class="arithmatex">\(p\)</span>是标签为<span class="arithmatex">\(1\)</span>的概率. 显然, 当<span class="arithmatex">\(p\)</span>趋近于<span class="arithmatex">\(1\)</span>的时候, 表示属于分类1<span class="arithmatex">\(的概率更大. 所以此时\)</span>-\log(1-p)$趋近于无穷, 表示损失最大.</p>
+<p>这个函数的图像为:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/4087692c707dd86e20194bcec2dc5602.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/4087692c707dd86e20194bcec2dc5602.png" style="width:400px" /></a></p>
+<h2 id="_32">多项式逻辑回归</h2>
+<h3 id="_33">多分类问题</h3>
+<p>多分类问题, Multiclass Classification是指在机器学习中, 模型需要从多个类别中选择一个正确的类别, 换句话说, 之前的是二元的, 现在是多元的. </p>
+<p>如给定一张手写数字的图片, 模型需要预测这张图片对应的数字是0到9之间的哪个数字. 给定一张图片, 模型需要判断图片中所包含的内容属于哪些约定义的类别, 如猫, 狗, 鸟等.</p>
+<h3 id="softmax">Softmax函数</h3>
+<p>Softmax函数是一种用于用于多分类模型的激活函数, 它可以将线性回归的输出转化为属于每一个类别的概率. </p>
+<p>Softmax函数的定义如下: <span class="arithmatex">\(p(C_k|x)=\frac{e^{w_k^Tx}}{\sum_k' e^{w_{k'}^Tx}}\)</span>. <span class="arithmatex">\(k\)</span>是我们当前关心的具体类别, <span class="arithmatex">\(k'\)</span>表示所有可能的类别. 输出的就是可能属于类别<span class="arithmatex">\(k\)</span>的概率. 模型在预测的过程中关注的就是<span class="arithmatex">\(p(C_k|x)\)</span>中最大的那一个, 对应的<span class="arithmatex">\(k\)</span>就是预测的分类. 由于Softmax函数的单调性, 找<span class="arithmatex">\(p(C_k|x)\)</span>最大的, 就相当于找<span class="arithmatex">\(w^T_kx\)</span>最大的.</p>
+<h3 id="_34">对数似然函数</h3>
+<p>多项式逻辑回归的对数似然函数可以表示为<span class="arithmatex">\(\log p(D)=\sum_i \log p(y_i|x_i)\)</span>. 表示的是根据<span class="arithmatex">\(x_i\)</span>这个样本的特征进行预测得到的预测结果是真实标签的可能性, 我们可以将<span class="arithmatex">\(y_i\)</span>表示为一个向量, 用<span class="arithmatex">\(1\)</span>标识出真实的分类, 如<span class="arithmatex">\(y_i=[0, 1, 0, 0, ..., 0]^T\)</span>, 我们可以利用这个向量"选择"出我们关心的那个是真实分类的预测概率. 比如说, 真实的分类是"第七类", 那么我们只需要关心属于第七类的概率<span class="arithmatex">\(p(C_7|x_i)\)</span>, 我们可以通过向量<span class="arithmatex">\(y_i=[0, 0, 0, 0, 0, 0, 1, 0, ...]^T\)</span>选择出第七个<span class="arithmatex">\(p(C_k|x)\)</span>, 将这个概率加入对数似然函数.</p>
+<p>为此, 定义<span class="arithmatex">\(y_{ik}=1\)</span>, 如果<span class="arithmatex">\(y_i=k\)</span>; <span class="arithmatex">\(y_{ik}=0\)</span>, 如果<span class="arithmatex">\(y_i\neq k\)</span>, 有<span class="arithmatex">\(\sum_i \log p(y_i|x_i)=\sum_i \log \prod_{k=1}^Kp(C_k|x_i)^{y_{ik}}=\sum_i\sum_k y_{ik}\log p(C_k|x_i)\)</span>. 其中, 如果<span class="arithmatex">\(y_{ik}=1\)</span>的话, 相当于保留第<span class="arithmatex">\(k\)</span>类的概率(因为<span class="arithmatex">\(k\)</span>等于真实分类), 如果<span class="arithmatex">\(y_{ik}=0\)</span>的话, 指数为<span class="arithmatex">\(0\)</span>, 相当于抛弃这一类的概率, 因为它不是真实分类. </p>
+<p>同样的, 对数似然函数越大越好.</p>
+<h3 id="_35">交叉熵误差函数</h3>
+<p>同样的, 交叉熵误差函数就是对数似然函数取反: </p>
+<p><span class="arithmatex">\(f(w_1, w_2, ..., w_3)=-\sum_i\sum_k y_{ik}\log p(C_k|x_i)=-\sum_i\sum_k y_{ik}\log p(\frac{e^{w_k^T x_n}}{\sum_{k'}e^{w_{k'}^Tx_n}})\)</span></p>
+<h2 id="哑变量">哑变量<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></h2>
+<p>在构建回归模型的时候, 如果自变量<span class="arithmatex">\(x\)</span>是连续型变量, 回归系数<span class="arithmatex">\(\omega\)</span>可以解释为在其他自变量不变的条件下, <span class="arithmatex">\(x\)</span>每改变一个单位, 所引起的因变量<span class="arithmatex">\(y\)</span>的平均变化量; 如果自变量<span class="arithmatex">\(x\)</span>是离散的二分类变量, 例如是否饮酒(<span class="arithmatex">\(1\)</span>=是, <span class="arithmatex">\(0\)</span>=否), 则回归系数<span class="arithmatex">\(\omega\)</span>可以解释为: 在其他自变量不变的条件下, <span class="arithmatex">\(x=1\)</span>和<span class="arithmatex">\(x=0\)</span>相比, 所引起的因变量<span class="arithmatex">\(y\)</span>的平均变化.</p>
+<p>但是, 当自变量<span class="arithmatex">\(x\)</span>是离散多分类变量的时候, 例如职业, 学历, 血型, 疾病严重程度等, 此时仅用一个回归系数来解释多分类变量之间的变化关系, 及其对因变量的影响, 就显得不太理想. </p>
+<p>此时, 我们通常会将原始的分类变量转化为哑变量, 每个哑变量只代表某两个级别或者若干级别之间的差异, 通过构建回归模型, 每一个哑变量都能得到一个估计的回归系数, 从而使回归的结果更易于解释, 更具有实际意义.</p>
+<p>哑变量, Dummy Variable, 又称为虚拟变量, 虚设变量或者名义变量, 从名称上来看就知道, 它是人为虚设的变量, 通常取值为<span class="arithmatex">\(0\)</span>或者<span class="arithmatex">\(1\)</span>, 来反映某个变量的不同属性. 对于有<span class="arithmatex">\(n\)</span>个分类属性的自变量, 通常要选取<span class="arithmatex">\(1\)</span>个分类作为参照, 因此可以产生<span class="arithmatex">\(n-1\)</span>个哑变量.</p>
+<p>举一个例子, 如职业, 假设分为学生, 农名, 工人, 公务员, 其他共<span class="arithmatex">\(5\)</span>个分类, 其中以"其他"作为参照, 此时需要设定<span class="arithmatex">\(4\)</span>尬哑变量<span class="arithmatex">\(x_1, x_2, x_3, x_4\)</span>, 可以表示为:</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>X1 (学生)</th>
+<th>X2 (农民)</th>
+<th>X3 (工人)</th>
+<th>X4 (公务员)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_36">什么时候需要哑变量</h3>
+<ol>
+<li>
+<p>对于离散无序多分类变量, 需要转为哑变量</p>
+<p>举一个例子, 如血型, 一般分为A, B, O, AB四个类型, 为无序多分类变量, 通常情况下在录入数据的时候, 为了使数据量化, 我们常会将其赋值为<span class="arithmatex">\(1, 2, 3, 4\)</span>. 从数字的角度来看, 赋值为<span class="arithmatex">\(1, 2, 3, 4\)</span>之后, 它们是具有从小到大一定的顺序关系的, 而实际熵, 四种血型之间并没有这种的大小关系, 它们之间应该是相互平等独立的关系. 如果按照<span class="arithmatex">\(1, 2, 3, 4\)</span>赋值并用于训练模型是不合理的, 此时我们就需要将他们转为哑变量.</p>
+</li>
+<li>
+<p>对于离散有序多分类变量, 需要转为哑变量</p>
+<p>例如疾病的严重程度, 一般分为轻, 中, 重度, 可以人为是有序多分类变量, 通常情况下我们也常会将其赋值为<span class="arithmatex">\(1, 2, 3\)</span>(等距)或者<span class="arithmatex">\(1, 2, 4\)</span>(等比)等形式, 通过由小到大的数字关系, 来体现疾病严重程度之间一定的等级关系. 但是需要注意的是, 一旦赋值为上述等距或者等比的数值形式, 在某种程度上认为疾病的严重程度也呈现类似的等距或者等比的关系. 而事实上由于疾病的临床熵的复杂性, 不同的严重程度之间并非是严格的等距或者等比关系, 因此再赋值为上述形式就显得不太合理, 此时可以将其转为哑变量进行量化.</p>
+</li>
+<li>
+<p>对于连续型变量, 进行变量转化的时候可以考虑设定为哑变量</p>
+<p>对于连续型变量, 很多人人为可以直接将其代入到回归模型中即可, 但是我们还需要结合实际的临床意义, 对连续型变量作适当的住南环. 例如, 以连续型变量代入模型的时候, 其解释为年龄每增加一岁对于因变量的影响. 但是往往年龄增加一岁, 其效应是很微弱的, 并没有太大的实际意义. 此时, 我们可以将年龄这个连续型变量进行离散化, 按照10岁一个年龄段进行划分, 如0-10, 11-20, 21-30, ... 将每一组赋值为<span class="arithmatex">\(1, 2, 3, 4\)</span>, 此时构建模型的回归系数就可以解释为年龄每增加10岁对因变量的影响. 以上赋值方式是基于一个前提, 即年龄和因变量之间存在一定的线性关系, 但是有时候可能会出现以下的情况, 如在年龄段较低和较高的人群中, 某种疾病的死亡率较高, 而在中青年人群中, 死亡率较低, 年龄和死亡结局之间存在一个U字形的关系, 此时将年龄段赋值为<span class="arithmatex">\(1, 2, 3, 4\)</span>就显得不太合理了. 这个时候就回到了第2种情况, 对于离散有序多分类变量, 由于无法确定某个变量和因变量是否是线性关系, 所以需要转为哑变量.</p>
+</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Machine-learning-deep-learning-notes/machine-learning/linear-regression.md at master · loveunk/machine-learning-deep-learning-notes. (n.d.). Retrieved June 26, 2024, from <a href="https://github.com/loveunk/machine-learning-deep-learning-notes/blob/master/machine-learning/linear-regression.md">https://github.com/loveunk/machine-learning-deep-learning-notes/blob/master/machine-learning/linear-regression.md</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>第3章 线性模型. (n.d.). Retrieved June 27, 2024, from <a href="https://datawhalechina.github.io/pumpkin-book/#/chapter3/chapter3">https://datawhalechina.github.io/pumpkin-book/#/chapter3/chapter3</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>周志华. (n.d.). 机器学习.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>easyAI-人工智能知识库. (2021, March 26). 一文看懂特征工程 | Feature Engineering（基本概念+重要性+4步评估）. Medium. <a href="https://easyaitech.medium.com/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-feature-engineering-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-%E9%87%8D%E8%A6%81%E6%80%A7-4%E6%AD%A5%E8%AF%84%E4%BC%B0-e3e6a9049f18">https://easyaitech.medium.com/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-feature-engineering-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-%E9%87%8D%E8%A6%81%E6%80%A7-4%E6%AD%A5%E8%AF%84%E4%BC%B0-e3e6a9049f18</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>什么是特征工程？—特征工程解释—AWS. (n.d.). Amazon Web Services, Inc. Retrieved July 4, 2024, from <a href="https://aws.amazon.com/cn/what-is/feature-engineering/">https://aws.amazon.com/cn/what-is/feature-engineering/</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>L1、L2正则化的原理及适用场景_l1正则化-CSDN博客. (n.d.). Retrieved August 12, 2024, from <a href="https://blog.csdn.net/xiao_ling_yun/article/details/128255215">https://blog.csdn.net/xiao_ling_yun/article/details/128255215</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>回归模型中的哑变量是个啥？何时需要设置哑变量？. (n.d.). Retrieved August 24, 2024, from <a href="https://www.sohu.com/a/199698358_489312">https://www.sohu.com/a/199698358_489312</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月28日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月25日</span>
+  </span>
+
+    
+    
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
+          
+          <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
+    
+  </aside>
+
+
+
+
+
+  <h2 id="__comments">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="sigmax01/ml"
+        data-repo-id="R_kgDOMNX2Cw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMNX2C84CgVid"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" >版权所有 &copy 2024-至今 由 <span property="cc:attributionName">许文泽</span> 采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0&nbsp</a>许可证发布</p>
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://ricolxwz.de" target="_blank" rel="noopener" title="ricolxwz.de" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ricolxwz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://gitlab.com/ricolxwz" target="_blank" rel="noopener" title="gitlab.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://hub.docker.com/u/ricolxwz" target="_blank" rel="noopener" title="hub.docker.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1zm0-204.3h-66.1v60.7h66.1zm78.2 144.8H362v59.4h66.1zm-156.3-72.1h-66.1v60.1h66.1zm78.1 0h-66.1v60.1h66.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1zm78.1 0h-66.1v59.4h66.1zm-78.1-72.1h-66.1v60.1h66.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://t.me/ricolxwz" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M248 8C111 8 0 119 0 256S111 504 248 504 496 393 496 256 385 8 248 8zM363 176.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7 .2-.7 .3-3.1-1.2-4.4s-3.6-.8-5.1-.5q-3.3 .7-104.6 69.1-14.8 10.2-26.9 9.9c-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3q.8-6.7 18.5-13.7 108.4-47.2 144.6-62.3c68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6 .5 9.6 2.9a10.5 10.5 0 0 1 3.5 6.7A43.8 43.8 0 0 1 363 176.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:ricol.xwz@outlook.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256l0 32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32l0 80 0 32c0 17.7 14.3 32 32 32s32-14.3 32-32l0-32c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/favicon.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/analysis.js"></script>
+      
+        <script src="../../../js/open_in_new_tab.js"></script>
+      
+        <script src="../../../js/open_in_new_tab.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
