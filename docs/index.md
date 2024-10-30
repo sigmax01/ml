@@ -34,7 +34,7 @@
         - [x] [Transformer](/algorithm/neural-network/transformer)
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
-    - [ ] [强化学习](/algorithm/reinforcement-learning)
+    - [x] [强化学习](/algorithm/reinforcement-learning)
 
 ## 推荐
 
