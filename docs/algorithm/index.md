@@ -48,19 +48,20 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 
 ### 课程内容
 
-|周数|主题|
-|-|-|
-|第一周|绪论, [预处理](/algorithm/preprocessing)|
-|第二周|[最邻近](/algorithm/knn)|
-|第三周|[线性回归](/algorithm/linear-regression)|
-|第四周|[朴素贝叶斯](/algorithm/naive-bayes), [评估](/algorithm/evaluation)|
-|第五周|[决策树](/algorithm/decision-tree), [集成学习](/algorithm/ensemble-learning)|
-|第六周|[支持向量机](/algorithm/svm), [降维](/algorithm/dimensional-reduction)|
-|第七周|[前馈神经网络](/algorithm/neural-network/fnn)|
-|第八周|[卷积神经网络](/algorithm/neural-network/cnn), [递归神经网络](/algorithm/neural-network/rnn)|
-|第九周|[Transformer](/algorithm/neural-network/transformer)|
-|第十周|[聚类](/algorithm/clustering)|
-|第十一周|[马尔可夫链](/algorithm/markov-chain)|
+| 周数   | 主题                                                                               |
+|------|----------------------------------------------------------------------------------|
+| 第一周  | 绪论, [预处理](/algorithm/preprocessing)                                              |
+| 第二周  | [最邻近](/algorithm/knn)                                                            |
+| 第三周  | [线性回归](/algorithm/linear-regression)                                             |
+| 第四周  | [朴素贝叶斯](/algorithm/naive-bayes), [评估](/algorithm/evaluation)                     |
+| 第五周  | [决策树](/algorithm/decision-tree), [集成学习](/algorithm/ensemble-learning)            |
+| 第六周  | [支持向量机](/algorithm/svm), [降维](/algorithm/dimensional-reduction)                  |
+| 第七周  | [前馈神经网络](/algorithm/neural-network/fnn)                                          |
+| 第八周  | [卷积神经网络](/algorithm/neural-network/cnn), [递归神经网络](/algorithm/neural-network/rnn) |
+| 第九周  | [Transformer](/algorithm/neural-network/transformer)                             |
+| 第十周  | [聚类](/algorithm/clustering)                                                      |
+| 第十一周 | [马尔可夫链](/algorithm/markov-chain)                                                 |
+| 第十二周 | [强化学习](/algorithm/reinforcement-learning)                                        |
 
 ### 考试
 
