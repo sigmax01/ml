@@ -31,28 +31,38 @@
 - 朴素贝叶斯
 	- ⚠️先验概率和后验概率是啥: posteriori probability, probability of an event after seeing the evidence; prior probability: probability of an event before seeing evidence
 	- ☢️朴素贝叶斯理论为什么是朴素的: independence: attributes are conditionally independent of each other, given the class; equally importance: all attributes are equally importance
+	- ⚠️拉普拉斯处理零频问题: an attribute value does not occur with every class value, e.g. $p(E_1|yes)=0$. Use Laplace correction or smoothing
+	- ♻️处理缺失值问题: do not include that posteriori probability when calculating
 
 ## 大题考点
 
 个人认为的大题考点(持续更新中...):
 
+重要程度: 
+
+- 超级重要: ☢️
+- 重要: ⚠️
+- 一般: ♻️
+- 不重要: 🗑️
+- 超级不重要: 🏴‍☠️
+
 - 预处理
-    - [二进制化](/algorithm/preprocessing/#bit-transform)
-    - [归一化](/algorithm/preprocessing/#normalization)
-    - [距离计算](/algorithm/preprocessing/#euclidean-distance), 特别注意Hamming distance, counts the number of different bits
-    - [相似系数计算](/algorithm/preprocessing/#similarity-score), 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数
-    - [余弦相似度计算](/algorithm/preprocessing/#cosine-similarity)
-    - [皮尔逊相关系数计算](/algorithm/preprocessing/#pearson-correlation-coefficient)
+    - ♻️[二进制化](/algorithm/preprocessing/#bit-transform)
+    - 🗑️[归一化](/algorithm/preprocessing/#normalization)
+    - ♻️[距离计算](/algorithm/preprocessing/#euclidean-distance), 特别注意Hamming distance, counts the number of different bits
+    - ⚠️[相似系数计算](/algorithm/preprocessing/#similarity-score), 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数
+    - ⚠️[余弦相似度计算](/algorithm/preprocessing/#cosine-similarity)
+    - ⚠️[皮尔逊相关系数计算](/algorithm/preprocessing/#pearson-correlation-coefficient)
 - 最邻近
-	- [使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用2-邻近算法, Euclidean Distance
+	- ☢️[使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用2-邻近算法, Euclidean Distance
 - 朴素贝叶斯
-    - [使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
-    - [数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
+    - ☢️[使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
+    - ♻️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
 - 评估
-    - [混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
+    - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
 - 决策树:
-    - [信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain)
-    - [如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature)
+    - ☢️[信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain)
+    - ☢️[如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature)
 - 集成学习
     - [Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
     - [Adaboost进行预测](/algorithm/ensemble-learning/#adaboost)
