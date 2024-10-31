@@ -63,7 +63,7 @@ comments: true
 
 它由Frank Rosenblatt在1957年提出. 同时它的局限性由Marvin Minsky和Seymour Papert在书<Perceptrons>中提出. Rosenblatt和他的同事意识到这个局限可以通过使用更复杂的NNs, 即multi-layer perceptrons解决, 但是他们没有将感知机使用于神经网络的训练.
 
-### 学习算法
+### 学习算法 {#learning-algorithm}
 
 那么, 感知机是如何进行学习的呢?
 

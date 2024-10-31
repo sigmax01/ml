@@ -77,7 +77,7 @@ Principle Component Analysis (PCA), 主成分分析, 是一种最人们的降维
 
 可以在[这里](https://img.ricolxwz.io/a2a0de53ba8ad8088723f59d956c980c.png)找到一个例子.
 
-#### 压缩
+#### 压缩 {#compression-rate}
 
 举一个灰度图像压缩的例子. 对于一张没有压缩的灰度图像, 有$n\times m$像素, 在未压缩之前, 我们需要存储$n\times m$个整数. 
 

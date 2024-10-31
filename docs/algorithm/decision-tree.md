@@ -13,7 +13,7 @@ comments: true
 
 使用决策树进行决策的过程就是从根节点开始, 测试待分类项目中相应的特征属性, 并按照其值选择输出分支, 直到到达叶子节点, 将叶子节点存放的类别作为决策结果.
 
-## 信息增益
+## 信息增益 {#information-gain}
 
 详见[不确定性和熵](https://gk.ricolxwz.de/information-theory/uncertainty-and-entropy).
 
@@ -63,7 +63,7 @@ comments: true
 3. 对每个子集递归地重复上述过程, 重复选择最优的属性, 划分数据
 4. 直到子集中所有的样本都属于同一个类, 终止递归, 创建一个叶节点, 这个叶节点属于这个类
 
-### 如何选择最优属性
+### 如何选择最优属性 {#how-to-choose-best-feature}
 
 从决策树的构建过程可以看出, 递归终止的条件是子集中所有的样本属于同一个类. 我们需要递归尽快终止, 这样可以得到一棵较小的决策树, 为什么要小树:
 
@@ -87,7 +87,7 @@ comments: true
     | square   | blue  | -     |
     | triangle | blue  | -     |
     | square   | red   | +     |
-    | square   | blue  | +     |
+    | square   | blue  | -     |
     | square   | red   | +     |
     | circle   | red   | +     |
 
