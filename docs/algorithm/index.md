@@ -78,7 +78,7 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 
 个人认为的计算题大概率考点:
 
-- 预处理[clustering.md](clustering.md)
+- 预处理
     - [二进制化](/algorithm/preprocessing/#bit-transform)
     - [归一化](/algorithm/preprocessing/#normalization)
     - [相似系数计算](/algorithm/preprocessing/#similarity-score)
