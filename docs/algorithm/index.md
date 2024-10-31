@@ -74,28 +74,38 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
         - 给出解释
     - 问题解决/计算题
 
-#### 计算题大概率考点
+#### 大题大概率考点
 
-个人认为的计算题大概率考点:
+个人认为的大题大概率考点:
 
 - 预处理
     - [二进制化](/algorithm/preprocessing/#bit-transform)
     - [归一化](/algorithm/preprocessing/#normalization)
-    - [相似系数计算](/algorithm/preprocessing/#similarity-score)
+    - [距离计算](/algorithm/preprocessing/#euclidean-distance)
+    - [相似系数计算](/algorithm/preprocessing/#similarity-score), 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数
     - [余弦相似度计算](/algorithm/preprocessing/#cosine-similarity)
-- 决策树:
-    - [信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain)
-    - [如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature)
+    - [皮尔逊相关系数计算](/algorithm/preprocessing/#pearson-correlation-coefficient)
 - 朴素贝叶斯
     - [使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
     - [数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
+- 评估
+    - [混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
+- 决策树:
+    - [信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain)
+    - [如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature)
 - 集成学习
+    - [Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
     - [Adaboost进行预测](/algorithm/ensemble-learning/#adaboost)
+- 支持向量机
+    - [核方法如何简化点积计算](/algorithm/svm/#kernel-trick)
 - 降维
     - [压缩率计算](/algorithm/dimensional-reduction/#compression-rate)
 - 神经网络
     - [感知机学习过程](/algorithm/neural-network/#learning-algorithm)
-    - [前馈神经网络学习过程](/algorithm/neutral-network/fnn/#training-procedure)
+    - [前馈神经网络学习过程](/algorithm/neural-network/fnn/#training-procedure)
+    - [反向传播算法](/algorithm/neural-network/#backpropagation-algorithm)
+    - [反向传播公式推导](/algorithm/neural-network/backpropagation)
+    - [卷积计算](/algorithm/neural-network/#convolutional-layer)
 - 聚类
     - [K-means聚类如何分簇](/algorithm/clustering/#k-means)
     - [GMM算法如何进行分簇](/algorithm/clustering/#gmm)

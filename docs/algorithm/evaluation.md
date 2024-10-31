@@ -88,7 +88,7 @@ comments: true
 4. 用整个训练集和best_parameters重新建立KNN模型
 5. 在测试集上对模型进行评估, 汇报结果
 
-## 混淆矩阵
+## 混淆矩阵 {#confusion-matrix}
 
 混淆矩阵, confusion matrix, 常见于分类问题. 以二分类问题为例, 在二分类问题中, 有两种可能的标签: yes和no. 
 

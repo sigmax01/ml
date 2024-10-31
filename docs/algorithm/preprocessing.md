@@ -177,7 +177,7 @@ comments: true
 
 许多机器学习算法需要测量两个记录之间的相似性. 假设有两条记录$A$和$B$, 有属性$a_1, a_2, ..., a_n$和属性$b_1, b_2, ..., b_n$, 以下是测量方法. 
 
-### 欧几里得距离
+### 欧几里得距离 {#euclidean-distance}
 
 欧几里得距离是最经常用的测量方式. 
 
@@ -249,7 +249,7 @@ comments: true
 
     得到: $cos(d_1, d_2)=0.3150$
 
-### 皮尔逊相关系数
+### 皮尔逊相关系数 {#pearson-correlation-coefficient}
 
 皮尔逊相关系数, Pearson Correlation Coefficient, 用来衡量两个数值之间的线性关系.
 

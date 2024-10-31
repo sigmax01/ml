@@ -46,7 +46,7 @@ comments: true
 - 操作属性: 通过使用总体属性的子属性集用于训练模型, 典型的集成学习模型有随机森林, Random Subspace
 - ... 待添加
 
-## Bagging
+## Bagging {#bagging}
 
 Bagging(Bootstrap Aggregating)由Breimam于1996年提出, 基本思想如下:
 
