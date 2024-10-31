@@ -88,7 +88,9 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
     - 如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering
     - 归一化的作用: avoid the dominance attributes with large values
     - 标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average 0, standard deviation 1) 
-  
+	- 余弦相似度和皮尔逊相关系数结果的含义
+- KNN
+	- 
 
 #### 大题考点
 
@@ -97,10 +99,12 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 - 预处理
     - [二进制化](/algorithm/preprocessing/#bit-transform)
     - [归一化](/algorithm/preprocessing/#normalization)
-    - [距离计算](/algorithm/preprocessing/#euclidean-distance)
+    - [距离计算](/algorithm/preprocessing/#euclidean-distance), 特别注意Hamming distance, counts the number of different bits
     - [相似系数计算](/algorithm/preprocessing/#similarity-score), 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数
     - [余弦相似度计算](/algorithm/preprocessing/#cosine-similarity)
     - [皮尔逊相关系数计算](/algorithm/preprocessing/#pearson-correlation-coefficient)
+- 最邻近
+	- [使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用3-邻近算法, Euclidean Distance
 - 朴素贝叶斯
     - [使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
     - [数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
