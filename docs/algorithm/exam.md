@@ -23,9 +23,9 @@
     - ♻️如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering
     - ⚠️归一化的作用: avoid the dominance attributes with large values
     - ♻️标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average -1, standard deviation 1) 
-	- ♻️余弦相似度和皮尔逊相关系数结果的含义: consine similarity = 0, 0; corr = -1, +1, 0
+	- ♻️余弦相似度和皮尔逊相关系数结果的含义: cosine similarity = 0, 0; corr = -1, +1, 0
 - KNN
-	- ♻️复杂度分析: m training examples with n attibutes, o(mn)
+	- ♻️复杂度分析: m training examples with n attributes, o(mn)
 	- ♻️加权最邻近算法: closer? bigger weight; further? smaller weight
 	- ♻️特点: require normalization; not effective for high dimensional data; sensitive to k; very accurate; slow for big datasets; 
 - 朴素贝叶斯
@@ -33,6 +33,15 @@
 	- ☢️朴素贝叶斯理论为什么是朴素的: independence: attributes are conditionally independent of each other, given the class; equally importance: all attributes are equally importance
 	- ⚠️拉普拉斯处理零频问题: an attribute value does not occur with every class value, e.g. $p(E_1|yes)=0$. Use Laplace correction or smoothing
 	- ♻️处理缺失值问题: do not include that posteriori probability when calculating
+- 评估
+	- ♻️什么是训练集, 测试集, 验证集
+	- ⚠️训练集, 测试集, 验证集的作用: training set: train classifier; validation set: tune hyperparameters; test set: evaluate accuracy
+	- ⚠️参数和超参数之间的区别
+	- ⚠️分层: Without stratification, some classes might be missing from the training test sets. Ensure each class is represented with approximately equal proportions in both datasets
+	- ⚠️重复留出验证:  in each of the 10 runs, a certain proportion is randomly selected for training and the remainder is used for testing, 10 accuracies are averaged
+	- ☢️10折交叉验证: split testing set into 10 sets, approximately equal size, A classifier is built 10 times, each time testing is on 1 set and the training is on 9 sets. usually used with stratification
+	- ⚠️留一法: special form of cross validation. for n training examples, build classiier n times
+	- ⚠️网格搜索交叉验证: for each parameter combination, use cross validation to test the accuracy, select the best parameters combination based on this
 
 ## 大题考点
 
@@ -57,7 +66,7 @@
 	- ☢️[使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用2-邻近算法, Euclidean Distance
 - 朴素贝叶斯
     - ☢️[使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
-    - ♻️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
+    - ⚠️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
 - 评估
     - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
 - 决策树:
