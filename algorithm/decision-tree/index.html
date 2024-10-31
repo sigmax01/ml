@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -1607,7 +1607,7 @@
 </tr>
 </tbody>
 </table>
-<p>可以求得嫁与不嫁的信息熵为: <span class="arithmatex">\(-\frac{1}{2}\log \frac{1}{2}-\frac{1}{2}\log \frac{1}{2}\simeq 0.301\)</span>. 假如现在我已经知道了一个男生的身高信息, 求直到这个信息之后的信息增益. </p>
+<p>可以求得嫁与不嫁的信息熵为: <span class="arithmatex">\(-\frac{1}{2}\log \frac{1}{2}-\frac{1}{2}\log \frac{1}{2}\simeq 0.301\)</span>. 假如现在我已经知道了一个男生的身高信息, 求知道这个信息之后的信息增益. </p>
 <p>身高的可能取值有三个, 即随机变量的取值可能有三个: 矮, 中, 高. </p>
 <ul>
 <li>矮的个数为7个, 对应的嫁的数量是1个, 不嫁的数量是6个</li>
@@ -1621,7 +1621,7 @@
 <li><span class="arithmatex">\(H(Y|X=高)=-1\log1-0=0\)</span>, <span class="arithmatex">\(p(X=低)=\frac{3}{12}\)</span></li>
 </ul>
 <p>由此可以计算出条件熵为<span class="arithmatex">\(\frac{7}{12}*0.178+\frac{2}{12}*0+\frac{3}{12}*0=0.103\)</span>.</p>
-<p>所以信息增益就是<span class="arithmatex">\(0.301-0.103=0.198\)</span>. 也就是说, 本来如果我对一个男生什么都不知道的话, 作为他的女朋友决定是否嫁给他的不确定性有<span class="arithmatex">\(0.301\)</span>这么大. 当我们直到男朋友的身高信息之后, 不确定性减少了<span class="arithmatex">\(0.198\)</span>, 也就是说, 身高这个特征对于我们广大女生同学来说, 决定加不加给自己的男朋友是很重要的.</p>
+<p>所以信息增益就是<span class="arithmatex">\(0.301-0.103=0.198\)</span>. 也就是说, 本来如果我对一个男生什么都不知道的话, 作为他的女朋友决定是否嫁给他的不确定性有<span class="arithmatex">\(0.301\)</span>这么大. 当我们直到男朋友的身高信息之后, 不确定性减少了<span class="arithmatex">\(0.198\)</span>, 也就是说, 身高这个特征对于我们广大女生同学来说, 决定嫁不嫁给自己的男朋友是很重要的.</p>
 </details>
 <h2 id="_3">构建决策树</h2>
 <p>决策树学习的一种常见的策略是使用递归, 自顶向下的递归分治. </p>
