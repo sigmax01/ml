@@ -50,6 +50,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/evaluation/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/algorithm/exam/</loc>
+        <lastmod>2024-10-31</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/exam/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/exam/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/algorithm/knn/</loc>
         <lastmod>2024-10-31</lastmod>
         <changefreq>daily</changefreq>
@@ -237,6 +244,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/evaluation/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/evaluation/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/exam/</loc>
+        <lastmod>2024-10-31</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/exam/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/exam/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/algorithm/knn/</loc>
