@@ -1254,7 +1254,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#learning-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       学习算法
     </span>
@@ -1263,7 +1263,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       限制条件
     </span>
@@ -1272,7 +1272,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       逻辑门
     </span>
@@ -1286,7 +1286,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       深度学习
     </span>
@@ -1323,7 +1323,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       其他的损失函数
     </span>
@@ -1419,7 +1419,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/c4090b80e90cb85ba787e93a035cb384.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c4090b80e90cb85ba787e93a035cb384.png" width="300" /></a></p>
 </figure>
 <p>它由Frank Rosenblatt在1957年提出. 同时它的局限性由Marvin Minsky和Seymour Papert在书<Perceptrons>中提出. Rosenblatt和他的同事意识到这个局限可以通过使用更复杂的NNs, 即multi-layer perceptrons解决, 但是他们没有将感知机使用于神经网络的训练.</p>
-<h3 id="_4">学习算法</h3>
+<h3 id="learning-algorithm">学习算法</h3>
 <p>那么, 感知机是如何进行学习的呢?</p>
 <p>之前我们说过, 神经元会在训练过程中调整权重<span class="arithmatex">\(w_1, w_2\)</span>, 这个其实就是感知机学习的过程. 权重的更新公式为<span class="arithmatex">\(\bm{w}^{new}=\bm{w}^{old}+e\bm{x}^T\)</span>, <span class="arithmatex">\(e=t-a\)</span>, <span class="arithmatex">\(t\)</span>为目标输出(<span class="arithmatex">\(0\)</span>或<span class="arithmatex">\(1\)</span>), <span class="arithmatex">\(a\)</span>为实际输出(<span class="arithmatex">\(0\)</span>或<span class="arithmatex">\(1\)</span>), <span class="arithmatex">\(\bm{x}\)</span>为输入向量; 同时还要调整截距, <span class="arithmatex">\(b^{new}=b^{old}+e\)</span></p>
 <ul>
@@ -1509,12 +1509,12 @@
 </ol>
 <p>进入第二轮...</p>
 </details>
-<h3 id="_5">限制条件</h3>
+<h3 id="_4">限制条件</h3>
 <p class="annotate">如果训练样本是线性可分的, 即样本可以用一条直线在超平面(1)中分开, 感知机学习算法保证能够在有限步骤内找到一组权重和截距, 这组权重和截距能正确地将所有的训练样本分类. 这时候, 感知机将会找到一个线性的决策边界, 但不一定是"最优"的边界, 而是找到一个可行的边界后就会停止. 在现实世界中, 大多数的问题都是线性不可分的, 这意味着训练样本无法用一个超平面正确分开, 这也是感知机的最大局限之一.</p>
 <ol>
 <li>什么是超平面, 可以在<a href="/algorithm/支持向量机#边际最大超平面">这里</a>找到.</li>
 </ol>
-<h3 id="_6">逻辑门</h3>
+<h3 id="_5">逻辑门</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">与门</label><label for="__tabbed_2_2">或门</label><label for="__tabbed_2_3">与非门</label><label for="__tabbed_2_4">异或门</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1558,7 +1558,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/7018b43e284156ad9fbd3b1c3e4d240f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7018b43e284156ad9fbd3b1c3e4d240f.png" width="800" /></a></p>
 </figure>
-<h2 id="_7">深度学习</h2>
+<h2 id="_6">深度学习</h2>
 <p>深度学习和一般的神经网络的主要区别在于层数的深度以及能力的提升, 具体可以解释:</p>
 <ul>
 <li>层数的区别: 一般的神经网络通常指那些只有一层或者几层隐藏层的神经网络, 也叫做浅层神经网络. 虽然他们可以处理简单的任务, 但是其表现收到限制, 尤其在处理复杂的非线性问题时效果不佳. 深度学习则使用多层隐藏层, 这些隐藏层构成了一个深层神经网络(DNN), 通过多个隐藏层, 网络可以捕捉到更加复杂的特征和模式, 解决如图像识别, 语音识别等复杂的任务</li>
@@ -1595,7 +1595,7 @@
 <summary>例子</summary>
 <p>如三个输出神经元的输出为<span class="arithmatex">\(o_1=0.3, o_2=0.8, o_3=0.2\)</span>. 使用softmax函数之后<span class="arithmatex">\(p_1=0.28, p_2=0.46, p_3=0.26\)</span>.</p>
 </details>
-<h3 id="_8">其他的损失函数</h3>
+<h3 id="_7">其他的损失函数</h3>
 <p>可以使用交叉熵损失而不是MSE. 它衡量的是模型预测的概率分布和真实类别分布之间的差异, 例如通过softmax函数得到的输出 交叉熵损失用于反映模型对于正确类别的预测有多大的不确定性.</p>
 <p>对于单个样本的交叉熵损失公式为<span class="arithmatex">\(CCE_i=-\sum_{j=1}^C y_{ij}\cdot \log(\hat{y_{ij}})\)</span>. 其中, <span class="arithmatex">\(y_{ij}\)</span>是样本<span class="arithmatex">\(i\)</span>的真实one-hot编码向量的第<span class="arithmatex">\(j\)</span>个元素, 真实类别上为<span class="arithmatex">\(1\)</span>, 其他为<span class="arithmatex">\(0\)</span>. <span class="arithmatex">\(\hat{y_{ij}}\)</span>为模型预测的概率分布中对应第<span class="arithmatex">\(j\)</span>个类别的概率.</p>
 <p>对于<span class="arithmatex">\(N\)</span>个样本, 总的交叉熵损失是每个样本的交叉熵损失的总和: <span class="arithmatex">\(CCE=\sum_{i=1}^N CCE_i\)</span>.</p>
@@ -1629,7 +1629,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月31日</span>
   </span>
 
     

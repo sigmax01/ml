@@ -841,7 +841,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#nb-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       朴素贝叶斯算法
     </span>
@@ -851,7 +851,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       零频问题
     </span>
@@ -860,7 +860,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       缺失值问题
     </span>
@@ -869,7 +869,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#numeric-nb" class="md-nav__link">
     <span class="md-ellipsis">
       数值属性朴素贝叶斯
     </span>
@@ -1322,7 +1322,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#nb-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       朴素贝叶斯算法
     </span>
@@ -1332,7 +1332,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       零频问题
     </span>
@@ -1341,7 +1341,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       缺失值问题
     </span>
@@ -1350,7 +1350,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#numeric-nb" class="md-nav__link">
     <span class="md-ellipsis">
       数值属性朴素贝叶斯
     </span>
@@ -1414,7 +1414,7 @@
 <li><span class="arithmatex">\(P(E|H)\)</span>: 后验概率, 又叫作条件概率, 是我们知道证据后某一事件的可能性, 如玫瑰之后, 是红色, 长茎的概率</li>
 <li><span class="arithmatex">\(P(E)\)</span>: 先验概率, 是我们知道证据前某一事件的可能性, 如不给出是不是玫瑰, 是红色, 长茎的概率 </li>
 </ul>
-<h2 id="_2">朴素贝叶斯算法</h2>
+<h2 id="nb-algorithm">朴素贝叶斯算法</h2>
 <p>朴素贝叶斯算法用于解决分类问题, 依赖的是贝叶斯理论, 在这个基础上还包含了两层假设:</p>
 <ol>
 <li>独立性: 在知道所属类的情况下, 所有的属性(特征)两两之间都是独立的, 即假设我们有两个属性A和B, 他们用于预测某个类别C, 如果属性A和属性B是独立的, 那么在给定类别C的情况下, 属性A的取值不会影响属性B的取值. 即<span class="arithmatex">\(P(A,B|C)=P(A|C)\times P(B|C)\)</span></li>
@@ -1535,12 +1535,12 @@
 </table>
 <p>首先, 需要计算在已知特征的情况下, 假设新的一天的天气为sunny, cool, high, true, 分别对应<span class="arithmatex">\(E_1, E_2, E_3, E_4\)</span>, 对于每一个类(假设)都要计算他们的后验概率, 如在这个例子中, 是<span class="arithmatex">\(P(yes|E)\)</span>和<span class="arithmatex">\(P(no|E)\)</span>. 根据贝叶斯理论, <span class="arithmatex">\(P(yes|E)=\frac{P(E|yes)P(yes)}{P(E)}, P(no|E)=\frac{P(E|no)P(no)}{P(E)}\)</span>. 那么, 我们如何计算<span class="arithmatex">\(P(E|yes)\)</span>和<span class="arithmatex">\(P(E|no)\)</span>呢? 这里, 我们就用到了假设1, 即<span class="arithmatex">\(P(E|yes)=P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)\)</span>, <span class="arithmatex">\(P(E|no)=P(E_1|no)P(E_2|no)P(E_3|no)P(E_4|no)\)</span>. 代入上面的式子, 可以得到<span class="arithmatex">\(P(yes|E)=\frac{P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)P(yes)}{P(E)}, P(no|E)=\frac{P(E_1|no)P(E_2|no)P(E_3|no)P(E_4|no)P(no)}{P(E)}\)</span>. 分子的部分可以直接从训练数据中得到, 分母的部分都是<span class="arithmatex">\(P(E)\)</span>, 由于我们只是要比较<span class="arithmatex">\(P(yes|E)\)</span>和<span class="arithmatex">\(P(no|E)\)</span>, 所以没有必要算出分母, 具体的计算过程就不在这里写了, 得到的结果是<span class="arithmatex">\(P(yes|E)=\frac{0.0053}{P(E)}, P(no|E)=\frac{0.0206}{P(E)}\)</span>. 由于<span class="arithmatex">\(P(no|E)&gt;P(yes|E)\)</span>, 所以朴素贝叶斯预测的sunny, cool, high, true的play选项为no.</p>
 <p>另一个例子见<a href="https://img.ricolxwz.io/df558f7e1e5c65c1e36402b2b41bfa7e.png">图</a>.</p>
-<h3 id="_3">零频问题</h3>
+<h3 id="_2">零频问题</h3>
 <p>在上述分类问题中, 对于一个属性值(特征值)至少在每一个类别(play=yes, play=no)中都出现过一次. 如果sunny只出现在play=no中, 从未出现在play=yes中, 那么, 就会有<span class="arithmatex">\(P(yes|E)=\frac{P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)P(yes)}{P(E)}=0\)</span>, 因为<span class="arithmatex">\(P(E_1|yes)=0\)</span>. 这意味着任何含有属性值为sunny的天气情况都会被归类到play=no, 完全忽略其他值的影响. </p>
 <p>为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算<span class="arithmatex">\(P(E_i|yes)\)</span>的时候, 用到以下公式, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 对于<span class="arithmatex">\(P(E_i|no)\)</span>也是同样的. </p>
-<h3 id="_4">缺失值问题</h3>
+<h3 id="_3">缺失值问题</h3>
 <p>朴素贝叶斯算法对于缺失值的处理非常直接.</p>
-<h3 id="_5">数值属性朴素贝叶斯</h3>
+<h3 id="numeric-nb">数值属性朴素贝叶斯</h3>
 <p>现在, 试想如果温度和湿度是数值的话, 如何对play的结果做出分类呢? </p>
 <p>即我们如何计算<span class="arithmatex">\(P(E_1|yes)\)</span>, <span class="arithmatex">\(P(E_2|yes)\)</span>, <span class="arithmatex">\(P(E_1|no)\)</span>, ...? 我们假设数值符合正态分布或者高斯分布, 以正态分布为例, 使用概率函数, 参数为期望<span class="arithmatex">\(\mu\)</span>和标准差, standard deviation <span class="arithmatex">\(\sigma\)</span>: <span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>. 其中期望<span class="arithmatex">\(\mu=\frac{\sum_{i=1}^n x_i}{n}\)</span>, 标准差<span class="arithmatex">\(\sigma=\sqrt{\frac{\sum_{i=1}^n(x_i-\mu)^2}{n-1}}\)</span>.</p>
 <p>以属性温度为例, 温度是一个连续的值, 我们可以将某一个温度的概率密度作为乘子. 如<span class="arithmatex">\(f(temp=66|yes)=\frac{1}{6.2\sqrt{2\pi}}e^{-\frac{(66-73)^2}{2\times 6.2^2}}\)</span>, 其中<span class="arithmatex">\(\mu=73\)</span>, 表示气温在分类为yes下的期望(均值), <span class="arithmatex">\(\sigma=6.2\)</span>, 表示气温在分类为yes下的标准差.</p>
@@ -1567,7 +1567,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年8月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月31日</span>
   </span>
 
     
