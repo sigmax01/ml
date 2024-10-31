@@ -170,6 +170,7 @@ nav:
     - 大数定律与中心极限定理: probability/large-number-central-limit-theorem.md
   - 算法:
     - algorithm/index.md
+    - 考点: algorithm/exam.md
     - 线性回归: algorithm/linear-regression.md
     - 预处理: algorithm/preprocessing.md
     - 最邻近: algorithm/knn.md
