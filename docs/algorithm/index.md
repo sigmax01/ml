@@ -85,6 +85,9 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
   - 为什么要进行数据聚合: data reduction(same memory&computation time); change scale; stabilize data(less variable)
   - 如何选取特征子集: brute force(try all possible pairs and see the results); embedded(e.g. decision tree, use entropy or gini); filter(based on statistical measures, e.g. mutual information, information gain; or based on correlation, e.g. relief); wrapper(use ML algorithm as the black box)
   - 如何为特征添加权重: based on domain knowledge; some algorithm, e.g. boosting can automatically add weight to features
+  - 如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering
+  - 归一化的作用: avoid the dominance attributes with large values
+  - 标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average 0, standard deviation 1) 
   
 
 #### 大题考点
