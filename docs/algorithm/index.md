@@ -76,12 +76,13 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 
 #### 小题考点
 
-个人认为的小题考点:
+个人认为的小题考点(持续更新中...):
 
 - 预处理
     - 为什么要进行预处理: not perfect, noise(distortion(human voice), spurious(outlier or mixed with non-noisy data), inconsistent(negative weight, non-existing zip code), duplicate), missing
     - 噪音如何进行处理: signal/image processing&outlier detection; use robust ml algorithm; easy to deal with inconsistent&duplicate
     - 缺失数据如何处理: ignore all examples with missing values; estimate the missing values by remaining values(nominal: replace most common in A, replace most common in A with same class; numerial: average value of nearest neighbors)
+	- 什么是数据聚合: combining two or more attributes into one
     - 为什么要进行数据聚合: data reduction(same memory&computation time); change scale; stabilize data(less variable)
     - 如何选取特征子集: brute force(try all possible pairs and see the results); embedded(e.g. decision tree, use entropy or gini); filter(based on statistical measures, e.g. mutual information, information gain; or based on correlation, e.g. relief); wrapper(use ML algorithm as the black box)
     - 如何为特征添加权重: based on domain knowledge; some algorithm, e.g. boosting can automatically add weight to features
@@ -96,7 +97,7 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 
 #### 大题考点
 
-个人认为的大题考点:
+个人认为的大题考点(持续更新中...):
 
 - 预处理
     - [二进制化](/algorithm/preprocessing/#bit-transform)
