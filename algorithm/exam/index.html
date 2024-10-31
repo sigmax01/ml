@@ -1394,37 +1394,49 @@
 <li>朴素贝叶斯<ul>
 <li>⚠️先验概率和后验概率是啥: posteriori probability, probability of an event after seeing the evidence; prior probability: probability of an event before seeing evidence</li>
 <li>☢️朴素贝叶斯理论为什么是朴素的: independence: attributes are conditionally independent of each other, given the class; equally importance: all attributes are equally importance</li>
+<li>⚠️拉普拉斯处理零频问题: an attribute value does not occur with every class value, e.g. <span class="arithmatex">\(p(E_1|yes)=0\)</span>. Use Laplace correction or smoothing</li>
+<li>♻️处理缺失值问题: do not include that posteriori probability when calculating</li>
 </ul>
 </li>
 </ul>
 <h2 id="_2">大题考点</h2>
 <p>个人认为的大题考点(持续更新中...):</p>
+<p>重要程度: </p>
 <ul>
-<li>预处理<ul>
-<li><a href="/algorithm/preprocessing/#bit-transform">二进制化</a></li>
-<li><a href="/algorithm/preprocessing/#normalization">归一化</a></li>
-<li><a href="/algorithm/preprocessing/#euclidean-distance">距离计算</a>, 特别注意Hamming distance, counts the number of different bits</li>
-<li><a href="/algorithm/preprocessing/#similarity-score">相似系数计算</a>, 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数</li>
-<li><a href="/algorithm/preprocessing/#cosine-similarity">余弦相似度计算</a></li>
-<li><a href="/algorithm/preprocessing/#pearson-correlation-coefficient">皮尔逊相关系数计算</a></li>
+<li>超级重要: ☢️</li>
+<li>重要: ⚠️</li>
+<li>一般: ♻️</li>
+<li>不重要: 🗑️</li>
+<li>
+<p>超级不重要: 🏴‍☠️</p>
+</li>
+<li>
+<p>预处理</p>
+<ul>
+<li>♻️<a href="/algorithm/preprocessing/#bit-transform">二进制化</a></li>
+<li>🗑️<a href="/algorithm/preprocessing/#normalization">归一化</a></li>
+<li>♻️<a href="/algorithm/preprocessing/#euclidean-distance">距离计算</a>, 特别注意Hamming distance, counts the number of different bits</li>
+<li>⚠️<a href="/algorithm/preprocessing/#similarity-score">相似系数计算</a>, 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数</li>
+<li>⚠️<a href="/algorithm/preprocessing/#cosine-similarity">余弦相似度计算</a></li>
+<li>⚠️<a href="/algorithm/preprocessing/#pearson-correlation-coefficient">皮尔逊相关系数计算</a></li>
 </ul>
 </li>
 <li>最邻近<ul>
-<li><a href="/algorithm/knn/#knn">使用k-邻近算法进行预测</a>, 例如, 使用2-邻近算法, Euclidean Distance</li>
+<li>☢️<a href="/algorithm/knn/#knn">使用k-邻近算法进行预测</a>, 例如, 使用2-邻近算法, Euclidean Distance</li>
 </ul>
 </li>
 <li>朴素贝叶斯<ul>
-<li><a href="/algorithm/naive-bayes/#nb-algorithm">使用朴素贝叶斯算法进行预测</a></li>
-<li><a href="/algorithm/naive-bayes/#numeric-nb">数值属性朴素贝叶斯进行预测</a></li>
+<li>☢️<a href="/algorithm/naive-bayes/#nb-algorithm">使用朴素贝叶斯算法进行预测</a></li>
+<li>♻️<a href="/algorithm/naive-bayes/#numeric-nb">数值属性朴素贝叶斯进行预测</a></li>
 </ul>
 </li>
 <li>评估<ul>
-<li><a href="/algorithm/evaluation/#confusion-matrix">混淆矩阵计算</a></li>
+<li>♻️<a href="/algorithm/evaluation/#confusion-matrix">混淆矩阵计算</a></li>
 </ul>
 </li>
 <li>决策树:<ul>
-<li><a href="/algorithm/decision-tree/#information-gain">信息熵, 信息增益的计算</a></li>
-<li><a href="/algorithm/decision-tree/#how-to-choose-best-feature">如何选择最优属性</a></li>
+<li>☢️<a href="/algorithm/decision-tree/#information-gain">信息熵, 信息增益的计算</a></li>
+<li>☢️<a href="/algorithm/decision-tree/#how-to-choose-best-feature">如何选择最优属性</a></li>
 </ul>
 </li>
 <li>集成学习<ul>

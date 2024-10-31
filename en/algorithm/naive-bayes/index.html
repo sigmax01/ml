@@ -1562,7 +1562,7 @@
 <p>在上述分类问题中, 对于一个属性值(特征值)至少在每一个类别(play=yes, play=no)中都出现过一次. 如果sunny只出现在play=no中, 从未出现在play=yes中, 那么, 就会有<span class="arithmatex">\(P(yes|E)=\frac{P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)P(yes)}{P(E)}=0\)</span>, 因为<span class="arithmatex">\(P(E_1|yes)=0\)</span>. 这意味着任何含有属性值为sunny的天气情况都会被归类到play=no, 完全忽略其他值的影响. </p>
 <p>为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算<span class="arithmatex">\(P(E_i|yes)\)</span>的时候, 用到以下公式, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 对于<span class="arithmatex">\(P(E_i|no)\)</span>也是同样的. </p>
 <h3 id="_3">缺失值问题</h3>
-<p>朴素贝叶斯算法对于缺失值的处理非常直接.</p>
+<p>朴素贝叶斯算法对于缺失值的处理非常直接. 直接忽略掉那个属性的后验概率就可以了.</p>
 <h3 id="numeric-nb">数值属性朴素贝叶斯</h3>
 <p>现在, 试想如果温度和湿度是数值的话, 如何对play的结果做出分类呢? </p>
 <p>即我们如何计算<span class="arithmatex">\(P(E_1|yes)\)</span>, <span class="arithmatex">\(P(E_2|yes)\)</span>, <span class="arithmatex">\(P(E_1|no)\)</span>, ...? 我们假设数值符合正态分布或者高斯分布, 以正态分布为例, 使用概率函数, 参数为期望<span class="arithmatex">\(\mu\)</span>和标准差, standard deviation <span class="arithmatex">\(\sigma\)</span>: <span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>. 其中期望<span class="arithmatex">\(\mu=\frac{\sum_{i=1}^n x_i}{n}\)</span>, 标准差<span class="arithmatex">\(\sigma=\sqrt{\frac{\sum_{i=1}^n(x_i-\mu)^2}{n-1}}\)</span>.</p>
