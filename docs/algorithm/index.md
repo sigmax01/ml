@@ -79,15 +79,15 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 个人认为的小题考点:
 
 - 预处理
-  - 为什么要进行预处理: not perfect, noise(distortion(human voice), spurious(outlier or mixed with non-noisy data), inconsistent(negative weight, non-existing zip code), duplicate), missing
-  - 噪音如何进行处理: signal/image processing&outlier detection; use robust ml algorithm; easy to deal with inconsistent&duplicate
-  - 缺失数据如何处理: ignore all examples with missing values; estimate the missing values by remaining values(nominal: replace most common in A, replace most common in A with same class; numerial: average value of nearest neighbors)
-  - 为什么要进行数据聚合: data reduction(same memory&computation time); change scale; stabilize data(less variable)
-  - 如何选取特征子集: brute force(try all possible pairs and see the results); embedded(e.g. decision tree, use entropy or gini); filter(based on statistical measures, e.g. mutual information, information gain; or based on correlation, e.g. relief); wrapper(use ML algorithm as the black box)
-  - 如何为特征添加权重: based on domain knowledge; some algorithm, e.g. boosting can automatically add weight to features
-  - 如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering
-  - 归一化的作用: avoid the dominance attributes with large values
-  - 标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average 0, standard deviation 1) 
+    - 为什么要进行预处理: not perfect, noise(distortion(human voice), spurious(outlier or mixed with non-noisy data), inconsistent(negative weight, non-existing zip code), duplicate), missing
+    - 噪音如何进行处理: signal/image processing&outlier detection; use robust ml algorithm; easy to deal with inconsistent&duplicate
+    - 缺失数据如何处理: ignore all examples with missing values; estimate the missing values by remaining values(nominal: replace most common in A, replace most common in A with same class; numerial: average value of nearest neighbors)
+    - 为什么要进行数据聚合: data reduction(same memory&computation time); change scale; stabilize data(less variable)
+    - 如何选取特征子集: brute force(try all possible pairs and see the results); embedded(e.g. decision tree, use entropy or gini); filter(based on statistical measures, e.g. mutual information, information gain; or based on correlation, e.g. relief); wrapper(use ML algorithm as the black box)
+    - 如何为特征添加权重: based on domain knowledge; some algorithm, e.g. boosting can automatically add weight to features
+    - 如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering
+    - 归一化的作用: avoid the dominance attributes with large values
+    - 标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average 0, standard deviation 1) 
   
 
 #### 大题考点
