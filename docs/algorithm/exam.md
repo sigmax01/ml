@@ -42,6 +42,9 @@
 	- ☢️10折交叉验证: split testing set into 10 sets, approximately equal size, A classifier is built 10 times, each time testing is on 1 set and the training is on 9 sets. usually used with stratification
 	- ⚠️留一法: special form of cross validation. for n training examples, build classiier n times
 	- ⚠️网格搜索交叉验证: for each parameter combination, use cross validation to test the accuracy, select the best parameters combination based on this
+- 决策树
+    - ♻️什么是决策树: each non-leaf node correspond to a test for the value of an attribute; each branch corresponds to an attribute value; each leaf node assigns a class
+    - 
 
 ## 大题考点
 
