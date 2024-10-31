@@ -103,9 +103,9 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 - 神经网络
     - [感知机学习过程](/algorithm/neural-network/#learning-algorithm)
     - [前馈神经网络学习过程](/algorithm/neural-network/fnn/#training-procedure)
-    - [反向传播算法](/algorithm/neural-network/#backpropagation-algorithm)
+    - [反向传播算法](/algorithm/neural-network/fnn/#backpropagation-algorithm)
     - [反向传播公式推导](/algorithm/neural-network/backpropagation)
-    - [卷积计算](/algorithm/neural-network/#convolutional-layer)
+    - [卷积计算](/algorithm/neural-network/cnn/#convolutional-layer)
 - 聚类
     - [K-means聚类如何分簇](/algorithm/clustering/#k-means)
     - [GMM算法如何进行分簇](/algorithm/clustering/#gmm)
@@ -115,7 +115,7 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
 - 马尔可夫链
     - [利用马尔科夫假设进行预测](/algorithm/markov-chain/#markov-assumption)
     - [前向算法](/algorithm/markov-chain/#forward-algorithm)
-    - [Viterbi算法](/algorithm/markon-chain/#viterbi)
+    - [Viterbi算法](/algorithm/markov-chain/#viterbi)
 - 强化学习
     - [Q学习算法](/algorithm/reinforcement-learning/#q-algo)
     - [深度Q学习算法](/algorithm/reinforcement-learning/#dql)
