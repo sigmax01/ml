@@ -88,9 +88,11 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
     - 如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering
     - 归一化的作用: avoid the dominance attributes with large values
     - 标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average 0, standard deviation 1) 
-	- 余弦相似度和皮尔逊相关系数结果的含义
+	- 余弦相似度和皮尔逊相关系数结果的含义: consine similarity = 1, 0; corr = -1, +1, 0
 - KNN
-	- 
+	- 复杂度分析: m training examples with n attibutes, o(mn)
+	- 加权最邻近算法: closer? bigger weight; further? smaller weight
+	- 特点: require normalization; not effective for high dimensional data; sensitive to k; very accurate; slow for big datasets; 
 
 #### 大题考点
 
