@@ -44,7 +44,8 @@
 	- ⚠️网格搜索交叉验证: for each parameter combination, use cross validation to test the accuracy, select the best parameters combination based on this
 - 决策树
     - ♻️什么是决策树: each non-leaf node correspond to a test for the value of an attribute; each branch corresponds to an attribute value; each leaf node assigns a class
-    - 
+    - ⚠️为么需要小树: prevent overfitting; increase readability; reduce computational cost; without the requirement for large dataset
+    - ⚠️如何剪枝: pre-pruning, top growing the tree earlier; post-pruning, fully grow the tree, allowing it to perfectly cover the training data and then prune it; post-pruning is preferred in practice, the main method to use is sub-tree replacement
 
 ## 大题考点
 
