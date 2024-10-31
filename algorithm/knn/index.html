@@ -844,7 +844,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#k-" class="md-nav__link">
+  <a href="#knn" class="md-nav__link">
     <span class="md-ellipsis">
       k-最邻近算法
     </span>
@@ -1346,7 +1346,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#k-" class="md-nav__link">
+  <a href="#knn" class="md-nav__link">
     <span class="md-ellipsis">
       k-最邻近算法
     </span>
@@ -1531,7 +1531,7 @@
 <h3 id="_2">复杂度</h3>
 <p>没有建立模型, 只是存储了训练样本. 将每个未见过的样本和训练样本进行比较, 假设有m个已知训练样本, 每个训练样本为n维, 则查找每一个未见过的训练样本的时间复杂度是O(mn). </p>
 <p>对于大量的数据来说, 这个算法的效率不行. 但是也可以借助一些数据结构像是KD树或者是Ball树提高算法的效率.</p>
-<h2 id="k-">k-最邻近算法</h2>
+<h2 id="knn">k-最邻近算法</h2>
 <p>使用1个最近的训练样本来预测未知样本的标签的算法称为1-邻近算法, 使用k个最近的训练样本预测未知样本的标签的算法称为k-最邻近算法, 即KNN. </p>
 <p>k-最邻近算法对于k的值非常敏感, 经验法则为<span class="arithmatex">\(k\leq \sqrt{训练集}\)</span>, 商业的包一般使用的k是10. 参考更多的邻近样本能够增强抗干扰能力. K最邻近算法不仅用于分类, 还能用于回归. k-最邻近算法的结果基于k个最邻近样本的标签的均值.</p>
 <h2 id="_3">加权最邻近算法</h2>
@@ -1558,7 +1558,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月31日</span>
   </span>
 
     
