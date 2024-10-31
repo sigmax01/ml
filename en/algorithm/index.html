@@ -1320,7 +1320,16 @@
           <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      大题大概率考点
+      小题考点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      大题考点
     </span>
   </a>
   
@@ -1332,7 +1341,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
       备注
     </span>
@@ -1346,7 +1355,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       机器学习定义
     </span>
@@ -1355,7 +1364,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
     <span class="md-ellipsis">
       人工智能与机器学习
     </span>
@@ -1364,7 +1373,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
       机器学习分类
     </span>
@@ -1374,7 +1383,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
+  <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
       理论分类
     </span>
@@ -1383,7 +1392,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
+  <a href="#_18" class="md-nav__link">
     <span class="md-ellipsis">
       应用分类
     </span>
@@ -1397,7 +1406,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
+  <a href="#_19" class="md-nav__link">
     <span class="md-ellipsis">
       学习问题分类
     </span>
@@ -1406,7 +1415,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       学习路径
     </span>
@@ -1588,8 +1597,19 @@
 </ul>
 </li>
 </ul>
-<h4 id="_11">大题大概率考点</h4>
-<p>个人认为的大题大概率考点:</p>
+<h4 id="_11">小题考点</h4>
+<p>个人认为的小题考点:</p>
+<ul>
+<li>预处理</li>
+<li>为什么要进行预处理: not perfect, noise(distortion(human voice), spurious(outlier or mixed with non-noisy data), inconsistent(negative weight, non-existing zip code), duplicate), missing</li>
+<li>噪音如何进行处理: signal/image processing&amp;outlier detection; use robust ml algorithm; easy to deal with inconsistent&amp;duplicate</li>
+<li>缺失数据如何处理: ignore all examples with missing values; estimate the missing values by remaining values(nominal: replace most common in A, replace most common in A with same class; numerial: average value of nearest neighbors)</li>
+<li>为什么要进行数据聚合: data reduction(same memory&amp;computation time); change scale; stabilize data(less variable)</li>
+<li>如何选取特征子集: brute force(try all possible pairs and see the results); embedded(e.g. decision tree, use entropy or gini); filter(based on statistical measures, e.g. mutual information, information gain; or based on correlation, e.g. relief); wrapper(use ML algorithm as the black box)</li>
+<li>如何为特征添加权重: based on domain knowledge; some algorithm, e.g. boosting can automatically add weight to features</li>
+</ul>
+<h4 id="_12">大题考点</h4>
+<p>个人认为的大题考点:</p>
 <ul>
 <li>预处理<ul>
 <li><a href="/algorithm/preprocessing/#bit-transform">二进制化</a></li>
@@ -1655,7 +1675,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="_12">备注</h3>
+<h3 id="_13">备注</h3>
 <ul>
 <li>讲座和补习资料会在星期六9:00发布</li>
 <li>补习答案会在星期五21:00发布</li>
@@ -1664,13 +1684,13 @@
 <li>在特定的周也可能会是理论训练</li>
 <li>第一周没有补习课</li>
 </ul>
-<h2 id="_13">机器学习定义</h2>
+<h2 id="_14">机器学习定义</h2>
 <ul>
 <li>机器学习是不显式地编程赋予计算机能力的研究领域</li>
 <li>机器学习研究的是从数据中产生模型的算法</li>
 </ul>
 <p>通俗的理解就是: 根据已知的数据, 学习一个决策函数, 使其可以对未来的数据作出预测或判断.</p>
-<h2 id="_14">人工智能与机器学习<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
+<h2 id="_15">人工智能与机器学习<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
 <p>人工智能是一个广义的领域, 是指利用技术构建出能够模仿与人类智能相关的认知功能的机器和计算机. 虽然人工智能本身通常被认为是一个系统, 但是实际上它是系统中实现的一组技术, 为的是使系统能够推理, 学习和采取行动来解决实际问题.</p>
 <p>机器学习是人工智能的一个子集, 可让机器或者系统自动从经验中学习和改进. 机器学习不是使用显式编程, 而是使用算法来分析大量数据, 从数据洞见中学习, 然后做出明智的决策. 机器学习算法会随着训练的进行(接触越来越多的数据)不断改进以提升性能. 机器学习模型是输出,即程序通过对训练数据运行算法而学到的内容. 使用的数据越多, 获得的模型就越好.</p>
 <p>所以说:</p>
@@ -1678,8 +1698,8 @@
 <li>人工智能是一个更宽泛的概念,可以让机器或系统像人类一样感知, 推理, 行动或适应</li>
 <li>机器学习是人工智能的一种应用, 可以让机器从数据中提取知识并自主学习</li>
 </ul>
-<h2 id="_15">机器学习分类</h2>
-<h3 id="_16">理论分类</h3>
+<h2 id="_16">机器学习分类</h2>
+<h3 id="_17">理论分类</h3>
 <p>机器学习的理论重要分为三个方面:</p>
 <ol>
 <li>传统的机器学习: 包括线性回归, 逻辑回归, 决策树, SVM, 贝叶斯模型, 神经网络等</li>
@@ -1697,7 +1717,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="_17">应用分类</h3>
+<h3 id="_18">应用分类</h3>
 <ul>
 <li>数据挖掘: 发现数据间的关系</li>
 <li>计算机视觉: 让计算机看懂世界</li>
@@ -1705,7 +1725,7 @@
 <li>语音识别: 让机器听懂</li>
 <li>机器决策: 让机器做决策</li>
 </ul>
-<h2 id="_18">学习问题分类</h2>
+<h2 id="_19">学习问题分类</h2>
 <ul>
 <li>监督学习: 通过输入和已知的输出来训练模型, 以便模型能够预测新的输入和输出<ul>
 <li>回归问题: 输出值是一个或多个连续变量</li>
@@ -1729,7 +1749,7 @@
 <li>输出又被称为"目标"</li>
 </ul>
 </details>
-<h2 id="_19">学习路径</h2>
+<h2 id="_20">学习路径</h2>
 <pre class="mermaid"><code>graph LR
   A[传统机器学习算法] --&gt; B[深度学习];
   B --&gt; C[LLM, 语言大模型];
