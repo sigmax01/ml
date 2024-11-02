@@ -12,7 +12,7 @@ comments: true
 
 集成算法大致上可以分为: Bagging, Boosting和Stacking等类型.
 
-## 为何要集成学习
+## 为何要集成学习 {why-ensemble-learning}
 
 使用集成学习具有很多优势:
 

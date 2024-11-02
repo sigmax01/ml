@@ -28,8 +28,9 @@
     - ☢️[信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain)
     - ☢️[如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature)
 - 集成学习
-    - [Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
-    - [Adaboost进行预测](/algorithm/ensemble-learning/#adaboost)
+    - ♻️[如何计算集成学习模型的错误率](/algorithm/ensemble-learning/#why-ensemble-learning)
+    - ⚠️[Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
+    - ☢️[Adaboost进行预测](/algorithm/ensemble-learning/#adaboost), 能够计算错误率, 基分类器的权重, 归一化后/前的样本集权重
 - 支持向量机
     - [核方法如何简化点积计算](/algorithm/svm/#kernel-trick)
 - 降维
