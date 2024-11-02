@@ -88,9 +88,6 @@ extra:
     - icon: fontawesome/at-solid
       link: mailto:ricol.xwz@outlook.com
   generator: false
-  analytics:
-    provider: google
-    property: G-65D8M5V1CL
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
   - stylesheets/extra.css
