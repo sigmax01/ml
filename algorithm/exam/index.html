@@ -773,15 +773,6 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      小题考点
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
       大题考点
     </span>
   </a>
@@ -1305,15 +1296,6 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      小题考点
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
       大题考点
     </span>
   </a>
@@ -1356,67 +1338,7 @@
 
   <h1>考点</h1>
 
-<h2 id="_1">小题考点</h2>
-<p>个人认为的小题考点(持续更新中...):</p>
-<p>重要程度: </p>
-<ul>
-<li>超级重要: ☢️</li>
-<li>重要: ⚠️</li>
-<li>一般: ♻️</li>
-<li>不重要: 🗑️</li>
-<li>
-<p>超级不重要: 🏴‍☠️</p>
-</li>
-<li>
-<p>预处理</p>
-<ul>
-<li>⚠️为什么要进行预处理: not perfect, noise(distortion(human voice), spurious(outlier or mixed with non-noisy data), inconsistent(negative weight, non-existing zip code), duplicate), missing</li>
-<li>⚠️噪音如何进行处理: signal/image processing&amp;outlier detection; use robust ml algorithm; easy to deal with inconsistent&amp;duplicate</li>
-<li>⚠️缺失数据如何处理: ignore all examples with missing values; estimate the missing values by remaining values(nominal: replace most common in A, replace most common in A with same class; numerial: average value of nearest neighbors)</li>
-<li>♻️什么是数据聚合: combining two or more attributes into one</li>
-<li>♻️为什么要进行数据聚合: data reduction(same memory&amp;computation time); change scale; stabilize data(less variable)</li>
-<li>♻️什么是选择特征子集: the process of removing irrelevant and redundant features</li>
-<li>⚠️为什么要选取特征子集: improves accuracy; faster building; easier to interpret</li>
-<li>⚠️如何选取特征子集: brute force(try all possible pairs and see the results); embedded(e.g. decision tree, use entropy or gini); filter(based on statistical measures, e.g. mutual information, information gain; or based on correlation, e.g. relief); wrapper(use ML algorithm as the black box)</li>
-<li>⚠️如何为特征添加权重: based on domain knowledge; some algorithm, e.g. boosting can automatically add weight to features</li>
-<li>♻️如何对连续数据进行离散化(discretization): equal width; equal frequency; clustering</li>
-<li>⚠️归一化的作用: avoid the dominance attributes with large values</li>
-<li>♻️标准化: assume data follows Gaussian distribution, convert it to standard Gaussian distribution(average -1, standard deviation 1) </li>
-<li>♻️余弦相似度和皮尔逊相关系数结果的含义: cosine similarity = 0, 0; corr = -1, +1, 0</li>
-</ul>
-</li>
-<li>KNN<ul>
-<li>♻️复杂度分析: m training examples with n attributes, o(mn)</li>
-<li>♻️加权最邻近算法: closer? bigger weight; further? smaller weight</li>
-<li>♻️特点: require normalization; not effective for high dimensional data; sensitive to k; very accurate; slow for big datasets; </li>
-</ul>
-</li>
-<li>朴素贝叶斯<ul>
-<li>⚠️先验概率和后验概率是啥: posteriori probability, probability of an event after seeing the evidence; prior probability: probability of an event before seeing evidence</li>
-<li>☢️朴素贝叶斯理论为什么是朴素的: independence: attributes are conditionally independent of each other, given the class; equally importance: all attributes are equally importance</li>
-<li>⚠️拉普拉斯处理零频问题: an attribute value does not occur with every class value, e.g. <span class="arithmatex">\(p(E_1|yes)=0\)</span>. Use Laplace correction or smoothing</li>
-<li>♻️处理缺失值问题: do not include that posteriori probability when calculating</li>
-</ul>
-</li>
-<li>评估<ul>
-<li>♻️什么是训练集, 测试集, 验证集</li>
-<li>⚠️训练集, 测试集, 验证集的作用: training set: train classifier; validation set: tune hyperparameters; test set: evaluate accuracy</li>
-<li>⚠️参数和超参数之间的区别</li>
-<li>⚠️分层: Without stratification, some classes might be missing from the training test sets. Ensure each class is represented with approximately equal proportions in both datasets</li>
-<li>⚠️重复留出验证:  in each of the 10 runs, a certain proportion is randomly selected for training and the remainder is used for testing, 10 accuracies are averaged</li>
-<li>☢️10折交叉验证: split testing set into 10 sets, approximately equal size, A classifier is built 10 times, each time testing is on 1 set and the training is on 9 sets. usually used with stratification</li>
-<li>⚠️留一法: special form of cross validation. for n training examples, build classiier n times</li>
-<li>⚠️网格搜索交叉验证: for each parameter combination, use cross validation to test the accuracy, select the best parameters combination based on this</li>
-</ul>
-</li>
-<li>决策树<ul>
-<li>♻️什么是决策树: each non-leaf node correspond to a test for the value of an attribute; each branch corresponds to an attribute value; each leaf node assigns a class</li>
-<li>⚠️为么需要小树: prevent overfitting; increase readability; reduce computational cost; without the requirement for large dataset</li>
-<li>⚠️如何剪枝: pre-pruning, top growing the tree earlier; post-pruning, fully grow the tree, allowing it to perfectly cover the training data and then prune it; post-pruning is preferred in practice, the main method to use is sub-tree replacement</li>
-</ul>
-</li>
-</ul>
-<h2 id="_2">大题考点</h2>
+<h2 id="_1">大题考点</h2>
 <p>个人认为的大题考点(持续更新中...):</p>
 <p>重要程度: </p>
 <ul>
@@ -1519,7 +1441,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月2日</span>
   </span>
 
     
