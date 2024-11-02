@@ -2,14 +2,10 @@
 
 欢迎来到机器学习笔记项目.
 
-## 赞助
-
-<a href="https://www.buymeacoffee.com/ricolxwz"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=ricolxwz&button_colour=00e676&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
-
 ## 联动
 
 - [基石库](https://gk.ricolxwz.de)
-- [Python](https://py.ricolxwz.de)
+- [派森贰](https://py.ricolxwz.de)
 - [杂七杂八档案室](https://misc.ricolxwz.de)
 
 ## 进度
