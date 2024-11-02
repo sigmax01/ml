@@ -2,10 +2,10 @@ function umami() {
   if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
     var script = document.createElement("script");
     script.defer = true;
-    script.src = "https://umami.ricolxwz.io/script.js";
+    script.src = "https://cloud.umami.is/script.js";
     script.setAttribute(
       "data-website-id",
-      "3a5faee0-96f2-4bf6-b74e-ab3ae685794a"
+      "b3480344-dfac-4bc4-8af7-b1a99141f689"
     );
     document.head.appendChild(script);
   }
