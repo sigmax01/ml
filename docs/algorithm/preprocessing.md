@@ -265,7 +265,7 @@ comments: true
 
 ## 降维
 
-请见[降维](/algorithm/降维).
+请见[降维](/algorithm/dimensional-reduction).
 
 ## 分箱
 
