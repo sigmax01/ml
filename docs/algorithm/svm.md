@@ -19,7 +19,7 @@ comments: true
 ![](https://img.ricolxwz.io/cd68b93ab0d32d042943c2abf2e34230.png){ loading=lazy width="600" }
 </figure>
 
-支持向量, support vector是离决策边界最近的样本(数据点). 边际, margin是指正负超平面(什么是正负超平面下面有讲到)之间的距离距离, 如左图. 当然, 也可能同时出现多个支持向量, 因为它们都是最靠近决策边界的样本点, 如右图.
+支持向量, support vector是离决策边界最近的样本(数据点). 边际, margin是指正负超平面(什么是正负超平面下面有讲到)之间的距离, 如左图. 当然, 也可能同时出现多个支持向量, 因为它们都是最靠近决策边界的样本点, 如右图.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/99a4ec08371a005d310d24a6805747b0.png){ loading=lazy width="625" }
