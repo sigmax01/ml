@@ -73,6 +73,8 @@ theme:
     #   quote: octicons/quote-16 
 extra:
   social:
+    - icon: fontawesome/mug-hot-solid
+      link: https://buymeacoffee.com/ricolxwz
     - icon: fontawesome/compass-solid
       link: https://ricolxwz.de
     - icon: fontawesome/brands/github
