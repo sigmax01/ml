@@ -24,6 +24,7 @@
     - ⚠️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
 - 评估
     - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
+    - ⚠️[计算准度的方法](/algorithm/evaluation), 包括stratification, repeated hold out, cross validation, grid search, leave out这些有啥含义, 为啥要用
 - 决策树:
     - ☢️[信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain)
     - ☢️[如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature)
