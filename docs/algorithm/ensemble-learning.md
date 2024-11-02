@@ -68,7 +68,7 @@ Bagging(Bootstrap Aggregating)由Breimam于1996年提出, 基本思想如下:
     <img src="https://img.ricolxwz.io/e4f4fae640b9d7fb6ab55027f1753911.png" style="width: 500px;"/>
 </div>
 
-## 随机森林
+## 随机森林 {#random-forest}
 
 随机森林(Random Forests)是一种利用决策树作为基分类器的Bagging集成学习算法. 随机森林的构建过程如下:
 

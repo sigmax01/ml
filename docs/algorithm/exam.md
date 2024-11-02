@@ -30,6 +30,7 @@
 - 集成学习
     - ♻️[如何计算集成学习模型的错误率](/algorithm/ensemble-learning/#why-ensemble-learning)
     - ⚠️[Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
+    - ♻️[随机森林思想](/algorithm/ensemble-learning/#random-forest), 和Bagging差不多, 多了一个特征, 换汤不换药
     - ☢️[Adaboost进行预测](/algorithm/ensemble-learning/#adaboost), 能够计算错误率, 基分类器的权重, 归一化后/前的样本集权重
 - 支持向量机
     - [核方法如何简化点积计算](/algorithm/svm/#kernel-trick)
