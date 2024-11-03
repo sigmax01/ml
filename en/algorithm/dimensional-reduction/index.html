@@ -1472,9 +1472,9 @@
 <h3 id="pc">确定PC</h3>
 <p>我们可以通过奇异值分解, Singular Value Decomposition, SVD确定PC. 它是一种标准的矩阵分解方法, 能够进行坐标系的变换. 具体来说, 任何一个<span class="arithmatex">\(n\times m(n\geq m)\)</span>的矩阵<span class="arithmatex">\(\bm{X}\)</span>可以被分解为三个矩阵的乘积: <span class="arithmatex">\(\bm{X}=\bm{U}\times \bm{\Lambda} \times \bm{V^T}\)</span>, 其中:</p>
 <ul>
-<li><span class="arithmatex">\(\bm{U}\)</span>: 这是一个<span class="arithmatex">\(n\times m\)</span>的正交矩阵(没有降维), <span class="arithmatex">\(n\times k\)</span>的正交矩阵(有降维)</li>
-<li><span class="arithmatex">\(\bm{V^T}\)</span>: 这是一个<span class="arithmatex">\(m\times m\)</span>的正交矩阵<span class="arithmatex">\(V\)</span>的转置(没有降维), <span class="arithmatex">\(k\times m\)</span>的正交矩阵(有降维)</li>
-<li><span class="arithmatex">\(\bm{\Lambda}\)</span>: 这一一个<span class="arithmatex">\(m\times m\)</span>的对角矩阵, 其中包含奇异值(没有降维), <span class="arithmatex">\(k\times k\)</span>的对角矩阵(有降维)</li>
+<li><span class="arithmatex">\(\bm{U}\)</span>: 这是一个<span class="arithmatex">\(n\times m\)</span>(无降维), <span class="arithmatex">\(n\times k\)</span>(有降维)的正交矩阵</li>
+<li><span class="arithmatex">\(\bm{V^T}\)</span>: 这是一个<span class="arithmatex">\(m\times m\)</span>(无降维), <span class="arithmatex">\(k\times m\)</span>(有降维)的正交矩阵<span class="arithmatex">\(V\)</span>的转置</li>
+<li><span class="arithmatex">\(\bm{\Lambda}\)</span>: 这是一个<span class="arithmatex">\(m\times m\)</span>(无降维), <span class="arithmatex">\(k\times k\)</span>(有降维)的对角矩阵, 其中包含奇异值</li>
 </ul>
 <p>对应到PCA中, 这些矩阵的含义是:</p>
 <ul>
