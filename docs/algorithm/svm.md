@@ -47,7 +47,7 @@ comments: true
 <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?isOutside=true&aid=936042727&bvid=BV16T4y1y7qj&cid=494397114&p=1&high_quality=1&autoplay=false&muted=false&t=185&as_wide=1" frameborder="yes" scrolling="no" allowfullscreen="true"></iframe>
 </div>
 
-### 最大化拉格朗日函数
+### 最大化拉格朗日函数 {#maximize-lagrange-function}
 
 回到超平面方程式的向量形式, 对于任意一个样本点, 它到超平面$\boldsymbol{w}\cdot \boldsymbol{x} + b=0$的垂直距离可以通过公式$\frac{|\boldsymbol{w}\cdot \boldsymbol{x} + b|}{||\boldsymbol{w}||}$计算. 因此, 支持向量之间的垂直距离可以计算为$d=\frac{|(\boldsymbol{w}\cdot \boldsymbol{x_1}+b)-(\boldsymbol{w}\cdot \boldsymbol{x_2}+b)|}{||\boldsymbol{w}||}$, 由于$\boldsymbol{w}\cdot \boldsymbol{x_1}+b=1$, $\boldsymbol{w}\cdot \boldsymbol{x_2}+b=-1$, 我们可以将其代入上述公式, 得到$d=\frac{2}{||\boldsymbol{w}||}$.
 
