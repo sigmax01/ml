@@ -58,9 +58,9 @@ Principle Component Analysis (PCA), 主成分分析, 是一种最人们的降维
 
 我们可以通过奇异值分解, Singular Value Decomposition, SVD确定PC. 它是一种标准的矩阵分解方法, 能够进行坐标系的变换. 具体来说, 任何一个$n\times m(n\geq m)$的矩阵$\bm{X}$可以被分解为三个矩阵的乘积: $\bm{X}=\bm{U}\times \bm{\Lambda} \times \bm{V^T}$, 其中:
 
-- $\bm{U}$: 这是一个$n\times m$的正交矩阵(没有降维), $n\times k$(有降维)
-- $\bm{V^T}$: 这是一个$m\times m$的正交矩阵$V$的转置(没有降维), $k\times m$(有降维)
-- $\bm{\Lambda}$: 这一一个$m\times m$的对角矩阵, 其中包含奇异值(没有降维), $k\times k$(有降维)
+- $\bm{U}$: 这是一个$n\times m$(无降维), $n\times k$(有降维)的正交矩阵
+- $\bm{V^T}$: 这是一个$m\times m$(无降维), $k\times m$(有降维)的正交矩阵$V$的转置
+- $\bm{\Lambda}$: 这一一个$m\times m$(无降维), $k\times k$(有降维)的对角矩阵, 其中包含奇异值
 
 对应到PCA中, 这些矩阵的含义是:
 
