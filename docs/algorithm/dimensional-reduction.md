@@ -60,7 +60,7 @@ Principle Component Analysis (PCA), 主成分分析, 是一种最人们的降维
 
 - $\bm{U}$: 这是一个$n\times m$(无降维), $n\times k$(有降维)的正交矩阵
 - $\bm{V^T}$: 这是一个$m\times m$(无降维), $k\times m$(有降维)的正交矩阵$V$的转置
-- $\bm{\Lambda}$: 这一一个$m\times m$(无降维), $k\times k$(有降维)的对角矩阵, 其中包含奇异值
+- $\bm{\Lambda}$: 这是一个$m\times m$(无降维), $k\times k$(有降维)的对角矩阵, 其中包含奇异值
 
 对应到PCA中, 这些矩阵的含义是:
 
