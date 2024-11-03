@@ -49,7 +49,8 @@
     - [卷积计算](/algorithm/neural-network/cnn/#convolutional-layer)
 - 聚类
     - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link
-    - [K-means聚类如何分簇](/algorithm/clustering/#k-means)
+    - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)
+    - ⚠️[选取初始质心的方法](/algorithm/clustering/#质心选取), 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法, 同时也可以解决空簇问题
     - [GMM算法如何进行分簇](/algorithm/clustering/#gmm)
     - [聚合式算法如何进行分簇](/algorithm/clustering/#agglomerative-algorithm)
     - [DBSCAN算法如何分簇](/algorithm/clustering/#dbscan)
