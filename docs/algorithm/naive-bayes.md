@@ -3,10 +3,6 @@ title: 朴素贝叶斯
 comments: true
 ---
 
-???+ info "信息"
-
-    - 本文忽略例子边框
-
 ## 贝叶斯理论
 
 给定一个假设Hypothesis, H和证据Evidence, E. 那么在出现了证据E的情况下, H的概率为$P(H|E)=\frac{P(E|H)P(H)}{P(E)}$. 

@@ -3,11 +3,6 @@ title: 最邻近算法
 comments: true
 ---
 
-???+ info "信息"
-
-    - 默认省略例子边框
-    - Jupyter Notebook练习: [https://github.com/ricolxwz/ml/blob/master/docs/%E7%AE%97%E6%B3%95/KNN.ipynb](https://github.com/ricolxwz/ml/blob/master/docs/%E7%AE%97%E6%B3%95/KNN.ipynb)
-
 ## 背景
 
 给定一组含有标签的记录.

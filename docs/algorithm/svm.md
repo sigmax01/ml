@@ -5,8 +5,6 @@ comments: true
 
 ???+ info "信息"
 
-    - 已省略例子边框
-    - 使用粗体表示向量
     - 在推导公式的过程中大量引用了🍉书的内容, 资源下载: [https://jingyuexing.github.io/Ebook/Machine_Learning/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E5%91%A8%E5%BF%97%E5%8D%8E.pdf](https://jingyuexing.github.io/Ebook/Machine_Learning/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E5%91%A8%E5%BF%97%E5%8D%8E.pdf)
 
 ## 边际最大超平面

@@ -5,7 +5,6 @@ comments: true
 
 ???+ info "信息"
 
-    - 默认省略例子边框
 	- Jupyter Notebook练习: 
 		- 魔改版: 点击[这里](https://drive.google.com/file/d/1jBR4gyvUiFLpiWij5gYdzDhV4LNJv01q/view?usp=sharing)
 		- 原始版: 点击[这里](https://share.ricolxwz.io/machine-learning/notebook/andrew-ng/ex1_linear_regression.ipynb)
