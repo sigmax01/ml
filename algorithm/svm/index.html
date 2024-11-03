@@ -967,7 +967,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#maximize-lagrange-function" class="md-nav__link">
     <span class="md-ellipsis">
       最大化拉格朗日函数
     </span>
@@ -1010,7 +1010,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       默瑟定理
     </span>
@@ -1412,7 +1412,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#maximize-lagrange-function" class="md-nav__link">
     <span class="md-ellipsis">
       最大化拉格朗日函数
     </span>
@@ -1455,7 +1455,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       默瑟定理
     </span>
@@ -1550,7 +1550,7 @@
 <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?isOutside=true&aid=936042727&bvid=BV16T4y1y7qj&cid=494397114&p=1&high_quality=1&autoplay=false&muted=false&t=185&as_wide=1" frameborder="yes" scrolling="no" allowfullscreen="true"></iframe>
 </div>
 
-<h3 id="_4">最大化拉格朗日函数</h3>
+<h3 id="maximize-lagrange-function">最大化拉格朗日函数</h3>
 <p>回到超平面方程式的向量形式, 对于任意一个样本点, 它到超平面<span class="arithmatex">\(\boldsymbol{w}\cdot \boldsymbol{x} + b=0\)</span>的垂直距离可以通过公式<span class="arithmatex">\(\frac{|\boldsymbol{w}\cdot \boldsymbol{x} + b|}{||\boldsymbol{w}||}\)</span>计算. 因此, 支持向量之间的垂直距离可以计算为<span class="arithmatex">\(d=\frac{|(\boldsymbol{w}\cdot \boldsymbol{x_1}+b)-(\boldsymbol{w}\cdot \boldsymbol{x_2}+b)|}{||\boldsymbol{w}||}\)</span>, 由于<span class="arithmatex">\(\boldsymbol{w}\cdot \boldsymbol{x_1}+b=1\)</span>, <span class="arithmatex">\(\boldsymbol{w}\cdot \boldsymbol{x_2}+b=-1\)</span>, 我们可以将其代入上述公式, 得到<span class="arithmatex">\(d=\frac{2}{||\boldsymbol{w}||}\)</span>.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/71e7706ae085c0fcaf7714a519c50a24.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/71e7706ae085c0fcaf7714a519c50a24.png" width="400" /></a></p>
@@ -1585,7 +1585,7 @@
 <h3 id="kernel-trick">核方法</h3>
 <p>解决上述问题的方法是使用核方法, kernel trick. 核方法是一种计算<span class="arithmatex">\(\boldsymbol{\phi(x_i)}\cdot\boldsymbol{\phi(x_j)}\)</span>的方法. 它与之前的方法不同, 它不会先映射<span class="arithmatex">\(\bm{x_i}\)</span>和<span class="arithmatex">\(\bm{x_j}\)</span>然后点积<span class="arithmatex">\(\boldsymbol{\phi(x_i)}\)</span>和<span class="arithmatex">\(\boldsymbol{\phi(x_j)}\)</span>. 它采取的是另一种方式: 我们先计算原始特征向量的点积, 然后使用核函数得出映射后的特征向量的点积. 这个核函数表示了原始特征向量的点积和映射后的特征向量的点积的关系.</p>
 <p>例如, 现在我们有两个二维的特征向量<span class="arithmatex">\(\bm{u}=(u_1, u_2)\)</span>, <span class="arithmatex">\(\bm{v}=(v_1, v_2)\)</span>. 和一个映射函数<span class="arithmatex">\(\phi=(x_1, x_2)\rightarrow(x_1^2, \sqrt{2}x_1x_2, x_2^2)\)</span>, 按照原来的方法, 应该先计算<span class="arithmatex">\(\phi(\bm{u})\)</span>和<span class="arithmatex">\(\phi(\bm{v})\)</span>, 然后点积<span class="arithmatex">\(\boldsymbol{\phi(x_i)}\cdot\boldsymbol{\phi(x_j)}\)</span>. <span class="arithmatex">\(\boldsymbol{\phi(x_i)}\cdot\boldsymbol{\phi(x_j)}=(u_1^2, \sqrt{2}u_1u_2, u_2^2)\cdot(v_1^2, \sqrt{2}v_1v_2, v_2^2)=(u_1v_1+u_2v_2)^2=(\bm{u}\cdot\bm{v})^2\)</span>. 这样子费时费力, 消耗大量资源. 但是, 有一个惊喜, 在计算过程中, 我们发现映射后的特征向量的点积居然可以用原始特征向量的点积表示, 即<span class="arithmatex">\(\phi(\bm{u})\cdot \phi(\bm{v})=(\bm{u}\cdot \bm{v})^2\)</span>. 这个关系可以用核函数表示, <span class="arithmatex">\(K(\bm{u}, \bm{v})=(\bm{u}\cdot\bm{v})^2\)</span>. 所以, 我们可以先在低维空间算出<span class="arithmatex">\(\bm{u}\cdot\bm{v}\)</span>, 然后利用核函数直接算出高维空间的点积.</p>
-<h4 id="_5">默瑟定理</h4>
+<h4 id="_4">默瑟定理</h4>
 <p>在上面我们计算的时候我们已经知道了映射函数<span class="arithmatex">\(\phi\)</span>, 但是大多数情况下, 我们是不知道这个映射函数的. 有时候这个映射函数可能非常复杂, 高维空间的维度可能非常高, 显式地定义和计算<span class="arithmatex">\(\phi\)</span>不切实际. 这意味着我们不能先知道<span class="arithmatex">\(\phi\)</span>, 然后从这个<span class="arithmatex">\(\phi\)</span>反推出核函数.</p>
 <p>在实际中, 我们会直接选择一个能够使样本线性可分的核函数(知道了核函数相当于知道了映射后的内积, 知道了映射后的内积相当于可以求拉格朗日方程的极大值对应的参数, 得到决策边界), 而不需要关心映射函数<span class="arithmatex">\(\phi\)</span>(因为映射关系对于求解问题可有可无). </p>
 <p>默瑟定理, Mercer定理表明, 一个核函数<span class="arithmatex">\(K(\bm{u}, \bm{v})\)</span>如果满足特定条件, 那么这个核函数一定对应这某一个映射函数<span class="arithmatex">\(\phi\)</span>. 所以, 我们一般会直接选择或者设计一个符合要求的核函数, 它已经隐含了某种高维空间的映射函数, 这种映射函数我们是不用关心的. </p>
@@ -1639,7 +1639,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月3日</span>
   </span>
 
     
