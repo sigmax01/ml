@@ -38,6 +38,7 @@
     - ⚠️[给出拉格朗日乘数和支持向量计算决策边界](/algorithm/svm/#maximize-lagrange-function), 简单的套一下公式
     - ♻️[核方法如何简化点积计算](/algorithm/svm/#kernel-trick)
 - 降维
+    - ⚠️[计算最佳主成分数量](/algorithm/dimensional-reduction/#确定PC的数量), 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)
     - [压缩率计算](/algorithm/dimensional-reduction/#compression-rate)
 - 神经网络
     - [感知机学习过程](/algorithm/neural-network/#learning-algorithm)
