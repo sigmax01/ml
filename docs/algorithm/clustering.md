@@ -51,7 +51,7 @@ comments: true
 
 聚类算法主要分为四种.
 
-- 划分式: Partional, 代表算法为K-menas, K-medoids. 通过划分数据集生成一个簇的集合, 每个簇都对应数据中的一个子集
+- 划分式: Partitional, 代表算法为K-menas, K-medoids. 通过划分数据集生成一个簇的集合, 每个簇都对应数据中的一个子集
 - 模型式: Model-based, 代表算法为高斯混合模型(GMM). 假设数据式由不同的概率分布生成的, 使用该模型来估计这些分布并分配数据点
 - 层次式: Hierarchical, 代表算法为聚合式(Agglomerative), 分裂式(Divisive). 构建嵌套的簇结构, 可以通过层次图展示, 层次聚类逐步合并或分裂数据, 创建不同层次的簇
 - 密度式: Density-based, 代表算法为DBSCAN. 基于数据点的密度进行聚类, 能够识别出形状不规则的簇, 并能够检测出噪声点
