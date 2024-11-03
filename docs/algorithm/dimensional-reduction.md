@@ -54,7 +54,7 @@ Principle Component Analysis (PCA), 主成分分析, 是一种最人们的降维
     ![](https://img.ricolxwz.io/d27b500548b5b83cdbcb86d3f6ebcda6.png){ loading=lazy width='500' }
     </figure>
 
-### 确定PC
+### 确定PC {#get-pc}
 
 我们可以通过奇异值分解, Singular Value Decomposition, SVD确定PC. 它是一种标准的矩阵分解方法, 能够进行坐标系的变换. 具体来说, 任何一个$n\times m(n\geq m)$的矩阵$\bm{X}$可以被分解为三个矩阵的乘积: $\bm{X}=\bm{U}\times \bm{\Lambda} \times \bm{V^T}$, 其中:
 

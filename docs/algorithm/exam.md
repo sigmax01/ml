@@ -39,6 +39,7 @@
     - ♻️[核方法如何简化点积计算](/algorithm/svm/#kernel-trick)
 - 降维
     - ⚠️[计算最佳主成分数量](/algorithm/dimensional-reduction/#确定PC的数量), 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)
+    - ⚠️[如何通过奇异值分解确定主成分](/algorithm/dimensional-reduction/#get-pc), 看里面的例子, 取奇异值矩阵对角线的左上角部分对应的主成分
     - [压缩率计算](/algorithm/dimensional-reduction/#compression-rate)
 - 神经网络
     - [感知机学习过程](/algorithm/neural-network/#learning-algorithm)
