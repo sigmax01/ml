@@ -81,7 +81,7 @@ Principle Component Analysis (PCA), 主成分分析, 是一种最人们的降维
 
 - $k$个奇异值
 - $\bm{U}$矩阵的前$k$列, 总共$k\times n$个数
-- $\bm{C}$矩阵的前$k$列, 总共$k\times m$个数
+- $\bm{V}$矩阵的前$k$列, 总共$k\times m$个数
 
 总共, 需要存储$k\times (1+n+m)$个数. 压缩率为$r=\frac{k(1+n+m)}{n\times m}$. 下面是一张表示压缩前和压缩后显著差异的图示.
 
