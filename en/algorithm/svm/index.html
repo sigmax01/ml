@@ -1561,6 +1561,74 @@
 <p>解出拉格朗日乘数之后, 我们就可以计算出系数向量<span class="arithmatex">\(\boldsymbol{w}=\sum_{i=1}^N\lambda_iy_i\boldsymbol{x_i}\)</span>. 最佳决策边界由<span class="arithmatex">\(\boldsymbol{w}\)</span>决定, 而<span class="arithmatex">\(\boldsymbol{w}\)</span>就是一堆向量的线性组合(<span class="arithmatex">\(\sum\)</span>拉格朗日乘数*标签*特征向量). 在实际中, 大多数的<span class="arithmatex">\(\lambda_i\)</span>的值都是<span class="arithmatex">\(0\)</span>, 也就是说对应的训练样本<span class="arithmatex">\(\boldsymbol{x_i}\)</span>对决策边界的确定没有贡献, 那些对应<span class="arithmatex">\(\lambda_i\)</span>不为<span class="arithmatex">\(0\)</span>的训练样本就是支持向量. </p>
 <p>现在, 如果出现了一个新的样本<span class="arithmatex">\(z\)</span>, 我们可以计算出<span class="arithmatex">\(f=\boldsymbol{w}\cdot \bm{z}+b=\sum_{i=1}^N\lambda_iy_i\bm{x_i}\cdot \bm{z}+b\)</span>, 从而预测结果为<span class="arithmatex">\(sign(f)\)</span>. 如果<span class="arithmatex">\(f&gt;0\)</span>, 会被归类为<span class="arithmatex">\(1\)</span>; 如果<span class="arithmatex">\(f&lt;0\)</span>, 会被归类为<span class="arithmatex">\(-1\)</span>.</p>
 <p>好了, 举一个例子. 现在我有<span class="arithmatex">\(8\)</span>个二维的训练样本, 总共分<span class="arithmatex">\(2\)</span>类: <span class="arithmatex">\(1\)</span>和<span class="arithmatex">\(-1\)</span>. 在使用QP求解拉格朗日极值下的乘数<span class="arithmatex">\(\bm{\lambda}\)</span>之后, 我们发现只有<span class="arithmatex">\(2\)</span>个乘数是非零的, 分别是样本<span class="arithmatex">\(1\)</span>和样本<span class="arithmatex">\(2\)</span>, 它们对应的就是支持向量. 现在, 我们可以计算出它们的系数<span class="arithmatex">\(w_1=\sum_{i=1}^N \lambda_iy_i\bm{x_{i1}}\)</span>, <span class="arithmatex">\(w_2=\sum_{i=1}^N \lambda_iy_i\bm{x_{i2}}\)</span>. <span class="arithmatex">\(b\)</span>可以用公式推出(未给出). 现在我们就得到了预测模型<span class="arithmatex">\(f=w_1x_1+w_2x_2+b\)</span>, 根据这个就可以给出预测.</p>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>给出下列样本以及拉格朗日乘数, 计算决策边界表达式.</p>
+<table>
+<thead>
+<tr>
+<th>x₁</th>
+<th>x₂</th>
+<th>y</th>
+<th>拉格朗日乘数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.3858</td>
+<td>0.4687</td>
+<td>1</td>
+<td>65.5261</td>
+</tr>
+<tr>
+<td>0.4871</td>
+<td>0.6118</td>
+<td>-1</td>
+<td>65.5261</td>
+</tr>
+<tr>
+<td>0.9218</td>
+<td>0.4103</td>
+<td>-1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.7382</td>
+<td>0.8936</td>
+<td>-1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.1763</td>
+<td>0.0579</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.4057</td>
+<td>0.3529</td>
+<td>-1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.9355</td>
+<td>0.8132</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.2146</td>
+<td>0.0099</td>
+<td>-1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到, 有两个拉格朗日乘数非零, 第一个样本处在正超平面上, 第二个样本处在负超平面上, 它们都是支持向量. 根据公式, 可以得到<span class="arithmatex">\(w_1=\sum_{i=1}^2\lambda_i y_i \bm{x_{i1}}=65.5261(1*0.3858-1*0.4871)=-6.64\)</span>, <span class="arithmatex">\(w_2=\sum_{i=1}^2\lambda_i y_i \bm{x_{i2}}=65.5261(1*0.4687-1*0.6118)=-9.32\)</span></p>
+<p>对于位于正超平面上的支持向量, 有<span class="arithmatex">\(y_1(\bm{w}\cdot \bm{x_1}+b)=1\)</span>, 故<span class="arithmatex">\(1\cdot(-6.64\cdot 0.3858-9.32\cdot 0.4687+b)=1\)</span>, 可以解出<span class="arithmatex">\(b=7.93\)</span>. </p>
+<p>对于位于负超平面上的支持向量, 也有上述式子, 解出来的<span class="arithmatex">\(b\)</span>应该和上面的结果是相等的. </p>
+<p>综上所述, 决策边界为<span class="arithmatex">\(y=-6.64x_1-9.32x_2+7.93\)</span>.</p>
+</details>
 <h3 id="软边际和硬边际">软边际和硬边际</h3>
 <p>上面我们提到的约束条件是"所有的样本必须正确分类", 这属于硬边际, hard-margin分类问题. 对应的还有软边际, soft-margin分类问题, 我们可以允许一些错误的分类. 软边际分类问题通俗的理解就是允许在正超平面和负超平面之间存在一些样本点. 如下图.</p>
 <figure>
