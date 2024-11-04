@@ -1424,8 +1424,8 @@
 <li>♻️<a href="/algorithm/markov-chain/#hmm-assumptions">HMM的两个假设</a>: 齐次假设和观测独立性假设</li>
 <li>♻️<a href="/algorithm/markon-chain/#hmm-problems">HMM的三个问题</a>, 重点关注预测问题和概率计算问题</li>
 <li>⚠️<a href="/algorithm/markov-chain/#evaluation-problem">没有前向算法的时候如何预测观测序列的概率</a></li>
-<li><a href="/algorithm/markov-chain/#forward-algorithm">前向算法</a></li>
-<li><a href="/algorithm/markov-chain/#viterbi">Viterbi算法</a></li>
+<li>☢️<a href="/algorithm/markov-chain/#forward-algorithm">前向算法</a>, 初始值是<span class="arithmatex">\(A_0(k)e_k(x_1)\)</span>, 前向概率是<span class="arithmatex">\(e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>, 最终对所有状态前向概率求和</li>
+<li>☢️<a href="/algorithm/markov-chain/#viterbi">Viterbi算法</a>, 初始值是<span class="arithmatex">\(A_0(k)e_k(x_1)\)</span>, 前向概率是<span class="arithmatex">\(e_k(x_i)max_j V_j(i-1)a_{jk}\)</span>, 最大的Viterbi得分是最终状态, 然后通过回溯指针找到前面所有的状态</li>
 </ul>
 </li>
 <li>强化学习<ul>
