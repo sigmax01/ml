@@ -73,3 +73,15 @@ comments: true
 - 强化学习
     - [Q学习算法](/algorithm/reinforcement-learning/#q-algo)
     - [深度Q学习算法](/algorithm/reinforcement-learning/#dql)
+
+## 其他
+
+如何评估一个模型, 从以下几点出发:
+
+- 能否有效可视化?
+- 是否具有良好的可解释性?
+- 能否很好的处理过拟合?
+- 训练时间是否长? 消耗的计算资源是否多?
+- 是否需要很大的数据集?
+- 是否能够/需要降维?
+- 能够处理不同大小/形状/密度的簇?
