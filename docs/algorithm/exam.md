@@ -52,9 +52,12 @@
     - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)
     - ⚠️[选取初始质心的方法](/algorithm/clustering/#质心选取), 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法, 同时也可以解决空簇问题
     - ♻️[GMM算法如何进行分簇](/algorithm/clustering/#gmm), 要知道正态分布的概率密度函数$f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$, 然后才能计算每个点属于特定正态分布的概率
-    - [聚合式算法如何进行分簇](/algorithm/clustering/#agglomerative-algorithm)
-    - [DBSCAN算法如何分簇](/algorithm/clustering/#dbscan)
-    - [计算凝聚度/分离度](/algorithm/clustering/#conhesion-separration)
+    - ♻️[聚合式算法如何进行分簇](/algorithm/clustering/#agglomerative-algorithm), 首先每个点当作一个簇, 然后慢慢合并距离最近的两个簇, 直到变成一整个簇, 看一下例子就行
+    - ⚠️[DBSCAN算法如何分簇](/algorithm/clustering/#dbscan), 把core point, border point, noise point, MinPts, Eps的理念搞搞懂.
+    - ⚠️[如何选择Eps和MinPts](/algorithm/clustering/#select-eps-minpts), 和elbow method很像, 画出一个点到$k$个最近邻居的距离图
+    - ☢️[计算凝聚度/分离度](/algorithm/clustering/#conhesion-separration), 很简单, 但是很重要, 看清楚是不是平方距离 
+    - ⚠️[计算轮廓系数](/algorithm/clustering/#sihouette-coefficient), 对于一个点, 一个簇, 整个聚类, 计算轮廓系数有不同, 越大越好
+    - ♻️[相似度矩阵是啥](/algorithm/clustering/#correlation-similarity-matrix)
 - 马尔可夫链
     - [利用马尔科夫假设进行预测](/algorithm/markov-chain/#markov-assumption)
     - [前向算法](/algorithm/markov-chain/#forward-algorithm)
