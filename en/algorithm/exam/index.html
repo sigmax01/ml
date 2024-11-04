@@ -1411,9 +1411,12 @@
 <li>☢️<a href="/algorithm/clustering/#k-means">K-means聚类如何分簇</a></li>
 <li>⚠️<a href="/algorithm/clustering/#质心选取">选取初始质心的方法</a>, 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法, 同时也可以解决空簇问题</li>
 <li>♻️<a href="/algorithm/clustering/#gmm">GMM算法如何进行分簇</a>, 要知道正态分布的概率密度函数<span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>, 然后才能计算每个点属于特定正态分布的概率</li>
-<li><a href="/algorithm/clustering/#agglomerative-algorithm">聚合式算法如何进行分簇</a></li>
-<li><a href="/algorithm/clustering/#dbscan">DBSCAN算法如何分簇</a></li>
-<li><a href="/algorithm/clustering/#conhesion-separration">计算凝聚度/分离度</a></li>
+<li>♻️<a href="/algorithm/clustering/#agglomerative-algorithm">聚合式算法如何进行分簇</a>, 首先每个点当作一个簇, 然后慢慢合并距离最近的两个簇, 直到变成一整个簇, 看一下例子就行</li>
+<li>⚠️<a href="/algorithm/clustering/#dbscan">DBSCAN算法如何分簇</a>, 把core point, border point, noise point, MinPts, Eps的理念搞搞懂.</li>
+<li>⚠️<a href="/algorithm/clustering/#select-eps-minpts">如何选择Eps和MinPts</a>, 和elbow method很像, 画出一个点到<span class="arithmatex">\(k\)</span>个最近邻居的距离图</li>
+<li>☢️<a href="/algorithm/clustering/#conhesion-separration">计算凝聚度/分离度</a>, 很简单, 但是很重要, 看清楚是不是平方距离 </li>
+<li>⚠️<a href="/algorithm/clustering/#sihouette-coefficient">计算轮廓系数</a>, 对于一个点, 一个簇, 整个聚类, 计算轮廓系数有不同, 越大越好</li>
+<li>♻️<a href="/algorithm/clustering/#correlation-similarity-matrix">相似度矩阵是啥</a></li>
 </ul>
 </li>
 <li>马尔可夫链<ul>
@@ -1450,7 +1453,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月4日</span>
   </span>
 
     

@@ -1520,7 +1520,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#epsminpts" class="md-nav__link">
+  <a href="#select-eps-minpts" class="md-nav__link">
     <span class="md-ellipsis">
       选取Eps和MinPts
     </span>
@@ -1605,7 +1605,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_27" class="md-nav__link">
+  <a href="#sihouette-coefficient" class="md-nav__link">
     <span class="md-ellipsis">
       轮廓系数
     </span>
@@ -1619,7 +1619,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_28" class="md-nav__link">
+  <a href="#correlation-similarity-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       相似度矩阵的相关性
     </span>
@@ -1628,7 +1628,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_29" class="md-nav__link">
+  <a href="#_27" class="md-nav__link">
     <span class="md-ellipsis">
       相似度矩阵的可视化
     </span>
@@ -1642,7 +1642,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_30" class="md-nav__link">
+  <a href="#_28" class="md-nav__link">
     <span class="md-ellipsis">
       选取簇的数量
     </span>
@@ -2055,7 +2055,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#epsminpts" class="md-nav__link">
+  <a href="#select-eps-minpts" class="md-nav__link">
     <span class="md-ellipsis">
       选取Eps和MinPts
     </span>
@@ -2140,7 +2140,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_27" class="md-nav__link">
+  <a href="#sihouette-coefficient" class="md-nav__link">
     <span class="md-ellipsis">
       轮廓系数
     </span>
@@ -2154,7 +2154,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_28" class="md-nav__link">
+  <a href="#correlation-similarity-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       相似度矩阵的相关性
     </span>
@@ -2163,7 +2163,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_29" class="md-nav__link">
+  <a href="#_27" class="md-nav__link">
     <span class="md-ellipsis">
       相似度矩阵的可视化
     </span>
@@ -2177,7 +2177,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_30" class="md-nav__link">
+  <a href="#_28" class="md-nav__link">
     <span class="md-ellipsis">
       选取簇的数量
     </span>
@@ -2709,7 +2709,7 @@
 </div>
 </div>
 </details>
-<h4 id="epsminpts">选取Eps和MinPts</h4>
+<h4 id="select-eps-minpts">选取Eps和MinPts</h4>
 <p>不同的Eps和MinPts可能会对结果产生很大影响.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/baa3b7f497ca64173309b9cc5ad73a1f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/baa3b7f497ca64173309b9cc5ad73a1f.png" width="600" /></a></p>
@@ -2829,7 +2829,7 @@
 <li><span class="arithmatex">\(BSE=2*(3-1.5)^2+2*(4.5-3)^2=9\)</span></li>
 </ul>
 </details>
-<h5 id="_27">轮廓系数</h5>
+<h5 id="sihouette-coefficient">轮廓系数</h5>
 <p>轮廓系数, Sihouette Coefficient. 可以为单个点, 簇或者整个聚类结果进行计算, 它结合了凝聚度和分离度, 是一个综合的衡量指标.</p>
 <p>对于某个点<span class="arithmatex">\(i\)</span>:</p>
 <ul>
@@ -2841,7 +2841,7 @@
 <p>轮廓系数是簇内所有点的轮廓系数的平均值.</p>
 <p>对于某个聚类:</p>
 <p>轮廓系数是所有簇的轮廓系数的平均值.</p>
-<h4 id="_28">相似度矩阵的相关性</h4>
+<h4 id="correlation-similarity-matrix">相似度矩阵的相关性</h4>
 <p>使用相似度矩阵的相关性来评估聚类质量的原理是找到相似的数据点(即彼此距离较近的数据点)是否被分配到相同的簇中. </p>
 <ul>
 <li>第一个相似度矩阵从距离得出</li>
@@ -2866,7 +2866,7 @@
 <p>这个相似度矩阵表示哪些数据点被分到了同一个簇中. 值为<span class="arithmatex">\(1\)</span>表示两个数据点在同一个簇中, 值为<span class="arithmatex">\(0\)</span>表示两个数据点不在同一个簇中.</p>
 <p>然后, 计算这两个相似度矩阵的相关性. 如果相关性高, 说明相似的数据点被分配到了同一个簇中, 聚类效果好. 如果相关性低, 说明相似的数据点没有被分配到同一个簇中, 聚类效果差.</p>
 </details>
-<h4 id="_29">相似度矩阵的可视化</h4>
+<h4 id="_27">相似度矩阵的可视化</h4>
 <p>可视化一个相似度矩阵. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6559e44882de330d90545c95a2358f3f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6559e44882de330d90545c95a2358f3f.png" width="500" /></a></p>
@@ -2877,7 +2877,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/cb4cdc1bb438804956337090b97c20b9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cb4cdc1bb438804956337090b97c20b9.png" width="500" /></a></p>
 </figure>
 <p>可以看到, 主对角线的块状结构是不太清晰的.</p>
-<h3 id="_30">选取簇的数量</h3>
+<h3 id="_28">选取簇的数量</h3>
 <p>可以参考PCA中的<a href="/algorithm/dimensional-reduction/#确定PC的数量">肘方法</a>. 对于不同的<span class="arithmatex">\(k\)</span>运行聚类算法, 使用无监督评估评估聚类结果, 如SSE, 轮廓系数. 然后, 找到SSE, 轮廓系数骤然下降对应的簇的数量.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png" width="500" /></a></p>
@@ -2904,7 +2904,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月4日</span>
   </span>
 
     
