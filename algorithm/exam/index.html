@@ -1368,7 +1368,7 @@
 <p>超级不重要: 🏴‍☠️</p>
 </li>
 <li>
-<p>预处理</p>
+<p><a href="/algorithm/preprocessing">预处理</a></p>
 <ul>
 <li>♻️<a href="/algorithm/preprocessing/#bit-transform">二进制化</a></li>
 <li>🗑️<a href="/algorithm/preprocessing/#normalization">归一化</a></li>
@@ -1378,39 +1378,39 @@
 <li>⚠️<a href="/algorithm/preprocessing/#pearson-correlation-coefficient">皮尔逊相关系数计算</a></li>
 </ul>
 </li>
-<li>最邻近<ul>
+<li><a href="/algorithm/knn">最邻近</a><ul>
 <li>☢️<a href="/algorithm/knn/#knn">使用k-邻近算法进行预测</a>, 例如, 使用2-邻近算法, Euclidean Distance</li>
 </ul>
 </li>
-<li>朴素贝叶斯<ul>
+<li><a href="/algorithm/naive-bayes">朴素贝叶斯</a><ul>
 <li>☢️<a href="/algorithm/naive-bayes/#nb-algorithm">使用朴素贝叶斯算法进行预测</a></li>
 <li>⚠️<a href="/algorithm/naive-bayes/#numeric-nb">数值属性朴素贝叶斯进行预测</a></li>
 </ul>
 </li>
-<li>评估<ul>
+<li><a href="/algorithm/evaluation">评估</a><ul>
 <li>♻️<a href="/algorithm/evaluation/#confusion-matrix">混淆矩阵计算</a></li>
 <li>⚠️<a href="/algorithm/evaluation">计算准度的方法</a>, 包括stratification, repeated hold out, cross validation, grid search, leave out这些有啥含义, 为啥要用</li>
 </ul>
 </li>
-<li>决策树:<ul>
+<li><a href="/algorithm/decision-tree">决策树</a><ul>
 <li>☢️<a href="/algorithm/decision-tree/#information-gain">信息熵, 信息增益的计算</a></li>
 <li>☢️<a href="/algorithm/decision-tree/#how-to-choose-best-feature">如何选择最优属性</a></li>
 </ul>
 </li>
-<li>集成学习<ul>
+<li><a href="/algorithm/ensemble-learning">集成学习</a><ul>
 <li>♻️<a href="/algorithm/ensemble-learning/#why-ensemble-learning">如何计算集成学习模型的错误率</a></li>
 <li>⚠️<a href="/algorithm/ensemble-learning/#bagging">Bagging如何进行抽样</a></li>
 <li>♻️<a href="/algorithm/ensemble-learning/#random-forest">随机森林思想</a>, 和Bagging差不多, 多了一个特征, 换汤不换药</li>
 <li>☢️<a href="/algorithm/ensemble-learning/#adaboost">Adaboost进行预测</a>, 能够计算错误率, 基分类器的权重, 归一化后/前的样本集权重</li>
 </ul>
 </li>
-<li>支持向量机<ul>
+<li><a href="/algorithm/svm">支持向量机</a><ul>
 <li>♻️<a href="/algorithm/svm/#maximize-lagrange-function">给定决策边界, 计算边际距离</a>, 套公式</li>
 <li>⚠️<a href="/algorithm/svm/#maximize-lagrange-function">给出拉格朗日乘数和支持向量计算决策边界</a>, 简单的套一下公式</li>
 <li>♻️<a href="/algorithm/svm/#kernel-trick">核方法如何简化点积计算</a></li>
 </ul>
 </li>
-<li>降维<ul>
+<li><a href="/algorithm/dimensional-reduction">降维</a><ul>
 <li>⚠️<a href="/algorithm/dimensional-reduction/#确定PC的数量">计算最佳主成分数量</a>, 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)</li>
 <li>⚠️<a href="/algorithm/dimensional-reduction/#get-pc">如何通过奇异值分解确定主成分</a>, 看里面的例子, 取奇异值矩阵对角线的左上角部分对应的主成分</li>
 <li>☢️<a href="/algorithm/dimensional-reduction/#compression-rate">压缩率计算</a></li>
@@ -1424,7 +1424,7 @@
 <li><a href="/algorithm/neural-network/cnn/#convolutional-layer">卷积计算</a></li>
 </ul>
 </li>
-<li>聚类<ul>
+<li><a href="/algorithm/clustering">聚类</a><ul>
 <li>♻️<a href="/algorithm/clustering/#簇的距离">给出两个簇中所有点的坐标, 计算簇的距离</a>, 考虑single link, complete link, averge link</li>
 <li>☢️<a href="/algorithm/clustering/#k-means">K-means聚类如何分簇</a></li>
 <li>⚠️<a href="/algorithm/clustering/#质心选取">选取初始质心的方法</a>, 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法, 同时也可以解决空簇问题</li>
@@ -1437,7 +1437,7 @@
 <li>♻️<a href="/algorithm/clustering/#correlation-similarity-matrix">相似度矩阵是啥</a></li>
 </ul>
 </li>
-<li>马尔可夫链<ul>
+<li><a href="/algorithm/markov-chain">马尔可夫链</a><ul>
 <li>☢️<a href="/algorithm/markov-chain/#markov-assumption">利用马尔科夫假设进行预测</a>, 搞清楚三种概率, initial probability, transition probability, emission probability, 然后计算状态序列的概率</li>
 <li>♻️<a href="/algorithm/markov-chain/#hmm-assumptions">HMM的两个假设</a>: 齐次假设和观测独立性假设</li>
 <li>♻️<a href="/algorithm/markov-chain/#hmm-problems">HMM的三个问题</a>, 重点关注预测问题和概率计算问题</li>
@@ -1446,7 +1446,7 @@
 <li>☢️<a href="/algorithm/markov-chain/#viterbi">Viterbi算法</a>, 初始值是<span class="arithmatex">\(A_0(k)e_k(x_1)\)</span>, 前向概率是<span class="arithmatex">\(e_k(x_i)max_j V_j(i-1)a_{jk}\)</span>, 最大的Viterbi得分是最终状态, 然后通过回溯指针找到前面所有的状态</li>
 </ul>
 </li>
-<li>强化学习<ul>
+<li><a href="/algorithm/reinforcement-learning">强化学习</a><ul>
 <li>♻️<a href="/algorithm/reinforcement-learning/#mdp">折扣因子是啥</a>, 表示对未来的重视程度, 较高的<span class="arithmatex">\(\gamma\)</span>对应更关注长期回报</li>
 <li>⚠️<a href="/algorithm/reinforcement-learning/#value-function">两种价值函数, Bellman方程, 最优Q值函数</a></li>
 <li>⚠️<a href="/algorithm/reinforcement-learning/#q-algo">Q学习算法</a>, 核心思想是维护一张Q表, 每次迭代都会对某个Q值进行增量更新(使用Bellman方程), 最终得到的Q表中的所有值近似收敛于最佳Q值</li>
