@@ -1447,8 +1447,10 @@
 </ul>
 </li>
 <li>强化学习<ul>
-<li><a href="/algorithm/reinforcement-learning/#q-algo">Q学习算法</a></li>
-<li><a href="/algorithm/reinforcement-learning/#dql">深度Q学习算法</a></li>
+<li>♻️<a href="/algorithm/reinforcement-learning/#mdp">折扣因子是啥</a>, 表示对未来的重视程度, 较高的<span class="arithmatex">\(\gamma\)</span>对应更关注长期回报</li>
+<li>⚠️<a href="/algorithm/reinforcement-learning/#value-function">两种价值函数, Bellman方程, 最优Q值函数</a></li>
+<li>⚠️<a href="/algorithm/reinforcement-learning/#q-algo">Q学习算法</a>, 核心思想是维护一张Q表, 每次迭代都会对某个Q值进行增量更新(使用Bellman方程), 最终得到的Q表中的所有值近似收敛于最佳Q值</li>
+<li>⚠️<a href="/algorithm/reinforcement-learning/#dql">深度Q学习算法</a>, 这里只考虑状态是连续的, 但是动作不是连续的(因为输出的动作概率预测是离散的), 核心思想是维护一个Q网络, 使用和目标Q值之间的差作为损失函数, 输入状态, 给出所有动作的可能性. 在每轮迭代中, 利用<span class="arithmatex">\(\epsilon\)</span>调控探索/利用选择动作, 并维护一个记忆池打破和时间的相关性, 从记忆池中均匀采样然后反向传播更新Q网络的权重. 为了防止目标Q值计算的不稳定, 我们引入一个目标Q网络, 使用目标Q网络来选择动作, 而使用原始Q网络计算目标Q值, 这个目标Q网络和原始Q网络的差异是目标Q网络在一段时间内会保持不变, 但是原始Q网络是每次迭代结束都会改变的</li>
 </ul>
 </li>
 </ul>
