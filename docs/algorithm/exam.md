@@ -59,7 +59,10 @@
     - ⚠️[计算轮廓系数](/algorithm/clustering/#sihouette-coefficient), 对于一个点, 一个簇, 整个聚类, 计算轮廓系数有不同, 越大越好
     - ♻️[相似度矩阵是啥](/algorithm/clustering/#correlation-similarity-matrix)
 - 马尔可夫链
-    - [利用马尔科夫假设进行预测](/algorithm/markov-chain/#markov-assumption)
+    - ☢️[利用马尔科夫假设进行预测](/algorithm/markov-chain/#markov-assumption), 搞清楚三种概率, initial probability, transition probability, emission probability, 然后计算状态序列的概率
+    - ♻️[HMM的两个假设](/algorithm/markov-chain/#hmm-assumptions): 齐次假设和观测独立性假设
+    - ♻️[HMM的三个问题](/algorithm/markon-chain/#hmm-problems), 重点关注预测问题和概率计算问题
+    - ⚠️[没有前向算法的时候如何预测观测序列的概率](/algorithm/markov-chain/#evaluation-problem)
     - [前向算法](/algorithm/markov-chain/#forward-algorithm)
     - [Viterbi算法](/algorithm/markov-chain/#viterbi)
 - 强化学习
