@@ -24,6 +24,12 @@ comments: true
     - ⚠️[相似系数计算](/algorithm/preprocessing/#similarity-score), 得到了相似系数之后, 可以计算简单匹配系数, 雅卡尔指数
     - ⚠️[余弦相似度计算](/algorithm/preprocessing/#cosine-similarity)
     - ⚠️[皮尔逊相关系数计算](/algorithm/preprocessing/#pearson-correlation-coefficient)
+- [线性回归](/algorithm/linear-regression)
+    - ⚠️梯度下降权重公式: $w_{i+1}=w_i-a_i\frac{df}{dw}(w_i)$, 对于普通梯度下降, 小批量梯度下降, 随机梯度下降, 计算梯度的方法有所不同, 用于计算梯度的数据点分别为: 全部, 随机选一小部分, 随机选一个, 梯度计算公式分别为$\sum_{j=1}^n(w_i^Tx^{(j)}-y^{(j)})x^{(j)}$, $\sum_{j\in B_j}^n(w_i^Tx^{(j)}-y^{(j)})x^{(j)}$, $(w_i^Tx^{(j)}-y^{(j)})x^{(j)}$, 在计算资源需求和更快收敛之间权衡
+    - ♻️选择学习率大小: $\alpha_i=\frac{\alpha}{n\sqrt{i}}$. 注意这个学习率是每一步都会变化的, 越到后面越小
+    - ⚠️[似然函数](/algorithm/linear-regression/#likelihood-function)表示的是属于1或者0的概率, $p(y_i|x_i; w)=\sigma(w^Tx_i)^{y_i}[1-\sigma(w^Tx)]^{1-y_i}$, 对于整个训练集的点都计算似然函数, 然后取对数, 得到对数似然函数, 越大越好; 对对数似然函数取反得到交叉熵误差函数, 越小越好.
+    - ☢️[给出逻辑函数, 样本点, 权重, 计算它属于哪一个类](/algorithm/linear-regression/#线性分类), 如给出分水岭是0.5, 给出权重向量, 和一些样本点, 计算这些样本点属于哪一个类别
+	- ♻️[对数损失似然损失函数](/algorithm/linear-regression/#对数似然损失函数)
 - [最邻近](/algorithm/knn)
 	- ☢️[使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用2-邻近算法, Euclidean Distance
 - [朴素贝叶斯](/algorithm/naive-bayes)
