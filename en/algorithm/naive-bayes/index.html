@@ -893,7 +893,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#missing-values" class="md-nav__link">
     <span class="md-ellipsis">
       缺失值问题
     </span>
@@ -1374,7 +1374,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#missing-values" class="md-nav__link">
     <span class="md-ellipsis">
       缺失值问题
     </span>
@@ -1565,7 +1565,7 @@
 <h3 id="zero-frequency">零频问题</h3>
 <p>在上述分类问题中, 对于一个属性值(特征值)至少在每一个类别(play=yes, play=no)中都出现过一次. 如果sunny只出现在play=no中, 从未出现在play=yes中, 那么, 就会有<span class="arithmatex">\(P(yes|E)=\frac{P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)P(yes)}{P(E)}=0\)</span>, 因为<span class="arithmatex">\(P(E_1|yes)=0\)</span>. 这意味着任何含有属性值为sunny的天气情况都会被归类到play=no, 完全忽略其他值的影响. </p>
 <p>为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算<span class="arithmatex">\(P(E_i|yes)\)</span>的时候, 用到以下公式, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 对于<span class="arithmatex">\(P(E_i|no)\)</span>也是同样的, 其中<span class="arithmatex">\(m\)</span>为该属性<span class="arithmatex">\(E_i\)</span>可能取值的数量, 如对于outlook, 可能的取值有<span class="arithmatex">\(3\)</span>种. </p>
-<h3 id="_2">缺失值问题</h3>
+<h3 id="missing-values">缺失值问题</h3>
 <p>朴素贝叶斯算法对于缺失值的处理非常直接. 直接忽略掉那个属性的后验概率就可以了, 注意, <span class="arithmatex">\(p(E_i|yes)\)</span>和<span class="arithmatex">\(p(E_i|no)\)</span>都要忽略.</p>
 <h3 id="numeric-nb">数值属性朴素贝叶斯</h3>
 <p>现在, 试想如果温度和湿度是数值的话, 如何对play的结果做出分类呢? </p>

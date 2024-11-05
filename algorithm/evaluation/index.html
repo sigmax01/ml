@@ -1601,9 +1601,9 @@
 <p>混淆矩阵用来显示模型在预测时产生的四种可能结果:</p>
 <ul>
 <li>TP (True Positives): 模型正确地将yes类样本预测为yes</li>
-<li>FN (False Negatives): 模型正确地将no类样本预测为no</li>
+<li>FN (False Negatives): 模型错误地将yes类样本预测为no</li>
 <li>FP (False Positives): 模型错误地将no类样本预测为yes</li>
-<li>TN (True Negatives): 模型错误yes类样本预测为no</li>
+<li>TN (True Negatives): 模型正确地将no类样本预测为no</li>
 </ul>
 <p>准度计算公式为<span class="arithmatex">\(\frac{TP+TN}{TP+FN+FP+TN}\)</span>, 混淆矩阵本身不是性能度量的指标, 但它是性能指标计算的基础工具, 通过它, 可以计算得到准度, 精确度, 召回度等性能指标.</p>
 <ul>
