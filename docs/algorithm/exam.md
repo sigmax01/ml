@@ -26,16 +26,19 @@ comments: true
     - ⚠️[皮尔逊相关系数计算](/algorithm/preprocessing/#pearson-correlation-coefficient)
 - [线性回归](/algorithm/linear-regression)
     - ⚠️梯度下降权重公式: $w_{i+1}=w_i-a_i\frac{df}{dw}(w_i)$, 对于普通梯度下降, 小批量梯度下降, 随机梯度下降, 计算梯度的方法有所不同, 用于计算梯度的数据点分别为: 全部, 随机选一小部分, 随机选一个, 梯度计算公式分别为$\sum_{j=1}^n(w_i^Tx^{(j)}-y^{(j)})x^{(j)}$, $\sum_{j\in B_j}^n(w_i^Tx^{(j)}-y^{(j)})x^{(j)}$, $(w_i^Tx^{(j)}-y^{(j)})x^{(j)}$, 在计算资源需求和更快收敛之间权衡
+    - ⚠️批量梯度下降复杂度分析: 其闭式解为$w=(x^Tx)^{-1}x^Ty$, $x^Tx$的复杂度是$nk^2$, 转置矩阵的复杂度为$k^3$, 所以时间复杂度是$O(nk^2+k^3)$, 空间复杂度是$O(nk+k^2)$
     - ♻️选择学习率大小: $\alpha_i=\frac{\alpha}{n\sqrt{i}}$. 注意这个学习率是每一步都会变化的, 越到后面越小
-    - ⚠️[似然函数](/algorithm/linear-regression/#likelihood-function)表示的是属于1或者0的概率, $p(y_i|x_i; w)=\sigma(w^Tx_i)^{y_i}[1-\sigma(w^Tx)]^{1-y_i}$, 对于整个训练集的点都计算似然函数, 然后取对数, 得到对数似然函数, 越大越好; 对对数似然函数取反得到交叉熵误差函数, 越小越好.
-    - ☢️[给出逻辑函数, 样本点, 权重, 计算它属于哪一个类](/algorithm/linear-regression/#线性分类), 如给出分水岭是0.5, 给出权重向量, 和一些样本点, 计算这些样本点属于哪一个类别
-	- ♻️[对数损失似然损失函数](/algorithm/linear-regression/#对数似然损失函数)
+    - ⚠️[正则化](/algorithm/linear-regression/#regularization), 重点关注L2, 其误差函数中的$\alpha$控制的是模型的复杂度, 防止过拟合, L1和L2的差别是L1会让某些特征直接消失,
+    - ♻️️[似然函数](/algorithm/linear-regression/#likelihood-function)表示的是属于1或者0的概率, $p(y_i|x_i; w)=\sigma(w^Tx_i)^{y_i}[1-\sigma(w^Tx)]^{1-y_i}$, 对于整个训练集的点都计算似然函数, 然后取对数, 得到对数似然函数, 越大越好; 对对数似然函数取反得到交叉熵误差函数, 越小越好.
+    - ⚠️[给出逻辑函数, 样本点, 权重, 计算它属于哪一个类](/algorithm/linear-regression/#线性分类), 如给出分水岭是0.5, 给出权重向量, 和一些样本点, 计算这些样本点属于哪一个类别
+	- ♻️[对数损失似然损失函数](/algorithm/linear-regression/#对数似然损失函数), 注意那里的$p$是是否等于$1$的概率
 - [最邻近](/algorithm/knn)
 	- ☢️[使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用2-邻近算法, Euclidean Distance
 - [朴素贝叶斯](/algorithm/naive-bayes)
     - ☢️[使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
     - ⚠️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
-    - ⚠️[处理零频问题](/algorithm/naive-bayes/#zero-frequency), 不要在计算p(E|yes)**和**计算p(E|no)的时候包括那个缺失值的属性
+    - ⚠️[处理缺失值问题](/algorithm/naive-bayes/#missing-values), 不要在计算p(E|yes)**和**计算p(E|no)的时候包括那个缺失值的属性
+    - ♻️[处理零频问题](/algorithm/naive-bayes/#zero-frequency), 使用拉普拉斯, $P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)$
 - [评估](/algorithm/evaluation)
     - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
     - ⚠️[计算准度的方法](/algorithm/evaluation), 包括stratification, repeated hold out, cross validation, grid search, leave out这些有啥含义, 为啥要用
