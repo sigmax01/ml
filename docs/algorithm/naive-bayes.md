@@ -46,15 +46,15 @@ comments: true
 
 另一个例子见[图](https://img.ricolxwz.io/df558f7e1e5c65c1e36402b2b41bfa7e.png).
 
-### 零频问题
+### 零频问题 {#zero-frequency}
 
 在上述分类问题中, 对于一个属性值(特征值)至少在每一个类别(play=yes, play=no)中都出现过一次. 如果sunny只出现在play=no中, 从未出现在play=yes中, 那么, 就会有$P(yes|E)=\frac{P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)P(yes)}{P(E)}=0$, 因为$P(E_1|yes)=0$. 这意味着任何含有属性值为sunny的天气情况都会被归类到play=no, 完全忽略其他值的影响. 
 
-为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算$P(E_i|yes)$的时候, 用到以下公式, $P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)$, 对于$P(E_i|no)$也是同样的. 
+为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算$P(E_i|yes)$的时候, 用到以下公式, $P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)$, 对于$P(E_i|no)$也是同样的, 其中$m$为该属性$E_i$可能取值的数量, 如对于outlook, 可能的取值有$3$种. 
 
 ### 缺失值问题
 
-朴素贝叶斯算法对于缺失值的处理非常直接. 直接忽略掉那个属性的后验概率就可以了.
+朴素贝叶斯算法对于缺失值的处理非常直接. 直接忽略掉那个属性的后验概率就可以了, 注意, $p(E_i|yes)$和$p(E_i|no)$都要忽略.
 
 ### 数值属性朴素贝叶斯 {#numeric-nb}
 

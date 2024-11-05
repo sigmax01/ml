@@ -35,6 +35,7 @@ comments: true
 - [朴素贝叶斯](/algorithm/naive-bayes)
     - ☢️[使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
     - ⚠️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
+    - ⚠️[处理零频问题](/algorithm/naive-bayes/#zero-frequency), 不要在计算p(E|yes)**和**计算p(E|no)的时候包括那个缺失值的属性
 - [评估](/algorithm/evaluation)
     - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
     - ⚠️[计算准度的方法](/algorithm/evaluation), 包括stratification, repeated hold out, cross validation, grid search, leave out这些有啥含义, 为啥要用
