@@ -1403,9 +1403,9 @@
 </li>
 <li><a href="/algorithm/naive-bayes">朴素贝叶斯</a><ul>
 <li>☢️<a href="/algorithm/naive-bayes/#nb-algorithm">使用朴素贝叶斯算法进行预测</a></li>
-<li>⚠️<a href="/algorithm/naive-bayes/#numeric-nb">数值属性朴素贝叶斯进行预测</a></li>
+<li>⚠️<a href="/algorithm/naive-bayes/#numeric-nb">数值属性朴素贝叶斯进行预测</a>, 注意, 计算条件概率的时候, 要计算该条件下的均值和标准差</li>
 <li>⚠️<a href="/algorithm/naive-bayes/#missing-values">处理缺失值问题</a>, 不要在计算p(E|yes)<strong>和</strong>计算p(E|no)的时候包括那个缺失值的属性</li>
-<li>♻️<a href="/algorithm/naive-bayes/#zero-frequency">处理零频问题</a>, 使用拉普拉斯, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span></li>
+<li>♻️<a href="/algorithm/naive-bayes/#zero-frequency">处理零频问题</a>, 使用拉普拉斯, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 零频的时候<span class="arithmatex">\(count(E_i)\)</span>应该是等于<span class="arithmatex">\(0\)</span>的</li>
 </ul>
 </li>
 <li><a href="/algorithm/evaluation">评估</a><ul>
