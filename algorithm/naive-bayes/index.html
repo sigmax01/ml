@@ -1564,9 +1564,9 @@
 <p>另一个例子见<a href="https://img.ricolxwz.io/df558f7e1e5c65c1e36402b2b41bfa7e.png">图</a>.</p>
 <h3 id="zero-frequency">零频问题</h3>
 <p>在上述分类问题中, 对于一个属性值(特征值)至少在每一个类别(play=yes, play=no)中都出现过一次. 如果sunny只出现在play=no中, 从未出现在play=yes中, 那么, 就会有<span class="arithmatex">\(P(yes|E)=\frac{P(E_1|yes)P(E_2|yes)P(E_3|yes)P(E_4|yes)P(yes)}{P(E)}=0\)</span>, 因为<span class="arithmatex">\(P(E_1|yes)=0\)</span>. 这意味着任何含有属性值为sunny的天气情况都会被归类到play=no, 完全忽略其他值的影响. </p>
-<p>为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算<span class="arithmatex">\(P(E_i|yes)\)</span>的时候, 用到以下公式, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 对于<span class="arithmatex">\(P(E_i|no)\)</span>也是同样的, 其中<span class="arithmatex">\(m\)</span>为该属性<span class="arithmatex">\(E_i\)</span>可能取值的数量, 如对于outlook, 可能的取值有<span class="arithmatex">\(3\)</span>种. </p>
+<p>为了解决这个问题, 需要用到拉普拉斯平滑技术: 在计算<span class="arithmatex">\(P(E_i|yes)\)</span>的时候, 用到以下公式, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 对于<span class="arithmatex">\(P(E_i|no)\)</span>也是同样的, 其中<span class="arithmatex">\(m\)</span>为该属性<span class="arithmatex">\(E_i\)</span>可能取值的数量, 如对于outlook, 可能的取值有<span class="arithmatex">\(3\)</span>种, 当零频的时候, <span class="arithmatex">\(count(E_i)\)</span>等于<span class="arithmatex">\(0\)</span>.</p>
 <h3 id="missing-values">缺失值问题</h3>
-<p>朴素贝叶斯算法对于缺失值的处理非常直接. 直接忽略掉那个属性的后验概率就可以了, 注意, <span class="arithmatex">\(p(E_i|yes)\)</span>和<span class="arithmatex">\(p(E_i|no)\)</span>都要忽略.</p>
+<p>两种情况, 新样本中某些属性缺失, 不要在计算p(E|yes)<strong>和</strong>计算p(E|no)的时候包括那个缺失值的属性, 如没有outlook则不要包含<span class="arithmatex">\(p(outlook|yes)\)</span>和<span class="arithmatex">\(p(outlook|no)\)</span>; 表中的某些属性值缺失, 则不要将缺失值纳入计数, 如在yes下, outlook列中有一个缺失值, 则直接跳过, 不用管. </p>
 <h3 id="numeric-nb">数值属性朴素贝叶斯</h3>
 <p>现在, 试想如果温度和湿度是数值的话, 如何对play的结果做出分类呢? </p>
 <p>即我们如何计算<span class="arithmatex">\(P(E_1|yes)\)</span>, <span class="arithmatex">\(P(E_2|yes)\)</span>, <span class="arithmatex">\(P(E_1|no)\)</span>, ...? 我们假设数值符合正态分布或者高斯分布, 以正态分布为例, 使用概率函数, 参数为期望<span class="arithmatex">\(\mu\)</span>和标准差, standard deviation <span class="arithmatex">\(\sigma\)</span>: <span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>. 其中期望<span class="arithmatex">\(\mu=\frac{\sum_{i=1}^n x_i}{n}\)</span>, 标准差<span class="arithmatex">\(\sigma=\sqrt{\frac{\sum_{i=1}^n(x_i-\mu)^2}{n-1}}\)</span>.</p>
@@ -1594,7 +1594,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月6日</span>
   </span>
 
     
