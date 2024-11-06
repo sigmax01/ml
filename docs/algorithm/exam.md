@@ -36,9 +36,9 @@ comments: true
 	- ☢️[使用k-邻近算法进行预测](/algorithm/knn/#knn), 例如, 使用2-邻近算法, Euclidean Distance
 - [朴素贝叶斯](/algorithm/naive-bayes)
     - ☢️[使用朴素贝叶斯算法进行预测](/algorithm/naive-bayes/#nb-algorithm)
-    - ⚠️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb)
+    - ⚠️[数值属性朴素贝叶斯进行预测](/algorithm/naive-bayes/#numeric-nb), 注意, 计算条件概率的时候, 要计算该条件下的均值和标准差
     - ⚠️[处理缺失值问题](/algorithm/naive-bayes/#missing-values), 不要在计算p(E|yes)**和**计算p(E|no)的时候包括那个缺失值的属性
-    - ♻️[处理零频问题](/algorithm/naive-bayes/#zero-frequency), 使用拉普拉斯, $P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)$
+    - ♻️[处理零频问题](/algorithm/naive-bayes/#zero-frequency), 使用拉普拉斯, $P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)$, 零频的时候$count(E_i)$应该是等于$0$的
 - [评估](/algorithm/evaluation)
     - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix)
     - ⚠️[计算准度的方法](/algorithm/evaluation), 包括stratification, repeated hold out, cross validation, grid search, leave out这些有啥含义, 为啥要用
