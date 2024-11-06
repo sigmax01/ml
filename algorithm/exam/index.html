@@ -1405,7 +1405,7 @@
 <li>☢️<a href="/algorithm/naive-bayes/#nb-algorithm">使用朴素贝叶斯算法进行预测</a></li>
 <li>⚠️<a href="/algorithm/naive-bayes/#numeric-nb">数值属性朴素贝叶斯进行预测</a>, 注意, 计算条件概率的时候, 要计算该条件下的均值和标准差</li>
 <li>⚠️<a href="/algorithm/naive-bayes/#missing-values">处理缺失值问题</a>, 新样本中某些属性缺失, 不要在计算p(E|yes)<strong>和</strong>计算p(E|no)的时候包括那个缺失值的属性, 如没有outlook则不要包含<span class="arithmatex">\(p(outlook|yes)\)</span>和<span class="arithmatex">\(p(outlook|no)\)</span>; 表中的某些属性值缺失, 则不要将缺失值纳入计数, 如在yes下, outlook列中有一个缺失值, 则直接跳过, 不用管.</li>
-<li>♻️<a href="/algorithm/naive-bayes/#zero-frequency">处理零频问题</a>, 使用拉普拉斯, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 零频的时候<span class="arithmatex">\(count(E_i)\)</span>应该是等于<span class="arithmatex">\(0\)</span>的</li>
+<li>♻️<a href="/algorithm/naive-bayes/#zero-frequency">处理零频问题</a>, 使用拉普拉斯, <span class="arithmatex">\(P(E_i|yes)=(count(E_i)+1)/(count(yes)+m)\)</span>, 零频的时候<span class="arithmatex">\(count(E_i)\)</span>应该是等于<span class="arithmatex">\(0\)</span>的, <span class="arithmatex">\(m\)</span>是属性可能取值的数量</li>
 </ul>
 </li>
 <li><a href="/algorithm/evaluation">评估</a><ul>
