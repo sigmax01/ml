@@ -1405,7 +1405,7 @@
 <li>⚠️<a href="/algorithm/ensemble-learning/#bagging">Bagging如何进行抽样</a></li>
 <li>♻️<a href="/algorithm/ensemble-learning/#random-forest">随机森林思想</a>, 和Bagging差不多, 多了一个特征, 换汤不换药</li>
 <li>
-<p>☢️<a href="/algorithm/ensemble-learning/#adaboost">Adaboost进行预测</a>, 能够计算错误率, 基分类器的权重, 归一化后/前的样本集权重</p>
+<p>☢️<a href="/algorithm/ensemble-learning/#adaboost">Adaboost进行预测</a>, 能够计算错误率(初始错误率为<span class="arithmatex">\(1/n\)</span>), 基分类器的权重, 归一化后/前的样本集权重</p>
 <details class="danger" open="open">
 <summary>特别注意</summary>
 <p>课件上的例子中计算基分类器权重的时候使用的是以<span class="arithmatex">\(10\)</span>为底的对数, 这是<strong>错误</strong>的, 应该是自然对数, 因为对于<span class="arithmatex">\(\beta_t\)</span>求导的时候产生的结果中是自然对数. 相关<a href="https://www.digitalocean.com/community/tutorials/adaboost-optimizer">链接</a>.</p>
