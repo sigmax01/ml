@@ -15,3 +15,24 @@
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/mononoki@5.1.0/index.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css">
 {% endblock extrahead %}
+
+{% block announce %}
+<span class="twemoji twemoji-custom">
+  {% include ".icons/fontawesome/seedling-solid.svg" %}
+</span>
+大大们, 请关注我的Github:
+  <a rel="me" href="https://github.com/ricolxwz">
+    <span class="twemoji">
+      {% include ".icons/fontawesome/github-alt-brands-solid.svg" %}
+    </span>
+  <strong>ricolxwz</strong>
+  </a>
+Bilibili:
+<a rel="me" href="https://space.bilibili.com/475092323">
+    <span class="twemoji">
+      {% include ".icons/fontawesome/brands/bilibili.svg" %}
+    </span>
+    <strong>麦旋风超好吃</strong>
+</a>,
+点个免费的赞在走啦 (●'◡'●)
+{% endblock %}
