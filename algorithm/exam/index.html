@@ -1419,7 +1419,8 @@
 <li>♻️<a href="/algorithm/svm/#maximize-lagrange-function">给定决策边界, 计算边际距离</a>, 套公式</li>
 <li>⚠️理解拉格朗日函数: 拉格朗日函数结合了约束条件<span class="arithmatex">\(y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1\)</span>和目标<span class="arithmatex">\(\frac{1}{2}||\boldsymbol{w}||^2\)</span>, 最小化目标就是最大化拉格朗日函数, <span class="arithmatex">\(max \{L(\boldsymbol{w}, b, \boldsymbol{\lambda})\}=max \sum_{i=1}^N\lambda_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\lambda_i\lambda_jy_iy_j\boldsymbol{x_i}\cdot\boldsymbol{x_j}\)</span>, 其中, 最后有两个点积, 第一个是两个训练向量的类的点击, 后面是两个训练向量特征的点积</li>
 <li>☢️<a href="/algorithm/svm/#maximize-lagrange-function">给出拉格朗日乘数和支持向量计算决策边界</a>, 系数矩阵的解为<span class="arithmatex">\(\boldsymbol{w}=\sum_{i=1}^N\lambda_iy_i\boldsymbol{x_i}\)</span></li>
-<li>♻️<a href="/algorithm/svm/#kernel-trick">核方法如何简化点积计算</a></li>
+<li>⚠软边界和硬边界: 约束条件变为<span class="arithmatex">\(y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1-\xi_i\)</span>, 目标函数变为<span class="arithmatex">\(\frac{1}{2}||\bm{w}||^2+C\sum \xi_i\)</span>, <span class="arithmatex">\(C\)</span>越大, 说明对于点分类越严格</li>
+<li>♻️<a href="/algorithm/svm/#kernel-trick">核方法如何简化点积计算</a>, 相当于上面拉格朗日方程中的<span class="arithmatex">\(\bm{x_i}\cdot\bm{x_j}\)</span>的计算会大大简化</li>
 </ul>
 </li>
 <li><a href="/algorithm/dimensional-reduction">降维</a><ul>
