@@ -46,6 +46,11 @@ comments: true
     - ⚠️[Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
     - ♻️[随机森林思想](/algorithm/ensemble-learning/#random-forest), 和Bagging差不多, 多了一个特征, 换汤不换药
     - ☢️[Adaboost进行预测](/algorithm/ensemble-learning/#adaboost), 能够计算错误率, 基分类器的权重, 归一化后/前的样本集权重
+
+        ???+ danger "特别注意"
+
+            课件上的例子中计算基分类器权重的时候使用的是以$10$为底的对数, 这是**错误**的, 应该是自然对数, 因为对于$\beta_t$求导的时候产生的结果中是自然对数. 相关[链接](https://www.digitalocean.com/community/tutorials/adaboost-optimizer).
+
 - [支持向量机](/algorithm/svm)
     - ♻️[给定决策边界, 计算边际距离](/algorithm/svm/#maximize-lagrange-function), 套公式
     - ⚠️[给出拉格朗日乘数和支持向量计算决策边界](/algorithm/svm/#maximize-lagrange-function), 简单的套一下公式
