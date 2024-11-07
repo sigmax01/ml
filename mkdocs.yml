@@ -34,6 +34,7 @@ theme:
     - search.suggest
     - search.highlight
     - search.share
+    - announce.dismiss
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
