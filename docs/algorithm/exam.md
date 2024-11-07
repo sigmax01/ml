@@ -39,7 +39,7 @@ comments: true
     - ♻️[混淆矩阵计算](/algorithm/evaluation/#confusion-matrix), T字开头代表正确预测, P字打底代表结果是1, 准度是(TP+TN)/(TP+TN+FP+FN), 注意它本身不是性能衡量指标, 只是一个工具
     - ⚠️[计算准度的方法](/algorithm/evaluation), 包括stratification, repeated hold out, cross validation, grid search, leave one out这些有啥含义, 为啥要用
 - [决策树](/algorithm/decision-tree)
-    - ☢️[信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain), 特别注意, fx-82系列计算器上没有$log_2$, 需要使用换底公式$log_2(x)\frac{\log(x)}{\log(2)}$, 主要就是一个熵和一个条件熵的计算
+    - ☢️[信息熵, 信息增益的计算](/algorithm/decision-tree/#information-gain), 特别注意, fx-82系列计算器上没有$log_2$, 需要使用换底公式$log_2(x)=\frac{\log(x)}{\log(2)}$, 主要就是一个熵和一个条件熵的计算
     - ☢️[如何选择最优属性](/algorithm/decision-tree/#how-to-choose-best-feature), 熵越小, 纯度越高
 - [集成学习](/algorithm/ensemble-learning)
     - ♻️[如何计算集成学习模型的错误率](/algorithm/ensemble-learning/#why-ensemble-learning)
