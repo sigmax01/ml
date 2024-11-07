@@ -60,7 +60,7 @@ comments: true
 - [降维](/algorithm/dimensional-reduction)
     - ⚠️[计算最佳主成分数量](/algorithm/dimensional-reduction/#确定PC的数量), 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)
     - ⚠️[如何通过奇异值分解确定主成分](/algorithm/dimensional-reduction/#get-pc), 看里面的例子, 取奇异值矩阵对角线的左上角部分对应的主成分
-    - ☢️[压缩率计算](/algorithm/dimensional-reduction/#compression-rate), 原来$n\times m$的矩阵经过奇异值分解变成三个矩阵, 大小分别是$n\times k$, $k\times k$, $\m\times k$, 所以新新占有空间为$k(1+m+n)$, 压缩率为$k(1+m+n)/(n\times m)$, $k$就是主成分的数量, 对于样本数量非常大的情况下, $m+1$可以忽略不计, 变为$k/m$
+    - ☢️[压缩率计算](/algorithm/dimensional-reduction/#compression-rate), 原来$n\times m$的矩阵经过奇异值分解变成三个矩阵, 大小分别是$n\times k$, $k\times k$, $m\times k$, 所以新新占有空间为$k(1+m+n)$, 压缩率为$k(1+m+n)/(n\times m)$, $k$就是主成分的数量, 对于样本数量非常大的情况下, $m+1$可以忽略不计, 变为$k/m$
 - 神经网络
     - [感知机学习过程](/algorithm/neural-network/#learning-algorithm)
     - [前馈神经网络学习过程](/algorithm/neural-network/fnn/#training-procedure)
