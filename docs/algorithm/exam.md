@@ -53,7 +53,8 @@ comments: true
 
 - [支持向量机](/algorithm/svm)
     - ♻️[给定决策边界, 计算边际距离](/algorithm/svm/#maximize-lagrange-function), 套公式
-    - ⚠️[给出拉格朗日乘数和支持向量计算决策边界](/algorithm/svm/#maximize-lagrange-function), 简单的套一下公式
+    - ⚠️理解拉格朗日函数: 拉格朗日函数结合了约束条件$y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1$和目标$\frac{1}{2}||\boldsymbol{w}||^2$, 最小化目标就是最大化拉格朗日函数, $max \{L(\boldsymbol{w}, b, \boldsymbol{\lambda})\}=max \sum_{i=1}^N\lambda_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\lambda_i\lambda_jy_iy_j\boldsymbol{x_i}\cdot\boldsymbol{x_j}$, 其中, 最后有两个点积, 第一个是两个训练向量的类的点击, 后面是两个训练向量特征的点积
+    - ☢️[给出拉格朗日乘数和支持向量计算决策边界](/algorithm/svm/#maximize-lagrange-function), 系数矩阵的解为$\boldsymbol{w}=\sum_{i=1}^N\lambda_iy_i\boldsymbol{x_i}$
     - ♻️[核方法如何简化点积计算](/algorithm/svm/#kernel-trick)
 - [降维](/algorithm/dimensional-reduction)
     - ⚠️[计算最佳主成分数量](/algorithm/dimensional-reduction/#确定PC的数量), 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)
