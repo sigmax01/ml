@@ -1510,10 +1510,6 @@
 
   <h1>决策树</h1>
 
-<details class="bug" open="open">
-<summary>Bug</summary>
-<p>这里的<span class="arithmatex">\(\log\)</span>是全部以<span class="arithmatex">\(10\)</span>为底的, 正确的应该是全部以<span class="arithmatex">\(2\)</span>为底.</p>
-</details>
 <h2 id="_1">历史</h2>
 <p>决策树是机器学习和数据挖掘领域最火爆并且研究最深入的方法. 有好多决策树的算法. 其中最有影响力的算法是在机器学习领域开发的ID3, C4.5算法(由悉尼大学Ross Quinlan开发), 在统计学领域开发的CART算法(由Breiman等人开发). 其中最广泛应用的是C4.5算法.</p>
 <h2 id="_2">定义</h2>
@@ -1621,7 +1617,7 @@
 </tr>
 </tbody>
 </table>
-<p>可以求得嫁与不嫁的信息熵为: <span class="arithmatex">\(-\frac{1}{2}\log \frac{1}{2}-\frac{1}{2}\log \frac{1}{2}\simeq 0.301\)</span>. 假如现在我已经知道了一个男生的身高信息, 求知道这个信息之后的信息增益. </p>
+<p>可以求得嫁与不嫁的信息熵为: <span class="arithmatex">\(-\frac{1}{2}\log_2 \frac{1}{2}-\frac{1}{2}\log_2 \frac{1}{2}\simeq 1\)</span>. 假如现在我已经知道了一个男生的身高信息, 求知道这个信息之后的信息增益. </p>
 <p>身高的可能取值有三个, 即随机变量的取值可能有三个: 矮, 中, 高. </p>
 <ul>
 <li>矮的个数为7个, 对应的嫁的数量是1个, 不嫁的数量是6个</li>
@@ -1630,12 +1626,12 @@
 </ul>
 <p>条件熵的计算公式为: <span class="arithmatex">\(H(Y|X)=\sum_{x\in X}p(x)H(Y|X=x)\)</span>. </p>
 <ul>
-<li><span class="arithmatex">\(H(Y|X=矮)=-\frac{1}{7}\log\frac{1}{7}-\frac{6}{7}\log\frac{6}{7}\simeq 0.178\)</span>, <span class="arithmatex">\(p(X=矮)=\frac{7}{12}\)</span></li>
-<li><span class="arithmatex">\(H(Y|X=中)=-1\log1-0=0\)</span>, <span class="arithmatex">\(p(X=中)=\frac{2}{12}\)</span></li>
-<li><span class="arithmatex">\(H(Y|X=高)=-1\log1-0=0\)</span>, <span class="arithmatex">\(p(X=低)=\frac{3}{12}\)</span></li>
+<li><span class="arithmatex">\(H(Y|X=矮)=-\frac{1}{7}\log_2\frac{1}{7}-\frac{6}{7}\log_2\frac{6}{7}\simeq 0.592\)</span>, <span class="arithmatex">\(p(X=矮)=\frac{7}{12}\)</span></li>
+<li><span class="arithmatex">\(H(Y|X=中)=-1\log_2 1-0=0\)</span>, <span class="arithmatex">\(p(X=中)=\frac{2}{12}\)</span></li>
+<li><span class="arithmatex">\(H(Y|X=高)=-1\log_2 1-0=0\)</span>, <span class="arithmatex">\(p(X=低)=\frac{3}{12}\)</span></li>
 </ul>
-<p>由此可以计算出条件熵为<span class="arithmatex">\(\frac{7}{12}*0.178+\frac{2}{12}*0+\frac{3}{12}*0=0.103\)</span>.</p>
-<p>所以信息增益就是<span class="arithmatex">\(0.301-0.103=0.198\)</span>. 也就是说, 本来如果我对一个男生什么都不知道的话, 作为他的女朋友决定是否嫁给他的不确定性有<span class="arithmatex">\(0.301\)</span>这么大. 当我们直到男朋友的身高信息之后, 不确定性减少了<span class="arithmatex">\(0.198\)</span>, 也就是说, 身高这个特征对于我们广大女生同学来说, 决定嫁不嫁给自己的男朋友是很重要的.</p>
+<p>由此可以计算出条件熵为<span class="arithmatex">\(\frac{7}{12}*0.592+\frac{2}{12}*0+\frac{3}{12}*0=0.345\)</span>.</p>
+<p>所以信息增益就是<span class="arithmatex">\(1-0.345=0.655\)</span>. 也就是说, 本来如果我对一个男生什么都不知道的话, 作为他的女朋友决定是否嫁给他的不确定性有<span class="arithmatex">\(1\)</span>这么大. 当我们直到男朋友的身高信息之后, 不确定性减少了<span class="arithmatex">\(0.655\)</span>, 也就是说, 身高这个特征对于我们广大女生同学来说, 决定嫁不嫁给自己的男朋友是很重要的.</p>
 </details>
 <h2 id="_3">构建决策树</h2>
 <p>决策树学习的一种常见的策略是使用递归, 自顶向下的递归分治. </p>
