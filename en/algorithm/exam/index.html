@@ -1417,7 +1417,8 @@
 <p><a href="/algorithm/svm">支持向量机</a></p>
 <ul>
 <li>♻️<a href="/algorithm/svm/#maximize-lagrange-function">给定决策边界, 计算边际距离</a>, 套公式</li>
-<li>⚠️<a href="/algorithm/svm/#maximize-lagrange-function">给出拉格朗日乘数和支持向量计算决策边界</a>, 简单的套一下公式</li>
+<li>⚠️理解拉格朗日函数: 拉格朗日函数结合了约束条件<span class="arithmatex">\(y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1\)</span>和目标<span class="arithmatex">\(\frac{1}{2}||\boldsymbol{w}||^2\)</span>, 最小化目标就是最大化拉格朗日函数, <span class="arithmatex">\(max \{L(\boldsymbol{w}, b, \boldsymbol{\lambda})\}=max \sum_{i=1}^N\lambda_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\lambda_i\lambda_jy_iy_j\boldsymbol{x_i}\cdot\boldsymbol{x_j}\)</span>, 其中, 最后有两个点积, 第一个是两个训练向量的类的点击, 后面是两个训练向量特征的点积</li>
+<li>☢️<a href="/algorithm/svm/#maximize-lagrange-function">给出拉格朗日乘数和支持向量计算决策边界</a>, 系数矩阵的解为<span class="arithmatex">\(\boldsymbol{w}=\sum_{i=1}^N\lambda_iy_i\boldsymbol{x_i}\)</span></li>
 <li>♻️<a href="/algorithm/svm/#kernel-trick">核方法如何简化点积计算</a></li>
 </ul>
 </li>
