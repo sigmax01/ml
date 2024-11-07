@@ -108,7 +108,7 @@ Adaboost是Boosting的经典实现之一. 它的每一个训练样本都带有�
 2. 初始化所有样本的权重$w_1(n)=\frac{1}{n}$
 3. 对于$t$从$1$到$T$:
     1. 使用当前的的训练集训练一个基分类器$h_t(x)$, 最小化错误率$\epsilon_t = \sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]$. 注意, $\mathbb{I}$表示指示函数, 当条件为真时, $\mathbb{I}[$条件$]=1$, 当条件为假时, $\mathbb{I}[$条件$]=0$
-    2. 计算基分类器在最终决策中的贡献$\beta_t = \frac{1}{2}\log\frac{1-\epsilon_t}{\epsilon_t}$
+    2. 计算基分类器在最终决策中的贡献$\beta_t = \frac{1}{2}\ln\frac{1-\epsilon_t}{\epsilon_t}$
     3. 更新当前训练集样本的权重$w_{t+1}(n)\propto w_t(n)e^{-\beta_ty_nh_t(x_n)}$, 为什么用$\propto$? 因为在更新权重之前, 还要进行归一化, 使得$\sum_n w_{t+1}(n)=1$
 4. 输出最终的分类器$h[x]=sign[\sum_{t=1}^T\beta_th_t(x)]$
 
@@ -224,7 +224,7 @@ Adaboost最小化分类错误的损失函数. 假设我们现在有一个分类�
 - $h_t(x_n)$是当前弱分类器的判断
 - 指示器函数$\mathbb{I}[y_n=h_t(x_n)]$不是$0$就是$1$, 所以$1-\mathbb{I}[y_n=h_t(x_n)]$不是$0$就是$1$
 
-总结, $(h^*_t(x), \beta^*_t)=argmin_{(h_t(x), \beta_t)}(e^{\beta_t}-e^{-\beta_t})\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]+e^{-\beta_t}\sum_n w_t(n)$. 之前我们说过, $w_t(n)=e^{-y_nf_{t-1}(x_n)}$, $y_n$是第$n$个样本的真实标签, $f_{t-1}(x_n)$是第$t-1$轮所有弱分类器加权投票后的值, 可以看出$\sum_n w_t(n)$这一部分其实等于$1$(因为在$t-1$轮结束之前会对所有的样本权重进行归一化处理), 和选择$h_t(x)$是没有关系的. 所以$h^*_t(x)=argmin_{h_t(x)}\epsilon_t=\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]$, 正好对应于Adaboost算法的第3.1步. 细心的同学可能会发现, 那$\beta_t$不是和这个损失函数也有关系吗? 不错, 是有关系, 但是我们这里将联合优化问题分解, 采用分步优化, 首先选择的是最佳的$h_t(x)$, 然后才选择最佳的$\beta_t$. 我们可以通过损失函数对$\beta_t$求导, 令其等于$0$, 从而求解最优的$\beta_t$, 可以解出$\beta^*_t=\frac{1}{2}\log\frac{1-\epsilon_t}{\epsilon_t}$, 正好对应于Adaboost算法的第3.2步. 
+总结, $(h^*_t(x), \beta^*_t)=argmin_{(h_t(x), \beta_t)}(e^{\beta_t}-e^{-\beta_t})\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]+e^{-\beta_t}\sum_n w_t(n)$. 之前我们说过, $w_t(n)=e^{-y_nf_{t-1}(x_n)}$, $y_n$是第$n$个样本的真实标签, $f_{t-1}(x_n)$是第$t-1$轮所有弱分类器加权投票后的值, 可以看出$\sum_n w_t(n)$这一部分其实等于$1$(因为在$t-1$轮结束之前会对所有的样本权重进行归一化处理), 和选择$h_t(x)$是没有关系的. 所以$h^*_t(x)=argmin_{h_t(x)}\epsilon_t=\sum_n w_t(n)\mathbb{I}[y_n\neq h_t(x_n)]$, 正好对应于Adaboost算法的第3.1步. 细心的同学可能会发现, 那$\beta_t$不是和这个损失函数也有关系吗? 不错, 是有关系, 但是我们这里将联合优化问题分解, 采用分步优化, 首先选择的是最佳的$h_t(x)$, 然后才选择最佳的$\beta_t$. 我们可以通过损失函数对$\beta_t$求导, 令其等于$0$, 从而求解最优的$\beta_t$, 可以解出$\beta^*_t=\frac{1}{2}\ln\frac{1-\epsilon_t}{\epsilon_t}$, 正好对应于Adaboost算法的第3.2步. 
 
 当我们求出最优的弱分类器和它的权重之后, 我们就可以更新分类器$f(x)=f_{t-1}(x)+\beta^*_t h_t^*(x)$. 第$n$个样本的权重$w_{t+1}(n)\propto e^{-y_nf(x_n)}=e^{-y_n[f_{t-1}(x)+\beta^*_t h^*_t(x_n)]}=w_t(n)e^{-y_n\beta^*_th^*_t(x_n)}$, 然后对其进行归一化处理. 从而, 分类错误的样本它的权重会增加, 分类正确的样本它的权重会减少.
 
