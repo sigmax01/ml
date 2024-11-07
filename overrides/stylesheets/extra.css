@@ -22,18 +22,26 @@ height: 24px;
 --md-footer-bg-color: white;
 --md-footer-bg-color--dark: white;
 --md-footer-fg-color: var(--md-typeset-color);
---md-footer-fg-color--light: rgba(18, 19, 23, 0.8);
+--md-footer-fg-color--light: var(--md-primary-color-dark);
   --md-footer-border-color: rgba(0, 0, 0, 0.1);
+  --md-top-custom: white;
 }
 [data-md-color-scheme="slate"] {
 --md-footer-logo-dark-mode:         block;
 --md-footer-logo-light-mode:         none;
---md-primary-fg-color: rgba(18, 19, 23, 0.8);
---md-header-bg-color: rgba(18, 19, 23, 0.8);
---md-footer-bg-color: rgba(18, 19, 23, 0.8);
---md-footer-bg-color--dark: rgba(18, 19, 23, 0.8);
---md-default-bg-color: rgba(18, 19, 23, 0.8);
+--md-primary-color-dark: rgba(18, 19, 23, 0.3);
+--md-primary-fg-color: var(--md-primary-color-dark);
+--md-header-bg-color: var(--md-primary-color-dark);
+--md-footer-bg-color: var(--md-primary-color-dark);
+--md-footer-bg-color--dark: var(--md-primary-color-dark);
+--md-default-bg-color: var(--md-primary-color-dark);
   --md-footer-border-color: rgba(256, 256, 256, 0.2);
+  --md-shadow-z2: 0 0.2rem 0.5rem #000,0 0 0.05rem #ffffff40;
+  --md-top-custom: rgba(18, 19, 23, 1);
+}
+
+.md-top {
+  background-color: var(--md-top-custom);
 }
 
 .md-tabs {
