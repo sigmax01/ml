@@ -45,7 +45,7 @@ comments: true
     - ♻️[如何计算集成学习模型的错误率](/algorithm/ensemble-learning/#why-ensemble-learning), 大概会有$1-(1-1/n)^m$的样本会被抽样到新的训练集中
     - ⚠️[Bagging如何进行抽样](/algorithm/ensemble-learning/#bagging)
     - ♻️[随机森林思想](/algorithm/ensemble-learning/#random-forest), 和Bagging差不多, 多了一个特征, 换汤不换药
-    - ☢️[Adaboost进行预测](/algorithm/ensemble-learning/#adaboost), 能够计算错误率, 基分类器的权重, 归一化后/前的样本集权重
+    - ☢️[Adaboost进行预测](/algorithm/ensemble-learning/#adaboost), 能够计算错误率(初始错误率为$1/n$), 基分类器的权重, 归一化后/前的样本集权重
 
         ???+ danger "特别注意"
 
