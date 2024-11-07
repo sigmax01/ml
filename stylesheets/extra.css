@@ -35,7 +35,7 @@ height: 24px;
 --md-header-bg-color: var(--md-primary-color-dark);
 --md-footer-bg-color: var(--md-primary-color-dark);
 --md-footer-bg-color--dark: var(--md-primary-color-dark);
---md-default-bg-color: var(--md-primary-color-dark);
+--md-default-bg-color: rgba(18, 19, 23, 1);
   --md-footer-border-color: rgba(256, 256, 256, 0.2);
   --md-shadow-z2: 0 0.2rem 0.5rem #000,0 0 0.05rem #ffffff40;
   --md-top-custom: rgba(18, 19, 23, 1);
