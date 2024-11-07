@@ -1426,7 +1426,7 @@
 <li><a href="/algorithm/dimensional-reduction">降维</a><ul>
 <li>⚠️<a href="/algorithm/dimensional-reduction/#确定PC的数量">计算最佳主成分数量</a>, 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)</li>
 <li>⚠️<a href="/algorithm/dimensional-reduction/#get-pc">如何通过奇异值分解确定主成分</a>, 看里面的例子, 取奇异值矩阵对角线的左上角部分对应的主成分</li>
-<li>☢️<a href="/algorithm/dimensional-reduction/#compression-rate">压缩率计算</a></li>
+<li>☢️<a href="/algorithm/dimensional-reduction/#compression-rate">压缩率计算</a>, 原来<span class="arithmatex">\(n\times m\)</span>的矩阵经过奇异值分解变成三个矩阵, 大小分别是<span class="arithmatex">\(n\times k\)</span>, <span class="arithmatex">\(k\times k\)</span>, <span class="arithmatex">\(\m\times k\)</span>, 所以新新占有空间为<span class="arithmatex">\(k(1+m+n)\)</span>, 压缩率为<span class="arithmatex">\(k(1+m+n)/(n\times m)\)</span>, <span class="arithmatex">\(k\)</span>就是主成分的数量, 对于样本数量非常大的情况下, <span class="arithmatex">\(m+1\)</span>可以忽略不计, 变为<span class="arithmatex">\(k/m\)</span></li>
 </ul>
 </li>
 <li>神经网络<ul>
