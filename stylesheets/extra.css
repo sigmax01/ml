@@ -24,7 +24,7 @@ height: 24px;
 --md-footer-fg-color: var(--md-typeset-color);
 --md-footer-fg-color--light: rgba(18, 19, 23, 0.6);
   --md-footer-border-color: rgba(0, 0, 0, 0.1);
-  --md-top-custom: white;
+  --md-top-custom: rgba(256, 256, 256, 0.2);
   --md-banner-color: rgba(18, 19, 23, 0.6);
 }
 [data-md-color-scheme="slate"] {
@@ -38,11 +38,12 @@ height: 24px;
 --md-default-bg-color: rgba(18, 19, 23, 1);
   --md-footer-border-color: rgba(256, 256, 256, 0.2);
   --md-shadow-z2: 0 0.2rem 0.5rem #000,0 0 0.05rem #ffffff40;
-  --md-top-custom: rgba(18, 19, 23, 1);
+  --md-top-custom: rgba(18, 19, 23, 0.2);
   --md-banner-color: var(--md-typeset-color);
 }
 
 .md-top {
+  backdrop-filter: saturate(180%) blur(20px);
   background-color: var(--md-top-custom);
 }
 
