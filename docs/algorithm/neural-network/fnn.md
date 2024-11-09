@@ -186,7 +186,7 @@ comments: true
 
 动量, momentum, 通过在权重更新公式中引入一个额外的动量项, 使得当前的权重更新依赖于之前的更新, 从而减少振荡并允许使用更大的学习率. 计算公式为$\Delta w_{pq}(t)=\eta\delta_q o_p + \mu(w_{pq}(t)-w_{pq}(t-1))$.
 
-## 初始化
+## 初始化 {#weight-initialization}
 
 神经网络模型的性能非常依赖于权重和截距的初始化.常见的做法有:
 

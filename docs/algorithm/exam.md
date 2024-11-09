@@ -71,6 +71,7 @@ comments: true
     - ⚠️[学习率大小](/algorithm/neural-network/fnn/#learning-rate). 学习率太小, 收敛很慢, 学习率太大, 可能造成震荡, 正确的做法是随着训练轮次的增加, 减少学习率
     - ♻️[Dropout](/algorithm/neural-network/#dropout). 每次反向迭代的时候, 随机选择部分神经元, 将其输出设置为$0$表示丢弃
     - ♻️[动量](/algorithm/neural-network/fnn/#momentum), 减少震荡的发生, 增大学习率, 方法是引入之前梯度更新的累积量, $\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p+\mu (w_{pq}(t)-w_{pq}(t-1))$
+    - ♻️[权重初始化策略](/algorithm/neural-network/fnn/#weight-initialization). 在-1->1内随机初始化或者从正态分布中随机采样, 标准差是$\sigma=\sqrt{\frac{2}{N_{in}+N_{out}}}$, 其中$N_{in}$是输入神经元的数量, $N_{out}$是输出神经元的数量, 注意, 这里的输入输出神经元不是整个神经网络的输入输出神经元, 是相对于当前层神经元来说的上一层/下一层神经元, 当前层神经元就是权重/截距待更新的神经元
 - [聚类](/algorithm/clustering)
     - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均
     - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)
