@@ -1497,6 +1497,7 @@ Bilibili:
 <li>⚠️<a href="/algorithm/neural-network/fnn/#learning-rate">学习率大小</a>. 学习率太小, 收敛很慢, 学习率太大, 可能造成震荡, 正确的做法是随着训练轮次的增加, 减少学习率</li>
 <li>♻️<a href="/algorithm/neural-network/#dropout">Dropout</a>. 每次反向迭代的时候, 随机选择部分神经元, 将其输出设置为<span class="arithmatex">\(0\)</span>表示丢弃</li>
 <li>♻️<a href="/algorithm/neural-network/fnn/#momentum">动量</a>, 减少震荡的发生, 增大学习率, 方法是引入之前梯度更新的累积量, <span class="arithmatex">\(\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p+\mu (w_{pq}(t)-w_{pq}(t-1))\)</span></li>
+<li>♻️<a href="/algorithm/neural-network/fnn/#weight-initialization">权重初始化策略</a>. 在-1-&gt;1内随机初始化或者从正态分布中随机采样, 标准差是<span class="arithmatex">\(\sigma=\sqrt{\frac{2}{N_{in}+N_{out}}}\)</span>, 其中<span class="arithmatex">\(N_{in}\)</span>是输入神经元的数量, <span class="arithmatex">\(N_{out}\)</span>是输出神经元的数量, 注意, 这里的输入输出神经元不是整个神经网络的输入输出神经元, 是相对于当前层神经元来说的上一层/下一层神经元, 当前层神经元就是权重/截距待更新的神经元</li>
 </ul>
 </li>
 <li><a href="/algorithm/clustering">聚类</a><ul>
