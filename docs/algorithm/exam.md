@@ -64,7 +64,7 @@ comments: true
 - [神经网络](/algorithm/neural-network)
     - ☢️[感知机学习过程](/algorithm/neural-network/#learning-algorithm), 权重更新公式$\bm{w}^{new}=\bm{w}^{old}+e\bm{x}^T$, $e=t-a$, $t$为目标输出($0$或$1$), $a$为实际输出($0$或$1$), $\bm{x}$为输入向量; 同时还要调整截距, $b^{new}=b^{old}+e$. 一般来说, 便于计算, 顶多一个Epoch. 结束条件是所有的样本都被正确分类or训练达到最大次数. 特别提醒, 计算一定要按照课件上的框架来, 很容易算错
     - ♻️[为什么神经网络往往有多层](/algorithm/neural-network/#logic-gates): 在现实世界中, 问题往往不是线性可分的, 通过感知机可以实现与门, 或门, 与非门, 通过这些门的组合能够得到更加复杂的边界
-    - ☢️[前向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), 给出一张网络的[图](https://img.ricolxwz.io/58a62f5af6cb3f0dcd287eb696e918a8.png), 计算最后的输出. 使用的是sigmoid函数, $y=1/(1+e^{-x})$
+    - ☢️[前向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), 给出一张网络的[图](https://img.ricolxwz.io/58a62f5af6cb3f0dcd287eb696e918a8.png), 计算最后的输出. 使用的是sigmoid函数, $y=1/(1+e^{-x})$, 这个函数记住
     - ☢️[反向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), $w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}$, 其中$\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p$. 根据$q$的不同, 有两个版本的反向传播公式, 若$q$是输出层神经元, 则$\delta_q=(t_q-o_q)f'(z_q)$, 若$q$是隐藏层神经元, 则$\delta_q=f'(z_q)\sum_i w_{qi}\delta_i$, 其中$f'(z_q)=o_q(1-o_q)$, $\eta$是学习率, $z_q$是$q$神经元激活函数处理前的输出, $f(z_q)=o_q$. 此外, 截距的更新公式为$\theta_q(t+1)=\theta_q(t)+\eta\cdot \delta_q$, 注意, *在计算前面神经元新权重的时候, 使用的$w_qi$是旧的权重, 不是新的权重*
     - ♻️训练方式: 标准的方法是每轮都会一个接一个把所有的样本过一遍神经网络. 其他方法有: a. 每一轮都对样本进行随机排序; b. 增大错误率高的样本出现的几率; c. 小批量轮次, 以N为单位输入样本, 取得它们的累积错误率, 然后一梭子反向传播
     - ⚠️[神经元的数量](/algorithm/neural-network/fnn/#neuron-num). 从较小的网络开始, 慢慢训练较大的网络, 直到准度不再升高
@@ -72,6 +72,9 @@ comments: true
     - ♻️[Dropout](/algorithm/neural-network/#dropout). 每次反向迭代的时候, 随机选择部分神经元, 将其输出设置为$0$表示丢弃
     - ♻️[动量](/algorithm/neural-network/fnn/#momentum), 减少震荡的发生, 增大学习率, 方法是引入之前梯度更新的累积量, $\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p+\mu (w_{pq}(t)-w_{pq}(t-1))$
     - ♻️[权重初始化策略](/algorithm/neural-network/fnn/#weight-initialization). 在-1->1内随机初始化或者从正态分布中随机采样, 标准差是$\sigma=\sqrt{\frac{2}{N_{in}+N_{out}}}$, 其中$N_{in}$是输入神经元的数量, $N_{out}$是输出神经元的数量, 注意, 这里的输入输出神经元不是整个神经网络的输入输出神经元, 是相对于当前层神经元来说的上一层/下一层神经元, 当前层神经元就是权重/截距待更新的神经元
+    - ♻️[Softmax](/algorithm/neural-network/#softmax): 假设输出为独热编码, 则输出向量的值$(o_1, ..., o_n)$可以通过softmax函数转换为概率, $p_i=\frac{e^{o_i}}{\sum_j e^{o_i}}$, 例子简单看下
+    - ⚠️[梯度消失](/algorithm/neural-network/#vanishing-gradient), 记得之前计算错误率$\delta_q$的时候, $f(z_q)'=o_q(1-o_q)$, $o_q=f(z_q)$, 经过激活函数激活后, $o_q$可能会非常接近$0$或者$1$, 导致计算出来的$\Delta w_{pq}$很小, 导致传播过程中梯度消失, 收敛变慢, 解决的方法是使用残差
+    - 🗑️其他神经网络: 大概率不会考很多, 大题不可能考CNN, RNN, Transformer. 所以, 可以随便翻一下, 过一眼结束了, 还有CNN注意一下卷积怎么算, 还有Max/Average Pooling怎么得到特征图的
 - [聚类](/algorithm/clustering)
     - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均
     - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)

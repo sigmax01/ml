@@ -231,7 +231,7 @@ Dropout是一种防止过拟合的方法.
 ![](https://img.ricolxwz.io/4fb64c6600f1837d32bee9477168fee8.png){ loading=lazy width='500' }
 </figure>
 
-### Softmax函数
+### Softmax函数 {#softmax}
 
 神经网络输出的结果能够被继续处理成为概率. 神经网络的输出为$(o_1, ..., o_n)$, softmax函数为$p_i=\frac{e^{o_i}}{\sum_j e^{o_i}}$. 
 

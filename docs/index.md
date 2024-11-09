@@ -17,7 +17,7 @@
     - [x] [随机变量的数字特征](/probability/numerical-characteristics-of-random-variable)
     - [ ] [大数定律与中心极限定理](/probability/large-number-central-limit-theorem)
 - [ ] [算法](/algorithm/)
-	- [ ] [考点](/algorithm/exam)
+	- [x] [考点](/algorithm/exam)
     - [x] [线性回归](/algorithm/linear-regression)
     - [x] [预处理](/algorithm/preprocessing)
     - [x] [最邻近](/algorithm/knn)
