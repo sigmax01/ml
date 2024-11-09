@@ -55,7 +55,7 @@ comments: true
     - ♻️[给定决策边界, 计算边际距离](/algorithm/svm/#maximize-lagrange-function), 套公式
     - ⚠️理解拉格朗日函数: 拉格朗日函数结合了约束条件$y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1$和目标$\frac{1}{2}||\boldsymbol{w}||^2$, 最小化目标就是最大化拉格朗日函数, $max \{L(\boldsymbol{w}, b, \boldsymbol{\lambda})\}=max \sum_{i=1}^N\lambda_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\lambda_i\lambda_jy_iy_j\boldsymbol{x_i}\cdot\boldsymbol{x_j}$, 其中, 最后有两个点积, 第一个是两个训练向量的类的点击, 后面是两个训练向量特征的点积
     - ☢️[给出拉格朗日乘数和支持向量计算决策边界](/algorithm/svm/#maximize-lagrange-function), 系数矩阵的解为$\boldsymbol{w}=\sum_{i=1}^N\lambda_iy_i\boldsymbol{x_i}$
-    - ⚠软边界和硬边界: 约束条件变为$y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1-\xi_i$, 目标函数变为$\frac{1}{2}||\bm{w}||^2+C\sum \xi_i$, $C$越大, 说明对于点分类越严格
+    - ⚠️软边界和硬边界: 约束条件变为$y_i(\boldsymbol{w}\cdot \boldsymbol{x_i}+b)\geq 1-\xi_i$, 目标函数变为$\frac{1}{2}||\bm{w}||^2+C\sum \xi_i$, $C$越大, 说明对于点分类越严格
     - ♻️[核方法如何简化点积计算](/algorithm/svm/#kernel-trick), 相当于上面拉格朗日方程中的$\bm{x_i}\cdot\bm{x_j}$的计算会大大简化
 - [降维](/algorithm/dimensional-reduction)
     - ⚠️[计算最佳主成分数量](/algorithm/dimensional-reduction/#确定PC的数量), 两种方法, 一种minimum percentage, 另一种elbow method(看图说话)
@@ -68,16 +68,19 @@ comments: true
     - [反向传播公式推导](/algorithm/neural-network/backpropagation)
     - [卷积计算](/algorithm/neural-network/cnn/#convolutional-layer)
 - [聚类](/algorithm/clustering)
-    - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link
+    - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均
     - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)
-    - ⚠️[选取初始质心的方法](/algorithm/clustering/#质心选取), 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法, 同时也可以解决空簇问题
-    - ♻️[GMM算法如何进行分簇](/algorithm/clustering/#gmm), 要知道正态分布的概率密度函数$f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$, 然后才能计算每个点属于特定正态分布的概率
-    - ♻️[聚合式算法如何进行分簇](/algorithm/clustering/#agglomerative-algorithm), 首先每个点当作一个簇, 然后慢慢合并距离最近的两个簇, 直到变成一整个簇, 看一下例子就行
-    - ⚠️[DBSCAN算法如何分簇](/algorithm/clustering/#dbscan), 把core point, border point, noise point, MinPts, Eps的理念搞搞懂.
+    - ⚠️[选取初始质心的方法](/algorithm/clustering/#质心选取), 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法
+    - ⚠️解决空簇问题: 使用上面选择初始质心的方法, 除了SSE. 选择SEE较高的簇, 从中选择一个起始点
+    - ⚠️解决离群问题: a. 在聚类开始之前移除outliers; b. 在聚类之后移除对SSE贡献异常大的点(优先)
+    - ♻️[GMM算法如何进行分簇](/algorithm/clustering/#gmm), 要知道正态分布的概率密度函数$f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$, 然后才能计算每个点属于特定正态分布的概率, 注意每个分布的权重, 点属于某个分布的概率为$p(distribution\ j|x_i, \theta)=\frac{w_jp(x_i|\theta_j)}{w_1p(x_i|\theta_1)+w_2p(x_i|\theta_2)}$, 然后新的权重为$\mu_1=\sum_{i=1}^n x_i\frac{p(distribution\ 1|x_i, \theta)}{\sum_{i=1}^n p(distribution\ 1|x_i, \theta)}$
+    - ♻️[聚合式算法如何进行分簇](/algorithm/clustering/#agglomerative-algorithm), 首先每个点当作一个簇, 然后慢慢合并距离最近的两个簇, 直到变成一整个簇, 看一下例子就行, 注意一下那个distance matrix
+    - ☢️[DBSCAN算法如何分簇](/algorithm/clustering/#dbscan), 把core point, border point, noise point, MinPts, Eps的理念搞搞懂, 特别注意, MinPts是包括自己的; a. 任何两个核心点, 若在各自对方的Eps内, 属于同一个簇; b. 任何边界点放在与其相关联的核心点所属的簇中; c. 噪声点抛弃
     - ⚠️[如何选择Eps和MinPts](/algorithm/clustering/#select-eps-minpts), 和elbow method很像, 画出一个点到$k$个最近邻居的距离图
     - ☢️[计算凝聚度/分离度](/algorithm/clustering/#conhesion-separration), 很简单, 但是很重要, 看清楚是不是平方距离 
-    - ⚠️[计算轮廓系数](/algorithm/clustering/#sihouette-coefficient), 对于一个点, 一个簇, 整个聚类, 计算轮廓系数有不同, 越大越好
+    - ♻️[计算轮廓系数](/algorithm/clustering/#sihouette-coefficient), 对于一个点, 一个簇, 整个聚类, 计算轮廓系数有不同, 越接近1越好, ai表示的是凝聚度, bi表示的分离度, ai越小越好, bi越大越好, $s_i=\frac{b_i-a_i}{max(a_i, b_i)}$
     - ♻️[相似度矩阵是啥](/algorithm/clustering/#correlation-similarity-matrix)
+    - ⚠️如何选择簇的数量: 选择SSE的拐点对应的簇的数量, 选择轮廓系数的最大值对应的簇数量 
 - [马尔可夫链](/algorithm/markov-chain)
     - ☢️[利用马尔科夫假设进行预测](/algorithm/markov-chain/#markov-assumption), 搞清楚三种概率, initial probability, transition probability, emission probability, 然后计算状态序列的概率
     - ♻️[HMM的两个假设](/algorithm/markov-chain/#hmm-assumptions): 齐次假设和观测独立性假设
