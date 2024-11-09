@@ -1487,8 +1487,8 @@ Bilibili:
 <li>☢️<a href="/algorithm/dimensional-reduction/#compression-rate">压缩率计算</a>, 原来<span class="arithmatex">\(n\times m\)</span>的矩阵经过奇异值分解变成三个矩阵, 大小分别是<span class="arithmatex">\(n\times k\)</span>, <span class="arithmatex">\(k\times k\)</span>, <span class="arithmatex">\(m\times k\)</span>, 所以新新占有空间为<span class="arithmatex">\(k(1+m+n)\)</span>, 压缩率为<span class="arithmatex">\(k(1+m+n)/(n\times m)\)</span>, <span class="arithmatex">\(k\)</span>就是主成分的数量, 对于样本数量非常大的情况下, <span class="arithmatex">\(m+1\)</span>可以忽略不计, 变为<span class="arithmatex">\(k/m\)</span></li>
 </ul>
 </li>
-<li>神经网络<ul>
-<li><a href="/algorithm/neural-network/#learning-algorithm">感知机学习过程</a></li>
+<li><a href="/algorithm/neural-network">神经网络</a><ul>
+<li>☢️<a href="/algorithm/neural-network/#learning-algorithm">感知机学习过程</a>, 权重更新公式<span class="arithmatex">\(\bm{w}^{new}=\bm{w}^{old}+e\bm{x}^T\)</span>, <span class="arithmatex">\(e=t-a\)</span>, <span class="arithmatex">\(t\)</span>为目标输出(<span class="arithmatex">\(0\)</span>或<span class="arithmatex">\(1\)</span>), <span class="arithmatex">\(a\)</span>为实际输出(<span class="arithmatex">\(0\)</span>或<span class="arithmatex">\(1\)</span>), <span class="arithmatex">\(\bm{x}\)</span>为输入向量; 同时还要调整截距, <span class="arithmatex">\(b^{new}=b^{old}+e\)</span>. 一般来说, 便于计算, 顶多一个Epoch. 结束条件是所有的样本都被正确分类or训练达到最大次数. 特别提醒, 计算一定要按照课件上的框架来, 很容易算错</li>
 <li><a href="/algorithm/neural-network/fnn/#training-procedure">前馈神经网络学习过程</a></li>
 <li><a href="/algorithm/neural-network/fnn/#backpropagation-algorithm">反向传播算法</a></li>
 <li><a href="/algorithm/neural-network/backpropagation">反向传播公式推导</a></li>
