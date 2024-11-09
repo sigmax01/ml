@@ -89,10 +89,12 @@ comments: true
     - ☢️[前向算法](/algorithm/markov-chain/#forward-algorithm), 初始值是$A_0(k)e_k(x_1)$, 前向概率是$e_k(x_i)\sum_j f_j(i-1)a_{jk}$, 最终对所有状态前向概率求和
     - ☢️[Viterbi算法](/algorithm/markov-chain/#viterbi), 初始值是$A_0(k)e_k(x_1)$, 前向概率是$e_k(x_i)max_j V_j(i-1)a_{jk}$, 最大的Viterbi得分是最终状态, 然后通过回溯指针找到前面所有的状态
 - [强化学习](/algorithm/reinforcement-learning)
+    - ♻️智能体: 在每一个时间步, 智能体接受状态和奖励, 执行动作. 环境接受动作, 更新状态, 发出新的奖励
     - ♻️[折扣因子是啥](/algorithm/reinforcement-learning/#mdp), 表示对未来的重视程度, 较高的$\gamma$对应更关注长期回报
-    - ⚠️[两种价值函数, Bellman方程, 最优Q值函数](/algorithm/reinforcement-learning/#value-function)
+    - ⚠️[两种价值函数, Bellman方程, 最优Q值函数](/algorithm/reinforcement-learning/#value-function), state-value函数衡量的是当前的状态在遵循Policy的预期累积回报; action-value函数是在当前状态下采取行动后遵循Policy的预期累积回报
+    - ⚠️最优Q函数和Bellman方程: 最优Q函数就是在所有可能的Policy中, 最大的预期累积回报. 最优Q函数遵循Bellman方程, Q*等于即时回报和将来回报乘以折扣因子, $Q^*(s, a) = \mathbb{E}_{s' \sim \mathcal{E}} \left[ r + \gamma \max_{a'} Q^*(s', a') \,|\, s, a \right]$
     - ⚠️[Q学习算法](/algorithm/reinforcement-learning/#q-algo), 核心思想是维护一张Q表, 每次迭代都会对某个Q值进行增量更新(使用Bellman方程), 最终得到的Q表中的所有值近似收敛于最佳Q值
-    - ⚠️[深度Q学习算法](/algorithm/reinforcement-learning/#dql), 这里只考虑状态是连续的, 但是动作不是连续的(因为输出的动作概率预测是离散的), 核心思想是维护一个Q网络, 使用和目标Q值之间的差作为损失函数, 输入状态, 给出所有动作的可能性. 在每轮迭代中, 利用$\epsilon$调控探索/利用选择动作, 并维护一个记忆池打破和时间的相关性, 从记忆池中均匀采样然后反向传播更新Q网络的权重. 为了防止目标Q值计算的不稳定, 我们引入一个目标Q网络, 使用目标Q网络来选择动作, 而使用原始Q网络计算目标Q值, 这个目标Q网络和原始Q网络的差异是目标Q网络在一段时间内会保持不变, 但是原始Q网络是每次迭代结束都会改变的
+    - ⚠️[深度Q学习算法](/algorithm/reinforcement-learning/#dql), 这里只考虑状态是连续的, 但是动作不是连续的(因为输出的动作概率预测是离散的), 核心思想是维护一个Q网络, 使用和目标Q值之间的差作为损失函数$L = \left( r + \gamma \max_{a'} Q_w(s', a') - Q_w(s, a) \right)^2$, 输入状态, 给出所有动作的可能性. 在每轮迭代中, 利用$\epsilon$调控探索/利用选择动作, 并维护一个记忆池打破和时间的相关性, 从记忆池中均匀采样然后反向传播更新Q网络的权重. 为了防止目标Q值计算的不稳定, 我们引入一个目标Q网络, 使用目标Q网络来评估选择的动作, 而使用原始Q网络选择动作, 这个目标Q网络和原始Q网络的差异是目标Q网络在一段时间内会保持不变, 但是原始Q网络是每次迭代结束都会改变的, 损失函数变为$L=(r+\gamma Q_{\hat{w}}(s', argmax_{a'}Q_w(s', a')) - Q_w(s, a))^2$
 
 ## 其他
 
