@@ -64,7 +64,9 @@ comments: true
 - [神经网络](/algorithm/neural-network)
     - ☢️[感知机学习过程](/algorithm/neural-network/#learning-algorithm), 权重更新公式$\bm{w}^{new}=\bm{w}^{old}+e\bm{x}^T$, $e=t-a$, $t$为目标输出($0$或$1$), $a$为实际输出($0$或$1$), $\bm{x}$为输入向量; 同时还要调整截距, $b^{new}=b^{old}+e$. 一般来说, 便于计算, 顶多一个Epoch. 结束条件是所有的样本都被正确分类or训练达到最大次数. 特别提醒, 计算一定要按照课件上的框架来, 很容易算错
     - ♻️[为什么神经网络往往有多层](/algorithm/neural-network/#logic-gates): 在现实世界中, 问题往往不是线性可分的, 通过感知机可以实现与门, 或门, 与非门, 通过这些门的组合能够得到更加复杂的边界
-    - ☢️[反向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), $w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}$, 其中$\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p$. 根据$q$的不同, 有两个版本的反向传播公式, 若$q$是输出层神经元, 则$\delta_q=(t_q-o_q)f'(z_q)$, 若$q$是隐藏层神经元, 则$\delta_q=f'(z_q)\sum_i w_{qi}\delta_i$, 其中$f'(z_q)=o_q(1-o_q)$, $\eta$是学习率, $z_q$是$q$神经元激活函数处理前的输出, $f(z_q)=o_q$
+    - ☢️[前向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), 给出一张网络的[图](https://img.ricolxwz.io/58a62f5af6cb3f0dcd287eb696e918a8.png), 计算最后的输出. 使用的是sigmoid函数, $y=1/(1+e^{-x})$
+    - ⚠️[反向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), $w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}$, 其中$\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p$. 根据$q$的不同, 有两个版本的反向传播公式, 若$q$是输出层神经元, 则$\delta_q=(t_q-o_q)f'(z_q)$, 若$q$是隐藏层神经元, 则$\delta_q=f'(z_q)\sum_i w_{qi}\delta_i$, 其中$f'(z_q)=o_q(1-o_q)$, $\eta$是学习率, $z_q$是$q$神经元激活函数处理前的输出, $f(z_q)=o_q$
+    - ⚠️[神经元的数量](/algorithm/neural-network/fnn/#neuron-num). 从较小的网络开始, 慢慢训练较大的网络, 直到准度不再升高
 - [聚类](/algorithm/clustering)
     - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均
     - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)
