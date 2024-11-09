@@ -1493,6 +1493,9 @@ Bilibili:
 <li>☢️<a href="/algorithm/neural-network/fnn/#backpropagation-algorithm">前向传播</a>, 给出一张网络的<a href="https://img.ricolxwz.io/58a62f5af6cb3f0dcd287eb696e918a8.png">图</a>, 计算最后的输出. 使用的是sigmoid函数, <span class="arithmatex">\(y=1/(1+e^{-x})\)</span></li>
 <li>☢️<a href="/algorithm/neural-network/fnn/#backpropagation-algorithm">反向传播</a>, <span class="arithmatex">\(w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}\)</span>, 其中<span class="arithmatex">\(\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p\)</span>. 根据<span class="arithmatex">\(q\)</span>的不同, 有两个版本的反向传播公式, 若<span class="arithmatex">\(q\)</span>是输出层神经元, 则<span class="arithmatex">\(\delta_q=(t_q-o_q)f'(z_q)\)</span>, 若<span class="arithmatex">\(q\)</span>是隐藏层神经元, 则<span class="arithmatex">\(\delta_q=f'(z_q)\sum_i w_{qi}\delta_i\)</span>, 其中<span class="arithmatex">\(f'(z_q)=o_q(1-o_q)\)</span>, <span class="arithmatex">\(\eta\)</span>是学习率, <span class="arithmatex">\(z_q\)</span>是<span class="arithmatex">\(q\)</span>神经元激活函数处理前的输出, <span class="arithmatex">\(f(z_q)=o_q\)</span>. 此外, 截距的更新公式为<span class="arithmatex">\(\theta_q(t+1)=\theta_q(t)+\eta\cdot \delta_q\)</span></li>
 <li>⚠️<a href="/algorithm/neural-network/fnn/#neuron-num">神经元的数量</a>. 从较小的网络开始, 慢慢训练较大的网络, 直到准度不再升高</li>
+<li>⚠️<a href="/algorithm/neural-network/fnn/#learning-rate">学习率大小</a>. 学习率太小, 收敛很慢, 学习率太大, 可能造成震荡, 正确的做法是随着训练轮次的增加, 减少学习率</li>
+<li>♻️<a href="/algorithm/neural-network/#dropout">Dropout</a>. 每次反向迭代的时候, 随机选择部分神经元, 将其输出设置为<span class="arithmatex">\(0\)</span>表示丢弃</li>
+<li>♻️<a href="/algorithm/neural-network/fnn/#momentum">动量</a>, 减少震荡的发生, 增大学习率</li>
 </ul>
 </li>
 <li><a href="/algorithm/clustering">聚类</a><ul>

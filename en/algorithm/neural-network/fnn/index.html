@@ -1206,7 +1206,7 @@ Bilibili:
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#learning-rate" class="md-nav__link">
     <span class="md-ellipsis">
       学习率
     </span>
@@ -1224,7 +1224,7 @@ Bilibili:
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       初始化
     </span>
@@ -1566,7 +1566,7 @@ Bilibili:
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#learning-rate" class="md-nav__link">
     <span class="md-ellipsis">
       学习率
     </span>
@@ -1584,7 +1584,7 @@ Bilibili:
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       初始化
     </span>
@@ -1772,7 +1772,7 @@ Bilibili:
 <li>此时, 向隐藏层中添加一些新神经元, 并使用随机初始化的权重重新训练网络, 均方误差会减少, 如<a href="https://img.ricolxwz.io/b8176513be1475a51dbd250cd4e9bcdc.png">图</a></li>
 <li>重复上述步骤, 直到满足终止条件, 例如添加新神经元不会导致显著的误差减少, 或者隐藏层达到设定的最大大小</li>
 </ol>
-<h2 id="_7">学习率</h2>
+<h2 id="learning-rate">学习率</h2>
 <p>神经网络的性能和学习率的相关性非常大. </p>
 <ul>
 <li>若学习率太小: 收敛地很慢</li>
@@ -1790,7 +1790,7 @@ Bilibili:
 <p>其中, <span class="arithmatex">\(\eta_n\)</span>表示第<span class="arithmatex">\(n\)</span>批次的学习率, <span class="arithmatex">\(d\)</span>是一个超参数, 表示衰减率.</p>
 <h2 id="动量">动量</h2>
 <p>动量, momentum, 通过在权重更新公式中引入一个额外的动量项, 使得当前的权重更新依赖于之前的更新, 从而减少振荡并允许使用更大的学习率. 计算公式为<span class="arithmatex">\(\Delta w_{pq}(t)=\eta\delta_q o_p + \mu(w_{pq}(t)-w_{pq}(t-1))\)</span>.</p>
-<h2 id="_8">初始化</h2>
+<h2 id="_7">初始化</h2>
 <p>神经网络模型的性能非常依赖于权重和截距的初始化.常见的做法有:</p>
 <ul>
 <li>标准的做法: 从<span class="arithmatex">\(-1\)</span>到<span class="arithmatex">\(1\)</span>之间选择小的随机数</li>
