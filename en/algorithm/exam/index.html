@@ -1499,8 +1499,8 @@ Bilibili:
 <li>♻️<a href="/algorithm/clustering/#簇的距离">给出两个簇中所有点的坐标, 计算簇的距离</a>, 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均</li>
 <li>☢️<a href="/algorithm/clustering/#k-means">K-means聚类如何分簇</a></li>
 <li>⚠️<a href="/algorithm/clustering/#质心选取">选取初始质心的方法</a>, 无非三种方法, 选择离当前质心最远的点, 随机选取点但有最小SSE, 使用K-means++算法</li>
-<li>⚠️解决空簇问题: 使用上面选择初始质心的方法, 除了SSE. 选择SEE较高的簇, 从中选择一个起始点</li>
-<li>⚠️解决离群问题: a. 在聚类开始之前移除outliers; b. 在聚类之后移除对SSE贡献异常大的点(优先)</li>
+<li>⚠️<a href="/algorithm/clustering/#empty-cluster">解决空簇问题</a>: 使用上面选择初始质心的方法, 除了SSE. 选择SEE较高的簇, 从中选择一个起始点</li>
+<li>⚠️<a href="/algorithm/clustering/#outliers">解决离群问题</a>: a. 在聚类开始之前移除outliers; b. 在聚类之后移除对SSE贡献异常大的点(优先)</li>
 <li>♻️<a href="/algorithm/clustering/#gmm">GMM算法如何进行分簇</a>, 要知道正态分布的概率密度函数<span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>, 然后才能计算每个点属于特定正态分布的概率, 注意每个分布的权重, 点属于某个分布的概率为<span class="arithmatex">\(p(distribution\ j|x_i, \theta)=\frac{w_jp(x_i|\theta_j)}{w_1p(x_i|\theta_1)+w_2p(x_i|\theta_2)}\)</span>, 然后新的权重为<span class="arithmatex">\(\mu_1=\sum_{i=1}^n x_i\frac{p(distribution\ 1|x_i, \theta)}{\sum_{i=1}^n p(distribution\ 1|x_i, \theta)}\)</span></li>
 <li>♻️<a href="/algorithm/clustering/#agglomerative-algorithm">聚合式算法如何进行分簇</a>, 首先每个点当作一个簇, 然后慢慢合并距离最近的两个簇, 直到变成一整个簇, 看一下例子就行, 注意一下那个distance matrix</li>
 <li>☢️<a href="/algorithm/clustering/#dbscan">DBSCAN算法如何分簇</a>, 把core point, border point, noise point, MinPts, Eps的理念搞搞懂, 特别注意, MinPts是包括自己的; a. 任何两个核心点, 若在各自对方的Eps内, 属于同一个簇; b. 任何边界点放在与其相关联的核心点所属的簇中; c. 噪声点抛弃</li>
@@ -1508,7 +1508,7 @@ Bilibili:
 <li>☢️<a href="/algorithm/clustering/#conhesion-separration">计算凝聚度/分离度</a>, 很简单, 但是很重要, 看清楚是不是平方距离 </li>
 <li>♻️<a href="/algorithm/clustering/#sihouette-coefficient">计算轮廓系数</a>, 对于一个点, 一个簇, 整个聚类, 计算轮廓系数有不同, 越接近1越好, ai表示的是凝聚度, bi表示的分离度, ai越小越好, bi越大越好, <span class="arithmatex">\(s_i=\frac{b_i-a_i}{max(a_i, b_i)}\)</span></li>
 <li>♻️<a href="/algorithm/clustering/#correlation-similarity-matrix">相似度矩阵是啥</a></li>
-<li>⚠️如何选择簇的数量: 选择SSE的拐点对应的簇的数量, 选择轮廓系数的最大值对应的簇数量 </li>
+<li>⚠️<a href="/algorithm/clustering/#choose-number-cluster">如何选择簇的数量</a>: 选择SSE的拐点对应的簇的数量, 选择轮廓系数的最大值对应的簇数量 </li>
 </ul>
 </li>
 <li><a href="/algorithm/markov-chain">马尔可夫链</a><ul>
@@ -1521,10 +1521,10 @@ Bilibili:
 </ul>
 </li>
 <li><a href="/algorithm/reinforcement-learning">强化学习</a><ul>
-<li>♻️智能体: 在每一个时间步, 智能体接受状态和奖励, 执行动作. 环境接受动作, 更新状态, 发出新的奖励</li>
+<li>♻️<a href="/algorithm/reinforcement-learning/#definition">智能体</a>: 在每一个时间步, 智能体接受状态和奖励, 执行动作. 环境接受动作, 更新状态, 发出新的奖励</li>
 <li>♻️<a href="/algorithm/reinforcement-learning/#mdp">折扣因子是啥</a>, 表示对未来的重视程度, 较高的<span class="arithmatex">\(\gamma\)</span>对应更关注长期回报</li>
 <li>⚠️<a href="/algorithm/reinforcement-learning/#value-function">两种价值函数, Bellman方程, 最优Q值函数</a>, state-value函数衡量的是当前的状态在遵循Policy的预期累积回报; action-value函数是在当前状态下采取行动后遵循Policy的预期累积回报</li>
-<li>⚠️最优Q函数和Bellman方程: 最优Q函数就是在所有可能的Policy中, 最大的预期累积回报. 最优Q函数遵循Bellman方程, Q*等于即时回报和将来回报乘以折扣因子, <span class="arithmatex">\(Q^*(s, a) = \mathbb{E}_{s' \sim \mathcal{E}} \left[ r + \gamma \max_{a'} Q^*(s', a') \,|\, s, a \right]\)</span></li>
+<li>⚠️<a href="/algorithm/reinforcement-learning/#bellman-function}">最优Q函数和Bellman方程</a>: 最优Q函数就是在所有可能的Policy中, 最大的预期累积回报. 最优Q函数遵循Bellman方程, Q*等于即时回报和将来回报乘以折扣因子, <span class="arithmatex">\(Q^*(s, a) = \mathbb{E}_{s' \sim \mathcal{E}} \left[ r + \gamma \max_{a'} Q^*(s', a') \,|\, s, a \right]\)</span></li>
 <li>⚠️<a href="/algorithm/reinforcement-learning/#q-algo">Q学习算法</a>, 核心思想是维护一张Q表, 每次迭代都会对某个Q值进行增量更新(使用Bellman方程), 最终得到的Q表中的所有值近似收敛于最佳Q值</li>
 <li>⚠️<a href="/algorithm/reinforcement-learning/#dql">深度Q学习算法</a>, 这里只考虑状态是连续的, 但是动作不是连续的(因为输出的动作概率预测是离散的), 核心思想是维护一个Q网络, 使用和目标Q值之间的差作为损失函数<span class="arithmatex">\(L = \left( r + \gamma \max_{a'} Q_w(s', a') - Q_w(s, a) \right)^2\)</span>, 输入状态, 给出所有动作的可能性. 在每轮迭代中, 利用<span class="arithmatex">\(\epsilon\)</span>调控探索/利用选择动作, 并维护一个记忆池打破和时间的相关性, 从记忆池中均匀采样然后反向传播更新Q网络的权重. 为了防止目标Q值计算的不稳定, 我们引入一个目标Q网络, 使用目标Q网络来评估选择的动作, 而使用原始Q网络选择动作, 这个目标Q网络和原始Q网络的差异是目标Q网络在一段时间内会保持不变, 但是原始Q网络是每次迭代结束都会改变的, 损失函数变为<span class="arithmatex">\(L=(r+\gamma Q_{\hat{w}}(s', argmax_{a'}Q_w(s', a')) - Q_w(s, a))^2\)</span></li>
 </ul>
