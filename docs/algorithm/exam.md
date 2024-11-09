@@ -67,6 +67,9 @@ comments: true
     - ☢️[前向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), 给出一张网络的[图](https://img.ricolxwz.io/58a62f5af6cb3f0dcd287eb696e918a8.png), 计算最后的输出. 使用的是sigmoid函数, $y=1/(1+e^{-x})$
     - ☢️[反向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), $w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}$, 其中$\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p$. 根据$q$的不同, 有两个版本的反向传播公式, 若$q$是输出层神经元, 则$\delta_q=(t_q-o_q)f'(z_q)$, 若$q$是隐藏层神经元, 则$\delta_q=f'(z_q)\sum_i w_{qi}\delta_i$, 其中$f'(z_q)=o_q(1-o_q)$, $\eta$是学习率, $z_q$是$q$神经元激活函数处理前的输出, $f(z_q)=o_q$. 此外, 截距的更新公式为$\theta_q(t+1)=\theta_q(t)+\eta\cdot \delta_q$
     - ⚠️[神经元的数量](/algorithm/neural-network/fnn/#neuron-num). 从较小的网络开始, 慢慢训练较大的网络, 直到准度不再升高
+    - ⚠️[学习率大小](/algorithm/neural-network/fnn/#learning-rate). 学习率太小, 收敛很慢, 学习率太大, 可能造成震荡, 正确的做法是随着训练轮次的增加, 减少学习率
+    - ♻️[Dropout](/algorithm/neural-network/#dropout). 每次反向迭代的时候, 随机选择部分神经元, 将其输出设置为$0$表示丢弃
+    - ♻️[动量](/algorithm/neural-network/fnn/#momentum), 减少震荡的发生, 增大学习率
 - [聚类](/algorithm/clustering)
     - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均
     - ☢️[K-means聚类如何分簇](/algorithm/clustering/#k-means)
