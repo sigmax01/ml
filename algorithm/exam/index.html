@@ -1489,10 +1489,8 @@ Bilibili:
 </li>
 <li><a href="/algorithm/neural-network">神经网络</a><ul>
 <li>☢️<a href="/algorithm/neural-network/#learning-algorithm">感知机学习过程</a>, 权重更新公式<span class="arithmatex">\(\bm{w}^{new}=\bm{w}^{old}+e\bm{x}^T\)</span>, <span class="arithmatex">\(e=t-a\)</span>, <span class="arithmatex">\(t\)</span>为目标输出(<span class="arithmatex">\(0\)</span>或<span class="arithmatex">\(1\)</span>), <span class="arithmatex">\(a\)</span>为实际输出(<span class="arithmatex">\(0\)</span>或<span class="arithmatex">\(1\)</span>), <span class="arithmatex">\(\bm{x}\)</span>为输入向量; 同时还要调整截距, <span class="arithmatex">\(b^{new}=b^{old}+e\)</span>. 一般来说, 便于计算, 顶多一个Epoch. 结束条件是所有的样本都被正确分类or训练达到最大次数. 特别提醒, 计算一定要按照课件上的框架来, 很容易算错</li>
-<li><a href="/algorithm/neural-network/fnn/#training-procedure">前馈神经网络学习过程</a></li>
-<li><a href="/algorithm/neural-network/fnn/#backpropagation-algorithm">反向传播算法</a></li>
-<li><a href="/algorithm/neural-network/backpropagation">反向传播公式推导</a></li>
-<li><a href="/algorithm/neural-network/cnn/#convolutional-layer">卷积计算</a></li>
+<li>♻️<a href="/algorithm/neural-network/#logic-gates">为什么神经网络往往有多层</a>: 在现实世界中, 问题往往不是线性可分的, 通过感知机可以实现与门, 或门, 与非门, 通过这些门的组合能够得到更加复杂的边界</li>
+<li>☢️<a href="/algorithm/neural-network/fnn/#backpropagation-algorithm">反向传播</a>, <span class="arithmatex">\(w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}\)</span>, 其中<span class="arithmatex">\(\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p\)</span>. 根据<span class="arithmatex">\(q\)</span>的不同, 有两个版本的反向传播公式, 若<span class="arithmatex">\(q\)</span>是输出层神经元, 则<span class="arithmatex">\(\delta_q=(t_q-o_q)f'(z_q)\)</span>, 若<span class="arithmatex">\(q\)</span>是隐藏层神经元, 则<span class="arithmatex">\(\delta_q=f'(z_q)\sum_i w_{qi}\delta_i\)</span>, 其中<span class="arithmatex">\(f'(z_q)=o_q(1-o_q)\)</span>, <span class="arithmatex">\(\eta\)</span>是学习率, <span class="arithmatex">\(z_q\)</span>是<span class="arithmatex">\(q\)</span>神经元激活函数处理前的输出, <span class="arithmatex">\(f(z_q)=o_q\)</span></li>
 </ul>
 </li>
 <li><a href="/algorithm/clustering">聚类</a><ul>

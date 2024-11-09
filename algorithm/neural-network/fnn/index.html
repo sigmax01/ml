@@ -1646,7 +1646,7 @@ Bilibili:
 <li>每个神经元的输入在完成加权和计算后, 会通过一个激活函数, 这个激活函数不局限于阶跃函数, 可以是ReLu, Sigmoid, Tanh函数, 最常用的是Sigmoid函数. 特别注意, 这个激活函数要可微</li>
 </ul>
 <h2 id="backpropagation-algorithm">反向传播算法</h2>
-<p>对于每一个训练样本<span class="arithmatex">\(\{\bm{x}, t\}\)</span>, <span class="arithmatex">\(\bm{x}=\{x_1, x_2, ..., x_n\}\)</span>, <span class="arithmatex">\(t\)</span>为其标签. 将其传入网络, 直到输出层, 这个过程称为正向传播, 将其输出<span class="arithmatex">\(o\)</span>与标签<span class="arithmatex">\(t\)</span>进行比较, 计算误差, 根据误差, 从输出层到输入层逐级反向传播, 调整每个神经元的权重, 以减小误差, 这个过程就是反向传播. 权重的更新公式为<span class="arithmatex">\(w_{pq}^{new}=w_{pq}^{old}+\Delta w_{pq}\)</span>. 这种过程会被不断重复, 即正向-&gt;反向-&gt;正向-&gt;反向, 直到输出层输出结果的误差在可以接受的范围内. "正向-&gt;反向"这样的一次更新就成为一次迭代, 或一个批次.</p>
+<p>对于每一个训练样本<span class="arithmatex">\(\{\bm{x}, t\}\)</span>, <span class="arithmatex">\(\bm{x}=\{x_1, x_2, ..., x_n\}\)</span>, <span class="arithmatex">\(t\)</span>为其标签. 将其传入网络, 直到输出层, 这个过程称为正向传播, 将其输出<span class="arithmatex">\(o\)</span>与标签<span class="arithmatex">\(t\)</span>进行比较, 计算误差, 根据误差, 从输出层到输入层逐级反向传播, 调整每个神经元的权重, 以减小误差, 这个过程就是反向传播. 权重的更新公式为<span class="arithmatex">\(w_{pq}^{new}=w_{pq}^{old}+\Delta w_{pq}\)</span>. 这种过程会被不断重复, 即正向-&gt;反向-&gt;正向-&gt;反向, 直到输出层输出结果的误差在可以接受的范围内. "正向-&gt;反向"这样的一次更新就称为一次迭代.</p>
 <p>那么, 我们怎么计算这个权重变化<span class="arithmatex">\(\Delta w_{pq}\)</span>的呢? 参考线性回归, 我们可以定义一个误差损失函数然后使用梯度下降算法解决. 如均方误差函数, MSE. 每一次迭代/每一个批次对应于下山的"一步", 在山上的每一个位置对应于一组权重配置, 梯度的方向是误差增加最快的方向, 沿着负梯度的方向移动则可以使误差减小. 目标是通过调整权重, 使模型"下坡", 最终达到地形的最低点, 这样误差最小, 模型性能最佳. 用来下山的步子被称为"学习率", 这是算法的一个超参数.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/4392978da300d80f0485a0aa396966ff.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4392978da300d80f0485a0aa396966ff.png" width="500" /></a></p>
@@ -1818,7 +1818,7 @@ Bilibili:
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月9日</span>
   </span>
 
     
