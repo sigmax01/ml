@@ -73,13 +73,17 @@ comments: true
     - ☢️[前向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), 给出一张网络的[图](https://img.ricolxwz.io/58a62f5af6cb3f0dcd287eb696e918a8.png), 计算最后的输出. 使用的是sigmoid函数, $y=1/(1+e^{-x})$, 这个函数记住
     - ☢️[反向传播](/algorithm/neural-network/fnn/#backpropagation-algorithm), $w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}$, 其中$\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p$. 根据$q$的不同, 有两个版本的反向传播公式, 若$q$是输出层神经元, 则$\delta_q=(t_q-o_q)f'(z_q)$, 若$q$是隐藏层神经元, 则$\delta_q=f'(z_q)\sum_i w_{qi}\delta_i$, 其中$f'(z_q)=o_q(1-o_q)$, $\eta$是学习率, $z_q$是$q$神经元激活函数处理前的输出, $f(z_q)=o_q$. 此外, 截距的更新公式为$\theta_q(t+1)=\theta_q(t)+\eta\cdot \delta_q$, 注意, *在计算前面神经元新权重的时候, 使用的$w_qi$是旧的权重, 不是新的权重*
     - ♻️训练方式: 标准的方法是每轮都会一个接一个把所有的样本过一遍神经网络. 其他方法有: a. 每一轮都对样本进行随机排序; b. 增大错误率高的样本出现的几率; c. 小批量轮次, 以N为单位输入样本, 取得它们的累积错误率, 然后一梭子反向传播
+    - ♻️[感知机能够实现什么门](/algorithm/neural-network/#logic-gates), 感知机能够实现与门, 或门, 与非门, 但是不能实现异或门
     - ⚠️[神经元的数量](/algorithm/neural-network/fnn/#neuron-num). 从较小的网络开始, 慢慢训练较大的网络, 直到准度不再升高
     - ⚠️[学习率大小](/algorithm/neural-network/fnn/#learning-rate). 学习率太小, 收敛很慢, 学习率太大, 可能造成震荡, 正确的做法是随着训练轮次的增加, 减少学习率
     - ♻️[Dropout](/algorithm/neural-network/#dropout). 每次反向迭代的时候, 随机选择部分神经元, 将其输出设置为$0$表示丢弃
-    - ♻️[动量](/algorithm/neural-network/fnn/#momentum), 减少震荡的发生, 增大学习率, 方法是引入之前梯度更新的累积量, $\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p+\mu (w_{pq}(t)-w_{pq}(t-1))$
+    - ♻️[动量](/algorithm/neural-network/fnn/#动量), 减少震荡的发生, 增大学习率, 方法是引入之前梯度更新的累积量, $\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p+\mu (w_{pq}(t)-w_{pq}(t-1))$
     - ♻️[权重初始化策略](/algorithm/neural-network/fnn/#weight-initialization). 在-1->1内随机初始化或者从正态分布中随机采样, 标准差是$\sigma=\sqrt{\frac{2}{N_{in}+N_{out}}}$, 其中$N_{in}$是输入神经元的数量, $N_{out}$是输出神经元的数量, 注意, 这里的输入输出神经元不是整个神经网络的输入输出神经元, 是相对于当前层神经元来说的上一层/下一层神经元, 当前层神经元就是权重/截距待更新的神经元
     - ♻️[Softmax](/algorithm/neural-network/#softmax): 假设输出为独热编码, 则输出向量的值$(o_1, ..., o_n)$可以通过softmax函数转换为概率, $p_i=\frac{e^{o_i}}{\sum_j e^{o_i}}$, 例子简单看下
     - ⚠️[梯度消失](/algorithm/neural-network/#vanishing-gradient), 记得之前计算错误率$\delta_q$的时候, $f(z_q)'=o_q(1-o_q)$, $o_q=f(z_q)$, 经过激活函数激活后, $o_q$可能会非常接近$0$或者$1$, 导致计算出来的$\Delta w_{pq}$很小, 导致传播过程中梯度消失, 收敛变慢, 解决的方法是使用残差
+    - ⚠️[计算卷积结果](/algorithm/neural-network/cnn/#convolutional-layer), 给你一个3*3的卷积核, 计算卷积结果, 特征图中为零的部分说明是没有特征, 明显大于0的部分说明有特征
+    - ♻️[CNN的超参数](/algorithm/neural-network/cnn/#stride): CNN的超参数主要有两个, 一个是stride, 步长, 可用来控制特征图的大小; 一个是padding, 用来处理图像的边缘区域, 防止边缘的特征丢失. receptive field输入图像上的某个区域, 这个区域能够影响特征图中的某个元素. 
+    - ⚠️[池化](/algorithm/neural-network/cnn/#subsampling-layer): 主要有两种方式, 一种是最大池化, 选择区域中的最大值, 一种是平均池化. 一般来说, 如果图像是白底黑字, 则使用平均池化, 如果是黑底白字, 则使用最大池化
     - 🗑️其他神经网络: 大概率不会考很多, 大题不可能考CNN, RNN, Transformer. 所以, 可以随便翻一下, 过一眼结束了, 还有CNN注意一下卷积怎么算, 还有Max/Average Pooling怎么得到特征图的
 - [聚类](/algorithm/clustering)
     - ♻️[给出两个簇中所有点的坐标, 计算簇的距离](/algorithm/clustering/#簇的距离), 考虑single link, complete link, averge link, 分别是距离最小, 最大, 平均
