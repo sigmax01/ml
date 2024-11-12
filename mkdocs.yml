@@ -200,3 +200,5 @@ nav:
     - 聚类: algorithm/clustering.md
     - 马尔可夫链: algorithm/markov-chain.md
     - 强化学习: algorithm/reinforcement-learning.md
+  - 项目:
+    - 泰坦尼克: project/kaggle/titanic.ipynb

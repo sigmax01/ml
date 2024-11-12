@@ -36,6 +36,8 @@
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
+- [ ] 项目
+    - [ ] [泰坦尼克](/project/kaggle/titanic)
 
 ## 推荐
 
