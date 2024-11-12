@@ -197,6 +197,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/random-event-and-probability/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/project/kaggle/titanic/</loc>
+        <lastmod>2024-11-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/project/kaggle/titanic/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/project/kaggle/titanic/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/en/</loc>
         <lastmod>2024-11-12</lastmod>
         <changefreq>daily</changefreq>
@@ -391,5 +398,12 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/random-event-and-probability/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/random-event-and-probability/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/project/kaggle/titanic/</loc>
+        <lastmod>2024-11-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/project/kaggle/titanic/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/project/kaggle/titanic/"/>
     </url>
 </urlset>
