@@ -6,6 +6,7 @@
 
 - [基石库](https://gk.ricolxwz.de)
 - [派森贰](https://py.ricolxwz.de)
+- [无底洞](https://cpp.ricolxwz.de)
 - [杂七杂八档案室](https://misc.ricolxwz.de)
 
 ## 进度
