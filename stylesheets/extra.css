@@ -26,8 +26,6 @@ height: 24px;
   --md-footer-border-color: rgba(0, 0, 0, 0.1);
   --md-top-custom: rgba(256, 256, 256, 0.2);
   --md-banner-color: rgba(18, 19, 23, 0.6);
-  --md-comment: 1px solid rgba(0, 0, 0, 0.3);
-  --waline-bg-color: white;
 }
 [data-md-color-scheme="slate"] {
 --md-footer-logo-dark-mode:         block;
@@ -42,8 +40,6 @@ height: 24px;
   --md-shadow-z2: 0 0.2rem 0.5rem #000,0 0 0.05rem #ffffff40;
   --md-top-custom: rgba(18, 19, 23, 0.2);
   --md-banner-color: var(--md-typeset-color);
-  --md-comment: 1px solid rgba(256, 256, 256, 0.4);
-  --waline-bg-color: var(--md-primary-color-dark)
 }
 
 .md-top {
@@ -112,59 +108,4 @@ border-left-width: 4px;
 :root {
 --md-code-font: "mononoki", "HarmonyOS Sans SC";
 --md-text-font: "mononoki", "HarmonyOS Sans SC";
---waline-theme-color: var(--md-accent-fg-color);
---waline-active-color: var(--md-typeset-a-color);
-}
-
-
-.wl-panel {
-  border: var(--md-comment);
-}
-
-.wl-power {
-  display: none;
-}
-
-.wl-count {
-  display: none;
-}
-
-.wl-empty {
-  display: none;
-}
-
-#waline * {
-  font-family: 'mononoki', "HarmonyOS Sans SC";
-}
-
-.wl-meta-head {
-  display: none;
-}
-
-.wl-loading {
-  display: none;
-}
-
-.wl-editor:focus {
-  background: none;
-}
-
-.wl-input:focus {
-  background: none;
-}
-
-button.wl-action:nth-child(2) {
-  display: none;
-}
-
-button.wl-action:nth-child(3) {
-  display: none;
-}
-
-label.wl-action {
-  display: none;
-}
-
-button.wl-action:nth-child(6) {
-  display: none;
 }
