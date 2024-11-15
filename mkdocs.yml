@@ -94,6 +94,7 @@ extra:
   #   property: G-65D8M5V1CL
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
+  - https://unpkg.com/@waline/client@v3/dist/waline.css
   - stylesheets/extra.css
 extra_javascript:
   - javascripts/favicon.js
