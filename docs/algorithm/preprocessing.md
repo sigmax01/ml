@@ -1,6 +1,6 @@
 ---
 title: 预处理
-comments: true
+comments: false
 ---
 
 ## 数据

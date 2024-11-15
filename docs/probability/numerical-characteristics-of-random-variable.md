@@ -1,6 +1,6 @@
 ---
 title: 随机变量的数字特征
-comments: true
+comments: false
 ---
 
 ## 一维随机变量的数字特征

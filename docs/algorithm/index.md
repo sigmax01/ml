@@ -1,6 +1,6 @@
 ---
 title: 绪论
-comments: true
+comments: false
 ---
 
 ## 配套课程

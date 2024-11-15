@@ -1,6 +1,6 @@
 ---
 title: 反向传播公式推导
-comments: true
+comments: false
 ---
 
 ## 符号设定

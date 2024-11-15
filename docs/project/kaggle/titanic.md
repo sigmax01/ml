@@ -1,6 +1,6 @@
 ---
 title: 泰坦尼克
-comments: true
+comments: false
 ---
 
 ## Jupyter Notebook

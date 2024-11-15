@@ -1,6 +1,6 @@
 ---
 title: 支持向量机
-comments: true
+comments: false
 ---
 
 ???+ info "信息"

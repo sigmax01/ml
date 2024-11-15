@@ -1,6 +1,6 @@
 ---
 title: 决策树
-comments: true
+comments: false
 ---
 
 ## 历史

@@ -1,6 +1,6 @@
 ---
 title: 朴素贝叶斯
-comments: true
+comments: false
 ---
 
 ## 贝叶斯理论

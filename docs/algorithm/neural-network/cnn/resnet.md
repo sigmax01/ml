@@ -1,6 +1,6 @@
 ---
 title: ResNet
-comments: true
+comments: false
 ---
 
 在深度学习中, 网络的"深度", 即层数通常和模型的能力成正比. 然而, 随着网络深度的增加, 一些问题也随之出现, 最突出的就是[梯度消失和爆炸问题](/algorithm/neural-network/#vanishing-gradient), 这使得深层网络难以训练.

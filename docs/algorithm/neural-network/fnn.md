@@ -1,6 +1,6 @@
 ---
 title: 前馈神经网络
-comments: true
+comments: false
 ---
 
 ## 架构

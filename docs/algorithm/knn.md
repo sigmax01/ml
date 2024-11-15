@@ -1,6 +1,6 @@
 ---
 title: 最邻近算法
-comments: true
+comments: false
 ---
 
 ## 背景

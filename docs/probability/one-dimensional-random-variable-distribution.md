@@ -1,6 +1,6 @@
 ---
 title: 一维随机变量及其分布
-comments: true
+comments: false
 ---
 
 ## 随机变量

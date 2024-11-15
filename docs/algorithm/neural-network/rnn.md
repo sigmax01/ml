@@ -1,6 +1,6 @@
 ---
 title: 递归神经网络
-comments: true
+comments: false
 ---
 
 递归神经网络, Recurrent Neural Networks, RNN, 用于处理序列化的数据. 文字或者自然语言就是一种序列化的数据, 段落就是单词的序列, 每个段落可能有不同数量的单词, 每个段落中可能包含有长距离依赖关系的单词, 如`The dog in that house is aggressive"和"The dogs in that house are aggressive"中的🐕和谓语之间的长距离依赖关系. 处理这种类型的数据需要模型能够"记住"之前序列中的某些信息.

@@ -1,6 +1,6 @@
 ---
 title: 大数定律与中心极限定理
-comments: true
+comments: false
 ---
 
 ## 依概率收敛

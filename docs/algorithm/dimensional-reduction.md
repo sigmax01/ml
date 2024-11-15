@@ -1,6 +1,6 @@
 ---
 title: 降维
-comments: true
+comments: false
 ---
 
 ## 动机
