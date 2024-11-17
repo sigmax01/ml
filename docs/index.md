@@ -38,7 +38,7 @@
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
 - [ ] 项目
-    - [ ] [泰坦尼克](/project/kaggle/titanic)
+    - [ ] [情感分析](/project/sentiment-analysis/)
 
 ## 推荐
 
