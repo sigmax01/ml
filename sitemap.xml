@@ -197,11 +197,11 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/random-event-and-probability/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/project/kaggle/titanic/</loc>
+        <loc>https://ml.ricolxwz.de/project/sentiment-analysis/</loc>
         <lastmod>2024-11-17</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/project/kaggle/titanic/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/project/kaggle/titanic/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/project/sentiment-analysis/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/project/sentiment-analysis/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/</loc>
@@ -400,10 +400,10 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/random-event-and-probability/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/project/kaggle/titanic/</loc>
+        <loc>https://ml.ricolxwz.de/en/project/sentiment-analysis/</loc>
         <lastmod>2024-11-17</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/project/kaggle/titanic/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/project/kaggle/titanic/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/project/sentiment-analysis/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/project/sentiment-analysis/"/>
     </url>
 </urlset>
