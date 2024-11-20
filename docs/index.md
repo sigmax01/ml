@@ -47,3 +47,5 @@
 - [数据科学家需要哪些能力](https://cn.linkedin.com/pulse/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E5%AE%B6%E9%9C%80%E8%A6%81%E5%93%AA%E4%BA%9B%E8%83%BD%E5%8A%9B-song-xue)
 - [高等数学+线性代数pdf](https://drive.google.com/file/d/1uJUmy7Oq01kbhPDJRsWitrzaWtva4A9F/view?usp=sharing)
 - [动手实战人工智能 AI By Doing](https://aibydoing.com/)
+
+[DMIT CN2 GIA电信优质线路注册链接](https://www.dmit.io/aff.php?aff=11247)
