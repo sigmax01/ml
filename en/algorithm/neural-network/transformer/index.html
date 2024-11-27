@@ -2009,7 +2009,7 @@
 <p>CBOW的模型通常包括以下的步骤:</p>
 <ol>
 <li>输入表示, 输入是一组上下文单词, 通常是独热编码之后的结果. 假设词汇表的大小是<span class="arithmatex">\(V\)</span>, 上下文窗口大小为<span class="arithmatex">\(c\)</span>, 即每个上下文的独热向量大小为<span class="arithmatex">\(V\)</span>, 输入矩阵的形状是<span class="arithmatex">\(c\times V\)</span></li>
-<li>嵌入层, 使用嵌入矩阵<span class="arithmatex">\(W\)</span>将高纬稀疏的独热向量映射为低微密集向量. 嵌入矩阵的大小为<span class="arithmatex">\(V\times d\)</span>, 其中<span class="arithmatex">\(d\)</span>是嵌入维度, 对于每个上下文单词, 它的嵌入结果为<span class="arithmatex">\(\bm{e_i}=\bm{W}^T\cdot x_i\)</span>, 其中, <span class="arithmatex">\(\bm{x_i}\)</span>是第<span class="arithmatex">\(i\)</span>个上下文单词的独热向量</li>
+<li>嵌入层, 使用嵌入矩阵<span class="arithmatex">\(W\)</span>将高维稀疏的独热向量映射为低维密集向量. 嵌入矩阵的大小为<span class="arithmatex">\(V\times d\)</span>, 其中<span class="arithmatex">\(d\)</span>是嵌入维度, 对于每个上下文单词, 它的嵌入结果为<span class="arithmatex">\(\bm{e_i}=\bm{W}^T\cdot x_i\)</span>, 其中, <span class="arithmatex">\(\bm{x_i}\)</span>是第<span class="arithmatex">\(i\)</span>个上下文单词的独热向量</li>
 <li>平均上下文向量: 将所有上下文单词的嵌入向量取平均, <span class="arithmatex">\(\bm{h}=\frac{1}{c}\sum_{i=1}^c\bm{e_i}\)</span>, 这里的<span class="arithmatex">\(\bm{h}\)</span>是一个<span class="arithmatex">\(d\)</span>维的向量, 作为中心单词的语义表示</li>
 <li>输出层: 使用一个线性变换和Softmax激活函数将<span class="arithmatex">\(\bm{h}\)</span>转换为概率分布<span class="arithmatex">\(p(w_{target}|w_{context})=Softmax(\bm{U}\cdot \bm{h})\)</span>, 其中, <span class="arithmatex">\(\bm{U}\)</span>是权重矩阵, 大小为<span class="arithmatex">\(d\times V\)</span>, 输出是对词汇表中每个单词的概率预测</li>
 </ol>
