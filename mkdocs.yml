@@ -201,6 +201,7 @@ nav:
     - 聚类: algorithm/clustering.md
     - 马尔可夫链: algorithm/markov-chain.md
     - 强化学习: algorithm/reinforcement-learning.md
-  - 项目:
-    - 情感分析:
-      - project/sentiment-analysis/index.md
+  - 论文:
+    - 深度学习:
+      - Transformer: 
+        - 10.48550/arXiv.1706.03762: paper/attention-is-all-you-need.md
