@@ -37,8 +37,6 @@
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
-- [ ] 项目
-    - [ ] [情感分析](/project/sentiment-analysis/)
 
 ## 推荐
 
@@ -49,3 +47,7 @@
 - [动手实战人工智能 AI By Doing](https://aibydoing.com/)
 
 [DMIT CN2 GIA电信优质线路注册链接](https://www.dmit.io/aff.php?aff=11247)
+
+## 状态
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b0cb135b-2f6f-431b-b7e8-78374038ab9f/deploy-status)](https://app.netlify.com/sites/sigmax01-ml/deploys)
