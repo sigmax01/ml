@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -12,28 +12,26 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/en/algorithm/markov-chain/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/paper/attention-is-all-you-need/">
       
       
-        <link rel="prev" href="../clustering/">
+        <link rel="prev" href="../../algorithm/reinforcement-learning/">
       
       
-        <link rel="next" href="../reinforcement-learning/">
       
-      
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
-        <title>马尔可夫链 - 机器蝉</title>
+        <title>10.48550/arXiv.1706.03762 - 机器蝉</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -56,9 +54,9 @@
     
       <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,7 +67,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/mononoki@5.1.0/index.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css">
 
-   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -78,7 +76,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -97,8 +95,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#markov-assumption" class="md-skip">
-          Skip to content
+        <a href="#2023-08-02-attention-is-all-you-need" class="md-skip">
+          跳转至
         </a>
       
     </div>
@@ -107,7 +105,7 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+              <button class="md-banner__button md-icon" aria-label="不再显示此消息">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
               </button>
@@ -137,8 +135,8 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../" title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -179,7 +177,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              马尔可夫链
+              10.48550/arXiv.1706.03762
             
           </span>
         </div>
@@ -229,20 +227,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="Select language">
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../../../algorithm/markov-chain/" hreflang="zh" class="md-select__link">
+            <a href="./" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="./" hreflang="en" class="md-select__link">
+            <a href="../../en/paper/attention-is-all-you-need/" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
@@ -261,21 +259,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -288,7 +286,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -299,7 +297,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/sigmax01/ml" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/sigmax01/ml" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -320,7 +318,7 @@
         
           
             
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -331,7 +329,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../" class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
     
@@ -367,13 +365,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../algorithm/" class="md-tabs__link">
           
   
     
@@ -389,23 +385,29 @@
         
   
   
+    
+  
   
     
     
       
   
   
+    
+  
   
     
     
       
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../paper/attention-is-all-you-need/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
     
@@ -444,9 +446,9 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../" title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -477,7 +479,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/sigmax01/ml" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/sigmax01/ml" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -520,7 +522,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../.." class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -730,8 +732,6 @@
       
   
   
-    
-  
   
   
     
@@ -772,22 +772,21 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../algorithm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -798,13 +797,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             算法
@@ -820,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam/" class="md-nav__link">
+      <a href="../../algorithm/exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -841,7 +840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../linear-regression/" class="md-nav__link">
+      <a href="../../algorithm/linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -862,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../preprocessing/" class="md-nav__link">
+      <a href="../../algorithm/preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -883,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../knn/" class="md-nav__link">
+      <a href="../../algorithm/knn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -904,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../naive-bayes/" class="md-nav__link">
+      <a href="../../algorithm/naive-bayes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -925,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../evaluation/" class="md-nav__link">
+      <a href="../../algorithm/evaluation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -946,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../decision-tree/" class="md-nav__link">
+      <a href="../../algorithm/decision-tree/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -967,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ensemble-learning/" class="md-nav__link">
+      <a href="../../algorithm/ensemble-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -988,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../svm/" class="md-nav__link">
+      <a href="../../algorithm/svm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1009,7 +1008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dimensional-reduction/" class="md-nav__link">
+      <a href="../../algorithm/dimensional-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1061,7 +1060,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../neural-network/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1094,7 +1093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neural-network/fnn/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/fnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1140,7 +1139,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../neural-network/cnn/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/cnn/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1173,7 +1172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neural-network/cnn/resnet/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1202,7 +1201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neural-network/rnn/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/rnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1223,7 +1222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neural-network/transformer/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transformer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1252,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../clustering/" class="md-nav__link">
+      <a href="../../algorithm/clustering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1270,28 +1269,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    马尔可夫链
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../algorithm/markov-chain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1300,153 +1281,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#markov-assumption" class="md-nav__link">
-    <span class="md-ellipsis">
-      马尔可夫假设
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      隐马尔可夫模型
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="隐马尔可夫模型">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      参数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hmm-assumptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      假设
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hmm-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      问题
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#evaluation-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      概率计算问题
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概率计算问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#forward-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      前向算法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      预测问题
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="预测问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#viterbi" class="md-nav__link">
-    <span class="md-ellipsis">
-      Viterbi算法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      学习问题
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="学习问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      期望最大化算法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1459,7 +1293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reinforcement-learning/" class="md-nav__link">
+      <a href="../../algorithm/reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1484,8 +1318,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1494,19 +1330,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -1517,7 +1354,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             论文
@@ -1528,8 +1365,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1541,13 +1380,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
         
           
           <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
@@ -1561,7 +1398,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             深度学习
@@ -1572,8 +1409,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1585,13 +1424,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_1" checked>
         
           
           <label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
@@ -1605,7 +1442,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_1_1">
             <span class="md-nav__icon md-icon"></span>
             Transformer
@@ -1616,10 +1453,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../paper/attention-is-all-you-need/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    10.48550/arXiv.1706.03762
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1628,6 +1485,125 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      导言背景
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="导言背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNN模型的缺陷
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      CNN模型的缺陷
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      端到端记忆网络
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型架构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      简易结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      批归一化和层归一化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      结论
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="结论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      局部, 受限注意力机制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1669,78 +1645,51 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#markov-assumption" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      马尔可夫假设
+      导言背景
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="导言背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNN模型的缺陷
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#cnn" class="md-nav__link">
     <span class="md-ellipsis">
-      隐马尔可夫模型
+      CNN模型的缺陷
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="隐马尔可夫模型">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      参数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hmm-assumptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      假设
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hmm-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      问题
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#evaluation-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      概率计算问题
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概率计算问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#forward-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      前向算法
+      端到端记忆网络
     </span>
   </a>
   
@@ -1750,45 +1699,30 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      预测问题
+      模型架构
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="预测问题">
+    <nav class="md-nav" aria-label="模型架构">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#viterbi" class="md-nav__link">
-    <span class="md-ellipsis">
-      Viterbi算法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      学习问题
+      简易结构
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="学习问题">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      期望最大化算法
+      批归一化和层归一化
     </span>
   </a>
   
@@ -1798,9 +1732,23 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      结论
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="结论">
+      <ul class="md-nav__list">
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      局部, 受限注意力机制
+    </span>
+  </a>
   
 </li>
         
@@ -1825,7 +1773,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/algorithm/markov-chain.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/paper/attention-is-all-you-need.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1834,285 +1782,67 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/algorithm/markov-chain.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/paper/attention-is-all-you-need.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>马尔可夫链</h1>
+<h1 id="2023-08-02-attention-is-all-you-need">(2023-08-02) Attention is all you need (关注就是你所需要的一切)</h1>
+<table><tbody><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">Author:</span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)"> Ashish Vaswani; Noam Shazeer; Niki Parmar; Jakob Uszkoreit; Llion Jones; Aidan N. Gomez; Lukasz Kaiser; Illia Polosukhin;</span></span></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Journal: (Publication Date: 2023-08-02)</span></span></strong></p></td></tr><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">Journal Tags:</span></span></strong></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Local Link: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)"><a href="zotero://open-pdf/0_K3RI73ET" rel="noopener noreferrer nofollow">Vaswani 等 - 2023 - Attention is all you need.pdf</a></span></span></p></td></tr><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">DOI: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)"><a href="https://doi.org/10.48550/arXiv.1706.03762" rel="noopener noreferrer nofollow">10.48550/arXiv.1706.03762</a></span></span></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Abstract Translation: </span></span></strong><em><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">主要的序列转导模型基于编码器-解码器配置中的复杂递归或卷积神经网络。性能最佳的模型还通过注意力机制连接编码器和解码器。我们提出了一种新的简单网络架构，即 Transformer，它完全基于注意力机制，完全省去了递归和卷积。对两项机器翻译任务的实验表明，这些模型在质量上上乘，同时并行化程度更高，并且需要的训练时间明显减少。我们的模型在 WMT 2014 英语到德语的翻译任务中实现了 28.4 BLEU，比现有的最佳结果有所改进，包括超过 2 BLEU 的集成。在 WMT 2014 英语到法语翻译任务中，我们的模型在 8 个 GPU 上训练 3.5 天后，建立了一个新的单模型最先进的 BLEU 分数，即 41.8，这只是文献中最佳模型的训练成本的一小部分。我们表明，Transformer 成功地将其应用于具有大量和有限训练数据的英语选区解析，从而很好地推广到其他任务。</span></span></em></p></td></tr><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">Tags:</span></span></strong></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Note Date: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">2024/11/30 19:56:28</span></span></p></td></tr></tbody></table>
 
-<p>马尔可夫链因俄国数学家Andrey Andreyevich Markov得名, 为状态空间中从一个状态到另一个状态转换的随机过程, 该过程要求具备"无记忆"的性质, 下一状态的概率分布只能由当前状态决定, 在时间序列中和它前面的事件无关, 这种特定类型的"无记忆性"称作马尔可夫性质.</p>
-<h2 id="markov-assumption">马尔可夫假设</h2>
-<p>马尔可夫假设是马尔可夫链的基础.公式可以表示为<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1})\)</span>. 它说明, 当前状态<span class="arithmatex">\(S_{t}\)</span>只依赖于上一个状态<span class="arithmatex">\(S_{t-1}\)</span>, 而与之前的状态<span class="arithmatex">\(S_{1}, ..., S_{t-2}\)</span>无关. 对于其余状态也是同理的.</p>
-<p>上述只是一阶马尔可夫假设, 即假定当前的状态仅依赖于前面一个状态. 由此衍生出<span class="arithmatex">\(k\)</span>阶马尔可夫假设, 即假设当前状态依赖于最近的<span class="arithmatex">\(k\)</span>个状态, 即<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1}, ..., S_{t-k})\)</span>. 这个概率又叫作状态转移概率.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/7b64c88a1a92c1805aecf02b76d5c679.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7b64c88a1a92c1805aecf02b76d5c679.png" width="400" /></a></p>
-</figure>
-<details class="example" open="open">
-<summary>例子</summary>
-<p>通过今天的天气预测明天的天气. 假设今天是雨天☔️, 预测明天的天气, 符合(一阶)马尔可夫假设. 下面是形象的概率图.</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/06853a90f88f172bc0e710a6f551656d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/06853a90f88f172bc0e710a6f551656d.png" width="300" /></a>
-</figure></p>
-<p>我们可以看到, 从雨天到晴天的概率是<span class="arithmatex">\(0.3\)</span>, 从雨天到阴天的概率是<span class="arithmatex">\(0.3\)</span>, 从雨天到雨天的概率是<span class="arithmatex">\(0.4\)</span>, 所以明天大概率还是雨天. 我们可以将上图用一个矩阵来表示.</p>
-<div class="arithmatex">\[
-S = \begin{bmatrix}
-S_{11} &amp; S_{12} &amp; \cdots &amp; S_{1N} \\
-S_{21} &amp; S_{22} &amp; \cdots &amp; S_{2N} \\
-S_{31} &amp; S_{32} &amp; \cdots &amp; S_{3N} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
-\end{bmatrix}
-\]</div>
-<p>其中<span class="arithmatex">\(S_{ij}=p(S_t=j|S_{t-1}=i)\)</span>, 表示从<span class="arithmatex">\(i\)</span>到<span class="arithmatex">\(j\)</span>的转移概率. 那么, 我们可不可以从任意的初始状态开始, 推导出后面的所有状态呢? 假设起始概率为<span class="arithmatex">\(\pi_i\)</span>, 表示马尔可夫链从状态<span class="arithmatex">\(i\)</span>开始. </p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/89db496511dfb7d4cedd80c50aad8a05.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/89db496511dfb7d4cedd80c50aad8a05.png" width="300" /></a>
-</figure></p>
-<p>给你一个小小的练习, 计算下列天气变化的可能性:</p>
+<h2 id="_1">导言背景</h2>
+<h3 id="rnn">RNN模型的缺陷</h3>
+<p>“This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必须全部运算完成. 如果时序比较长的话, 可能会导致前面的信息到后面就丢失掉了. 如果不想丢掉的话, 就需要做一个比较大的ht, 这会导致很高昂的内存开销.</p>
+<p>“In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>一开始的时候, 这些注意力机制可能都是和RNN结合起来使用的, 而没有成为一个独立的体系.</p>
+<h3 id="cnn">CNN模型的缺陷</h3>
+<p>“In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12].” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>使用CNN的时候, 每一次它去看的是一个比较小的窗口, 如3*3的卷积核. 如果两个像素隔的比较远的时候, 需要较多的层才能把这两个像素融合起来.</p>
+<p>但是Transformer模型通过注意力机制每一次能够看到所有的像素, 在一层中就能够看到. CNN比较好的地方是它有很多个输出通道, 每个通道可以去识别不同的模式. 所以说它提出了一个多头注意力机制, 模拟CNN的多输出通道的效果.</p>
+<h3 id="_2">端到端记忆网络</h3>
+<p>“End-to-end memory networks are based on a recurrent attention mechanism instead of sequencealigned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>“端到端”指的是一种系统设计方法, 意味着从输入到输出的整个过程由一个单一的系统或者模型直接完成, 通常不需要人工干预或者多个独立的模块.</p>
+<p>端到端记忆网络是主要用于处理需要长期依赖记忆的任务. 它在功能上和LSTM类似, 但是在结构或者说工作方式上有显著不同. 前者引入了一个独立的外部记忆模块, 该模块是一个可供模型读取和写入的内存池, 模型通过注意力机制与这个外部记忆池的交互来保存和获取信息, 从而支持长期依赖. 而LSTM本身是通过门机制来管理和控制记忆的, 它的记忆是隐式的, 即记忆是通过递归传递的内部状态(cell state)来存储的, 而不是通过外部记忆池进行显式存储.</p>
+<h2 id="_3">模型架构</h2>
+<h3 id="_4">简易结构</h3>
+<p>“Here, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence of continuous representations z = (z1, ..., zn)” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>编码器会将输入的字符映射到一个连续的表示空间(潜空间)中.</p>
+<p>“Given z, the decoder then generates an output sequence (y1, ..., ym) of symbols one element at a time.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>解码器得到编码器的输出之后会根据它一个一个的生成字符, 注意这里的输出序列的长度和输入序列的长度是不一样的, 这是因为seq2seq中得到的文本长度和原始文本长度大概率是有差异的(比如英文转中文).</p>
+<p>“At each step the model is auto-regressive [10], consuming the previously generated symbols as additional input when generating the next.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+<p>这里用到了自回归(auto-regressive), 也就是说, 解码器在生成yt的时候已经有y1-yt-1这些输出了, 这些输出继续当作它的输入.</p>
+<h3 id="_5">批归一化和层归一化</h3>
+<p>“LayerNorm” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 3</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=3">pdf</a>)</p>
 <ul>
-<li>晴天 -&gt; 晴天 -&gt; 多云 -&gt; 多云</li>
-<li>多云 -&gt; 晴天 -&gt; 多云 -&gt; 雨天</li>
+<li>
+<p><strong>批归一化(BatchNorm):</strong> 是对每个batch内的样本的每个特征进行归一化, 具体来说, 它会计算整个batch中的每个特征的均值和方差, 然后基于这些统计量对所有的样本进行归一化. 因此, BN的计算是跨样本的, 即竖着计算. 注意, 学习和预测时候的BN是不一样的, 学习的时候是这个batch里面的特征取均值和方差; 预测的时候是整个样本集的特征取均值和方差</p>
+</li>
+<li>
+<p><strong>层归一化(LayerNorm):</strong> 是对每个样本的所有特征进行归一化. 它计算每个样本的所有特征的均值和方差, 因此是横着归一化的</p>
+</li>
 </ul>
-</details>
-<h2 id="_1">隐马尔可夫模型</h2>
-<p>在普通的马尔可夫模型中, 系统的状态是完全可见的. 也就是说, 每个时刻系统处于哪个状态是已知的, 可以直接观测到. 而在隐马尔可夫模型, HMM中, 系统的状态是隐藏的, 无法直接观测到, 但是受状态影像的某些变量是可见的. 每一个状态在可能输出的序号上都有一概率分布, 因此输出符号的序列能够透露出状态序列的一些信息.</p>
-<details class="example" open="open">
-<summary>例子</summary>
-<p>假设现在我们漂到了一个岛上, 这里没有天气预报, 只有一片片的海藻, 而这些海藻的状态如干燥, 潮湿等和天气的变换有一定的关系, 既然海藻是能看到的, 那它就是<em>观测状态</em>, 天气信息看不到就是<em>隐藏状态</em>.</p>
-<p>再举一个例子, 如下图所示是一个普通马尔可夫模型.</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/2e166902b66dc31881b927e274c403a4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2e166902b66dc31881b927e274c403a4.png" width="400" /></a>
-</figure></p>
-<p>HMM就是在这个基础上, 加入了一个隐藏状态和观测状态的概念.</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/015f83e68047ff2b374f6a36781a7bd6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/015f83e68047ff2b374f6a36781a7bd6.png" width="400" /></a>
-</figure></p>
-<p>图中, X的状态是不可见的, 而Y的状态是可见的. 我们可以将X看成是天气情况, 而Y看成是某个人穿的衣物类型, 如下图所示.</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/5ad9c697155c00ebf6ee8e4f8fd611b4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/5ad9c697155c00ebf6ee8e4f8fd611b4.png" width="400" /></a>
-</figure></p>
-<p>我们的任务就是从这个人穿的衣物类型预测天气变化. 在这里, 有两种类型的概率:</p>
+<p>所以, BN抹平了不同特征之间的大小关系, 而保留了不同样本之间的大小关系. 这样, 如果具体任务依赖于不同样本之间的联系, BN更有效, 尤其是在CV领域, 不同图片样本之间的大小关系得以保留. LN抹平了不同样本之间的大小关系, 而保留了不同特征之间的大小关系. 所以, LN更加适合NLP任务, 一个样本实际上就是不同的词向量, 通过LN可以保留特征之间的关系.</p>
+<p>对于NLP来说, 归一化是三维的, 因为每一个序列样本由多个单词组成. 它的坐标分别为batch(表示某一个样本也就是某个序列), seq(表示某个序列中的单词), feature(表示这个单词的词向量).</p>
+<h2 id="_6">结论</h2>
+<h3 id="_7">局部, 受限注意力机制</h3>
+<p>“We plan to extend the Transformer to problems involving input and output modalities other than text and to investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio and video.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 10</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=10">pdf</a>)</p>
+<p>在Transformer模型中, 传统过的注意力机制允许序列中的每个元素都能关注到序列中的所有其他元素. 这种全局注意力机制虽然强大, 但是当处理图像, 音频和视频等大型输入和输出的时候, 计算成本非常高.</p>
+<p><strong>局部, 受限注意力机制</strong>是为了解决这个问题而提出的方法. 它通过限制每个元素的注意力范围, 只允许它关注到序列中的局部区域, 从而降低了计算复杂度.</p>
+<p>它常见的实现方式有:</p>
 <ul>
-<li>转移概率: transition probabilities, 从一个隐藏状态到另一个隐藏状态的概率</li>
-<li>观测概率: emission probabilities, 从一个隐藏状态到一个观测变量的过程</li>
-</ul>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/3faef5ee59ce156c08236dbc928ce456.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/3faef5ee59ce156c08236dbc928ce456.png" width="300" /></a>
-</figure></p>
-<p>注意⚠️, HMM模型做了两个很重要的假设:</p>
-<ol>
-<li>齐次马尔可夫链假设: 当前的隐藏状态之和前一个隐藏状态有关</li>
-<li>观测独立性假设: <strong>某个观测状态只和生成它的隐藏状态有关, 和别的观测状态无关</strong></li>
-</ol>
-<p>下图给出了一个可能的观测状态和隐藏状态之间的关系, 这个就是HMM所要达到的最终效果.</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/1150eb0fe6c7bfe1390438827e567784.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1150eb0fe6c7bfe1390438827e567784.png" width="400" /></a>
-</figure></p>
-<p>可视化表达: </p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png" width="400" /></a>
-</figure></p>
-</details>
-<h3 id="_2">参数</h3>
-<p>HMM的参数可以表示为<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>, 定义隐状态的可能的取值的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的可能的取值的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
-<ul>
-<li>初始状态概率向量<span class="arithmatex">\(\bm{\pi}\)</span>. 它是一个长度为<span class="arithmatex">\(N\)</span>的向量, 其中<span class="arithmatex">\(\pi_i\)</span>表示在初始时刻<span class="arithmatex">\(t=1\)</span>时处于隐状态<span class="arithmatex">\(i\)</span>的概率, 所有的初始状态满足<span class="arithmatex">\(\sum_{i=1}^N \pi_i=1\)</span></li>
-<li>状态转移概率矩阵<span class="arithmatex">\(\bm{A}\)</span>, <span class="arithmatex">\(\bm{A}=[a_{ij}]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(a_{ij}\)</span>表示在时刻<span class="arithmatex">\(t\)</span>处于隐状态<span class="arithmatex">\(i\)</span>时, 下一时刻<span class="arithmatex">\(t+1\)</span>转移到隐状态<span class="arithmatex">\(j\)</span>的概率, 所有的转移概率满足<span class="arithmatex">\(\sum_{j=1}^N a_{ij}=1\)</span></li>
-<li>观测概率矩阵<span class="arithmatex">\(\bm{B}\)</span>, <span class="arithmatex">\(\bm{B}=[b_j(o_k)]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(b_j(o_k)\)</span>表示在隐状态<span class="arithmatex">\(j\)</span>下生成观测值<span class="arithmatex">\(o_k\)</span>的概率. 对于连续的观测值, 可以使用概率密度函数来表示概率</li>
-</ul>
-<h3 id="hmm-assumptions">假设</h3>
-<p>HMM做了两个基本假设, 在上面的例子中也提到了.</p>
-<ul>
-<li>齐次性假设: 即假设隐藏的马尔可夫链在任意时刻<span class="arithmatex">\(t\)</span>的状态只依赖于它在前一时刻的状态, 与其他时刻的状态和观测无关, 也与时刻<span class="arithmatex">\(t\)</span>本身无关</li>
-<li>观测独立性假设: 即假设任意时刻的观测值只依赖于该时刻的马尔可夫链的状态, 与其他观测及状态无关</li>
-</ul>
-<h3 id="hmm-problems">问题</h3>
-<p>HMM的三个基本问题:</p>
-<ul>
-<li>概率计算问题(也叫做Evaluation Problem): 给定模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 计算观测序列<span class="arithmatex">\(O\)</span>出现的概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>. 即评估模型<span class="arithmatex">\(\lambda\)</span>与观测序列<span class="arithmatex">\(\bm{O}\)</span>之间的匹配程度.</li>
-<li>学习问题(也叫做Learning Problem): 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
-<li>预测问题(也叫做Decoding Problem): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}|\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
-</ul>
-<h4 id="evaluation-problem">概率计算问题</h4>
-<p>概率计算问题, Evaluation Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算该观测序列出现的概率.</p>
-<details class="warning" open="open">
-<summary>注意</summary>
-<p>这边的<span class="arithmatex">\(\bm{\pi}\)</span>很鸡肋, 其实不用写的, 直接写一个状态转移矩阵<span class="arithmatex">\(A\)</span>就够了. 然后这边的<span class="arithmatex">\(\pi\)</span>也不是我上面说的意思, 他这里的<span class="arithmatex">\(\pi_i\)</span>是指时间步<span class="arithmatex">\(i\)</span>的状态, 而我上面说的<span class="arithmatex">\(\pi_i\)</span>是初始时刻处于隐状态<span class="arithmatex">\(i\)</span>的概率. 最后应该加上一个观测概率矩阵<span class="arithmatex">\(\bm{E}\)</span>, 这边漏了. 但是为了保持和课件的统一, 下面都用它的写法.</p>
-</details>
-<details class="example" open="open">
-<summary>例子</summary>
-<p>给定一个HMM模型如下(包含初始状态向量, 状态转移概率矩阵, 观测概率矩阵):</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" width="400" /></a>
-</figure></p>
-<p>计算观测序列<span class="arithmatex">\(X=\)</span> Shirt, Hoodie出现的概率. </p>
-<p>我们可以使用枚举法: 首先, 列举出所有可能的状态序列, 由于我们的观测序列长度是<span class="arithmatex">\(2\)</span>, 所以长度为<span class="arithmatex">\(2\)</span>的状态序列有<span class="arithmatex">\(3^2=9\)</span>种组合, 如, Rainy, Rainy; Rainy, Cloudy; Rainy, Sunny; ... 对于每一种状态序列, 计算其对应的观察序列<span class="arithmatex">\(X=\)</span> Shirt, Hoodie的条件概率, 例如, 对于状态序列Rainy, Cloudy, 计算观测序列条件概率<span class="arithmatex">\(p(X, \{Rainy, Cloudy\})\)</span>的步骤为:</p>
-<ul>
-<li>初始状态: 状态从Rainy开始, 所以初始概率参见初始状态向量, 是<span class="arithmatex">\(0.6\)</span></li>
-<li>状态转移: 从Rainy转移到Cloudy的概率参见状态转移概率矩阵, 是<span class="arithmatex">\(0.3\)</span></li>
-<li>观测概率:<ul>
-<li>在第一个时刻Rainy观察到Shirt的概率参考观测概率矩阵, 是<span class="arithmatex">\(0.8\)</span></li>
-<li>在第二个时刻Cloudy观测到Hoodie的概率参考观测概率矩阵, 是<span class="arithmatex">\(0.1\)</span></li>
-</ul>
+<li>
+<p><strong>窗口注意力:</strong> 将输入序列分成固定大小的窗口, 每个元素只能关注到自己所在窗口内的元素, 这种方法显著减少了注意力计算量, 尤其对于长序列</p>
+</li>
+<li>
+<p><strong>膨胀注意力:</strong> 以指数方式扩大注意力窗口, 使模型能够捕捉长距离依赖关系, 同时保持较高的效率</p>
+</li>
+<li>
+<p><strong>稀疏注意力:</strong> 根据预定义的模式或学习到的注意力分布, 选择一小部分元素进行关注</p>
 </li>
 </ul>
-<p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.1=0.0144\)</span>. 对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率. </p>
-<p>可以看到, 计算一个简单的观测序列Short, Hoodie的过程就进行了<span class="arithmatex">\(4\times 9=36\)</span>次乘法. 令<span class="arithmatex">\(N\)</span>为可能的状态的数量, 在这里有三个可能的状态, Rainy, Cloudy, Sunny. 令<span class="arithmatex">\(T\)</span>为观测序列的长度, 在这里是<span class="arithmatex">\(2\)</span>. 那么复杂度就是<span class="arithmatex">\(2TN^T\)</span>. 在实际中, 观测序列<span class="arithmatex">\(T\)</span>往往很大, 而状态数<span class="arithmatex">\(N\)</span>相对来说较小, 导致该算法的复杂度异常高. 解决这种问题的方法是使用前向算法.</p>
-</details>
-<h5 id="forward-algorithm">前向算法</h5>
-<p>前向算法, Forward Algorithm, 是一种动态规划算法, 用于高效计算给定观察序列的概率. 就像之前我们干的一样, 对于所有可能的隐藏状态序列, 前向算法都会求观测序列的条件概率, 但是在计算过程中会存储中间值来加速计算.</p>
-<p>前向概率<span class="arithmatex">\(f_k(i)\)</span>表示在时间<span class="arithmatex">\(i\)</span>时处于状态<span class="arithmatex">\(k\)</span>的条件下, 观察到<em>部分</em>观测序列的概率. <span class="arithmatex">\(f_k(i)=e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>, 其中<span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>是状态<span class="arithmatex">\(k\)</span>下观察到观测序列<span class="arithmatex">\(x_i\)</span>的观测概率, <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>是从状态<span class="arithmatex">\(j\)</span>转移到状态<span class="arithmatex">\(k\)</span>的转移概率. 通过上述公式, 可以递归地计算<span class="arithmatex">\(f_k(i)\)</span>, 因为<span class="arithmatex">\(f_k(i)\)</span>依赖于上一个时刻<span class="arithmatex">\(i-1\)</span>地前向概率<span class="arithmatex">\(f_j(i-1)\)</span>. 这种递归计算不需要重新计算已经求得的中间结果, 大大减少了重复计算的次数.</p>
-<p>前向算法的时间复杂度为<span class="arithmatex">\(N^2T\)</span>, 其中<span class="arithmatex">\(T\)</span>是观测序列长度, <span class="arithmatex">\(N\)</span>是状态数量, 相比枚举法的<span class="arithmatex">\(2TN^T\)</span>的复杂度, 前向算法的效率显著提高.</p>
-<p>前向算法主要由<span class="arithmatex">\(3\)</span>步计算过程组成:</p>
-<ol>
-<li>
-<p>初始化</p>
-<p>计算在时间步<span class="arithmatex">\(t=1\)</span>时每个状态<span class="arithmatex">\(k\)</span>的前向概率<span class="arithmatex">\(f_k(1)\)</span>, 公式为<span class="arithmatex">\(f_k(1)=A_0(k)e_k(x_1)\)</span>, 其中<span class="arithmatex">\(A_0(k)\)</span>是初始时刻状态<span class="arithmatex">\(k\)</span>的概率, 参考初始状态向量; <span class="arithmatex">\(e_k(x_1)=p(x_1|\pi_1=k)\)</span>是在状态<span class="arithmatex">\(k\)</span>下观察到第一个观测值<span class="arithmatex">\(x_1\)</span>的概率.</p>
-</li>
-<li>
-<p>迭代</p>
-<p>对于接下来的时间步<span class="arithmatex">\(t=2, ..., m\)</span>, 计算每个状态<span class="arithmatex">\(k\)</span>的前向概率<span class="arithmatex">\(f_k(i)\)</span>. <span class="arithmatex">\(f_k(i)=e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>. 各部分的含义参见上方.</p>
-</li>
-<li>
-<p>终止</p>
-<p>在最后一个时间步<span class="arithmatex">\(m\)</span>结束后, 对所有状态的前向概率求和. <span class="arithmatex">\(p(X)=\sum_{k}f_k(m)\)</span>.</p>
-</li>
-</ol>
-<details class="example" open="open">
-<summary>例子</summary>
-<p>继续上面的例子.</p>
-<p><span class="arithmatex">\(1\)</span>的初始状态向量 + <span class="arithmatex">\(2\)</span>个矩阵:</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" width="400" /></a>
-</figure>   </p>
-<ol>
-<li>
-<p>初始化</p>
-<ul>
-<li><span class="arithmatex">\(f_{Rainy}(1)=A_0(Rainy)e_{Rainy}(Shirt)=0.6\times 0.8=0.48\)</span></li>
-<li><span class="arithmatex">\(f_{Cloudy}(1)=A_0(Cloudy)e_{Cloudy}(Shirt)=0.3\times 0.5=0.15\)</span></li>
-<li><span class="arithmatex">\(f_{Sunny}(1)=A_0(Sunny)e_{Sunny}(Shirt)=0.1\times 0.01=0.001\)</span></li>
-</ul>
-</li>
-<li>
-<p>迭代</p>
-<p>迭代计算第<span class="arithmatex">\(i\)</span>个时间步的前向概率.</p>
-<ul>
-<li><span class="arithmatex">\(f_{Rainy}(2)=e_{Rainy}(Hoodie)(f_{Rainy}(1)a_{Rainy, Rainy}+f_{Cloudy}(1)a_{Cloudy, Rainy}+f_{Sunny}(1)a_{Sunny, Rainy})=0.01\times(0.48\times 0.6+0.15\times 0.4 + 0.001\times 0.1)=0.0035\)</span></li>
-<li><span class="arithmatex">\(f_{Cloudy}(2)=e_{Cloudy}(Hoodie)(f_{Rainy}(1)a_{Rainy, Cloudy}+f_{Cloudy}(1)a_{Cloudy, Cloudy}+f_{Sunny}(1)a_{Sunny, Cloudy})=0.1\times(0.48\times 0.3+0.15\times 0.3 + 0.001\times 0.4)=0.0189\)</span></li>
-<li><span class="arithmatex">\(f_{Sunny}(2)=e_{Sunny}(Hoodie)(f_{Rainy}(1)a_{Rainy, Sunny}+f_{Cloudy}(1)a_{Cloudy, Sunny}+f_{Sunny}(1)a_{Sunny, Sunny})=0.79\times(0.48\times 0.1+0.15\times 0.3 + 0.001\times 0.5)=0.0739\)</span></li>
-</ul>
-</li>
-<li>
-<p>终止</p>
-<p>当前最后一个时间步<span class="arithmatex">\(m=2\)</span>, <span class="arithmatex">\(p(X)=p(Shirt, Hoodie)=f_{Rainy}(2)+f_{Cloudy}(2)+f_{Sunny}(2)=0.0035+0.0189+0.0739=0.0963\)</span>.</p>
-</li>
-</ol>
-</details>
-<h4 id="_3">预测问题</h4>
-<p>预测问题, Decoding Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda=(\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算最可能对应的隐藏序列.</p>
-<h5 id="viterbi">Viterbi算法</h5>
-<p>Viterbi算法是一种动态规划算法, 用于计算每个状态的最优路径的概率, 称之为Viterbi得分. 由于它在每个时间点, 只需要维护每个状态的最高得分路径, 所以和前向算法类似, 能提高计算效率.</p>
-<p>给定时间<span class="arithmatex">\(i\)</span>和状态<span class="arithmatex">\(k\)</span>. 状态的Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>表示到达该状态的最优路径的概率, 计算公式为<span class="arithmatex">\(V_k(i)=e_k(x_i)max_j V_j(i-1)a_{jk}\)</span>. 其中, <span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>表示在当前状态<span class="arithmatex">\(k\)</span>下, 观测到<span class="arithmatex">\(x_i\)</span>的观测概率. <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>表示从前一状态<span class="arithmatex">\(j\)</span>转移到当前状态<span class="arithmatex">\(k\)</span>的转移概率. <span class="arithmatex">\(max_j V_j(i-1)a_{jk}\)</span>用于选择上一个时间步中到达当前状态<span class="arithmatex">\(k\)</span>的最优路径.</p>
-<p>Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>可以递归地基于上一时间步的得分<span class="arithmatex">\(V_j(i-1)\)</span>计算, 因此, 不需要重复计算所有路径, 而是逐步优化路径选择.</p>
-<p>Viterbi得分可以给出最终状态结束的最佳路径的概率, 但是仅仅只靠得分本身, 我们无法确定从起始状态到最终状态的整个路径. 为了确定完整的路径, 需要从最终状态回溯到其实状态, 为了实现回溯, 在计算Viterbi得分的过程中, 需要为每个状态保存一个指针, 这个指针记录了每一步使得Viterbi得分最大的前一状态. 数学表达为<span class="arithmatex">\(Ptr_k(i)=argmax_j V_j(i-1)a_{jk}\)</span>, 指向时间<span class="arithmatex">\(i-1\)</span>时能提供最高得分的状态<span class="arithmatex">\(j\)</span>. </p>
-<p>与前向算法类似, Viterbi算法也分为三步:</p>
-<ol>
-<li>
-<p>初始化</p>
-<p>在初始时间步<span class="arithmatex">\(t=1\)</span>的时候, 计算每个状态的Viterbi得分, 公式为<span class="arithmatex">\(V_k(1)=A_0(k)e_k(x_1)\)</span>. 其中<span class="arithmatex">\(A_0(k)\)</span>是初始时刻状态<span class="arithmatex">\(k\)</span>的概率, 参考初始状态向量; <span class="arithmatex">\(e_k(x_1)=p(x_1|\pi_1=k)\)</span>是在状态<span class="arithmatex">\(k\)</span>下观察到第一个观测值<span class="arithmatex">\(x_1\)</span>的概率. </p>
-</li>
-<li>
-<p>迭代</p>
-<p>对于时间步<span class="arithmatex">\(t=2, ..., m\)</span>:</p>
-<ol>
-<li>
-<p>Viterbi得分: 计算状态<span class="arithmatex">\(k\)</span>在时间<span class="arithmatex">\(i\)</span>的得分<span class="arithmatex">\(V_k(i)=e_k(x_i)max_j V_j(i-1)a_{jk}\)</span></p>
-</li>
-<li>
-<p>回溯指针: 记录状态<span class="arithmatex">\(k\)</span>在时间<span class="arithmatex">\(i\)</span>的回溯路径, 用于后续的路径回溯<span class="arithmatex">\(Ptr_k(i)=argmax_j V_j(i-1)a_{jk}\)</span>  </p>
-</li>
-</ol>
-</li>
-<li>
-<p>终止</p>
-<ol>
-<li>
-<p>确定最终状态: 在最后一个时间步<span class="arithmatex">\(m\)</span>, 找到具有最高Viterbi得分的状态<span class="arithmatex">\(\pi_m=argmax_k V_k(m)\)</span></p>
-</li>
-<li>
-<p>回溯路径: 从最后的状态开始, 通过回溯指针逐步确定前一个时间步的最佳状态: <span class="arithmatex">\(\pi_{i-1}=Ptr_{\pi_i}(i)\)</span></p>
-</li>
-</ol>
-</li>
-</ol>
-<details class="example" open="open">
-<summary>例子</summary>
-<p>还是上面的例子. 给定一个模型:</p>
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/73629b7b37cb523a56c45c42c1a30fc4.png" width="400" /></a>
-</figure>   </p>
-<p>和观测序列<span class="arithmatex">\(X=\)</span> Shirt, Hoodie.</p>
-<ol>
-<li>
-<p>初始化</p>
-<ul>
-<li><span class="arithmatex">\(V_{Rainy}(1)=A_0(Rainy)e_{Rainy}(Shirt)=0.6\times 0.8=0.48\)</span></li>
-<li><span class="arithmatex">\(V_{Cloudy}(1)=A_0(Cloudy)e_{Cloudy}(Shirt)=0.3\times 0.5=0.15\)</span></li>
-<li><span class="arithmatex">\(V_{Sunny}(1)=A_0(Sunny)e_{Sunny}(Shirt)=0.1\times 0.01=0.001\)</span></li>
-</ul>
-</li>
-<li>
-<p>迭代</p>
-<p>这里要计算Viterbi得分和获取回溯指针.</p>
-<ul>
-<li>Rainy: <ul>
-<li><span class="arithmatex">\(V_{Rainy}(2)=e_{Rainy}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Rainy}, V_{Cloudy}(1)a_{Cloudy, Rainy}, V_{Sunny}(1)a_{Sunny, Rainy})=0.01\times max(0.48\times 0.6, 0.15\times 0.4 , 0.001\times 0.1)=0.01\times 0.48\times0.6=0.0029\)</span></li>
-<li><span class="arithmatex">\(Ptr_{Rainy}(2)=argmax(0.48\times 0.6, 0.15\times 0.4, 0.001\times 0.1)=1\)</span>, 如<span class="arithmatex">\(1\)</span>是Rainy</li>
-</ul>
-</li>
-<li>Cloudy: <ul>
-<li><span class="arithmatex">\(V_{Cloudy}(2)=e_{Cloudy}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Cloudy}, V_{Cloudy}(1)a_{Cloudy, Cloudy}, V_{Sunny}(1)a_{Sunny, Cloudy})=0.1\times max(0.48\times 0.3, 0.15\times 0.3 , 0.001\times 0.4)=0.1\times 0.48\times0.3=0.0144\)</span></li>
-<li><span class="arithmatex">\(Ptr_{Cloudy}(2)=argmax(0.48\times 0.3, 0.15\times 0.3, 0.001\times 0.4)=1\)</span>, 如<span class="arithmatex">\(1\)</span>是Rainy</li>
-</ul>
-</li>
-<li>Sunny: <ul>
-<li><span class="arithmatex">\(V_{Sunny}(2)=e_{Sunny}(Hoodie)\times max(V_{Rainy}(1)a_{Rainy, Sunny}, V_{Cloudy}(1)a_{Cloudy, Sunny}, V_{Sunny}(1)a_{Sunny, Sunny})=0.01\times max(0.48\times 0.1, 0.15\times 0.3 , 0.001\times 0.5)=0.79\times 0.48\times0.1=0.0379\)</span></li>
-<li><span class="arithmatex">\(Ptr_{Sunny}(2)=argmax(0.48\times 0.1, 0.15\times 0.3, 0.001\times 0.5)=1\)</span>, 如<span class="arithmatex">\(1\)</span>是Rainy</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>终止</p>
-<p>时间步<span class="arithmatex">\(2\)</span>的最终状态可由下列公式计算<span class="arithmatex">\(argmax(V_{Rainy}(2), V_{Cloudy}(2), V_{Sunny}(2))=argmax(0.0029, 0.0144, 0.0379)=3\)</span>, 如<span class="arithmatex">\(3\)</span>是Sunny. 由于<span class="arithmatex">\(Ptr_{Sunny}(2)=Rainy\)</span>, 所以最有可能的状态序列为Rainy, Sunny.</p>
-</li>
-</ol>
-</details>
-<h4 id="_4">学习问题</h4>
-<p>学习问题, Learning Problem. 指的是给定一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>. 找出HMM模型<span class="arithmatex">\(\lambda=(\bm{\pi}, \bm{A}, \bm{A_0})\)</span>.</p>
-<h5 id="_5">期望最大化算法</h5>
-<p>期望最大发算法, Expectation Maximization, 用于计算HMM模型. 它分为4步:</p>
-<ol>
-<li>
-<p>初始化</p>
-<p>将模型参数<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>随机初始化. </p>
-</li>
-<li>
-<p>期望步骤</p>
-<p>基于当前的参数<span class="arithmatex">\(\lambda\)</span>, 计算各隐藏状态的概率分布.</p>
-</li>
-<li>
-<p>最大化步骤</p>
-<p>利用前一步计算的概率, 更新模型参数<span class="arithmatex">\(\lambda\)</span>, 使得给定观测数据的似然函数最大化. 这涉及预测最可能的观测序列并与实际观测序列进行比较.</p>
-</li>
-<li>
-<p>收敛判断</p>
-<p>如果模型参数更新后, <span class="arithmatex">\(p(X|\lambda)\)</span>增加, 则返回第二步继续迭代, 否则停止迭代.</p>
-</li>
-</ol>
 
 
 
@@ -2132,52 +1862,24 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
+    <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月1日</span>
   </span>
 
     
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
+    <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月1日</span>
   </span>
 
     
     
-    
-      
-  <span class="md-source-file__fact">
-    
-      
-  <span class="md-icon" title="Contributors">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-  </span>
-  <span>GitHub</span>
-
-    
-    <nav>
-      
-        <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
-          
-          <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
-        </a>
-      
-        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
-          
-          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
-        </a>
-      
-      
-      
-    </nav>
-  </span>
-
     
   </aside>
 
@@ -2199,7 +1901,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Back to top
+  回到页面顶部
 </button>
         
       </main>
@@ -2305,24 +2007,22 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
-        <script src="../../../javascripts/favicon.js"></script>
+        <script src="../../javascripts/favicon.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="../../../javascripts/analysis.js"></script>
+        <script src="../../javascripts/analysis.js"></script>
       
-        <script src="../../../js/open_in_new_tab.js"></script>
-      
-        <script src="../../../js/open_in_new_tab.js"></script>
+        <script src="../../js/open_in_new_tab.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
