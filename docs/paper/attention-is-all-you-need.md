@@ -92,6 +92,39 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 由于有残差连接的存在, 输入的维度必须是和输出的维度是一样的, 所以, 选择的dk和dv是原始维度/h. 然后拼接的时候就可以回到原来的维度.
 
+### 编码-解码注意力层
+
+“In "encoder-decoder attention" layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+在这个层里面, qeury是来自解码器的, key和value是来自编码器的, 相当于在编码器输出的信息拎过来然后融合进解码器的输入里面. 例如, 编码器的输出是经过权重调整之后的n个词向量(其中包含”hello world), 那么解码器中的”你好世界”中的”好”, 它和”hello”的词向量的注意力分数较高, 所以会调整”好”的权重.
+
+### 前馈神经网络
+
+“While the linear transformations are the same across different positions, they use different parameters from layer to layer. Another way of describing this is as two convolutions with kernel size 1. The dimensionality of input and output is dmodel = 512, and the inner-layer has dimensionality dff = 2048.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+前馈神经网络层中对于每个输入的词向量是独立操作的, 所有的词向量都会共享一个W1, b1, W2, b2参数, 这是因为自注意力机制已经处理了序列之间的交互, 前馈层的目的是对每个词向量进行非线性变换以增强表达能力. 但是不同的前馈层它们的参数是独立的, 也就是说不同层的W1, b1, W2, b2是独立的.
+
+前馈层的做法是将其映射到了高维空间, 每个输入词向量可以在更大的空间(2048)内找到更加复杂的模式和关系. 高维映射后, 需要降回原始维度(512). 映射到高维是W1, b1的作用, 降维是W2, b2的作用.
+
+### 词嵌入
+
+在模型中, 有三个不同的嵌入层, 它们承担了不同的任务.
+
+- **Encoder输入嵌入:** 为源序列生成连续向量表示
+    
+- **Decoder输入嵌入:** 为目标序列生成连续向量表示
+    
+- **Softmax前线性变换:** 将解码器输出的向量从dmodel映射到词汇表大小, 用于计算生成词的概率分布
+    
+
+“In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+区别是前面的两个是词到词向量, 第三个是词向量到词. 为了训练的高效, 这三个嵌入方法在这篇文章中才用的是相同的权重.
+
+“In the embedding layers, we multiply those weights by √dmodel.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+假设我们需要将(30000, 30000)的独热矩阵降维成(3000, 512)的嵌入矩阵, 那么只需要对独热矩阵做一个矩阵乘法变换进行降维就好了. 即OneHot\*W=Embedding. 由于embedding matrix的初始化方式是xavier init, 这种方式的方差是1/embedding size. 如果dmodel较大, 会使输出值的波动较小, 通过乘以dmodel, 可以使embedding matrix的分布回调到标准正态分布, 有利于训练.
+
 ## 结论
 
 ### 局部, 受限注意力机制
