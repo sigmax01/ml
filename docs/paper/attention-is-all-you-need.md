@@ -59,6 +59,39 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 对于NLP来说, 归一化是三维的, 因为每一个序列样本由多个单词组成. 它的坐标分别为batch(表示某一个样本也就是某个序列), seq(表示某个序列中的单词), feature(表示这个单词的词向量).
 
+### 注意力机制
+
+“The two most commonly used attention functions are additive attention [2], and dot-product (multiplicative) attention.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+“Additive attention computes the compatibility function using a feed-forward network with a single hidden layer.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+最常用的两种注意力函数是累加和点积, 累加是将Query和Key组合起来, 通过一个小型的神经网络生成注意力分数. 它和点积的区别主要在于计算方式的非线性化. 但是由于点积在计算上的性能远远大于累加, 而且在实际中往往更加节省内存空间, 所以这篇文章用的是点积.
+
+“We suspect that for large values of dk, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients 4. To counteract this effect, we scale the dot products by √1dk .” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+当dk比较大的时候, QK^T点积过程中需要累加的项就特别多, 导致最终的attention分数的数值过大. 累积dk次后, 结果的均值和方差都会成比例增大, 由于点积结果的方差和dk是成正比的, 所以通过除以sqrt(dk), 可以使得结果的方差保持常数, 这样, 无论dk的大小如何, 点积结果的数值范围都会被规范到一个固定的范围内.
+
+### 为什么需要mask
+
+这个可以从两个方面来说, 训练阶段和推理阶段.
+
+- **训练阶段:** 在训练的时候, decoder输入的是完整的目标序列(包括未来词), 而不是逐步生成的部分序列. 目标序列被送入自注意力层之后, 如果不加mask, 模型在计算第t个词的注意力的时候, 会看到整个目标序列(包括t+1, t+2, …), 导致模型可以利用未来的词生成当前的词, 这种信息泄露会导致训练过程中模型无法学习到正确的因果关系, 从而在推理阶段表现不加
+    
+- **推理阶段:** 在推理的过程中, decoder的输入是逐步生成的序列, 在t时刻, decoder的输入是从第1到第t-1时刻生成的词, 理论上, 此时未来的词(第t+1, t+2, …)根本不存在, 似乎不需要mask. 但是由于自注意力机制的实现是对于整个序列(包括还未填充的位置)计算注意力分布, 如果不加mask, decoder的自注意力层仍会尝试对后续未生成的位置(这些位置可能被初始化为零向量或者其他占位符)来计算注意力分布, 即使这些未生成(未填充)的位置没有真实的信息, 注意力分布的结果可能会受到干扰
+    
+
+具体的做法是将后面的值替换成一个非常大的负数. 注意, 不能替换为0, 不然的话经过softmax之后其他地方的值会受到影响(变小). 负数经过softmax之后就会变成0.
+
+### 多头注意力机制
+
+“we found it beneficial to linearly project the queries, keys and values h times with different, learned linear projections to dk, dk and dv dimensions, respectively.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+将高维的Q, K和V投影到多个低维子空间(每个子空间对应一个头), 在这些低维子空间中分别计算注意力, 最终将各个头的结果拼接起来, 再进行一次线性变换, 得到输出.
+
+“In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+由于有残差连接的存在, 输入的维度必须是和输出的维度是一样的, 所以, 选择的dk和dv是原始维度/h. 然后拼接的时候就可以回到原来的维度.
+
 ## 结论
 
 ### 局部, 受限注意力机制
