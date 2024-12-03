@@ -144,6 +144,8 @@ Nguyen Tran, nguyen.tran@sydney.edu.au
         - 给出解释
     - 问题解决/计算题
 
+[考点总结入口](/algorithm/exam)
+
 ### 备注
 
 - 讲座和补习资料会在星期六9:00发布
