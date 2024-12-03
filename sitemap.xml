@@ -127,18 +127,18 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/fnn/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/gan/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/gan/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/gan/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/algorithm/neural-network/rnn/</loc>
         <lastmod>2024-12-03</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/rnn/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/rnn/"/>
-    </url>
-    <url>
-        <loc>https://ml.ricolxwz.de/algorithm/neural-network/transformer/</loc>
-        <lastmod>2024-12-03</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/</loc>
@@ -153,6 +153,20 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/transformer/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/transformer/bert/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/bert/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/bert/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/paper/10_48550-arXiv_1706_03762/</loc>
@@ -337,18 +351,18 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/fnn/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/gan/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/gan/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/gan/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/rnn/</loc>
         <lastmod>2024-12-03</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/rnn/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/rnn/"/>
-    </url>
-    <url>
-        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/</loc>
-        <lastmod>2024-12-03</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/</loc>
@@ -363,6 +377,20 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/bert/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/bert/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/bert/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1706_03762/</loc>
