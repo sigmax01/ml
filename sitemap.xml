@@ -148,6 +148,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/alexnet/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/alexnet/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/alexnet/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/</loc>
         <lastmod>2024-12-03</lastmod>
         <changefreq>daily</changefreq>
@@ -167,6 +174,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/bert/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/bert/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/transformer/vit/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/vit/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/vit/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/paper/10_48550-arXiv_1706_03762/</loc>
@@ -372,6 +386,13 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/alexnet/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/alexnet/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/alexnet/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/</loc>
         <lastmod>2024-12-03</lastmod>
         <changefreq>daily</changefreq>
@@ -391,6 +412,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/bert/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/bert/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/vit/</loc>
+        <lastmod>2024-12-03</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/vit/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/vit/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1706_03762/</loc>
