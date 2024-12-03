@@ -1630,6 +1630,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sep" class="md-nav__link">
+    <span class="md-ellipsis">
+      [sep]的设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      嵌入向量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      [mask]的设计
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1799,6 +1826,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sep" class="md-nav__link">
+    <span class="md-ellipsis">
+      [sep]的设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      嵌入向量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      [mask]的设计
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1885,7 +1939,7 @@
 <p>对于嵌入层, 可以学习的参数是30000*H(因为它的字典大小是30000).</p>
 <p>所以一个transformer块中的可学习参数是30000*H+12*H^2L, 那么总共有L个transformer块, 所以总共的可学习参数为</p>
 <h3 id="_5">输入表示方法</h3>
-<p>“o make BERT handle a variety of down-stream tasks, our input representation is able to unambiguously represent both a single sentence and a pair of sentences (e.g., 〈 Question, Answer 〉) in one token sequence. Throughout this work, a “sentence” can be an arbitrary span of contiguous text, rather than an actual linguistic sentence. A “sequence” refers to the input token sequence to BERT, which may be a single sentence or two sentences packed together.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
+<p>“To make BERT handle a variety of down-stream tasks, our input representation is able to unambiguously represent both a single sentence and a pair of sentences (e.g., 〈 Question, Answer 〉) in one token sequence. Throughout this work, a “sentence” can be an arbitrary span of contiguous text, rather than an actual linguistic sentence. A “sequence” refers to the input token sequence to BERT, which may be a single sentence or two sentences packed together.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
 <p>为了让BERT能够处理多种不同下游任务(如情感分析, 问答系统, 文本分类等), BERT的输入表示方式被设计成能够清楚地表示单个句子或者两个句子的组合. 注意, 这个”句子”并不局限于语法上的句子, 而是可以是任意连续的文本片段, 输入可以是一个完整句子, 一个段落, 甚至是一个短语. 序列是指输入到BERT模型中的一串标记, 这串标记可以代表单个句子, 也可以是由两个句子组合成的一段连续文本.</p>
 <h3 id="wordpiece">WordPiece</h3>
 <p>“We use WordPiece embeddings (Wu et al., 2016) with a 30,000 token vocabulary.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
@@ -1904,8 +1958,18 @@
 </ol>
 <p>所以, 只要使用30000个子序列的词典就能得到比较好的效果, 不用特别大的词典(因为很多片段都是在词语中重复出现的). 并且它还能解决稀有词问题, 如果一个单词在词表中不存在, wordpiece会将其分解为更小的, 常见的子词, 直到找到匹配的单位.</p>
 <h3 id="cls">[cls]的设计</h3>
-<p>普通的token的最终表示依然服务于它自己的语义, [cls]的最终表示被训练为全局语义的浓缩. [cls]和普通token本质上是一样的, 但是训练目标和任务引导, 模型最终学会让[cls]成为全局信息的浓缩表示, 而普通token则更关注自身的语义信息.</p>
+<p>普通的token的最终表示依然服务于它自己的语义, [cls]的最终表示被训练为全局语义的浓缩. [cls]和普通token本质上是一样的, 但是这个无明显语义信息的符号会更加公平地融合文本中各个词的语义信息, 模型最终学会让[cls]成为全局信息的浓缩表示, 而普通token则更关注自身的语义信息.</p>
 <p>为什么需要[cls]? 其一是它提供了统一的全局序列表示, 在自然语言处理中, 许多任务(如文本分类, 下一句预测)需要用到整个输入序列的全局语义. 如果没有[cls], 需要通过其他方式提取全局信息, 例如, 使用平均池化(对所有的token的向量取平均), 使用最大池化(对每个维度取最大值), 或者自行选择一个关键token, 但是上述的方法在实践中存在问题: 池化方式可能丢失序列的细粒度信息, 手动选择token容易引入偏差或者限制模型的能力.</p>
+<h3 id="sep">[sep]的设计</h3>
+<p>在BERT中, 许多任务涉及两个序列(句子对)的输入, 例如, 下一句预测任务需要判断两个句子之间是否有逻辑链接, 它还能有助于模型避免误将输入后的填充部分视为实际内容.</p>
+<p>其他的方法是我们向句子A和句子B中加入不同的一个额外的嵌入向量来表示token是属于句子A还是句子B.</p>
+<p>在BERT中, 这两种方法都用了.</p>
+<h3 id="_6">嵌入向量</h3>
+<p>“For a given token, its input representation is constructed by summing the corresponding token, segment, and position embeddings. A visualization of this construction can be seen in Figure 2.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
+<p>在BERT中, 需要对三种嵌入向量进行求和, 得到最终的词向量表示, 这三种嵌入向量分别是通过WordPiece得到的嵌入向量, 分句嵌入向量(Segment Embeddings)和位置嵌入向量.</p>
+<h3 id="mask">[mask]的设计</h3>
+<p>“a downside is that we are creating a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
+<p>在微调的时候, 是没有[mask]是这个东西的, 这就会导致在预训练的时候和微调的时候产生了一些不同, 解决的方法是有一定的几率不替换为[mask], 保持原有的词.</p>
 
 
 
