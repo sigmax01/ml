@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="zh" class="no-js">
+<html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -12,28 +12,26 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/probability/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1810_04805/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../10_48550-arXiv_1706_03762/">
       
       
-        <link rel="next" href="random-event-and-probability/">
       
-      
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
-        <title>绪论 - 机器蝉</title>
+        <title>10.48550/arXiv.1810.04805 - 机器蝉</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -56,9 +54,9 @@
     
       <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,7 +67,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/mononoki@5.1.0/index.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css">
 
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -78,7 +76,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -97,8 +95,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
-          跳转至
+        <a href="#2019-05-24-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding-bert" class="md-skip">
+          Skip to content
         </a>
       
     </div>
@@ -107,7 +105,7 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-              <button class="md-banner__button md-icon" aria-label="不再显示此消息">
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
               </button>
@@ -137,8 +135,8 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -179,7 +177,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              绪论
+              10.48550/arXiv.1810.04805
             
           </span>
         </div>
@@ -229,20 +227,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="选择当前语言">
+    <button class="md-header__button md-icon" aria-label="Select language">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="./" hreflang="zh" class="md-select__link">
+            <a href="../../../paper/10_48550-arXiv_1810_04805/" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../en/probability/" hreflang="en" class="md-select__link">
+            <a href="./" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
@@ -261,21 +259,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="查找">
+      <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -288,7 +286,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            正在初始化搜索引擎
+            Initializing search
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -299,7 +297,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/sigmax01/ml" title="前往仓库" class="md-source" data-md-component="source">
+        <a href="https://github.com/sigmax01/ml" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -320,7 +318,7 @@
         
           
             
-<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -331,7 +329,7 @@
     
     
       <li class="md-tabs__item">
-        <a href=".." class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           
   
     
@@ -347,13 +345,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../probability/" class="md-tabs__link">
           
   
     
@@ -373,7 +369,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../algorithm/" class="md-tabs__link">
+        <a href="../../algorithm/" class="md-tabs__link">
           
   
     
@@ -389,23 +385,29 @@
         
   
   
+    
+  
   
     
     
       
   
   
+    
+  
   
     
     
       
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../paper/10_48550-arXiv_1706_03762/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../10_48550-arXiv_1706_03762/" class="md-tabs__link">
           
   
     
@@ -444,9 +446,9 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../" title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -477,7 +479,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/sigmax01/ml" title="前往仓库" class="md-source" data-md-component="source">
+      <a href="https://github.com/sigmax01/ml" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -520,7 +522,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href=".." class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -552,8 +554,6 @@
       
   
   
-    
-  
   
   
     
@@ -576,22 +576,21 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../probability/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -602,13 +601,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             概率
@@ -624,7 +623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="random-event-and-probability/" class="md-nav__link">
+      <a href="../../probability/random-event-and-probability/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -645,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="one-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../../probability/one-dimensional-random-variable-distribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -666,7 +665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="multi-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../../probability/multi-dimensional-random-variable-distribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="numerical-characteristics-of-random-variable/" class="md-nav__link">
+      <a href="../../probability/numerical-characteristics-of-random-variable/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -708,7 +707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="large-number-central-limit-theorem/" class="md-nav__link">
+      <a href="../../probability/large-number-central-limit-theorem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -787,7 +786,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../algorithm/" class="md-nav__link ">
+            <a href="../../algorithm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -820,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/exam/" class="md-nav__link">
+      <a href="../../algorithm/exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -841,7 +840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/linear-regression/" class="md-nav__link">
+      <a href="../../algorithm/linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -862,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/preprocessing/" class="md-nav__link">
+      <a href="../../algorithm/preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -883,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/knn/" class="md-nav__link">
+      <a href="../../algorithm/knn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -904,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/naive-bayes/" class="md-nav__link">
+      <a href="../../algorithm/naive-bayes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -925,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/evaluation/" class="md-nav__link">
+      <a href="../../algorithm/evaluation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -946,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/decision-tree/" class="md-nav__link">
+      <a href="../../algorithm/decision-tree/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -967,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/ensemble-learning/" class="md-nav__link">
+      <a href="../../algorithm/ensemble-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -988,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/svm/" class="md-nav__link">
+      <a href="../../algorithm/svm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1009,7 +1008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/dimensional-reduction/" class="md-nav__link">
+      <a href="../../algorithm/dimensional-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1061,7 +1060,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../algorithm/neural-network/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1094,7 +1093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/neural-network/fnn/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/fnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1140,7 +1139,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../algorithm/neural-network/cnn/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/cnn/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1173,7 +1172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1202,7 +1201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/neural-network/rnn/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/rnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1223,7 +1222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/neural-network/transformer/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transformer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1252,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/clustering/" class="md-nav__link">
+      <a href="../../algorithm/clustering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1273,7 +1272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/markov-chain/" class="md-nav__link">
+      <a href="../../algorithm/markov-chain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1294,7 +1293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algorithm/reinforcement-learning/" class="md-nav__link">
+      <a href="../../algorithm/reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1319,8 +1318,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1329,19 +1330,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -1352,7 +1354,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             论文
@@ -1363,8 +1365,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1376,13 +1380,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
         
           
           <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
@@ -1396,7 +1398,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             深度学习
@@ -1407,8 +1409,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1422,13 +1426,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_1" checked>
         
           
           <label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
@@ -1442,7 +1444,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_1_1">
             <span class="md-nav__icon md-icon"></span>
             Transformer
@@ -1456,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../paper/10_48550-arXiv_1706_03762/" class="md-nav__link">
+      <a href="../10_48550-arXiv_1706_03762/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1474,10 +1476,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../paper/10_48550-arXiv_1810_04805/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    10.48550/arXiv.1810.04805
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1486,6 +1508,137 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      导言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="导言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NLP领域中的两大类任务
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      预训练模型用于下游任务的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPT等模型的问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      MLM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NSP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算参数量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入表示方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wordpiece" class="md-nav__link">
+    <span class="md-ellipsis">
+      WordPiece
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cls" class="md-nav__link">
+    <span class="md-ellipsis">
+      [cls]的设计
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1527,23 +1680,127 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="目录">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      目录
+      Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      参考资料
+      导言
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="导言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NLP领域中的两大类任务
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      预训练模型用于下游任务的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPT等模型的问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      MLM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NSP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算参数量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入表示方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wordpiece" class="md-nav__link">
+    <span class="md-ellipsis">
+      WordPiece
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cls" class="md-nav__link">
+    <span class="md-ellipsis">
+      [cls]的设计
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1563,7 +1820,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/probability/index.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/paper/10_48550-arXiv_1810_04805.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1572,20 +1829,83 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/probability/index.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/paper/10_48550-arXiv_1810_04805.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>绪论</h1>
+<h1 id="2019-05-24-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding-bert">(2019-05-24) BERT: pre-training of deep bidirectional transformers for language understanding (BERT：用于语言理解的深度双向转换器的预训练)</h1>
+<table><tbody><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">Author:</span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)"> Jacob Devlin; Ming-Wei Chang; Kenton Lee; Kristina Toutanova;</span></span></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Journal: (Publication Date: 2019-05-24)</span></span></strong></p></td></tr><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">Journal Tags:</span></span></strong></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Local Link: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)"><a href="zotero://open-pdf/0_T3C9I3A8" rel="noopener noreferrer nofollow">Devlin 等 - 2019 - BERT pre-training of deep bidirectional transformers for language understanding.pdf</a></span></span></p></td></tr><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">DOI: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)"><a href="https://doi.org/10.48550/arXiv.1810.04805" rel="noopener noreferrer nofollow">10.48550/arXiv.1810.04805</a></span></span></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Abstract Translation: </span></span></strong><em><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">我们引入了一种名为 BERT 的新语言表示模型，它代表来自 Transformers 的双向编码器表示。与最近的语言表示模型不同，BERT 旨在通过在所有层中联合调节左右上下文，从未标记的文本中预先训练深度双向表示。因此，只需一个额外的输出层即可对预先训练的 BERT 模型进行微调，从而为各种任务（例如问答和语言推理）创建最先进的模型，而无需对特定任务的架构进行大量修改。BERT 在概念上简单，在实证上强大。它在 11 项自然语言处理任务上获得了最先进的新结果，包括将 GLUE 分数提高到 80.5%（绝对提高 7.7%），MultiNLI 准确率提高到 86.7%（绝对提高 4.6%），SQuAD v1.1 问答测试 F1 提高到 93.2（绝对提高 1.5 分）和 SQuAD v2.0 测试 F1 提高到 83.1（绝对提高 5.1 分）。</span></span></em></p></td></tr><tr><td style="background-color: rgb(219, 238, 221);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(219, 238, 221)">Tags:</span></span></strong></p></td></tr><tr><td style="background-color: rgb(243, 250, 244);"><p><strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">Note Date: </span></span></strong><span style="color: rgb(25, 60, 71)"><span style="background-color: rgb(243, 250, 244)">2024/12/2 14:57:22</span></span></p></td></tr></tbody></table>
 
-<h2 id="_1">参考资料</h2>
+<h2 id="_1">导言</h2>
+<h3 id="nlp">NLP领域中的两大类任务</h3>
+<p>“These include sentence-level tasks such as natural language inference (Bowman et al., 2015; Williams et al., 2018) and paraphrasing (Dolan and Brockett, 2005), which aim to predict the relationships between sentences by analyzing them holistically, as well as token-level tasks such as named entity recognition and question answering, where models are required to produce fine-grained output at the token level (Tjong Kim Sang and De Meulder, 2003; Rajpurkar et al., 2016).” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=1">pdf</a>)</p>
+<p>NLP领域中的两大类任务包括: 句子级任务和词级任务.</p>
 <ul>
-<li><a href="https://drive.google.com/file/d/1gc1qU6V_DUAZTK4z5pzdouC_LOncotIq/view?usp=sharing">蜂考速成课</a></li>
-<li><a href="https://drive.google.com/file/d/1ovFSzOAQ_OFwpWWIv8XbVYA7JF4mkbde/view?usp=sharing">张宇基础30讲</a></li>
+<li>
+<p><strong>句子级任务:</strong> 这类任务的重点是从整体上分析句子的含义, 处理句子之间的关系, 研究它们的逻辑或者语义关联. 如<strong>自然语言推理</strong>(Natural Language Inference, NLI), 目标是判断两个句子之间的关系, 这种关系通常包含三种类型: 蕴含(Entailment, 一个句子的含义可以从另一个句子中推导出来); 矛盾(Contradiction, 两个句子互相矛盾); 中立(Neutral, 两个句子没有明显的逻辑关联)</p>
+</li>
+<li>
+<p><strong>词级任务:</strong> 这类任务的重点是对文本中的具体单词或者短句进行精细化处理, 输出粒度较细, 关注单个词或者词组的特定意义或者功能. 如<strong>命名实体识别</strong>(Named Entity Recognition, NER), 目标是识别文本中的特定实体, 并对其进行分类. 再如<strong>问答抽取</strong>, 目标是从一段文本中抽取具体的问题和答案</p>
+</li>
 </ul>
+<h3 id="_2">预训练模型用于下游任务的方法</h3>
+<p>“feature-based and fine-tuning” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=1">pdf</a>)</p>
+<p>主要有两种将预训练模型用于下游任务的方法: 一种是feature-based, 另一种是fine-tuning based.</p>
+<ul>
+<li>
+<p><strong>模型架构:</strong> feature-based方法通过生成的预训练特征和下游任务的特定架构结合, 因此需要针对每个下游任务设计和调整任务模型. fine-tuning方法通常不需要重新设计任务模型, 只需要在预训练模型的顶部添加一层简单的输出层(如分类层), 训练的时候直接调整整个模型的参数</p>
+</li>
+<li>
+<p><strong>训练方式:</strong> feature-based的预训练模型是”冻结”的, 不能更新参数; 而fine-tuning方法会对所有参数进行更新, 因此需要更多的计算资源和训练数据</p>
+</li>
+<li>
+<p><strong>性能表现:</strong> fine-tuning通常在性能上更优, 因为它可以通过微调参数更好地适应下游任务的需求; feature-based在资源有限或者任务数量较小的情况下表现较好, 因为它不需要大规模调整预训练模型</p>
+</li>
+<li>
+<p><strong>适用场景:</strong> feature-based更适合小型数据集或者对计算资源要求较低的场景, 特别是在需要快速实验多个任务的时候. fine-tuning更加适合需要高性能的引用, 特别是在有足够数据和计算资源的情况下</p>
+</li>
+</ul>
+<p>总的来说, feature-based中预训练模型作为”特征提取器”, 固定不动, 适合资源受限的场景, 任务架构设计灵活但是工程复杂. fine-tuning通过微调让模型适应任务需求, 性能更好, 但是需要更多的资源支持, 任务架构改动少, 训练流程简单.  </p>
+<h3 id="gpt">GPT等模型的问题</h3>
+<p>GPT等模型的问题就是它是单方向的, 只能看到前文, 但是无法利用后文. 在句子级的任务中, 由于某些任务可能对全局的信息依赖较小, 但是仍可能会比双向模型如BERT表现略逊一筹. 在词级任务中, 这种单向信息会对任务造成严重的负面影响, 远比句子级任务中更加明显, 因为这些任务通常需要综合考虑目标词前后的信息, 而不仅仅是词的前文.</p>
+<h3 id="mlm">MLM</h3>
+<p>“The masked language model randomly masks some of the tokens from the input, and the objective is to predict the original vocabulary id of the masked word based only on its context.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 2</a>)”</p>
+<p>MLM, Masked Language Model是BERT中采用的核心预训练技术之一, 即”掩码语言模型”. 它的原理是在输入序列中, 随机选择一部分词(通常是15%)进行替换, 模型的目标是预测被掩码词汇的原始词. MLM利用句子的双向上下文信息进行预测, 包括前文信息和后文信息. 优化目标是使用交叉熵损失, 最大化模型预测掩码词的概率.</p>
+<h3 id="nsp">NSP</h3>
+<p>“In addition to the masked language model, we also use a “next sentence prediction” task that jointly pretrains text-pair representations.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 2</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=2">pdf</a>)</p>
+<p>NSP, Next Sentence Prediction描述了BERT预训练过程使用的一项额外任务, 称为”下一句预测任务”, 它是BERT的预训练目标之一, 用于增强模型对句子间关系的理解能力, 特别是针对涉及两段文本的任务.</p>
+<h2 id="_3">架构</h2>
+<h3 id="_4">计算参数量</h3>
+<p>“Where the projections are parameter matrices W Q i ∈ Rdmodel×dk , W K i ∈ Rdmodel×dk , W V i ∈ Rdmodel×dv and W O ∈ Rhdv×dmodel . In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=5">pdf</a>)</p>
+<p>在Attention is all you need论文中, 可以找到上面的这一段话, 那么对于BERT Large来说, 其每个头中可学习矩阵的参数数量是3*H*H/A, 所有头的可学习的矩阵的参数数量为3*H*H/A*A=3*H^2, 那么, 还有一个将所有头concateneate在一起的矩阵的参数量是H^2, 所以attention层的总参数量为4*H^2.</p>
+<p>对于全连接层, 第一层的输入是H, 但是输出是4H. 第二层的输入是4H, 但是输出是H. 所以全连接层的可学习的参数量为8*H^2.</p>
+<p>对于嵌入层, 可以学习的参数是30000*H(因为它的字典大小是30000).</p>
+<p>所以一个transformer块中的可学习参数是30000*H+12*H^2L, 那么总共有L个transformer块, 所以总共的可学习参数为</p>
+<h3 id="_5">输入表示方法</h3>
+<p>“o make BERT handle a variety of down-stream tasks, our input representation is able to unambiguously represent both a single sentence and a pair of sentences (e.g., 〈 Question, Answer 〉) in one token sequence. Throughout this work, a “sentence” can be an arbitrary span of contiguous text, rather than an actual linguistic sentence. A “sequence” refers to the input token sequence to BERT, which may be a single sentence or two sentences packed together.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
+<p>为了让BERT能够处理多种不同下游任务(如情感分析, 问答系统, 文本分类等), BERT的输入表示方式被设计成能够清楚地表示单个句子或者两个句子的组合. 注意, 这个”句子”并不局限于语法上的句子, 而是可以是任意连续的文本片段, 输入可以是一个完整句子, 一个段落, 甚至是一个短语. 序列是指输入到BERT模型中的一串标记, 这串标记可以代表单个句子, 也可以是由两个句子组合成的一段连续文本.</p>
+<h3 id="wordpiece">WordPiece</h3>
+<p>“We use WordPiece embeddings (Wu et al., 2016) with a 30,000 token vocabulary.” (<a href="zotero://select/library/items/V8BXNP9J">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/T3C9I3A8?page=4">pdf</a>)</p>
+<p>BERT使用的是WordPiece作为词嵌入方法. 模型输入的是子序列, 如对于单词unbelievable, 自注意力层输入的是##believ, ##able的词向量, 而不是整个单词的词向量.</p>
+<p>它的主要步骤有:</p>
+<ol>
+<li>
+<p>分词阶段: 每个单词被分割为若干个子词(子序列), 这些子词通过词表映射为唯一的索引(token IDs), 供模型使用</p>
+</li>
+<li>
+<p>嵌入阶段: 每个子词都有对饮过的词向量, 这是一种低维稠密向量表示. 如, 对于例子un, ##believ, ##able, 子词un的词向量为E_un. 子词##believ的词向量为E_##believ, 子词##able的词向量为E_##able. 这些词向量会加上位置嵌入和分段嵌入, 共同作为模型的输入</p>
+</li>
+<li>
+<p>子词输入到transformer层: 子词级别的词向量分别被输入到transformer的编码器层中进行处理, transformer层会基于上下文关系, 对每个子词表示进行动态调整</p>
+</li>
+</ol>
+<p>所以, 只要使用30000个子序列的词典就能得到比较好的效果, 不用特别大的词典(因为很多片段都是在词语中重复出现的). 并且它还能解决稀有词问题, 如果一个单词在词表中不存在, wordpiece会将其分解为更小的, 常见的子词, 直到找到匹配的单位.</p>
+<h3 id="cls">[cls]的设计</h3>
+<p>普通的token的最终表示依然服务于它自己的语义, [cls]的最终表示被训练为全局语义的浓缩. [cls]和普通token本质上是一样的, 但是训练目标和任务引导, 模型最终学会让[cls]成为全局信息的浓缩表示, 而普通token则更关注自身的语义信息.</p>
+<p>为什么需要[cls]? 其一是它提供了统一的全局序列表示, 在自然语言处理中, 许多任务(如文本分类, 下一句预测)需要用到整个输入序列的全局语义. 如果没有[cls], 需要通过其他方式提取全局信息, 例如, 使用平均池化(对所有的token的向量取平均), 使用最大池化(对每个维度取最大值), 或者自行选择一个关键token, 但是上述的方法在实践中存在问题: 池化方式可能丢失序列的细粒度信息, 手动选择token容易引入偏差或者限制模型的能力.</p>
 
 
 
@@ -1605,47 +1925,24 @@
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="最后更新">
+    <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月23日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月3日</span>
   </span>
 
     
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="创建日期">
+    <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月3日</span>
   </span>
 
     
     
-    
-      
-  <span class="md-source-file__fact">
-    
-      
-  <span class="md-icon" title="贡献者">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-  </span>
-  <span>GitHub</span>
-
-    
-    <nav>
-      
-        <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
-          
-          <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
-        </a>
-      
-      
-      
-    </nav>
-  </span>
-
     
   </aside>
 
@@ -1667,7 +1964,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到页面顶部
+  Back to top
 </button>
         
       </main>
@@ -1773,22 +2070,24 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
-        <script src="../javascripts/favicon.js"></script>
+        <script src="../../../javascripts/favicon.js"></script>
       
-        <script src="../javascripts/katex.js"></script>
+        <script src="../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="../javascripts/analysis.js"></script>
+        <script src="../../../javascripts/analysis.js"></script>
       
-        <script src="../js/open_in_new_tab.js"></script>
+        <script src="../../../js/open_in_new_tab.js"></script>
+      
+        <script src="../../../js/open_in_new_tab.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
