@@ -34,6 +34,8 @@
             - [ ] [ResNet](/algorithm/neural-network/cnn/resnet)
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
         - [x] [Transformer](/algorithm/neural-network/transformer)
+            - [x] [BERT](/algorithm/neural-network/transformer/bert)
+        - [ ] [GAN](/algorithm/neural-network/gan)
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)

@@ -26,6 +26,32 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 - 纯Decoder模型, 例如GPT, 又称为自回归(auto-regressive)Transformer模型
 - Encoder-Decoder模型, 例如BART, T5, 又称Seq2Seq(sequence-to-sequence)Transformer模型
 
+### RNN等模型的缺陷
+
+“This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+
+RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必须全部运算完成. 如果时序比较长的话, 可能会导致前面的信息到后面就丢失掉了. 如果不想丢掉的话, 就需要做一个比较大的ht, 这会导致很高昂的内存开销.
+
+“In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+
+一开始的时候, 这些注意力机制可能都是和RNN结合起来使用的, 而没有成为一个独立的体系.
+
+### CNN等模型的缺陷
+
+“In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+
+使用CNN的时候, 每一次它去看的是一个比较小的窗口, 如3\*3的卷积核. 如果两个像素隔的比较远的时候, 需要较多的层才能把这两个像素融合起来.
+
+但是Transformer模型通过注意力机制每一次能够看到所有的像素, 在一层中就能够看到. CNN比较好的地方是它有很多个输出通道, 每个通道可以去识别不同的模式. 所以说它提出了一个多头注意力机制, 模拟CNN的多输出通道的效果.
+
+### 端到端记忆网络
+
+“End-to-end memory networks are based on a recurrent attention mechanism instead of sequencealigned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+
+“端到端”指的是一种系统设计方法, 意味着从输入到输出的整个过程由一个单一的系统或者模型直接完成, 通常不需要人工干预或者多个独立的模块.
+
+端到端记忆网络是主要用于处理需要长期依赖记忆的任务. 它在功能上和LSTM类似, 但是在结构或者说工作方式上有显著不同. 前者引入了一个独立的外部记忆模块, 该模块是一个可供模型读取和写入的内存池, 模型通过注意力机制与这个外部记忆池的交互来保存和获取信息, 从而支持长期依赖. 而LSTM本身是通过门机制来管理和控制记忆的, 它的记忆是隐式的, 即记忆是通过递归传递的内部状态(cell state)来存储的, 而不是通过外部记忆池进行显式存储.
+
 ## 架构
 
 我们以Encoder-Decoder模型为例, 来看Transformer的架构.
@@ -98,7 +124,7 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 这个句子中的it是一个代词, 那么it指的是什么呢? 是animal还是street? 这个问题对人来说是简单的, 但是对机器来说不是那么容易, 当处理it的时候, 自注意力机制能够让it和animal关联起来. 即当处理每一个词的时候, 自注意力机制能够查找在输入序列中其他的能够让当前词编码更优的词.
 
-在RNN中, 处理每一个输入的时候, 会考虑前面传过来的隐藏状态. Transfommer使用的是自注意力机制, 把其他单词的理解融入处理当前的单词.
+在RNN等模型的缺陷中, 处理每一个输入的时候, 会考虑前面传过来的隐藏状态. Transfommer使用的是自注意力机制, 把其他单词的理解融入处理当前的单词.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/a103df16bceed84e7dd0dac59042db48.png){ loading=lazy width='400' }
@@ -148,6 +174,18 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 </figure>
 
 上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.
+
+???+ note "论文直通"
+
+    > “The two most commonly used attention functions are additive attention [2], and dot-product (multiplicative) attention.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+    > “Additive attention computes the compatibility function using a feed-forward network with a single hidden layer.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+    最常用的两种注意力函数是累加和点积, 累加是将Query和Key组合起来, 通过一个小型的神经网络生成注意力分数. 它和点积的区别主要在于计算方式的非线性化. 但是由于点积在计算上的性能远远大于累加, 而且在实际中往往更加节省内存空间, 所以这篇文章用的是点积.
+
+    > “We suspect that for large values of dk, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients 4. To counteract this effect, we scale the dot products by √1dk .” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+    当dk比较大的时候, QK^T点积过程中需要累加的项就特别多, 导致最终的attention分数的数值过大. 累积dk次后, 结果的均值和方差都会成比例增大, 由于点积结果的方差和dk是成正比的, 所以通过除以sqrt(dk), 可以使得结果的方差保持常数, 这样, 无论dk的大小如何, 点积结果的数值范围都会被规范到一个固定的范围内.
 
 ### 使用矩阵计算自注意力
 
@@ -208,6 +246,18 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 ![](https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png){ loading=lazy width='400' }
 </figure>
 
+---
+
+???+ note "论文直通"
+
+    > “we found it beneficial to linearly project the queries, keys and values h times with different, learned linear projections to dk, dk and dv dimensions, respectively.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+
+    将高维的Q, K和V投影到多个低维子空间(每个子空间对应一个头), 在这些低维子空间中分别计算注意力, 最终将各个头的结果拼接起来, 再进行一次线性变换, 得到输出.
+
+    > “In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+    由于有残差连接的存在, 输入的维度必须是和输出的维度是一样的, 所以, 选择的dk和dv是原始维度/h. 然后拼接的时候就可以回到原来的维度.
+
 ## 词嵌入[^4]
 
 在真正把数据输入到第一层编码层之前, 需要对文本做一定的处理. 其中第一步是将非结构化的信息转化为结构化的信息, 这一个步骤叫做"文本表示", 主要有3种方式: 独热编码, 整数编码, 词嵌入.
@@ -221,6 +271,25 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 </figure>
 
 2种主流的词嵌入算法有Word2vec和GloVe. 
+
+???+ note "论文直通"
+
+    在模型中, 有三个不同的嵌入层, 它们承担了不同的任务.
+
+    - **Encoder输入嵌入:** 为源序列生成连续向量表示
+        
+    - **Decoder输入嵌入:** 为目标序列生成连续向量表示
+        
+    - **Softmax前线性变换:** 将解码器输出的向量从dmodel映射到词汇表大小, 用于计算生成词的概率分布
+        
+
+    > “In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+    区别是前面的两个是词到词向量, 第三个是词向量到词. 为了训练的高效, 这三个嵌入方法在这篇文章中才用的是相同的权重.
+
+    > “In the embedding layers, we multiply those weights by √dmodel.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
+
+    假设我们需要将(30000, 30000)的独热矩阵降维成(3000, 512)的嵌入矩阵, 那么只需要对独热矩阵做一个矩阵乘法变换进行降维就好了. 即OneHot\*W=Embedding. 由于embedding matrix的初始化方式是xavier init, 这种方式的方差是1/embedding size. 如果dmodel较大, 会使输出值的波动较小, 通过乘以dmodel, 可以使embedding matrix的分布回调到标准正态分布, 有利于训练.
 
 ### Word2vec
 
@@ -373,6 +442,38 @@ CBOW的模型通常包括以下的步骤:
 这种方法叫作贪心解码, greedy decoding, 在每个时间步, 模型会选择当前概率最高的单词作为输出, 这种优点是速度快, 缺点是只选择当前看起来最优的单词, 可能会错误全局更好的解决方案.
 
 还有一种方法是集束搜索, 与贪心解码不同, 集束搜索会保留多个单词. 假设bean size是$2$, 这意味着模型在每一步中保留两个概率最高的单词作为候选项. 例如, 生成第一个单词的时候, 它可能会选择"I"和"a", 然后在下一个时间步中, 分别基于"I"和"a"生成后续的单词, 并继续计算这些路径的总得分, 模型会根据总和得分决定哪条路径最优. 这种方法可以避免贪心解码的局部最优解问题, 因为它在每一步都保留了多条候选路径, 允许模型在更大范围内搜索可能的最优解.
+
+## 掩码
+
+为什么需要掩码呢? 这个可以从两个方面来说, 训练阶段和推理阶段.
+
+- **训练阶段:** 在训练的时候, decoder输入的是完整的目标序列(包括未来词), 而不是逐步生成的部分序列. 目标序列被送入自注意力层之后, 如果不加mask, 模型在计算第t个词的注意力的时候, 会看到整个目标序列(包括t+1, t+2, …), 导致模型可以利用未来的词生成当前的词, 这种信息泄露会导致训练过程中模型无法学习到正确的因果关系, 从而在推理阶段表现不加
+    
+- **推理阶段:** 在推理的过程中, decoder的输入是逐步生成的序列, 在t时刻, decoder的输入是从第1到第t-1时刻生成的词, 理论上, 此时未来的词(第t+1, t+2, …)根本不存在, 似乎不需要mask. 但是由于自注意力机制的实现是对于整个序列(包括还未填充的位置)计算注意力分布, 如果不加mask, decoder的自注意力层仍会尝试对后续未生成的位置(这些位置可能被初始化为零向量或者其他占位符)来计算注意力分布, 即使这些未生成(未填充)的位置没有真实的信息, 注意力分布的结果可能会受到干扰
+
+具体的做法是将后面的值替换成一个非常大的负数. 注意, 不能替换为0, 不然的话经过softmax之后其他地方的值会受到影响(变小). 负数经过softmax之后就会变成0.
+
+## 归一化
+
+- **批归一化(BatchNorm):** 是对每个batch内的样本的每个特征进行归一化, 具体来说, 它会计算整个batch中的每个特征的均值和方差, 然后基于这些统计量对所有的样本进行归一化. 因此, BN的计算是跨样本的, 即竖着计算. 注意, 学习和预测时候的BN是不一样的, 学习的时候是这个batch里面的特征取均值和方差; 预测的时候是整个样本集的特征取均值和方差
+    
+- **层归一化(LayerNorm):** 是对每个样本的所有特征进行归一化. 它计算每个样本的所有特征的均值和方差, 因此是横着归一化的
+    
+所以, BN抹平了不同特征之间的大小关系, 而保留了不同样本之间的大小关系. 这样, 如果具体任务依赖于不同样本之间的联系, BN更有效, 尤其是在CV领域, 不同图片样本之间的大小关系得以保留. LN抹平了不同样本之间的大小关系, 而保留了不同特征之间的大小关系. 所以, LN更加适合NLP任务, 一个样本实际上就是不同的词向量, 通过LN可以保留特征之间的关系.
+
+对于NLP来说, 归一化是三维的, 因为每一个序列样本由多个单词组成. 它的坐标分别为batch(表示某一个样本也就是某个序列), seq(表示某个序列中的单词), feature(表示这个单词的词向量).
+
+## 局部, 受限注意力机制
+
+在Transformer模型中, 传统过的注意力机制允许序列中的每个元素都能关注到序列中的所有其他元素. 这种全局注意力机制虽然强大, 但是当处理图像, 音频和视频等大型输入和输出的时候, 计算成本非常高.
+
+**局部, 受限注意力机制**是为了解决这个问题而提出的方法. 它通过限制每个元素的注意力范围, 只允许它关注到序列中的局部区域, 从而降低了计算复杂度.
+
+它常见的实现方式有:
+
+- **窗口注意力:** 将输入序列分成固定大小的窗口, 每个元素只能关注到自己所在窗口内的元素, 这种方法显著减少了注意力计算量, 尤其对于长序列
+- **膨胀注意力:** 以指数方式扩大注意力窗口, 使模型能够捕捉长距离依赖关系, 同时保持较高的效率
+- **稀疏注意力:** 根据预定义的模式或学习到的注意力分布, 选择一小部分元素进行关注
 
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/

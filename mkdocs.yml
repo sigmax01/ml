@@ -197,12 +197,10 @@ nav:
         - algorithm/neural-network/cnn/index.md
         - ResNet: algorithm/neural-network/cnn/resnet.md
       - 递归神经网络: algorithm/neural-network/rnn.md
-      - Transformer: algorithm/neural-network/transformer.md
+      - Transformer:
+        - algorithm/neural-network/transformer/index.md
+        - BERT: algorithm/neural-network/transformer/bert.md
+      - GAN: algorithm/neural-network/gan.md
     - 聚类: algorithm/clustering.md
     - 马尔可夫链: algorithm/markov-chain.md
     - 强化学习: algorithm/reinforcement-learning.md
-  - 论文:
-    - 深度学习:
-      - Transformer: 
-        - 10.48550/arXiv.1706.03762: paper/10_48550-arXiv_1706_03762.md
-        - 10.48550/arXiv.1810.04805: paper/10_48550-arXiv_1810_04805.md
