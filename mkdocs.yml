@@ -195,11 +195,13 @@ nav:
       - 前馈神经网络: algorithm/neural-network/fnn.md
       - 卷积神经网络:
         - algorithm/neural-network/cnn/index.md
+        - AlexNet: algorithm/neural-network/cnn/alexnet.md
         - ResNet: algorithm/neural-network/cnn/resnet.md
       - 递归神经网络: algorithm/neural-network/rnn.md
       - Transformer:
         - algorithm/neural-network/transformer/index.md
         - BERT: algorithm/neural-network/transformer/bert.md
+        - ViT: algorithm/neural-network/transformer/vit.md
       - GAN: algorithm/neural-network/gan.md
     - 聚类: algorithm/clustering.md
     - 马尔可夫链: algorithm/markov-chain.md
