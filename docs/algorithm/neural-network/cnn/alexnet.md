@@ -71,7 +71,7 @@ LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一�
 
 注意, 第一个卷积层使用了$256$个$5*5*48$的卷积核, 应该会产生$256$个特征图, 这里, 这些特征图中$128$个被发送到GPU0训练, $128$个被发送到GPU1训练, 所以在图中表示出来是上面$128$, 下面$128$, 但是实际上第二个卷积层的卷积核的通道数还是$256$. 同理, 对于下面几层也是.
 
-## 减少过拟合
+## 减少过拟合[^1]
 
 ### 数据增强
 
@@ -96,7 +96,9 @@ $\bm{A}$是$n$阶矩阵, 如果数$\lambda$和$n$维非$0$列向量$\bm{x}$满�
 
 ### Dropout
 
-核心思想就是有$50\%$的可能性将隐藏层神经元的输出设置为$0$. 
+将各种不同模型的预测组合起来的方法是一种很好的减少测试误差的方法, 但是对于动辄需要几天来训练的大型神经网络来说, 这几乎不可能. 
+
+该文章采用了Dropout来解决训练时间长和过拟合的问题, 其核心思想就是有$50\%$的可能性将隐藏层神经元的输出设置为$0$. 这会导致那些被drop out的神经元不会参与前向/反向传播. 
 
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
