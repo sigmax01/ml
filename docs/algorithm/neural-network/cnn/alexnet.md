@@ -51,5 +51,9 @@ LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一�
 
 这里的"adjacent" kernel maps指的是同一层中不同的卷积核学习到的特征图. 每个卷积核学习到一种特定的特征. 归一化的目的是通过相邻特征图之间的交互来抑制过大的响应值, 也就是说, 模拟生物神经网络中的"侧抑制", 一个卷积核的强响应值会抑制邻近卷积核的响应值, 突出显著特征. 他强调的是特征图之间的竞争, 同时也可以促进多样性特征的学习, 避免单一卷积核主导学习. 
 
+### 重叠池化
+
+传统的CNN中的池化单元是不能重叠的. 准确的说, 池化层可以被认为是由间隔$s$像素的池化单元网格组成, 每个单元总结其位置中心周围大小为$z*z$的区域, 如果我们设置$s=z$, 那么我们会得到一个传统CNN中的池化层; 如果我们设置$s<z$, 那么我们会得到一个含有重叠单元的池化层. 
+
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
