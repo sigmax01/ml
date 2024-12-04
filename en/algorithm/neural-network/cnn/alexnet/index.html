@@ -1208,6 +1208,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      减少过拟合
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1551,6 +1560,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      减少过拟合
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1610,6 +1628,7 @@
 b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\min(N-1,i+n/2)} (a_{j}^{x, y})^2 \right)^\beta}
 \]</div>
 <p>这个<span class="arithmatex">\((x, y)\)</span>应该是特征图上的坐标, 原始图像的部分区域(感受野)会通过卷积核i卷积映射到特征图中的单个坐标点<span class="arithmatex">\((x, y)\)</span>. <span class="arithmatex">\(a_i^{x, y}\)</span>表示的是特征图中位置<span class="arithmatex">\((x, y)\)</span>的激活值.</p>
+<p><span class="arithmatex">\(n\)</span>表示的是领域大小, 表示局部归一化的范围, 通常是一个奇数, 表示对前后总共<span class="arithmatex">\(n\)</span>个通道进行归一化. <span class="arithmatex">\(\sum\)</span>是一个求和操作, 对局部范围内所有通道, 从第<span class="arithmatex">\(j = \max(0, i - n/2)  到  j = \min(N-1, i + n/2) ）\)</span>的激活值平方求和. <span class="arithmatex">\(j\)</span>表示邻域的索引, <span class="arithmatex">\(N\)</span>表示输入特征图的通道总数. <span class="arithmatex">\(k\)</span>是一个偏置值, 防止分母为零, <span class="arithmatex">\(\alpha\)</span>控制归一化强度的比例系数. </p>
 <p>LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一种来源于神经生物学的机制, 用来描述被激活的神经我对周围相邻神经元的抑制作者用. 这种机制在生物神经系统中非常普遍, 特别是在视觉, 听觉等感知系统中, 用于增强对比度和突出关键信息. 例如, 在视网膜中, 当某些感光细胞对光有强烈响应的时候, 他们会抑制周围感光细胞的响应, 突出边缘或者对比度. </p>
 <blockquote>
 <p>where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer.</p>
@@ -1624,6 +1643,8 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 </figure></p>
 <p>其中, 第二, 四, 五卷积层的核仅仅连接到前一层中位于同一GPU上的那些特征图. 第三卷积层的核连接到前一层的所有神经元, 从图中可以看到是不同GPU对应的部分之间是有虚线连接的(说明存在GPU之间的通信). 全连接层中的神经元连接到前一层的所有神经元(为了保持和单GPU训练时的参数量一致).</p>
 <p>第一, 二个卷积层之后有一个LRN层, 重叠池化层位于两个LRN层和第五卷积层之后, ReLU非饱和非线性函数应用于每个卷积层和全连接层的输出. </p>
+<p>注意, 第一个卷积层使用了<span class="arithmatex">\(256\)</span>个<span class="arithmatex">\(5*5*48\)</span>的卷积核, 应该会产生<span class="arithmatex">\(256\)</span>个特征图, 这里, 这些特征图中<span class="arithmatex">\(128\)</span>个被发送到GPU0训练, <span class="arithmatex">\(128\)</span>个被发送到GPU1训练, 所以在图中表示出来是上面<span class="arithmatex">\(128\)</span>, 下面<span class="arithmatex">\(128\)</span>, 但是实际上第二个卷积层的卷积核的通道数还是<span class="arithmatex">\(256\)</span>. 同理, 对于下面几层也是.</p>
+<h2 id="_4">减少过拟合</h2>
 <div class="footnote">
 <hr />
 <ol>
