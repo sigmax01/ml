@@ -47,5 +47,9 @@ $$
 
 LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一种来源于神经生物学的机制, 用来描述被激活的神经我对周围相邻神经元的抑制作者用. 这种机制在生物神经系统中非常普遍, 特别是在视觉, 听觉等感知系统中, 用于增强对比度和突出关键信息. 例如, 在视网膜中, 当某些感光细胞对光有强烈响应的时候, 他们会抑制周围感光细胞的响应, 突出边缘或者对比度. 
 
+> where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer.
+
+这里的"adjacent" kernel maps指的是同一层中不同的卷积核学习到的特征图. 每个卷积核学习到一种特定的特征. 归一化的目的是通过相邻特征图之间的交互来抑制过大的响应值, 也就是说, 模拟生物神经网络中的"侧抑制", 一个卷积核的强响应值会抑制邻近卷积核的响应值, 突出显著特征. 他强调的是特征图之间的竞争, 同时也可以促进多样性特征的学习, 避免单一卷积核主导学习. 
+
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
