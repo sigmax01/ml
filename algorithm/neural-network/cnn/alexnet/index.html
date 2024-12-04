@@ -1194,6 +1194,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      重叠池化
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1528,6 +1537,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      重叠池化
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1597,6 +1615,8 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 <p>where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer.</p>
 </blockquote>
 <p>这里的"adjacent" kernel maps指的是同一层中不同的卷积核学习到的特征图. 每个卷积核学习到一种特定的特征. 归一化的目的是通过相邻特征图之间的交互来抑制过大的响应值, 也就是说, 模拟生物神经网络中的"侧抑制", 一个卷积核的强响应值会抑制邻近卷积核的响应值, 突出显著特征. 他强调的是特征图之间的竞争, 同时也可以促进多样性特征的学习, 避免单一卷积核主导学习. </p>
+<h3 id="_3">重叠池化</h3>
+<p>传统的CNN中的池化单元是不能重叠的. 准确的说, 池化层可以被认为是由间隔<span class="arithmatex">\(s\)</span>像素的池化单元网格组成, 每个单元总结其位置中心周围大小为<span class="arithmatex">\(z*z\)</span>的区域, 如果我们设置<span class="arithmatex">\(s=z\)</span>, 那么我们会得到一个传统CNN中的池化层; 如果我们设置<span class="arithmatex">\(s&lt;z\)</span>, 那么我们会得到一个含有重叠单元的池化层. </p>
 <div class="footnote">
 <hr />
 <ol>
