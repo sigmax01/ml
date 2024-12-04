@@ -55,5 +55,17 @@ LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一�
 
 传统的CNN中的池化单元是不能重叠的. 准确的说, 池化层可以被认为是由间隔$s$像素的池化单元网格组成, 每个单元总结其位置中心周围大小为$z*z$的区域, 如果我们设置$s=z$, 那么我们会得到一个传统CNN中的池化层; 如果我们设置$s<z$, 那么我们会得到一个含有重叠单元的池化层. 
 
+---
+
+如下图, 是一张AlexNet整体架构图:
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/1588ab9320a43a44d17240bf1a5aa017.png){ loading=lazy width='800' }
+</figure>
+
+其中, 第二, 四, 五卷积层的核仅仅连接到前一层中位于同一GPU上的那些特征图. 第三卷积层的核连接到前一层的所有神经元, 从图中可以看到是不同GPU对应的部分之间是有虚线连接的(说明存在GPU之间的通信). 全连接层中的神经元连接到前一层的所有神经元(为了保持和单GPU训练时的参数量一致).
+
+第一, 二个卷积层之后有一个LRN层, 重叠池化层位于两个LRN层和第五卷积层之后, ReLU非饱和非线性函数应用于每个卷积层和全连接层的输出. 
+
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
