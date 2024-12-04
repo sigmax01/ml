@@ -3,7 +3,7 @@ title: AlexNet
 comments: false
 ---
 
-## 架构
+## 架构[^1]
 
 ### ReLU激活函数
 
@@ -35,4 +35,9 @@ AlexNet的作者使用了两块GTX 580训练, 至于这里为什么是$2$, 是�
 
 由于网络绝大部分的参数都集中在了全连接层的第一层上, 而全连接层的第一层接受来自卷积层的最后一层的输出作为输入, 为了保持双GPU网络和单GPU网络的参数总量相近, 设计者决定不减少最后一层卷积层和全连接层的参数数量.
 
-### 局部归一化
+### 局部归一化[^2]
+
+局部归一化, Local Response Normalization (LRN)首次在AlexNet中提出, 通过实验证实可以提高模型的泛化能力, 但是提升的很少, 以至于后面都不再使用, 甚至有人觉得它是一个伪命题, 因此饱受争议.
+
+[^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
+[^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
