@@ -45,6 +45,8 @@ $$
 
 这个$(x, y)$应该是特征图上的坐标, 原始图像的部分区域(感受野)会通过卷积核i卷积映射到特征图中的单个坐标点$(x, y)$. $a_i^{x, y}$表示的是特征图中位置$(x, y)$的激活值.
 
+$n$表示的是领域大小, 表示局部归一化的范围, 通常是一个奇数, 表示对前后总共$n$个通道进行归一化. $\sum$是一个求和操作, 对局部范围内所有通道, 从第$j = \max(0, i - n/2)  到  j = \min(N-1, i + n/2) ）$的激活值平方求和. $j$表示邻域的索引, $N$表示输入特征图的通道总数. $k$是一个偏置值, 防止分母为零, $\alpha$控制归一化强度的比例系数. 
+
 LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一种来源于神经生物学的机制, 用来描述被激活的神经我对周围相邻神经元的抑制作者用. 这种机制在生物神经系统中非常普遍, 特别是在视觉, 听觉等感知系统中, 用于增强对比度和突出关键信息. 例如, 在视网膜中, 当某些感光细胞对光有强烈响应的时候, 他们会抑制周围感光细胞的响应, 突出边缘或者对比度. 
 
 > where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer.
@@ -66,6 +68,10 @@ LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一�
 其中, 第二, 四, 五卷积层的核仅仅连接到前一层中位于同一GPU上的那些特征图. 第三卷积层的核连接到前一层的所有神经元, 从图中可以看到是不同GPU对应的部分之间是有虚线连接的(说明存在GPU之间的通信). 全连接层中的神经元连接到前一层的所有神经元(为了保持和单GPU训练时的参数量一致).
 
 第一, 二个卷积层之后有一个LRN层, 重叠池化层位于两个LRN层和第五卷积层之后, ReLU非饱和非线性函数应用于每个卷积层和全连接层的输出. 
+
+注意, 第一个卷积层使用了$256$个$5*5*48$的卷积核, 应该会产生$256$个特征图, 这里, 这些特征图中$128$个被发送到GPU0训练, $128$个被发送到GPU1训练, 所以在图中表示出来是上面$128$, 下面$128$, 但是实际上第二个卷积层的卷积核的通道数还是$256$. 同理, 对于下面几层也是.
+
+## 减少过拟合
 
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
