@@ -1567,7 +1567,7 @@
 
   <h1>AlexNet</h1>
 
-<h2 id="_1">架构</h2>
+<h2 id="_1">架构<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
 <h3 id="relu">ReLU激活函数</h3>
 <p>AlexNet采用的是非饱和非线性函数, 而不是才用传统的饱和非线性函数, 如<span class="arithmatex">\(\tanh\)</span>或者是sigmoid. 饱和的意思就是说当<span class="arithmatex">\(x\)</span>的值变得很大或者很小的时候, 饱和函数的值会解禁期极限, 在这些区域, 导数趋近于<span class="arithmatex">\(0\)</span>, 导致梯度下降更新缓慢, 称为"梯度消失问题". 梯度消失会导致网络学习效率大幅降低, 尤其是在深度网络中, 靠近输入层的参数几乎无法被有效更新. </p>
 <p><span class="arithmatex">\(max(0, x)\)</span>是AlexNet采用的非饱和非线性函数. 输出为正值的时候, 导数恒为<span class="arithmatex">\(1\)</span>, 输出为负值的时候, 导数恒为<span class="arithmatex">\(0\)</span>. </p>
@@ -1586,7 +1586,19 @@
 <p>不同的连接模式会影响通信量: 全连接(每层的所有神经元都连接)通信量大但是性能受限; 部分连接(限制某些层或者某些神经元的连接)减少通信但是可能会影响模型的性能. 可以使用交叉验证来测试不同的连接模式, 直到找到通信量和计算量之间的最佳平衡点, 目标是调整通信量, 使其成为总计算量中可以接受的比例.</p>
 <p>这个结构其实和一种"柱状"的CNN较为类似, 每个柱都是一部分独立的CNN分支, 这些柱可以看作是并行的网络结构, 每个柱都会生成自己的输出, 通过后续层将这些输出融合在一起. 文中提到的是非独立的柱状CNN, 这个柱不是完全独立的, 柱之间会共享某些信息, 通过两块GPU分别负责不同的柱, 能够实现并行计算.</p>
 <p>由于网络绝大部分的参数都集中在了全连接层的第一层上, 而全连接层的第一层接受来自卷积层的最后一层的输出作为输入, 为了保持双GPU网络和单GPU网络的参数总量相近, 设计者决定不减少最后一层卷积层和全连接层的参数数量.</p>
-<h3 id="_2">局部归一化</h3>
+<h3 id="_2">局部归一化<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></h3>
+<p>局部归一化, Local Response Normalization (LRN)首次在AlexNet中提出, 通过实验证实可以提高模型的泛化能力, 但是提升的很少, 以至于后面都不再使用, 甚至有人觉得它是一个伪命题, 因此饱受争议.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. <a href="https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. <a href="https://blog.csdn.net/qq_27825451/article/details/88745034">https://blog.csdn.net/qq_27825451/article/details/88745034</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
