@@ -1692,7 +1692,7 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 <p>其中, 第二, 四, 五卷积层的核仅仅连接到前一层中位于同一GPU上的那些特征图. 第三卷积层的核连接到前一层的所有神经元, 从图中可以看到是不同GPU对应的部分之间是有虚线连接的(说明存在GPU之间的通信). 全连接层中的神经元连接到前一层的所有神经元(为了保持和单GPU训练时的参数量一致).</p>
 <p>第一, 二个卷积层之后有一个LRN层, 重叠池化层位于两个LRN层和第五卷积层之后, ReLU非饱和非线性函数应用于每个卷积层和全连接层的输出. </p>
 <p>注意, 第一个卷积层使用了<span class="arithmatex">\(256\)</span>个<span class="arithmatex">\(5*5*48\)</span>的卷积核, 应该会产生<span class="arithmatex">\(256\)</span>个特征图, 这里, 这些特征图中<span class="arithmatex">\(128\)</span>个被发送到GPU0训练, <span class="arithmatex">\(128\)</span>个被发送到GPU1训练, 所以在图中表示出来是上面<span class="arithmatex">\(128\)</span>, 下面<span class="arithmatex">\(128\)</span>, 但是实际上第二个卷积层的卷积核的通道数还是<span class="arithmatex">\(256\)</span>. 同理, 对于下面几层也是.</p>
-<h2 id="_4">减少过拟合</h2>
+<h2 id="_4">减少过拟合<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
 <h3 id="_5">数据增强</h3>
 <p>最简单的降低过拟合的方法是对数据集进行一个人工的标签保留转换(label-preserving transformations). 作者采用了两种方法, 它使用的是CPU在原始图像上做出修改, 这种CPU和GPU的分工并行导致计算资源的利用率较高.</p>
 <p>第一种方法是通过从<span class="arithmatex">\(256*256\)</span>的图像中提取随机的<span class="arithmatex">\(224*224\)</span>的补丁(及其水平反转)并用这些提取的补丁来训练我们的网络. 在预测的时候, 模型从图像的各个corner和中间取<span class="arithmatex">\(5\)</span>个<span class="arithmatex">\(224*224\)</span>的补丁(包括他们的水平反转), 然后这<span class="arithmatex">\(10\)</span>个补丁的softmax值取平均. </p>
@@ -1707,12 +1707,13 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 <p>对于每个RGB像素<span class="arithmatex">\(I_{xy} = [I^R_{xy}, I^G_{xy}, I^B_{xy}]^T + [\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_3] [\alpha_1 \lambda_1, \alpha_2 \lambda_2, \alpha_3 \lambda_3]^T\)</span>, 其中, <span class="arithmatex">\(\mathbf{p}_i\)</span>是主成分向量, <span class="arithmatex">\(\lambda_i\)</span>是第<span class="arithmatex">\(i\)</span>个主成分的特征值, 它衡量了<span class="arithmatex">\(\mathbf{p}_i\)</span>对数据整体方差的贡献大小, 特征值越大, 说明这个主成分越重要.</p>
 <p>这个<span class="arithmatex">\(\alpha_i\)</span>, 对于每张训练图像来说, 只在该图像被用于训练的时候随机生成一次, 在这张图像的整个训练过程中, <span class="arithmatex">\(\alpha_i\)</span>的值对所有像素点保持不变, 如果这张图像在后续训练中再次使用, 则会重新生成它的<span class="arithmatex">\(\alpha_i\)</span>值. 如, 在第一个epoch中, <span class="arithmatex">\(\alpha_1\)</span>, <span class="arithmatex">\(\alpha_2\)</span>, <span class="arithmatex">\(\alpha_3\)</span>会被随机生成为<span class="arithmatex">\(-0.05, 0.1, -0.02\)</span>, 在这次训练中, 图像中的所有像素点都会以这组<span class="arithmatex">\(\alpha_i\)</span>值进行扰动, 到了第二个epoch的时候, 图像再次被使用, <span class="arithmatex">\(\alpha_i\)</span>会重新生成. </p>
 <h3 id="dropout">Dropout</h3>
-<p>核心思想就是有<span class="arithmatex">\(50\%\)</span>的可能性将隐藏层神经元的输出设置为<span class="arithmatex">\(0\)</span>. </p>
+<p>将各种不同模型的预测组合起来的方法是一种很好的减少测试误差的方法, 但是对于动辄需要几天来训练的大型神经网络来说, 这几乎不可能. </p>
+<p>该文章采用了Dropout来解决训练时间长和过拟合的问题, 其核心思想就是有<span class="arithmatex">\(50\%\)</span>的可能性将隐藏层神经元的输出设置为<span class="arithmatex">\(0\)</span>. 这会导致那些被drop out的神经元不会参与前向/反向传播. </p>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. <a href="https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. <a href="https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
 <p>LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. <a href="https://blog.csdn.net/qq_27825451/article/details/88745034">https://blog.csdn.net/qq_27825451/article/details/88745034</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
