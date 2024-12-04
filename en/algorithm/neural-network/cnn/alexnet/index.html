@@ -96,6 +96,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1118,6 +1123,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    AlexNet
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1127,6 +1143,65 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relu" class="md-nav__link">
+    <span class="md-ellipsis">
+      ReLU激活函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      分布式GPU训练
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      局部归一化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1410,6 +1485,56 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relu" class="md-nav__link">
+    <span class="md-ellipsis">
+      ReLU激活函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      分布式GPU训练
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      局部归一化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1442,7 +1567,26 @@
 
   <h1>AlexNet</h1>
 
-
+<h2 id="_1">架构</h2>
+<h3 id="relu">ReLU激活函数</h3>
+<p>AlexNet采用的是非饱和非线性函数, 而不是才用传统的饱和非线性函数, 如<span class="arithmatex">\(\tanh\)</span>或者是sigmoid. 饱和的意思就是说当<span class="arithmatex">\(x\)</span>的值变得很大或者很小的时候, 饱和函数的值会解禁期极限, 在这些区域, 导数趋近于<span class="arithmatex">\(0\)</span>, 导致梯度下降更新缓慢, 称为"梯度消失问题". 梯度消失会导致网络学习效率大幅降低, 尤其是在深度网络中, 靠近输入层的参数几乎无法被有效更新. </p>
+<p><span class="arithmatex">\(max(0, x)\)</span>是AlexNet采用的非饱和非线性函数. 输出为正值的时候, 导数恒为<span class="arithmatex">\(1\)</span>, 输出为负值的时候, 导数恒为<span class="arithmatex">\(0\)</span>. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/ef635b798a4cfa5fe4207d4d54967ff5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/ef635b798a4cfa5fe4207d4d54967ff5.png" width="300" /></a></p>
+</figure>
+<p>从图中可以看出, 使用一个ReLU的四层CNN达到<span class="arithmatex">\(25\%\)</span>错误率的速度比使用<span class="arithmatex">\(\tanh\)</span>激活函数的CNN快<span class="arithmatex">\(6\)</span>倍. </p>
+<blockquote>
+<p>Jarrett et al. [11] claim that the nonlinearity f (x) = |tanh(x)| works particularly well with their type of contrast normalization followed by local average pooling on the Caltech-101 dataset.</p>
+</blockquote>
+<p>虽然早期的研究也用了<span class="arithmatex">\(|\tanh(x)|\)</span>作为激活函数, 但是他们的主要目标是避免过拟合, 而不是真正的加速模型的训练.</p>
+<h3 id="gpu">分布式GPU训练</h3>
+<p>AlexNet的作者使用了两块GTX 580训练, 至于这里为什么是<span class="arithmatex">\(2\)</span>, 是因为它的内存太小了, 导致无法把整个网络放在上面. </p>
+<p>得益于GPU能够直接访问和写入其他GPU的内存, 不用经过宿主的通用内存, GPU的分布式训练得以发展. </p>
+<p>他们将卷积核(神经元)分半分配到两个GPU上, 每个GPU只处理一部分神经元. 并且, 他们还使用了一种优化通信的策略: 在普通的卷积神经网络中, 某一层的所有卷积核(或神经元)会从上一层的所有特征图中获取输入, 比如, 层3的核会从层2的所有特征图中获取信息, 这种全连接方式有助于模型更好地获取全局信息, 但是在多GPU并行训练的时候会带来巨大的通信开销. 该文章引入了一个新的方法, 仅在部分层进行GPU间的通信, 比如, 层3的核心仍然从层2的所有特征图中获取输入(即, 跨GPU通信仍然会发生), 但是从层3到层4的时候, 每个GPU上的核心只能从同一个GPU的特征图获取输入.</p>
+<p>不同的连接模式会影响通信量: 全连接(每层的所有神经元都连接)通信量大但是性能受限; 部分连接(限制某些层或者某些神经元的连接)减少通信但是可能会影响模型的性能. 可以使用交叉验证来测试不同的连接模式, 直到找到通信量和计算量之间的最佳平衡点, 目标是调整通信量, 使其成为总计算量中可以接受的比例.</p>
+<p>这个结构其实和一种"柱状"的CNN较为类似, 每个柱都是一部分独立的CNN分支, 这些柱可以看作是并行的网络结构, 每个柱都会生成自己的输出, 通过后续层将这些输出融合在一起. 文中提到的是非独立的柱状CNN, 这个柱不是完全独立的, 柱之间会共享某些信息, 通过两块GPU分别负责不同的柱, 能够实现并行计算.</p>
+<p>由于网络绝大部分的参数都集中在了全连接层的第一层上, 而全连接层的第一层接受来自卷积层的最后一层的输出作为输入, 为了保持双GPU网络和单GPU网络的参数总量相近, 设计者决定不减少最后一层卷积层和全连接层的参数数量.</p>
+<h3 id="_2">局部归一化</h3>
 
 
 
@@ -1465,7 +1609,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月4日</span>
   </span>
 
     
