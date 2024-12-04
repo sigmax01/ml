@@ -1617,6 +1617,13 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 <p>这里的"adjacent" kernel maps指的是同一层中不同的卷积核学习到的特征图. 每个卷积核学习到一种特定的特征. 归一化的目的是通过相邻特征图之间的交互来抑制过大的响应值, 也就是说, 模拟生物神经网络中的"侧抑制", 一个卷积核的强响应值会抑制邻近卷积核的响应值, 突出显著特征. 他强调的是特征图之间的竞争, 同时也可以促进多样性特征的学习, 避免单一卷积核主导学习. </p>
 <h3 id="_3">重叠池化</h3>
 <p>传统的CNN中的池化单元是不能重叠的. 准确的说, 池化层可以被认为是由间隔<span class="arithmatex">\(s\)</span>像素的池化单元网格组成, 每个单元总结其位置中心周围大小为<span class="arithmatex">\(z*z\)</span>的区域, 如果我们设置<span class="arithmatex">\(s=z\)</span>, 那么我们会得到一个传统CNN中的池化层; 如果我们设置<span class="arithmatex">\(s&lt;z\)</span>, 那么我们会得到一个含有重叠单元的池化层. </p>
+<hr />
+<p>如下图, 是一张AlexNet整体架构图:</p>
+<p><figure markdown='1'>
+<a class="glightbox" href="https://img.ricolxwz.io/1588ab9320a43a44d17240bf1a5aa017.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1588ab9320a43a44d17240bf1a5aa017.png" width="800" /></a>
+</figure></p>
+<p>其中, 第二, 四, 五卷积层的核仅仅连接到前一层中位于同一GPU上的那些特征图. 第三卷积层的核连接到前一层的所有神经元, 从图中可以看到是不同GPU对应的部分之间是有虚线连接的(说明存在GPU之间的通信). 全连接层中的神经元连接到前一层的所有神经元(为了保持和单GPU训练时的参数量一致).</p>
+<p>第一, 二个卷积层之后有一个LRN层, 重叠池化层位于两个LRN层和第五卷积层之后, ReLU非饱和非线性函数应用于每个卷积层和全连接层的输出. </p>
 <div class="footnote">
 <hr />
 <ol>
