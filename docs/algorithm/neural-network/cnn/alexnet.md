@@ -73,5 +73,30 @@ LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一�
 
 ## 减少过拟合
 
+### 数据增强
+
+最简单的降低过拟合的方法是对数据集进行一个人工的标签保留转换(label-preserving transformations). 作者采用了两种方法, 它使用的是CPU在原始图像上做出修改, 这种CPU和GPU的分工并行导致计算资源的利用率较高.
+
+第一种方法是通过从$256*256$的图像中提取随机的$224*224$的补丁(及其水平反转)并用这些提取的补丁来训练我们的网络. 在预测的时候, 模型从图像的各个corner和中间取$5$个$224*224$的补丁(包括他们的水平反转), 然后这$10$个补丁的softmax值取平均. 
+
+第二种是用PCA. 首先来复习一下什么是特征值和特征向量. 
+
+$\bm{A}$是$n$阶矩阵, 如果数$\lambda$和$n$维非$0$列向量$\bm{x}$满足$\bm{A}\bm{x}=\lambda\bm{x}$, 那么数$\lambda$称为$\bm{A}$的特征值. $\bm{x}$称为$\bm{A}$对应于特征值$\lambda$的特征向量. 式$\bm{A}\bm{x}=\lambda\bm{x}$可以写成$(\bm{A}-\lambda\bm{E})\bm{x}=0$, $|\lambda\bm{E}-\bm{A}|$叫做$\bm{A}$的特征多项式. 当特征多项式等于$0$的时候, 称为$\bm{A}$的特征方程, 特征方程是一个齐次线性方程组, 求解特征值的过程其实就是求解特征方程的解. 
+
+这种数据增强的方法改变了训练图像中RGB通道的像素值. 具体步骤如下: 首先, 对整个ImageNet训练集中所有图像的RGB像素值进行主成分分析(PCA), 对于每一张训练图像, 将一些主成分的线性组合添加到每个像素值上, 添加的量由以下组成:
+
+- 对应主成分的特征值(代表主成分的重要性)
+- 一个从均值为$0$, 标准差为$0.1$的高斯分布中随机采样的值
+
+注意, PCA通过线性变换将原始的RGB通道重新组合成一组主成分, 这些主成分所代表的方向可以看作是新的坐标轴.
+
+对于每个RGB像素$I_{xy} = [I^R_{xy}, I^G_{xy}, I^B_{xy}]^T + [\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_3] [\alpha_1 \lambda_1, \alpha_2 \lambda_2, \alpha_3 \lambda_3]^T$, 其中, $\mathbf{p}_i$是主成分向量, $\lambda_i$是第$i$个主成分的特征值, 它衡量了$\mathbf{p}_i$对数据整体方差的贡献大小, 特征值越大, 说明这个主成分越重要.
+
+这个$\alpha_i$, 对于每张训练图像来说, 只在该图像被用于训练的时候随机生成一次, 在这张图像的整个训练过程中, $\alpha_i$的值对所有像素点保持不变, 如果这张图像在后续训练中再次使用, 则会重新生成它的$\alpha_i$值. 如, 在第一个epoch中, $\alpha_1$, $\alpha_2$, $\alpha_3$会被随机生成为$-0.05, 0.1, -0.02$, 在这次训练中, 图像中的所有像素点都会以这组$\alpha_i$值进行扰动, 到了第二个epoch的时候, 图像再次被使用, $\alpha_i$会重新生成. 
+
+### Dropout
+
+核心思想就是有$50\%$的可能性将隐藏层神经元的输出设置为$0$. 
+
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
