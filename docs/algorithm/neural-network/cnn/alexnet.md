@@ -37,7 +37,15 @@ AlexNet的作者使用了两块GTX 580训练, 至于这里为什么是$2$, 是�
 
 ### 局部归一化[^2]
 
-局部归一化, Local Response Normalization (LRN)首次在AlexNet中提出, 通过实验证实可以提高模型的泛化能力, 但是提升的很少, 以至于后面都不再使用, 甚至有人觉得它是一个伪命题, 因此饱受争议.
+局部归一化, Local Response Normalization (LRN)首次在AlexNet中提出, 通过实验证实可以提高模型的泛化能力, 但是提升的很少, 而且计算复杂, 以至于后面都不再使用, 甚至有人觉得它是一个伪命题, 因此饱受争议. 如下是LRN的公式.
+
+$$
+b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\min(N-1,i+n/2)} (a_{j}^{x, y})^2 \right)^\beta}
+$$
+
+这个$(x, y)$应该是特征图上的坐标, 原始图像的部分区域(感受野)会通过卷积核i卷积映射到特征图中的单个坐标点$(x, y)$. $a_i^{x, y}$表示的是特征图中位置$(x, y)$的激活值.
+
+LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一种来源于神经生物学的机制, 用来描述被激活的神经我对周围相邻神经元的抑制作者用. 这种机制在生物神经系统中非常普遍, 特别是在视觉, 听觉等感知系统中, 用于增强对比度和突出关键信息. 例如, 在视网膜中, 当某些感光细胞对光有强烈响应的时候, 他们会抑制周围感光细胞的响应, 突出边缘或者对比度. 
 
 [^1]: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25. https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
 [^2]: LoveMIss-Y. (2019, 三月 26). 深度学习饱受争议的局部响应归一化(LRN)详解. Csdn. https://blog.csdn.net/qq_27825451/article/details/88745034
