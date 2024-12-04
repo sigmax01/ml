@@ -1593,6 +1593,10 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 \]</div>
 <p>这个<span class="arithmatex">\((x, y)\)</span>应该是特征图上的坐标, 原始图像的部分区域(感受野)会通过卷积核i卷积映射到特征图中的单个坐标点<span class="arithmatex">\((x, y)\)</span>. <span class="arithmatex">\(a_i^{x, y}\)</span>表示的是特征图中位置<span class="arithmatex">\((x, y)\)</span>的激活值.</p>
 <p>LRN受到了神经生物学的一个启发. 侧抑制(Lateral Inhibition)是一种来源于神经生物学的机制, 用来描述被激活的神经我对周围相邻神经元的抑制作者用. 这种机制在生物神经系统中非常普遍, 特别是在视觉, 听觉等感知系统中, 用于增强对比度和突出关键信息. 例如, 在视网膜中, 当某些感光细胞对光有强烈响应的时候, 他们会抑制周围感光细胞的响应, 突出边缘或者对比度. </p>
+<blockquote>
+<p>where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer.</p>
+</blockquote>
+<p>这里的"adjacent" kernel maps指的是同一层中不同的卷积核学习到的特征图. 每个卷积核学习到一种特定的特征. 归一化的目的是通过相邻特征图之间的交互来抑制过大的响应值, 也就是说, 模拟生物神经网络中的"侧抑制", 一个卷积核的强响应值会抑制邻近卷积核的响应值, 突出显著特征. 他强调的是特征图之间的竞争, 同时也可以促进多样性特征的学习, 避免单一卷积核主导学习. </p>
 <div class="footnote">
 <hr />
 <ol>
