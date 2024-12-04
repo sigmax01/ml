@@ -1215,6 +1215,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="减少过拟合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据增强
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dropout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1567,6 +1591,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="减少过拟合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据增强
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dropout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1645,6 +1693,21 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 <p>第一, 二个卷积层之后有一个LRN层, 重叠池化层位于两个LRN层和第五卷积层之后, ReLU非饱和非线性函数应用于每个卷积层和全连接层的输出. </p>
 <p>注意, 第一个卷积层使用了<span class="arithmatex">\(256\)</span>个<span class="arithmatex">\(5*5*48\)</span>的卷积核, 应该会产生<span class="arithmatex">\(256\)</span>个特征图, 这里, 这些特征图中<span class="arithmatex">\(128\)</span>个被发送到GPU0训练, <span class="arithmatex">\(128\)</span>个被发送到GPU1训练, 所以在图中表示出来是上面<span class="arithmatex">\(128\)</span>, 下面<span class="arithmatex">\(128\)</span>, 但是实际上第二个卷积层的卷积核的通道数还是<span class="arithmatex">\(256\)</span>. 同理, 对于下面几层也是.</p>
 <h2 id="_4">减少过拟合</h2>
+<h3 id="_5">数据增强</h3>
+<p>最简单的降低过拟合的方法是对数据集进行一个人工的标签保留转换(label-preserving transformations). 作者采用了两种方法, 它使用的是CPU在原始图像上做出修改, 这种CPU和GPU的分工并行导致计算资源的利用率较高.</p>
+<p>第一种方法是通过从<span class="arithmatex">\(256*256\)</span>的图像中提取随机的<span class="arithmatex">\(224*224\)</span>的补丁(及其水平反转)并用这些提取的补丁来训练我们的网络. 在预测的时候, 模型从图像的各个corner和中间取<span class="arithmatex">\(5\)</span>个<span class="arithmatex">\(224*224\)</span>的补丁(包括他们的水平反转), 然后这<span class="arithmatex">\(10\)</span>个补丁的softmax值取平均. </p>
+<p>第二种是用PCA. 首先来复习一下什么是特征值和特征向量. </p>
+<p><span class="arithmatex">\(\bm{A}\)</span>是<span class="arithmatex">\(n\)</span>阶矩阵, 如果数<span class="arithmatex">\(\lambda\)</span>和<span class="arithmatex">\(n\)</span>维非<span class="arithmatex">\(0\)</span>列向量<span class="arithmatex">\(\bm{x}\)</span>满足<span class="arithmatex">\(\bm{A}\bm{x}=\lambda\bm{x}\)</span>, 那么数<span class="arithmatex">\(\lambda\)</span>称为<span class="arithmatex">\(\bm{A}\)</span>的特征值. <span class="arithmatex">\(\bm{x}\)</span>称为<span class="arithmatex">\(\bm{A}\)</span>对应于特征值<span class="arithmatex">\(\lambda\)</span>的特征向量. 式<span class="arithmatex">\(\bm{A}\bm{x}=\lambda\bm{x}\)</span>可以写成<span class="arithmatex">\((\bm{A}-\lambda\bm{E})\bm{x}=0\)</span>, <span class="arithmatex">\(|\lambda\bm{E}-\bm{A}|\)</span>叫做<span class="arithmatex">\(\bm{A}\)</span>的特征多项式. 当特征多项式等于<span class="arithmatex">\(0\)</span>的时候, 称为<span class="arithmatex">\(\bm{A}\)</span>的特征方程, 特征方程是一个齐次线性方程组, 求解特征值的过程其实就是求解特征方程的解. </p>
+<p>这种数据增强的方法改变了训练图像中RGB通道的像素值. 具体步骤如下: 首先, 对整个ImageNet训练集中所有图像的RGB像素值进行主成分分析(PCA), 对于每一张训练图像, 将一些主成分的线性组合添加到每个像素值上, 添加的量由以下组成:</p>
+<ul>
+<li>对应主成分的特征值(代表主成分的重要性)</li>
+<li>一个从均值为<span class="arithmatex">\(0\)</span>, 标准差为<span class="arithmatex">\(0.1\)</span>的高斯分布中随机采样的值</li>
+</ul>
+<p>注意, PCA通过线性变换将原始的RGB通道重新组合成一组主成分, 这些主成分所代表的方向可以看作是新的坐标轴.</p>
+<p>对于每个RGB像素<span class="arithmatex">\(I_{xy} = [I^R_{xy}, I^G_{xy}, I^B_{xy}]^T + [\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_3] [\alpha_1 \lambda_1, \alpha_2 \lambda_2, \alpha_3 \lambda_3]^T\)</span>, 其中, <span class="arithmatex">\(\mathbf{p}_i\)</span>是主成分向量, <span class="arithmatex">\(\lambda_i\)</span>是第<span class="arithmatex">\(i\)</span>个主成分的特征值, 它衡量了<span class="arithmatex">\(\mathbf{p}_i\)</span>对数据整体方差的贡献大小, 特征值越大, 说明这个主成分越重要.</p>
+<p>这个<span class="arithmatex">\(\alpha_i\)</span>, 对于每张训练图像来说, 只在该图像被用于训练的时候随机生成一次, 在这张图像的整个训练过程中, <span class="arithmatex">\(\alpha_i\)</span>的值对所有像素点保持不变, 如果这张图像在后续训练中再次使用, 则会重新生成它的<span class="arithmatex">\(\alpha_i\)</span>值. 如, 在第一个epoch中, <span class="arithmatex">\(\alpha_1\)</span>, <span class="arithmatex">\(\alpha_2\)</span>, <span class="arithmatex">\(\alpha_3\)</span>会被随机生成为<span class="arithmatex">\(-0.05, 0.1, -0.02\)</span>, 在这次训练中, 图像中的所有像素点都会以这组<span class="arithmatex">\(\alpha_i\)</span>值进行扰动, 到了第二个epoch的时候, 图像再次被使用, <span class="arithmatex">\(\alpha_i\)</span>会重新生成. </p>
+<h3 id="dropout">Dropout</h3>
+<p>核心思想就是有<span class="arithmatex">\(50\%\)</span>的可能性将隐藏层神经元的输出设置为<span class="arithmatex">\(0\)</span>. </p>
 <div class="footnote">
 <hr />
 <ol>
