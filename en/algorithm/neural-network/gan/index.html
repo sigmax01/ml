@@ -96,6 +96,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1191,6 +1196,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    生成对抗网络
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1200,6 +1216,56 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心思想
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数学推导
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数学推导">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      最大似然估计
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1433,6 +1499,47 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心思想
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数学推导
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数学推导">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      最大似然估计
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1465,7 +1572,46 @@
 
   <h1>生成对抗网络</h1>
 
-
+<h2 id="_1">核心思想<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
+<p>GAN的基本思想是, 首先我们有一个"生成器", Generator, 其实就是一个神经网络, 或者是更简单的理解, 他就是一个函数. 输入一组向量, 经由生成器, 产生一组目标矩阵(如果要生成图片, 那么矩阵就是图片的像素集合). 它的目的就是使得自己造样本的能力尽可能强, 强到什么程度呢, 强到判别网络无法判断我是真样本还是假样本. 同时我们还有一个"判别器", 判别器的目的是判别出来一张图片它是来自真实样本集还是假样本集. 假如输入的是真样本, 网络输出就接近1, 输入的是假样本, 网络输出接近0, 那么很完美, 达到了很好判别的目的. </p>
+<p>那为什么需要这两个组件呢? GAN在结构上受到了博弈论中的二人<a href="https://zh.wikipedia.org/zh-hans/零和博弈">零和博弈</a>(即二人的利益之和为0, 一方的所得是另一方的所失)的启发, 系统由一个生成模型(G)和一个判别模型(D)构成. G捕捉真实数据样本的潜在分布, 并生成新的数据样本; D是一个二分类器, 判别输入是真实数据还是生成的样本. 生成器和判别器均可以采用深度神经网络. GAN的优化过程是一个极小极大博弈问题, 优化目标是达到<a href="https://wiki.mbalib.com/wiki/纳什均衡">纳什平衡</a>. </p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/61877d501c1d15633367f9c1f285f05e.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/61877d501c1d15633367f9c1f285f05e.jpg" width="400" /></a></p>
+</figure>
+<p>首先, 我们有两个关键组件, 生成器(G)和判别器(D), 一开始G-V1生成了一些手写体的图片, 然后丢给D-V1, 同时我们也需要把真实图片也送给D-V1, 然后D-V1根据自己的"经验"(其实就是当前的网络参数)结合真实图片数据, 来判断G-V1生成的图片是否符合要求. </p>
+<p>很明显, 第一代的G是无法骗过D的, 那怎么办? 那G-V1就"进化"为G-V2, 以此生成更加高质量的图片来骗过D-V1. 然后为了识别进化后生成更高质量图的图片的G-V2, D-V1也升级为了D-V2... 就这样一直迭代下去, 直到生成网络G-Vn生成的假样本进去了判别网络D-Vn以后, 判别网络给出的结果是一个接近0.5的值, 也就是说明判别不出来了, 这个就是那是平衡了. 这时候回去看生成的图片, 发现它们真的很逼真了.</p>
+<p>那么具体它们是怎么互相学习的呢? 首先是D的学习:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/e02d83044705d3e78746de1b710cb41a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e02d83044705d3e78746de1b710cb41a.png" width="400" /></a></p>
+</figure>
+<p>首先, 我们随机初始化生成器G, 并输入一组随机向量, 以此产生一些图片, 并把这些图片标注为0(假图片). 同时把来自真实分布中的图片标注为1(真图片). 两者同时丢到判别器D中, 以此来训练判别器. 实现当输入是真图片的时候, 判别器给出的是接近于1的分数, 而输入假图片的时候, 判别器给出接近于0的低分.</p>
+<p>接着是G的学习:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/78f21c5d2514f407424fb89e11be3e5d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/78f21c5d2514f407424fb89e11be3e5d.png" width="400" /></a></p>
+</figure>
+<p>对于生成网络, 目的是生成尽可能逼真的样本. 所以在训练生成网络的时候, 我们需要联合判别网络才能达到训练的目的. 也就是说, 通过将两者串接起来的方式来产生误差从而得以训练生成网络. 步骤是: 我们通过随机向量(噪声数据)经由生成网络产生一组假数据, 并将这些假数据都标记为1. 然后将这些假数据输入到判别网络里面, 判别器肯定会发现这些标榜为真实数据(标记为1)的输入都是假数据(给出低分), 这样就产生了误差, 在训练这个串接的网络的时候, 一个很重要的草做是不要让判别网络的参数发生变化, 只是把误差一直传, 传到生成网络那块后更新网络的参数. 这样就完成了对生成网络的训练了. </p>
+<p>在完成了生成网络的训练之后, 我们又可以产生新的假数据去训练判别网络了. 我们把这个过程称作为单独交替训练. 同时要定义一个迭代次数, 交替迭代到一定次数之后停止即可.</p>
+<h2 id="_2">数学推导</h2>
+<h3 id="_3">最大似然估计</h3>
+<p>最大似然估计, 就是利用已知的样本结果信息, 反推最具有可能性(最大概率)导致这些样本结果出现的模型参数值. 样本从某一个客观存在的模型中抽样得来, 然后根据样本来计算该模型的数学参数, 即模型已定, 参数未知.</p>
+<p>假设一组含有<span class="arithmatex">\(m\)</span>个样本的数据集<span class="arithmatex">\(X = \{x^{(1)}, x^{(2)}, x^{(3)}, \ldots, x^{(m)}\}\)</span>, 该数据集中的样本是从某个现实的数据生成分布<span class="arithmatex">\(p_{data}(x)\)</span>中独立采样生成的. 这个现实的数据生成分布的具体形式和参数是未知的, 换句话说, 我们完全无法了解这个分布, 只能通过已有的数据来近似理解和建模它.</p>
+<p>令<span class="arithmatex">\(p_{model}(x;\theta)\)</span>是一个由参数<span class="arithmatex">\(\theta\)</span>(未知)确定在相同空间上的概率分布, 也就是说, 我们的目的就是找到一个合适的<span class="arithmatex">\(\theta\)</span>使得<span class="arithmatex">\(p_{model}(x;\theta)\)</span>尽可能地去接近<span class="arithmatex">\(p_{data}(x)\)</span>.</p>
+<p>我们利用真实分布<span class="arithmatex">\(p_{data}(x)\)</span>中生成出来的数据集<span class="arithmatex">\(X\)</span>去估算总体概率为<span class="arithmatex">\(L(\theta) = \prod_{i=1}^{m} p_{model}(x^{(i)}; \theta)\)</span>. </p>
+<p>然后我们计算出使得<span class="arithmatex">\(L\)</span>最大的这个参数<span class="arithmatex">\(\theta_{ML}\)</span>, 也就是说, 对<span class="arithmatex">\(\theta\)</span>的最大似然估计被定义为:</p>
+<p><span class="arithmatex">\(\theta_{ML} = \arg \max_{\theta} p_{model}(X; \theta) = \arg \max_{\theta} \prod_{i=1}^{m} p_{model}(x^{(i)}; \theta)\)</span></p>
+<p><span class="arithmatex">\(p_{model}(X; \theta) \rightarrow f(x^{(1)}, x^{(2)}, x^{(3)}, ..., x^{(m)} | \theta)\)</span></p>
+<p><span class="arithmatex">\(\prod_{i=1}^{m} p_{model}(x^{(i)}; \theta) \rightarrow f(x^{(1)}|\theta) \cdot f(x^{(2)}|\theta) \cdot f(x^{(3)}|\theta) ... f(x^{(m)}|\theta)\)</span></p>
+<p>为什么要让<span class="arithmatex">\(L\)</span>最大? 可以这样想: 我们从真实的分布中取得了这些数据<span class="arithmatex">\(X=\{x^{(1)}, x^{(2)}, x^{(3)}, \ldots, x^{(m)}\}\)</span>, 那为什么会偏偏在真实分布中取得这些数据呢? 是因为取得这些数据的概率更大一些, 而此时我们做的就是人工设计的一个由参数<span class="arithmatex">\(\theta\)</span>控制的分布<span class="arithmatex">\(p_{model}(x;\theta)\)</span>来去拟合真实分布<span class="arithmatex">\(p_{data}(x)\)</span>, 换句话说, 我们通过一组数据<span class="arithmatex">\(X\)</span>去估算第一个参数<span class="arithmatex">\(\theta\)</span>使得这组数据<span class="arithmatex">\(X\)</span>在人工设计的分布中<span class="arithmatex">\(p_{model}(x;\theta)\)</span>被抽样出来的可能性最大, 所以让<span class="arithmatex">\(L\)</span>最大就感觉合乎情理了.</p>
+<p>多个概率的乘积会因为很多原因不便于计算. 例如, 计算中很可能会出现指数下溢(概率值通常介于0和1之间, 多个概率相乘的结果会越来与小, 计算机用有限的位数来表示浮点数, 所能表示的最小正数有一个下限, 当计算结果小于这个下限的时候, 就会发生下溢, 近似为0). 为了得到一个便于计算的等价优化问题, 我们观察到似然对数不会改变其<span class="arithmatex">\(\arg \max\)</span>, 于是将成绩转换为了便于计算的求和形式: </p>
+<p><span class="arithmatex">\(\theta_{ML} = \arg \max_{\theta} \sum_{i=1}^{m} \log p_{model}(x^{(i)}; \theta)\)</span></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>生成对抗网络——原理解释和数学推导—黄钢的部落格|Canary Blog. (不详). 取读于 2024年12月5日, 从 <a href="https://alberthg.github.io/2018/05/05/introduction-gan/">https://alberthg.github.io/2018/05/05/introduction-gan/</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -1488,7 +1634,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月5日</span>
   </span>
 
     

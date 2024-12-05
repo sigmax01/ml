@@ -190,20 +190,6 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/vit/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/paper/10_48550-arXiv_1706_03762/</loc>
-        <lastmod>2024-12-05</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/paper/10_48550-arXiv_1706_03762/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1706_03762/"/>
-    </url>
-    <url>
-        <loc>https://ml.ricolxwz.de/paper/10_48550-arXiv_1810_04805/</loc>
-        <lastmod>2024-12-05</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/paper/10_48550-arXiv_1810_04805/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1810_04805/"/>
-    </url>
-    <url>
         <loc>https://ml.ricolxwz.de/probability/</loc>
         <lastmod>2024-12-05</lastmod>
         <changefreq>daily</changefreq>
@@ -433,20 +419,6 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/vit/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/vit/"/>
-    </url>
-    <url>
-        <loc>https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1706_03762/</loc>
-        <lastmod>2024-12-05</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1706_03762/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/paper/10_48550-arXiv_1706_03762/"/>
-    </url>
-    <url>
-        <loc>https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1810_04805/</loc>
-        <lastmod>2024-12-05</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/paper/10_48550-arXiv_1810_04805/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/paper/10_48550-arXiv_1810_04805/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/probability/</loc>
