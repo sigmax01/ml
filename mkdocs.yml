@@ -197,11 +197,12 @@ nav:
         - AlexNet: algorithm/neural-network/cnn/alexnet.md
         - ResNet: algorithm/neural-network/cnn/resnet.md
       - 递归神经网络: algorithm/neural-network/rnn.md
+      - 生成对抗网络: algorithm/neural-network/gan.md
+      - 词嵌入: algorithm/neural-network/word-embedding.md
       - Transformer:
         - algorithm/neural-network/transformer/index.md
         - BERT: algorithm/neural-network/transformer/bert.md
         - ViT: algorithm/neural-network/transformer/vit.md
-      - GAN: algorithm/neural-network/gan.md
     - 聚类: algorithm/clustering.md
     - 马尔可夫链: algorithm/markov-chain.md
     - 强化学习: algorithm/reinforcement-learning.md
