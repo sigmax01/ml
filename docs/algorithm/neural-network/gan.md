@@ -152,4 +152,6 @@ V &= \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log D(x) \right] + \mathbb{E}_{
   &= \int_x \left[ p_{\text{data}}(x) \log D(x) + p_G(x) \log (1 - D(x)) \right] \, dx
 \end{align*}$$
 
+To be continued...
+
 [^1]: 生成对抗网络——原理解释和数学推导—黄钢的部落格|Canary Blog. (不详). 取读于 2024年12月5日, 从 https://alberthg.github.io/2018/05/05/introduction-gan/
