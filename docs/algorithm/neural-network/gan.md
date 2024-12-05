@@ -73,6 +73,13 @@ KL散度在这里被定义为$D_{KL}(\hat{p}_{data}||p_{model})=E_{x\sim \hat{p}
 
 对于离散分布来说, 期望可以表示为随机变量取值的加权平均, 其中权重是对应取值的概率. 即$E_{X \sim p}[f(X)] = \sum_{x} p(x) f(x)$. 在KL散度的计算中, 可以应用上述的思想: $D_{\text{KL}}(P || Q) = E_{x \sim P} \left[ \log \frac{P(x)}{Q(x)} \right] = \sum_{x} P(x) \log \frac{P(x)}{Q(x)}$.
 
+???+ tip "Tip"
+
+    对于连续的分布来说, 也有相似的公式: 
+
+    $\mathbb{E}{X \sim p}[f(X)] = \int_x p(x) f(x) \, dx$
+
+
 左边这一项$E_{x\sim \hat{p}_{data}}[\log \hat{p}_{data}(x)]$仅涉及到数据的原始分布, 和模型是无关的. 这意味着当训练模型最小化KL散度的时候, 我们只需要最小化右边的这个部分, 即$-E_{x\sim \hat{p}_{data}}[\log p_{model}(x)]$. 
 
 结合上面对最大似然的解释, 开始推导$\theta_{ML}$:
@@ -108,7 +115,7 @@ $$\begin{align*}
 
 JS散度(Jensen-Shannon Divergence)衡量了两个概率分布的相似度, 基于KL散度的变体, 解决了KL散度非对称的问题, 也就是说, 在KL散度下, $D_{KL}(\hat{p}_{data}||p_{model})\neq D_{KL}(p_{model}||\hat{p}_{data})$. JS散度是对称的, 其取值在$0$到$1$之间, 定义如下:
 
-$$JS(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)$$
+$$JSD(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)$$
 
 KL散度和JS散度在度量的时候还有一个问题, 如果两个分布离得很远, 完全没有重叠的时候, 那么散度的值是没有意义的. 这在学习算法中是比较致命的, 这就意味着在这一点的梯度为$0$了, 梯度消失了.
 
