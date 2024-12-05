@@ -1,5 +1,5 @@
 ---
-title: 生成式对抗网络
+title: 生成对抗网络
 comments: false
 ---
 
@@ -60,5 +60,56 @@ $\prod_{i=1}^{m} p_{model}(x^{(i)}; \theta) \rightarrow f(x^{(1)}|\theta) \cdot 
 多个概率的乘积会因为很多原因不便于计算. 例如, 计算中很可能会出现指数下溢(概率值通常介于0和1之间, 多个概率相乘的结果会越来与小, 计算机用有限的位数来表示浮点数, 所能表示的最小正数有一个下限, 当计算结果小于这个下限的时候, 就会发生下溢, 近似为0). 为了得到一个便于计算的等价优化问题, 我们观察到似然对数不会改变其$\arg \max$, 于是将成绩转换为了便于计算的求和形式: 
 
 $\theta_{ML} = \arg \max_{\theta} \sum_{i=1}^{m} \log p_{model}(x^{(i)}; \theta)$
+
+:fontawesome-solid-circle-question: 但是上述直接使用样本的对数似然总和作为优化目标可能会因为样本的不同而有较大的波动, 尤其是在样本量$m$较小的情况下, 优化可能会受到噪声的影响较大. 为此, 由于重新缩放代价函数的时候$\argmax$不会改变, 可以引入期望对似然函数进行平均化. 随着样本量的增大, 样本的均值会趋近于总体均值, 即经验分布$\hat{p}_{data}(x)$会越来越接近真实分布$p_{data}(x)$. 通过引入期望作为目标, 能够获得以下优点: 平滑优化(期望操作有助于减少由样本的随机性或噪声引起的波动), 减少过拟合(避免了模型过于拟合有限样本的波动, 提升了估计的泛化能力). 
+
+### KL散度
+
+一种解释最大似然估计的观点是将其看作是最小化训练集上的经验分布$\hat{p}_{data}$和模型分布$p_{model}(x;\theta)$之间的差异, 两者之间的差异程度可以用KL散度来度量, KL散度的含义是分布保留了多少原始分布的信息.  
+
+关于KL散度, 在信息论中[提到](https://gk.ricolxwz.de/information-theory/what-is-information/#KL散度)过.
+
+KL散度在这里被定义为$D_{KL}(\hat{p}_{data}||p_{model})=E_{x\sim \hat{p}_{data}}[\log \hat{p}_{data}(x)-\log p_{model}(x)]$. 注意到, 这里的公式其实是和在信息论中所写的公式有一点出入, 这是因为期望和加权求和的等价性. 
+
+对于离散分布来说, 期望可以表示为随机变量取值的加权平均, 其中权重是对应取值的概率. 即$E_{X \sim p}[f(X)] = \sum_{x} p(x) f(x)$. 在KL散度的计算中, 可以应用上述的思想: $D_{\text{KL}}(P || Q) = E_{x \sim P} \left[ \log \frac{P(x)}{Q(x)} \right] = \sum_{x} P(x) \log \frac{P(x)}{Q(x)}$.
+
+左边这一项$E_{x\sim \hat{p}_{data}}[\log \hat{p}_{data}(x)]$仅涉及到数据的原始分布, 和模型是无关的. 这意味着当训练模型最小化KL散度的时候, 我们只需要最小化右边的这个部分, 即$-E_{x\sim \hat{p}_{data}}[\log p_{model}(x)]$. 
+
+结合上面对最大似然的解释, 开始推导$\theta_{ML}$:
+
+(注意到, 第4行是把期望展开为前一项然后再减去一个和$\theta_{ML}$无关的项(不会影响到$\theta_{ML}$的取值, 所以可以随便加), 而后面变形为KL散度做准备)
+
+$$\begin{align*}
+\theta_{ML} &= \argmax_{\theta} \prod_{i=1}^m p_{\text{model}}(x^{(i)}; \theta) \\
+            &= \argmax_{\theta} \log \prod_{i=1}^m p_{\text{model}}(x^{(i)}; \theta) 
+            = \argmax_{\theta} \sum_{i=1}^m \log p_{\text{model}}(x^{(i)}; \theta) \\
+            &\approx \argmax_{\theta} \mathbb{E}_{x \sim \hat{p}_{\text{data}}} [\log p_{\text{model}}(x; \theta)] \\
+            &= \argmax_{\theta} \int_x \hat{p}_{\text{data}}(x) \log p_{\text{model}}(x; \theta) \, dx 
+            - \int_x \hat{p}_{\text{data}}(x) \log \hat{p}_{\text{data}}(x) \, dx \\
+            &= \argmax_{\theta} \int_x \hat{p}_{\text{data}}(x) [\log p_{\text{model}}(x; \theta) - \log \hat{p}_{\text{data}}(x)] \, dx \\
+            &= \argmax_{\theta} -\int_x \hat{p}_{\text{data}}(x) 
+            \log \frac{\hat{p}_{\text{data}}(x)}{p_{\text{model}}(x; \theta)} \, dx \\
+            &= \arg\min_{\theta} KL(\hat{p}_{\text{data}}(x) \| p_{\text{model}}(x; \theta))
+\end{align*}$$
+
+最小化KL散度其实就是最小化分布之间的交叉熵, 任何一个由负对数似然函数组成的损失都是定义在训练集$X$上的经验分布$\hat{p}_{data}$和定义在模型上的概率分布$p_{model}$之间的交叉熵. 例如, 均方误差就是定义在经验分布和高斯模型之间的交叉熵.  最优$\theta$在最大化似然函数和最小化KL散度的时候是相同的. 
+
+那么要怎么找到一个比较好的$p_{model}(x;\theta)$呢? 传统的生成模型(例如GMM或者其他统计模型)无法很好地处理复杂的高维数据分布, 而生成对抗网络(GAN)引入了神经网络来建模数据分布, 从而生成更加复杂和逼真的数据, 所以$p_{model}(x;\theta)$在GAN里面是一个神经网络产生的分布.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/383d1f260a152205f621dd1750abb54c.png){ loading=lazy width='400' }
+</figure>
+
+假设$z$是从高斯分布$p_{prior}(z)$中采样而来, 然后通过一个神经网络(也就是G)得到$x$, 这个$x$满足另一个分布$p_{model}(x;\theta)$, 然后我们要找到这个分布的参数$\theta$使得它和真实分布越相近越好, 这里的$p_{model}(x;\theta)$可以写作: $p_G(x) = \int p_{prior}(z) I(G(z) = x) dz$, 这个公式的含义是, 生成的样本$x$是通过输入噪声$z$生成的, 而$z$是一个已知的先验分布$p_{prior}(z)$中采样得到的, 生成$x$的概率是所有可能的$z$贡献的概率总和, $I(G(z)=x)$是指示函数, 当$G(z)$的输出等于$x$的时候, $I(G(z)=x)$的值为$1$, 否则为$0$, 它的作用是筛选出哪些$z$能生成特定的$x$.
+
+难点在于, 在现实中, 如GMM等模型, 由于$G(z)$的复杂性, 基本上很难找到$x$的分布$p_{model}(x;\theta)$, 而GAN的作用就是通过神经网络调整参数$\theta$, 让G产生的分布尽量接近真实分布.
+
+### JS散度
+
+JS散度(Jensen-Shannon Divergence)衡量了两个概率分布的相似度, 基于KL散度的变体, 解决了KL散度非对称的问题, 也就是说, 在KL散度下, $D_{KL}(\hat{p}_{data}||p_{model})\neq D_{KL}(p_{model}||\hat{p}_{data})$. JS散度是对称的, 其取值在$0$到$1$之间, 定义如下:
+
+$$JS(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)$$
+
+KL散度和JS散度在度量的时候还有一个问题, 如果两个分布离得很远, 完全没有重叠的时候, 那么散度的值是没有意义的. 这在学习算法中是比较致命的, 这就意味着在这一点的梯度为$0$了, 梯度消失了.
 
 [^1]: 生成对抗网络——原理解释和数学推导—黄钢的部落格|Canary Blog. (不详). 取读于 2024年12月5日, 从 https://alberthg.github.io/2018/05/05/introduction-gan/
