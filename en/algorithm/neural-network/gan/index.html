@@ -1664,6 +1664,11 @@
 <p>关于KL散度, 在信息论中<a href="https://gk.ricolxwz.de/information-theory/what-is-information/#KL散度">提到</a>过.</p>
 <p>KL散度在这里被定义为<span class="arithmatex">\(D_{KL}(\hat{p}_{data}||p_{model})=E_{x\sim \hat{p}_{data}}[\log \hat{p}_{data}(x)-\log p_{model}(x)]\)</span>. 注意到, 这里的公式其实是和在信息论中所写的公式有一点出入, 这是因为期望和加权求和的等价性. </p>
 <p>对于离散分布来说, 期望可以表示为随机变量取值的加权平均, 其中权重是对应取值的概率. 即<span class="arithmatex">\(E_{X \sim p}[f(X)] = \sum_{x} p(x) f(x)\)</span>. 在KL散度的计算中, 可以应用上述的思想: <span class="arithmatex">\(D_{\text{KL}}(P || Q) = E_{x \sim P} \left[ \log \frac{P(x)}{Q(x)} \right] = \sum_{x} P(x) \log \frac{P(x)}{Q(x)}\)</span>.</p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>对于连续的分布来说, 也有相似的公式: </p>
+<p><span class="arithmatex">\(\mathbb{E}{X \sim p}[f(X)] = \int_x p(x) f(x) \, dx\)</span></p>
+</details>
 <p>左边这一项<span class="arithmatex">\(E_{x\sim \hat{p}_{data}}[\log \hat{p}_{data}(x)]\)</span>仅涉及到数据的原始分布, 和模型是无关的. 这意味着当训练模型最小化KL散度的时候, 我们只需要最小化右边的这个部分, 即<span class="arithmatex">\(-E_{x\sim \hat{p}_{data}}[\log p_{model}(x)]\)</span>. </p>
 <p>结合上面对最大似然的解释, 开始推导<span class="arithmatex">\(\theta_{ML}\)</span>:</p>
 <p>(注意到, 第4行是把期望展开为前一项然后再减去一个和<span class="arithmatex">\(\theta_{ML}\)</span>无关的项(不会影响到<span class="arithmatex">\(\theta_{ML}\)</span>的取值, 所以可以随便加), 而后面变形为KL散度做准备)</p>
@@ -1688,7 +1693,7 @@
 <p>难点在于, 在现实中, 如GMM等模型, 由于<span class="arithmatex">\(G(z)\)</span>的复杂性, 基本上很难找到<span class="arithmatex">\(x\)</span>的分布<span class="arithmatex">\(p_{model}(x;\theta)\)</span>, 而GAN的作用就是通过神经网络调整参数<span class="arithmatex">\(\theta\)</span>, 让G产生的分布尽量接近真实分布.</p>
 <h3 id="js">JS散度</h3>
 <p>JS散度(Jensen-Shannon Divergence)衡量了两个概率分布的相似度, 基于KL散度的变体, 解决了KL散度非对称的问题, 也就是说, 在KL散度下, <span class="arithmatex">\(D_{KL}(\hat{p}_{data}||p_{model})\neq D_{KL}(p_{model}||\hat{p}_{data})\)</span>. JS散度是对称的, 其取值在<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间, 定义如下:</p>
-<div class="arithmatex">\[JS(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)\]</div>
+<div class="arithmatex">\[JSD(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)\]</div>
 <p>KL散度和JS散度在度量的时候还有一个问题, 如果两个分布离得很远, 完全没有重叠的时候, 那么散度的值是没有意义的. 这在学习算法中是比较致命的, 这就意味着在这一点的梯度为<span class="arithmatex">\(0\)</span>了, 梯度消失了.</p>
 <h2 id="_4">算法推导</h2>
 <p>首先, 来重申一下重要的参数和名词.</p>
