@@ -1281,6 +1281,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法推导
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1574,6 +1583,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法推导
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1672,6 +1690,20 @@
 <p>JS散度(Jensen-Shannon Divergence)衡量了两个概率分布的相似度, 基于KL散度的变体, 解决了KL散度非对称的问题, 也就是说, 在KL散度下, <span class="arithmatex">\(D_{KL}(\hat{p}_{data}||p_{model})\neq D_{KL}(p_{model}||\hat{p}_{data})\)</span>. JS散度是对称的, 其取值在<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间, 定义如下:</p>
 <div class="arithmatex">\[JS(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)\]</div>
 <p>KL散度和JS散度在度量的时候还有一个问题, 如果两个分布离得很远, 完全没有重叠的时候, 那么散度的值是没有意义的. 这在学习算法中是比较致命的, 这就意味着在这一点的梯度为<span class="arithmatex">\(0\)</span>了, 梯度消失了.</p>
+<h2 id="_4">算法推导</h2>
+<p>首先, 来重申一下重要的参数和名词.</p>
+<ul>
+<li>生成器, G<ul>
+<li>G是一个函数, 输入是<span class="arithmatex">\(z\)</span>, 输出是<span class="arithmatex">\(x\)</span></li>
+<li>给定一个先验分布<span class="arithmatex">\(p_{prior}(z)\)</span>和一个反映生成器G的分布<span class="arithmatex">\(p_{G}(x)\)</span>, <span class="arithmatex">\(p_G(x)\)</span>对应的就是<span class="arithmatex">\(p_{model}(x;\theta)\)</span></li>
+</ul>
+</li>
+<li>判别器, D<ul>
+<li>D也是一个函数, 输入是<span class="arithmatex">\(x\)</span>, 输出是一个标量</li>
+<li>主要是评估<span class="arithmatex">\(p_G(x)\)</span>和<span class="arithmatex">\(p_{data}(x)\)</span>之间到底有多少不同, 也就是他们之间的交叉熵</li>
+</ul>
+</li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>
