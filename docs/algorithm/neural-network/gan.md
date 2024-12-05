@@ -134,10 +134,22 @@ KL散度和JS散度在度量的时候还有一个问题, 如果两个分布离�
 
 $$V = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log D(x) \right] + \mathbb{E}_{x \sim p_G} \left[ \log (1 - D(x)) \right]$$
 
+这里的$D(x)$表示的是判别器的输出, 如果$D(x)=1$, 则判别器会认为$x$是完全真实的, 如果$D(x)=0$, 判别器会认为$x$是完全假的. 
+
 这条公式衡量的是$p_G(x)$和$p_{data}(x)$之间的不同程度. 对于GAN, 做法是, 给定G, 找到一个D^*^使得$V(G, D)$最大, 即$\max_D V(G, D)$, 直觉上理解为: 生成器固定的时候, 就是通过判别器尽可能地将生成图片和真实图片区别开来, 也就是需要最大化两者之间的交叉熵: $D^*=\argmax_D V(G, D)$
 
 然后, 要是固定D, 使得$\max_D V(G, D)$最小的这个G代表的就是最好的生成器. 所以G的终极目标就是找到G^*^, 找到了G^*^我们就找到了分布$p_G(x)$对应的参数$\theta_G$: $G^*=\arg \min_G\max_D V(G, D)$
 
 上面的步骤给出了我们期望优化的目标, 现在按照步骤对目标进行推导.
+
+### 寻找最好的D^*^
+
+首先是第一步, 给定G, 找到一个最好的D^*^使得$V(G, D)$最大, 即求$\max_D V(G, D)$. 
+
+$$\begin{align*}
+V &= \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log D(x) \right] + \mathbb{E}_{x \sim p_G} \left[ \log (1 - D(x)) \right] \\
+  &= \int_x p_{\text{data}}(x) \log D(x) \, dx + \int_x p_G(x) \log (1 - D(x)) \, dx \\
+  &= \int_x \left[ p_{\text{data}}(x) \log D(x) + p_G(x) \log (1 - D(x)) \right] \, dx
+\end{align*}$$
 
 [^1]: 生成对抗网络——原理解释和数学推导—黄钢的部落格|Canary Blog. (不详). 取读于 2024年12月5日, 从 https://alberthg.github.io/2018/05/05/introduction-gan/
