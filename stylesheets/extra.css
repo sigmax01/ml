@@ -109,3 +109,7 @@ border-left-width: 4px;
 --md-code-font: "mononoki", "HarmonyOS Sans SC";
 --md-text-font: "mononoki", "HarmonyOS Sans SC";
 }
+
+.katex-display {
+  margin: -.5em;
+}
