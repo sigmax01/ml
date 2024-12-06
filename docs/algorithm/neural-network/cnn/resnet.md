@@ -144,5 +144,12 @@ comments: false
 
 以此得到的普通网络比VGG网络的复杂度更低, 可以计算它们俩的FLOPS, FLOPS由以下的几个因素决定: 输入特征图高度, 输入特征图宽度, 输入通道数, 卷积核高度, 卷积核宽度, 输出通道数.
 
+#### 残差网络
+
+基于上面的普通网络, 作者插入了Shortcut Connections. 在输入和输出特征图维度(通道)相同的情况下, 可以直接使用恒等映射(即上图中实现的连接). 当维度(通道)升高的情况下, 它们采取了两种措施.
+
+1. Shortcut Connection依旧采用的是恒等映射, 但是会对新增额外的零通道. 假设, 输入的通道数是64, 在一系列操作后, 通道数增加到了128, 则这种恒等映射需要进行变换, 多出的64张特征图全部填充为0. 这种不会引入额外的训练参数
+2. 使用1*1的卷积核进行升维操作. 具体操作参考[这里](/algorithm/neural-network/cnn/#increase-dimension)
+
 [^1]: He, K., Zhang, X., Ren, S., & Sun, J. (2015). Deep residual learning for image recognition (No. arXiv:1512.03385). arXiv. https://doi.org/10.48550/arXiv.1512.03385
 [^2]: Apache. (2022, 二月 4). 深度学习之残差神经网络（ResNet） [知乎专栏文章]. https://zhuanlan.zhihu.com/p/463935188

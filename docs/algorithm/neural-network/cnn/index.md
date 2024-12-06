@@ -266,7 +266,7 @@ FC的最后一层会输出一个$n$维的向量, $n$是类的数量, 我们通�
 [^1]: 彻底搞懂感受野的含义与计算 - shine-lee - 博客园. (不详). 取读于 2024年9月18日, 从 https://www.cnblogs.com/shine-lee/p/12069176.html
 [^2]: 郑之杰. (2002, 七月 21). 卷积神经网络中的池化(Pooling)层. 郑之杰的个人网站. https://0809zheng.github.io/2021/07/02/pool.html
 
-## 升降维
+## 升降维 {#increase-dimension}
 
 使用$1\times 1$的卷积核可以对输入进行升降维.
 
