@@ -99,11 +99,11 @@ background-color: var(--md-header-bg-color);
 font-size: 1em;
 }
 
-.md-typeset .admonition,
+/* .md-typeset .admonition,
 .md-typeset details {
 border-width: 0;
 border-left-width: 4px;
-}
+} */
 
 :root {
 --md-code-font: "mononoki", "HarmonyOS Sans SC";
