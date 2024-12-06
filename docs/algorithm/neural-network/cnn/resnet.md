@@ -10,7 +10,7 @@ comments: false
 一个臭名昭著的阻碍就是梯度消失/爆炸现象. 这个问题, 已经很大程度上被归一化初始化和中间归一化层(如BN)解决了, 使得网络可以在较深的层数下通过SGD和反向传播开始收敛. 
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png){ loading=lazy width='500' }
 <figcaption>使用25层和56层的普通网络在CIFAR-10数据集上的表现, 训练误差(左), 测试误差(右)</figcaption>
 </figure>
 
@@ -48,7 +48,7 @@ comments: false
 深度残差神经网络, Deep Residual Network, 简称ResNet, 它由微软研究院何凯明等人在2015年首次提出, 在深度学习领域产生了深远的影响. 它通过一种创新的"残差学习"机制, 从而实现了对非常深度网络的有效训练.
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png){ loading=lazy width='500' }
 <figcaption>在ImageNet上的训练结果. 细线表示训练误差, 粗线表示验证误差. 左图是18和34层普通网络的表现, 右图是18和34层ResNet的表现</figcaption>
 </figure>
 
@@ -59,7 +59,7 @@ comments: false
 每个残差模块都有一条跳跃连接(Shortcut Connection), 这条跳跃连接不对输入做任何复杂变化, 只是简单地将输入直接传递过去(即“恒等映射”). 而经过叠加的卷积层(或者其他变换层)处理后得到的输出, 会与这条“原样传递”的输入信号相加在一起. 恒等映射不会增加额外的参数也不会增加计算复杂度, 如下图所示.
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png){ loading=lazy width='200' }
+![](https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png){ loading=lazy width='300' }
 </figure>
 
 ### 为什么
