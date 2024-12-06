@@ -70,6 +70,18 @@ comments: false
 
 🌟如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即$F(x)=x+f(x)\simeq x$, 而$f(x)\simeq 0$要比让一堆非线型层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线型变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有$F(x)=x+f(x)$这种形式, 如果最优解是恒等映射, 那么训练只需要让$f(x)$的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线型层直接拟合恒等映射要容易得多.🌟
 
+> If one hypothesizes that multiple nonlinear layers can asymptotically approximate complicated functions, then it is equivalent to hypothesize that they can asymptotically approximate the residual functions, i.e., H(x) − x
+
+> Although both forms should be able to asymptotically approximate the desired functions (as hypothesized), the ease of learning might be different
+
+> This reformulation is motivated by the counterintuitive phenomena about the degradation problem (Fig. 1, left). As we discussed in the introduction, if the added layers can be constructed as identity mappings, a deeper model should have training error no greater than its shallower counterpart. The degradation problem suggests that the solvers might have difficulties in approximating identity mappings by multiple nonlinear layers. With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers toward zero to approach identity mappings.
+
+这些讲的也是同一个意思.
+
+> In real cases, it is unlikely that identity mappings are optimal, but our reformulation may help to precondition the problem. If the optimal function is closer to an identity mapping than to a zero mapping, it should be easier for the solver to find the perturbations with reference to an identity mapping, than to learn the function as a new one.
+
+这其实也是同一个意思, 其中, “零映射”可以理解为一种输出完全不依赖于输入的映射, 就是将所有的输入都映射为零的函数. 假设目标函数更加接近于“恒等映射”而不是零映射, 那么优化器从恒等映射出发时需要的调整(perturbation)会更小, 优化的效率会更高, 而如果目标函数接近零映射, 那么优化器就需要从“没有特性”的状态重新开始学习函数的全部结构, 这通常会更加困难.
+
 引入了残差结构后:
 
 - **减少了优化难度**: 在传统的深度网络中, 每一层都需要去拟合目标函数本身. 而在ResNet的残差块中, 我们将目标函数拆解为恒等映射+残差函数的形式. 这样, 网络只需要关注学习更加简单的残差函数, 而不必重新开始拟合整个映射. 这使得优化问题更加接近于学习小的, 便宜量式的调整, 有助于减少训练过程中的优化障碍
