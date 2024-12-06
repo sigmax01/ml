@@ -151,5 +151,13 @@ comments: false
 1. Shortcut Connection依旧采用的是恒等映射, 但是会对新增额外的零通道. 假设, 输入的通道数是64, 在一系列操作后, 通道数增加到了128, 则这种恒等映射需要进行变换, 多出的64张特征图全部填充为0. 这种不会引入额外的训练参数
 2. 使用1*1的卷积核进行升维操作. 具体操作参考[这里](/algorithm/neural-network/cnn/#increase-dimension)
 
+## 实现
+
+作者对于ImageNet上训练的ResNet实现如下: 
+
+在训练的时候, 将图片的最短边随机resize到[256, 480], 然后参考AlexNet中的[随机裁剪](/algorithm/neural-network/cnn/alexnet/#random-cropping)对图片进行224*224的随机裁剪(包括它的水平反转)以防止过拟合. 然后, 减去每个像素的平均值, 去掉很多不必要的背景信息, 例如全局亮度 :fontawesome-solid-circle-question:. 然后在每一个卷积层之后采用BN. 对所有的参数进行从头训练. 采用mini-batch SGD, batch的大小为256. 学习率从0.1开始下降当错误率遇到平稳的情况除以10避免震荡. 采用0.0001的权重衰减(就是[L2正则化](/algorithm/linear-regression/#l2-regularization), 防止模型过拟合), [动量](/algorithm/neural-network/fnn/#动量)设置为0.9. 并没有使用Dropout. 
+
+在测试的时候, 采取了"10-crop"的方法, 就是说, 从输入图像中采样10个不同的区域来进行评估, 减少由于图像中不同位置的信息丢失带来的影响. 并且, 图像会被调整为多个不同的尺度, 例如, 缩放到$224, 256, 384, 480, 640$, 然后对每个尺寸进行预测, 去平均值, 增强模型的尺度不变性. 
+
 [^1]: He, K., Zhang, X., Ren, S., & Sun, J. (2015). Deep residual learning for image recognition (No. arXiv:1512.03385). arXiv. https://doi.org/10.48550/arXiv.1512.03385
 [^2]: Apache. (2022, 二月 4). 深度学习之残差神经网络（ResNet） [知乎专栏文章]. https://zhuanlan.zhihu.com/p/463935188
