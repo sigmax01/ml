@@ -1594,7 +1594,7 @@
 <p>最近的研究显示网络的层数是一个比较重要的问题. 并且最近的ImageNet竞赛中, 所有方法都利用了"非常深度"的模型. 那么就会产生一个问题: "训练好的网络是否就是简单的堆叠更多的层?"</p>
 <p>一个臭名昭著的阻碍就是梯度消失/爆炸现象. 这个问题, 已经很大程度上被归一化初始化和中间归一化层(如BN)解决了, 使得网络可以在较深的层数下通过SGD和反向传播开始收敛. </p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png" width="500" /></a></p>
 <figcaption>使用25层和56层的普通网络在CIFAR-10数据集上的表现, 训练误差(左), 测试误差(右)</figcaption>
 </figure>
 <p>可以从上图中发现, 随着层数的增加, 训练误差和测试误差不降反增. 这说明这不是过拟合, 因为过拟合是模型在训练集上表现优秀, 但是在验证集/测试集上表现较差.</p>
@@ -1625,14 +1625,14 @@
 <h2 id="_2">概念</h2>
 <p>深度残差神经网络, Deep Residual Network, 简称ResNet, 它由微软研究院何凯明等人在2015年首次提出, 在深度学习领域产生了深远的影响. 它通过一种创新的"残差学习"机制, 从而实现了对非常深度网络的有效训练.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" width="500" /></a></p>
 <figcaption>在ImageNet上的训练结果. 细线表示训练误差, 粗线表示验证误差. 左图是18和34层普通网络的表现, 右图是18和34层ResNet的表现</figcaption>
 </figure>
 <h3 id="_3">怎么做</h3>
 <p>基于背景中最后一段话的考虑, 我们在所拟合的函数中加入恒等函数. 假设在某一层内, 最优的函数记为<span class="arithmatex">\(H(x)\)</span>, 那么我们所拟合的目标函数<span class="arithmatex">\(F(x)\)</span>定义为<span class="arithmatex">\(F(x):=H(x)-x\)</span>, 函数<span class="arithmatex">\(F(x)\)</span>被称为“残差函数”.</p>
 <p>每个残差模块都有一条跳跃连接(Shortcut Connection), 这条跳跃连接不对输入做任何复杂变化, 只是简单地将输入直接传递过去(即“恒等映射”). 而经过叠加的卷积层(或者其他变换层)处理后得到的输出, 会与这条“原样传递”的输入信号相加在一起. 恒等映射不会增加额外的参数也不会增加计算复杂度, 如下图所示.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" width="200" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" width="300" /></a></p>
 </figure>
 <h3 id="_4">为什么</h3>
 <p>由此可见, 我们所需要的函数由两部分组成: 恒等函数和残差函数. 恒等函数的存在, 避免了“负优化”问题, 而残差函数则起到了“锦上添花”的作用.</p>
