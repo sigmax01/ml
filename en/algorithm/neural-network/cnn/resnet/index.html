@@ -1269,6 +1269,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      残差网络
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1660,6 +1669,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      残差网络
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1807,6 +1825,12 @@
 <p>所以, 越来越多的现代网络架构如ResNet开始减少池化层的使用, 代之以卷积层的下采样.</p>
 </details>
 <p>以此得到的普通网络比VGG网络的复杂度更低, 可以计算它们俩的FLOPS, FLOPS由以下的几个因素决定: 输入特征图高度, 输入特征图宽度, 输入通道数, 卷积核高度, 卷积核宽度, 输出通道数.</p>
+<h4 id="_10">残差网络</h4>
+<p>基于上面的普通网络, 作者插入了Shortcut Connections. 在输入和输出特征图维度(通道)相同的情况下, 可以直接使用恒等映射(即上图中实现的连接). 当维度(通道)升高的情况下, 它们采取了两种措施.</p>
+<ol>
+<li>Shortcut Connection依旧采用的是恒等映射, 但是会对新增额外的零通道. 假设, 输入的通道数是64, 在一系列操作后, 通道数增加到了128, 则这种恒等映射需要进行变换, 多出的64张特征图全部填充为0. 这种不会引入额外的训练参数</li>
+<li>使用1*1的卷积核进行升维操作. 具体操作参考<a href="/algorithm/neural-network/cnn/#increase-dimension">这里</a></li>
+</ol>
 <div class="footnote">
 <hr />
 <ol>
