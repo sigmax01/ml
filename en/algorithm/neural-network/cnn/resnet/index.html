@@ -1196,6 +1196,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      怎么做
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1506,6 +1530,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      怎么做
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1580,10 +1628,13 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" width="400" /></a></p>
 <figcaption>在ImageNet上的训练结果. 细线表示训练误差, 粗线表示验证误差. 左图是18和34层普通网络的表现, 右图是18和34层ResNet的表现</figcaption>
 </figure>
-<p>基于上面的考虑, 我们在所拟合的函数中加入恒等函数. 假设在某一层内, 最优的函数记为<span class="arithmatex">\(H(x)\)</span>, 那么我们所拟合的目标函数<span class="arithmatex">\(F(x)\)</span>定义为<span class="arithmatex">\(F(x):=H(x)-x\)</span>, 函数<span class="arithmatex">\(F(x)\)</span>被称为“残差函数”.</p>
+<h3 id="_3">怎么做</h3>
+<p>基于背景中最后一段话的考虑, 我们在所拟合的函数中加入恒等函数. 假设在某一层内, 最优的函数记为<span class="arithmatex">\(H(x)\)</span>, 那么我们所拟合的目标函数<span class="arithmatex">\(F(x)\)</span>定义为<span class="arithmatex">\(F(x):=H(x)-x\)</span>, 函数<span class="arithmatex">\(F(x)\)</span>被称为“残差函数”.</p>
+<p>每个残差模块都有一条跳跃连接(Shortcut Connection), 这条跳跃连接不对输入做任何复杂变化, 只是简单地将输入直接传递过去(即“恒等映射”). 而经过叠加的卷积层(或者其他变换层)处理后得到的输出, 会与这条“原样传递”的输入信号相加在一起. 恒等映射不会增加额外的参数也不会增加计算复杂度, 如下图所示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" width="200" /></a></p>
 </figure>
+<h3 id="_4">为什么</h3>
 <p>由此可见, 我们所需要的函数由两部分组成: 恒等函数和残差函数. 恒等函数的存在, 避免了“负优化”问题, 而残差函数则起到了“锦上添花”的作用.</p>
 <blockquote>
 <p>To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.</p>
