@@ -1580,6 +1580,15 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" width="400" /></a></p>
 <figcaption>在ImageNet上的训练结果. 细线表示训练误差, 粗线表示验证误差. 左图是18和34层普通网络的表现, 右图是18和34层ResNet的表现</figcaption>
 </figure>
+<p>基于上面的考虑, 我们在所拟合的函数中加入恒等函数. 假设在某一层内, 最优的函数记为<span class="arithmatex">\(H(x)\)</span>, 那么我们所拟合的目标函数<span class="arithmatex">\(F(x)\)</span>定义为<span class="arithmatex">\(F(x):=H(x)-x\)</span>, 函数<span class="arithmatex">\(F(x)\)</span>被称为“残差函数”.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" width="200" /></a></p>
+</figure>
+<p>由此可见, 我们所需要的函数由两部分组成: 恒等函数和残差函数. 恒等函数的存在, 避免了“负优化”问题, 而残差函数则起到了“锦上添花”的作用.</p>
+<blockquote>
+<p>To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.</p>
+</blockquote>
+<p>如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即<span class="arithmatex">\(F(x)=x+f(x)\simeq x\)</span>, 而<span class="arithmatex">\(f(x)\simeq 0\)</span>要比让一堆非线型层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线型变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有<span class="arithmatex">\(F(x)=x+f(x)\)</span>这种形式, 如果最优解是恒等映射, 那么训练只需要让<span class="arithmatex">\(f(x)\)</span>的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线型层直接拟合恒等映射要容易得多.</p>
 <p>引入了残差结构后:</p>
 <ul>
 <li><strong>减少了优化难度</strong>: 在传统的深度网络中, 每一层都需要去拟合目标函数本身. 而在ResNet的残差块中, 我们将目标函数拆解为恒等映射+残差函数的形式. 这样, 网络只需要关注学习更加简单的残差函数, 而不必重新开始拟合整个映射. 这使得优化问题更加接近于学习小的, 便宜量式的调整, 有助于减少训练过程中的优化障碍</li>
