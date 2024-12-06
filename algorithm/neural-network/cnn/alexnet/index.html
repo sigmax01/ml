@@ -1227,6 +1227,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="数据增强">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-cropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机裁剪
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      主成分分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1624,6 +1648,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="数据增强">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-cropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机裁剪
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      主成分分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1718,7 +1766,9 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
 <h2 id="_4">减少过拟合<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
 <h3 id="_5">数据增强</h3>
 <p>最简单的降低过拟合的方法是对数据集进行一个人工的标签保留转换(label-preserving transformations). 作者采用了两种方法, 它使用的是CPU在原始图像上做出修改, 这种CPU和GPU的分工并行导致计算资源的利用率较高.</p>
+<h4 id="random-cropping">随机裁剪</h4>
 <p>第一种方法是通过从<span class="arithmatex">\(256*256\)</span>的图像中提取随机的<span class="arithmatex">\(224*224\)</span>的补丁(及其水平反转)并用这些提取的补丁来训练我们的网络. 在预测的时候, 模型从图像的各个corner和中间取<span class="arithmatex">\(5\)</span>个<span class="arithmatex">\(224*224\)</span>的补丁(包括他们的水平反转), 然后这<span class="arithmatex">\(10\)</span>个补丁的softmax值取平均. </p>
+<h4 id="pca">主成分分析</h4>
 <p>第二种是用PCA. 首先来复习一下什么是特征值和特征向量. </p>
 <p><span class="arithmatex">\(\bm{A}\)</span>是<span class="arithmatex">\(n\)</span>阶矩阵, 如果数<span class="arithmatex">\(\lambda\)</span>和<span class="arithmatex">\(n\)</span>维非<span class="arithmatex">\(0\)</span>列向量<span class="arithmatex">\(\bm{x}\)</span>满足<span class="arithmatex">\(\bm{A}\bm{x}=\lambda\bm{x}\)</span>, 那么数<span class="arithmatex">\(\lambda\)</span>称为<span class="arithmatex">\(\bm{A}\)</span>的特征值. <span class="arithmatex">\(\bm{x}\)</span>称为<span class="arithmatex">\(\bm{A}\)</span>对应于特征值<span class="arithmatex">\(\lambda\)</span>的特征向量. 式<span class="arithmatex">\(\bm{A}\bm{x}=\lambda\bm{x}\)</span>可以写成<span class="arithmatex">\((\bm{A}-\lambda\bm{E})\bm{x}=0\)</span>, <span class="arithmatex">\(|\lambda\bm{E}-\bm{A}|\)</span>叫做<span class="arithmatex">\(\bm{A}\)</span>的特征多项式. 当特征多项式等于<span class="arithmatex">\(0\)</span>的时候, 称为<span class="arithmatex">\(\bm{A}\)</span>的特征方程, 特征方程是一个齐次线性方程组, 求解特征值的过程其实就是求解特征方程的解. </p>
 <p>这种数据增强的方法改变了训练图像中RGB通道的像素值. 具体步骤如下: 首先, 对整个ImageNet训练集中所有图像的RGB像素值进行主成分分析(PCA), 对于每一张训练图像, 将一些主成分的线性组合添加到每个像素值上, 添加的量由以下组成:</p>
@@ -1765,7 +1815,7 @@ b_{i}^{x, y} = \frac{a_{i}^{x, y}}{\left( k + \alpha \sum_{j=\max(0,i-n/2)}^{\mi
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月4日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月6日</span>
   </span>
 
     
