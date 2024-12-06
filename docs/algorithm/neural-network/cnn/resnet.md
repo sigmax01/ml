@@ -105,6 +105,7 @@ comments: false
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/5637f76757e67bc2888327a110a9937a.png){ loading=lazy width='350' }
+<figcaption>参与ImageNet的网络架构图. VGG-19(左, 19.6 billion FLOPs), 普通网络(中, 3.6 billion FLOPs), ResNet(右, 3.6 billion FLOPs). 点状的Shortcut Connection表示会对维度进行提升(参考前面的$W_s$), 不是点状的Shortcut Connection表示不对维度进行改变</figcaption>
 </figure>
 
 #### 普通网络
@@ -140,6 +141,8 @@ comments: false
     池化层(尤其是最大池化)通过选择池化窗口中的最大值来进行下采样, 这虽然有效减少了计算量和特征图的尺寸, 但是会丢失大量的位置信息. 卷积层不仅仅是对输入进行下采样, 它还能学习到空间中的局部特征, 通过不同卷积核来捕捉更多的空间模式. 相比之下, 池化只是简单的选取最大值或者平均值, 无法进行更加复杂的学习.
 
     所以, 越来越多的现代网络架构如ResNet开始减少池化层的使用, 代之以卷积层的下采样.
+
+以此得到的普通网络比VGG网络的复杂度更低, 可以计算它们俩的FLOPS, FLOPS由以下的几个因素决定: 输入特征图高度, 输入特征图宽度, 输入通道数, 卷积核高度, 卷积核宽度, 输出通道数.
 
 [^1]: He, K., Zhang, X., Ren, S., & Sun, J. (2015). Deep residual learning for image recognition (No. arXiv:1512.03385). arXiv. https://doi.org/10.48550/arXiv.1512.03385
 [^2]: Apache. (2022, 二月 4). 深度学习之残差神经网络（ResNet） [知乎专栏文章]. https://zhuanlan.zhihu.com/p/463935188
