@@ -30,7 +30,7 @@
     - [x] [神经网络](/algorithm/neural-network)
         - [x] [前馈神经网络](/algorithm/neural-network/fnn)
         - [x] [卷积神经网络](/algorithm/neural-network/cnn)
-            - [ ] [AlexNet](/algorithm/neural-network/cnn/alexnet)
+            - [x] [AlexNet](/algorithm/neural-network/cnn/alexnet)
             - [ ] [ResNet](/algorithm/neural-network/cnn/resnet)
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
         - [ ] [生成对抗网络](/algorithm/neural-network/gan)
