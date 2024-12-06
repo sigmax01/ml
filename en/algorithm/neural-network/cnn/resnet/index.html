@@ -1588,7 +1588,7 @@
 <blockquote>
 <p>To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.</p>
 </blockquote>
-<p>如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即<span class="arithmatex">\(F(x)=x+f(x)\simeq x\)</span>, 而<span class="arithmatex">\(f(x)\simeq 0\)</span>要比让一堆非线型层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线型变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有<span class="arithmatex">\(F(x)=x+f(x)\)</span>这种形式, 如果最优解是恒等映射, 那么训练只需要让<span class="arithmatex">\(f(x)\)</span>的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线型层直接拟合恒等映射要容易得多.</p>
+<p>🌟如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即<span class="arithmatex">\(F(x)=x+f(x)\simeq x\)</span>, 而<span class="arithmatex">\(f(x)\simeq 0\)</span>要比让一堆非线型层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线型变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有<span class="arithmatex">\(F(x)=x+f(x)\)</span>这种形式, 如果最优解是恒等映射, 那么训练只需要让<span class="arithmatex">\(f(x)\)</span>的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线型层直接拟合恒等映射要容易得多.🌟</p>
 <p>引入了残差结构后:</p>
 <ul>
 <li><strong>减少了优化难度</strong>: 在传统的深度网络中, 每一层都需要去拟合目标函数本身. 而在ResNet的残差块中, 我们将目标函数拆解为恒等映射+残差函数的形式. 这样, 网络只需要关注学习更加简单的残差函数, 而不必重新开始拟合整个映射. 这使得优化问题更加接近于学习小的, 便宜量式的调整, 有助于减少训练过程中的优化障碍</li>
