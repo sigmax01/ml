@@ -31,7 +31,7 @@
 [data-md-color-scheme="slate"] {
     --md-footer-logo-dark-mode: block;
     --md-footer-logo-light-mode: none;
-    --md-primary-color-dark: rgba(18, 19, 23, 0.5);
+    --md-primary-color-dark: rgba(18, 19, 23, 0.6);
     --md-primary-fg-color: var(--md-primary-color-dark);
     --md-header-bg-color: var(--md-primary-color-dark);
     --md-footer-bg-color: var(--md-primary-color-dark);
@@ -39,7 +39,7 @@
     --md-default-bg-color: rgba(18, 19, 23, 1);
     --md-footer-border-color: rgba(256, 256, 256, 0.2);
     --md-shadow-z2: 0 0.2rem 0.5rem #000, 0 0 0.05rem #ffffff40;
-    --md-top-custom: rgba(18, 19, 23, 0.5);
+    --md-top-custom: rgba(18, 19, 23, 0.6);
     --md-banner-color: var(--md-typeset-color);
 }
 
@@ -90,8 +90,7 @@
 .md-tabs {
     box-shadow: none;
     transition: none;
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: blur(20px);
     background-color: var(--md-header-bg-color);
 }
 
