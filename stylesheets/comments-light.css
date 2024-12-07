@@ -94,3 +94,15 @@ main .pagination-loader-container {
 main .gsc-loading-image {
     background-image: url(https://github.githubassets.com/images/mona-loading-default.gif);
 }
+
+main {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
+
+/* for code */
+code,
+kbd,
+pre,
+samp {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
