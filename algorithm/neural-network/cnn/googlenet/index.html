@@ -12,28 +12,28 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/algorithm/neural-network/fnn/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/googlenet/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../resnet/">
       
       
-        <link rel="next" href="../cnn/">
+        <link rel="next" href="../../rnn/">
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
-        <title>前馈神经网络 - 机器蝉</title>
+        <title>GoogLeNet - 机器蝉</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -56,9 +56,9 @@
     
       <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -85,7 +85,7 @@
     href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css"
 />
 
-   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -94,7 +94,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -111,11 +111,6 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#_1" class="md-skip">
-          跳转至
-        </a>
       
     </div>
     <div data-md-component="announce">
@@ -154,7 +149,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -195,7 +190,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              前馈神经网络
+              GoogLeNet
             
           </span>
         </div>
@@ -258,7 +253,7 @@
           </li>
         
           <li class="md-select__item">
-            <a href="../../../en/algorithm/neural-network/fnn/" hreflang="en" class="md-select__link">
+            <a href="../../../../en/algorithm/neural-network/cnn/googlenet/" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
@@ -347,7 +342,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../../../.." class="md-tabs__link">
           
   
     
@@ -367,7 +362,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../probability/" class="md-tabs__link">
+        <a href="../../../../probability/" class="md-tabs__link">
           
   
     
@@ -389,7 +384,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
+        <a href="../../../" class="md-tabs__link">
           
   
     
@@ -424,7 +419,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -498,7 +493,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../.." class="md-nav__link ">
+            <a href="../../../.." class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -566,7 +561,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../probability/" class="md-nav__link ">
+            <a href="../../../../probability/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -599,7 +594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../probability/random-event-and-probability/" class="md-nav__link">
+      <a href="../../../../probability/random-event-and-probability/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -620,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../probability/one-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../../../../probability/one-dimensional-random-variable-distribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -641,7 +636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../probability/multi-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../../../../probability/multi-dimensional-random-variable-distribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -662,7 +657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../probability/numerical-characteristics-of-random-variable/" class="md-nav__link">
+      <a href="../../../../probability/numerical-characteristics-of-random-variable/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -683,7 +678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../probability/large-number-central-limit-theorem/" class="md-nav__link">
+      <a href="../../../../probability/large-number-central-limit-theorem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -763,7 +758,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -796,7 +791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../linear-regression/" class="md-nav__link">
+      <a href="../../../linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -817,7 +812,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../preprocessing/" class="md-nav__link">
+      <a href="../../../preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -838,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../knn/" class="md-nav__link">
+      <a href="../../../knn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -859,7 +854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../naive-bayes/" class="md-nav__link">
+      <a href="../../../naive-bayes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -880,7 +875,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../evaluation/" class="md-nav__link">
+      <a href="../../../evaluation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -901,7 +896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../decision-tree/" class="md-nav__link">
+      <a href="../../../decision-tree/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -922,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ensemble-learning/" class="md-nav__link">
+      <a href="../../../ensemble-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -943,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../svm/" class="md-nav__link">
+      <a href="../../../svm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -964,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dimensional-reduction/" class="md-nav__link">
+      <a href="../../../dimensional-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1020,7 +1015,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1050,28 +1045,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    前馈神经网络
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1080,144 +1057,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      架构
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backpropagation-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      反向传播算法
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="反向传播算法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#training-procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      训练过程
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      其他梯度下降算法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      通用逼近定理
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#neuron-num" class="md-nav__link">
-    <span class="md-ellipsis">
-      神经元的数量
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="神经元的数量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      输入层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      输出层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      隐藏层
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-rate" class="md-nav__link">
-    <span class="md-ellipsis">
-      学习率
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#动量" class="md-nav__link">
-    <span class="md-ellipsis">
-      动量
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#weight-initialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      初始化
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1227,6 +1066,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1248,18 +1089,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_11_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../cnn/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1276,7 +1115,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_11_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_11_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_11_3">
             <span class="md-nav__icon md-icon"></span>
             卷积神经网络
@@ -1292,7 +1131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cnn/alexnet/" class="md-nav__link">
+      <a href="../alexnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1313,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cnn/resnet/" class="md-nav__link">
+      <a href="../resnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1331,10 +1170,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../cnn/googlenet/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1343,6 +1189,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1363,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rnn/" class="md-nav__link">
+      <a href="../../rnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1384,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gan/" class="md-nav__link">
+      <a href="../../gan/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1405,7 +1252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../word-embedding/" class="md-nav__link">
+      <a href="../../word-embedding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1453,7 +1300,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../transformer/" class="md-nav__link ">
+            <a href="../../transformer/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1486,7 +1333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transformer/bert/" class="md-nav__link">
+      <a href="../../transformer/bert/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1507,7 +1354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transformer/vit/" class="md-nav__link">
+      <a href="../../transformer/vit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1544,7 +1391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../clustering/" class="md-nav__link">
+      <a href="../../../clustering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1565,7 +1412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../markov-chain/" class="md-nav__link">
+      <a href="../../../markov-chain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1586,7 +1433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reinforcement-learning/" class="md-nav__link">
+      <a href="../../../reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1625,134 +1472,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      架构
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backpropagation-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      反向传播算法
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="反向传播算法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#training-procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      训练过程
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      其他梯度下降算法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      通用逼近定理
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#neuron-num" class="md-nav__link">
-    <span class="md-ellipsis">
-      神经元的数量
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="神经元的数量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      输入层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      输出层
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      隐藏层
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-rate" class="md-nav__link">
-    <span class="md-ellipsis">
-      学习率
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#动量" class="md-nav__link">
-    <span class="md-ellipsis">
-      动量
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#weight-initialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      初始化
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1766,7 +1485,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/algorithm/neural-network/fnn.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/algorithm/neural-network/cnn/googlenet.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1775,183 +1494,16 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/algorithm/neural-network/fnn.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/algorithm/neural-network/cnn/googlenet.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>前馈神经网络</h1>
+  <h1>GoogLeNet</h1>
 
-<h2 id="_1">架构</h2>
-<p>前馈神经网络, Feedforward NN, 的架构如图所示.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/182181d298a387078d650701b708d254.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/182181d298a387078d650701b708d254.png" width="500" /></a></p>
-</figure>
-<p>具体说明如下:</p>
-<ul>
-<li>输入层: 位于网络最底层, 输入变量<span class="arithmatex">\(x_1, x_2, ..., x_n\)</span>表示输入特征. 每个输入节点代表一个特征, 输入层只复杂将数据传递到下一层(隐藏层), 不执行任何计算</li>
-<li>隐藏层: 网络中间的层. 每个隐藏层的神经元接受来自上一层的加权求和输入, 并加上一个偏置项<span class="arithmatex">\(b_m\)</span>, 然后通过激活函数<span class="arithmatex">\(f\)</span>进行线性变换, 公式为<span class="arithmatex">\(o_m=f(z_m)=f(\sum_{i=1}^n w_{im}x_i+b_m)\)</span></li>
-<li>输出层: 位于网络最顶层, 输出结果<span class="arithmatex">\(o_k\)</span>是隐藏层经过类似的加权和计算后的输出, 公式为<span class="arithmatex">\(o_k=f(z_k)=f(\sum_{i=1}^m w_{wk}o_i+b_k)\)</span></li>
-</ul>
-<p>除此之外, FNN还有两个非常重要的特征:</p>
-<ul>
-<li>每一个神经元只接受前一个层的输出</li>
-<li>当前层的每一个神经元都与前一个层的所有神经元相连</li>
-<li>每个神经元的输入在完成加权和计算后, 会通过一个激活函数, 这个激活函数不局限于阶跃函数, 可以是ReLu, Sigmoid, Tanh函数, 最常用的是Sigmoid函数. 特别注意, 这个激活函数要可微</li>
-</ul>
-<h2 id="backpropagation-algorithm">反向传播算法</h2>
-<p>对于每一个训练样本<span class="arithmatex">\(\{\bm{x}, t\}\)</span>, <span class="arithmatex">\(\bm{x}=\{x_1, x_2, ..., x_n\}\)</span>, <span class="arithmatex">\(t\)</span>为其标签. 将其传入网络, 直到输出层, 这个过程称为正向传播, 将其输出<span class="arithmatex">\(o\)</span>与标签<span class="arithmatex">\(t\)</span>进行比较, 计算误差, 根据误差, 从输出层到输入层逐级反向传播, 调整每个神经元的权重, 以减小误差, 这个过程就是反向传播. 权重的更新公式为<span class="arithmatex">\(w_{pq}^{new}=w_{pq}^{old}+\Delta w_{pq}\)</span>. 这种过程会被不断重复, 即正向-&gt;反向-&gt;正向-&gt;反向, 直到输出层输出结果的误差在可以接受的范围内. "正向-&gt;反向"这样的一次更新就称为一次迭代.</p>
-<p>那么, 我们怎么计算这个权重变化<span class="arithmatex">\(\Delta w_{pq}\)</span>的呢? 参考线性回归, 我们可以定义一个误差损失函数然后使用梯度下降算法解决. 如均方误差函数, MSE. 每一次迭代/每一个批次对应于下山的"一步", 在山上的每一个位置对应于一组权重配置, 梯度的方向是误差增加最快的方向, 沿着负梯度的方向移动则可以使误差减小. 目标是通过调整权重, 使模型"下坡", 最终达到地形的最低点, 这样误差最小, 模型性能最佳. 用来下山的步子被称为"学习率", 这是算法的一个超参数.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/4392978da300d80f0485a0aa396966ff.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4392978da300d80f0485a0aa396966ff.png" width="500" /></a></p>
-</figure>
-<p>要注意的是, 梯度下降算法并不保证能找到全局最小值, 它只会找到基于起点的最近的局部最小值.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/21ad32b9aa5ba67e5b0f6abc71d55d08.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/21ad32b9aa5ba67e5b0f6abc71d55d08.png" width="500" /></a></p>
-</figure>
-<p>假设 <span class="arithmatex">\(w_{pq}(t)\)</span>表示的是从神经元<span class="arithmatex">\(p\)</span>到神经元<span class="arithmatex">\(q\)</span>在<span class="arithmatex">\(t\)</span>这个时间的权重, 那么下一次在<span class="arithmatex">\(t+1\)</span>这个时间的权重为<span class="arithmatex">\(w_{pq}(t+1)=w_{pq}(t)+\Delta w_{pq}\)</span>, 其中<span class="arithmatex">\(\Delta w_{pq}=\eta\cdot \delta_q\cdot o_p\)</span>, 即权重变化与神经元<span class="arithmatex">\(p\)</span>在激活函数激活后的输出<span class="arithmatex">\(o_p\)</span>, 神经元<span class="arithmatex">\(q\)</span>的误差<span class="arithmatex">\(\delta_q\)</span>成正比.</p>
-<p>神经元<span class="arithmatex">\(q\)</span>的误差<span class="arithmatex">\(\delta_q\)</span>要分两种情况计算:</p>
-<ol>
-<li>若<span class="arithmatex">\(q\)</span>是输出层的神经元, 则<span class="arithmatex">\(\delta_q=(t_q-o_q)f'(z_q)\)</span>, 见<a href="https://img.ricolxwz.io/5f941efe6d1e0e2a24f4cc02e2b5f50c.png">图</a></li>
-<li>若<span class="arithmatex">\(q\)</span>是隐藏层的神经元, 则<span class="arithmatex">\(\delta_q=f'(z_q)\sum_i w_{qi}\delta_i\)</span>, 见<a href="https://img.ricolxwz.io/240c3a21ce4f4009099695a2a1c28f42.png">图</a></li>
-</ol>
-<p>注意, <span class="arithmatex">\(i\)</span>是<span class="arithmatex">\(q\)</span>后面的神经元, 即顺序为<span class="arithmatex">\(p\rightarrow q\rightarrow i\)</span>; 这里的<span class="arithmatex">\(z_q\)</span>是在激活函数激活前的输出, <span class="arithmatex">\(o_q=f(z_q)\)</span>. 可以被证明<span class="arithmatex">\(f'(z_q)=f(z_q)(1-f(z_q))\)</span>(前提是使用sigmoid激活函数), 所以有<span class="arithmatex">\(f'(z_q)=o_q(1-o_q)\)</span>. 上面的误差计算公式可以写为:</p>
-<ol>
-<li>若<span class="arithmatex">\(q\)</span>为输出层神经元, 则<span class="arithmatex">\(\delta_q=(t_q-o_q)o_q(1-o_q)\)</span></li>
-<li>若<span class="arithmatex">\(q\)</span>为隐藏层神经元, 则<span class="arithmatex">\(\delta_q=o_q(1-o_q)\sum_i w_{qi}\delta_i\)</span></li>
-</ol>
-<p>注意, <span class="arithmatex">\(i\)</span>是<span class="arithmatex">\(q\)</span>后面的神经元, 即顺序为<span class="arithmatex">\(p\rightarrow q\rightarrow i\)</span>.</p>
-<details class="tip" open="open">
-<summary>Tip</summary>
-<p>🌈🥚: 反向传播公式推导请见<a href="/algorithm/neural-network/backpropagation">这里</a>.</p>
-</details>
-<h3 id="training-procedure">训练过程</h3>
-<ol>
-<li>初始化所有的权重和截距为较小的随机数</li>
-<li>重复循环, 直到停止条件被满足<ol>
-<li>正向传播: 计算神经网络的输出</li>
-<li>反向传播<ol>
-<li>计算输出层神经元的误差<span class="arithmatex">\(\delta\)</span>, 更新输出层的权重和截距</li>
-<li>从输出层开始, 对于神经网络的每一层, 重复循环, 直到输入层<ol>
-<li>反向传播<span class="arithmatex">\(\delta\)</span></li>
-<li>更新两层之间的权重</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>检查是否满足条件, 若训练集的误差已经低于某一个值或已经达到了最大轮次, 则停止循环</li>
-</ol>
-<details class="example" open="open">
-<summary>例子</summary>
-<p>假设学习率为<span class="arithmatex">\(0.9\)</span>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">1---&gt;</label><label for="__tabbed_1_2">2---&gt;</label><label for="__tabbed_1_3">3---&gt;</label><label for="__tabbed_1_4">4---&gt;</label><label for="__tabbed_1_5">5---&gt;</label><label for="__tabbed_1_6">6---&gt;</label><label for="__tabbed_1_7">7</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/efbaeae02cd8777f9b80255112fe680c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/efbaeae02cd8777f9b80255112fe680c.png" width="550" /></a>
-</figure></p>
-</div>
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/c5859d33d92cbffd51fa2b05db6f50e3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c5859d33d92cbffd51fa2b05db6f50e3.png" width="650" /></a>
-</figure></p>
-</div>
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/4fbfa4681dde83cc2983beabf18b2b5c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4fbfa4681dde83cc2983beabf18b2b5c.png" width="650" /></a>
-</figure></p>
-</div>
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/ad1fbdd3eb510d21579643d0c982ea49.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/ad1fbdd3eb510d21579643d0c982ea49.png" width="650" /></a>
-</figure></p>
-</div>
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/478525aca15db7ed94df36a9839ac82d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/478525aca15db7ed94df36a9839ac82d.png" width="650" /></a>
-</figure></p>
-</div>
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/e053763d1f673ce6b687928f85addb82.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e053763d1f673ce6b687928f85addb82.png" width="650" /></a>
-</figure></p>
-</div>
-<div class="tabbed-block">
-<p><figure markdown='1'>
-<a class="glightbox" href="https://img.ricolxwz.io/84b6a3083f59e94953f1dff056775fd7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/84b6a3083f59e94953f1dff056775fd7.png" width="650" /></a>
-</figure></p>
-</div>
-</div>
-</div>
-</details>
-<h3 id="_2">其他梯度下降算法</h3>
-<p>标准的梯度下降算法计算出<span class="arithmatex">\(\sum_i w_{qi}\delta_i\)</span>, 所有的误差之后再更新权重<span class="arithmatex">\(\delta_q\)</span>, 而随机梯度下降算法随机选一个<span class="arithmatex">\(i\)</span>层神经元来计算<span class="arithmatex">\(\delta_q\)</span>. 而小批量梯度下降是选取一小部分<span class="arithmatex">\(i\)</span>层神经元来计算<span class="arithmatex">\(\delta_q\)</span>.</p>
-<p>常用的优化算法总结:</p>
-<ul>
-<li>标准梯度下降, standard gradient descent</li>
-<li>随机梯度下降, SGD, stochastic gradient descent</li>
-<li><a href="#动量">动量法</a>, momentum</li>
-<li>自适应梯度算法, adagard</li>
-<li>Nesterov加速算法, NAG</li>
-<li>RMSProp</li>
-<li>AdaDelta</li>
-<li>Adam</li>
-</ul>
-<h2 id="_3">通用逼近定理</h2>
-<p>根据Cyberko和Hornik等人在1989年的研究, 任何连续函数都可以通过一个单隐藏层的神经网络, 以任意小的误差进行逼近. 这意味着即使是简单的神经网络, 也能处理复杂的连续函数. 根据Cyberko 1988年的研究, 任何函数(包括不连续函数)都可以通过一个具有两个隐藏层的神经网络, 以任意小的误差进行逼近. 这意味着即使是非连续的复杂函数, 神经网络也能够很好的逼近.</p>
-<p>这两个定理属于存在性定理, 也就是说, 它们仅仅说明了在理论上, 这样的神经网络能够逼近任意的函数, 但是并没有告诉我们应该如何选择网络的具体架构(如隐藏层侧数量, 每层神经元的数量等)以及如何设置超参数.</p>
-<h2 id="neuron-num">神经元的数量</h2>
-<h3 id="_4">输入层</h3>
-<ul>
-<li>数值属性: 每个属性对应一个神经元</li>
-<li>类别属性: 如果该属性有<span class="arithmatex">\(k\)</span>个值, 那么就需要<span class="arithmatex">\(k\)</span>个神经元, 并使用one-hot编码方式. 这种编码方式将具有<span class="arithmatex">\(k\)</span>个值的属性表示为<span class="arithmatex">\(k\)</span>个二进制的属性, 只有一个位置是<span class="arithmatex">\(1\)</span>, 其余位置是<span class="arithmatex">\(0\)</span>, 如假设一个天气属性有三个取值, 晴天, 阴天, 雨天, 那么, 晴天可以表示为<span class="arithmatex">\(1\ 0\ 0\)</span>, 阴天可以表示为<span class="arithmatex">\(0\ 1\ 0\)</span>, 雨天可以表示为<span class="arithmatex">\(0\ 0\ 1\)</span></li>
-</ul>
-<h3 id="_5">输出层</h3>
-<ul>
-<li><span class="arithmatex">\(k\)</span>类问题: 对于一个有<span class="arithmatex">\(k\)</span>个类别的问题, 输出层会有<span class="arithmatex">\(k\)</span>个神经元, 也用one-hot编码</li>
-<li>二分类问题: 可以使用两个神经元, 使用one-hot编码; 也可以使用一个神经元, 配合sigmoid激活函数, 若输出值接近<span class="arithmatex">\(0\)</span>, 属于第一类, 接近<span class="arithmatex">\(1\)</span>则属于第二类</li>
-</ul>
-<h3 id="_6">隐藏层</h3>
-<p>隐藏层神经元对误差的影响如<a href="https://img.ricolxwz.io/54225f471feeb87e7664d00730b2f0cf.png">图</a>.</p>
-<ul>
-<li>隐藏层神经元过多: 导致过拟合</li>
-<li>隐藏层神经元过少: 导致欠拟合</li>
-</ul>
-<p>思想就是开始的时候使用较少的神经元, 然后逐步增加神经元的数量, 直到模型的误差不再显著减少.</p>
-<ol>
-<li>一开始使用较少的隐藏神经元来初始化网络</li>
-<li>训练网络, 直到均方误差或其他损失指标不再显著减少</li>
-<li>此时, 向隐藏层中添加一些新神经元, 并使用随机初始化的权重重新训练网络, 均方误差会减少, 如<a href="https://img.ricolxwz.io/b8176513be1475a51dbd250cd4e9bcdc.png">图</a></li>
-<li>重复上述步骤, 直到满足终止条件, 例如添加新神经元不会导致显著的误差减少, 或者隐藏层达到设定的最大大小</li>
-</ol>
-<h2 id="learning-rate">学习率</h2>
-<p>神经网络的性能和学习率的相关性非常大. </p>
-<ul>
-<li>若学习率太小: 收敛地很慢</li>
-<li>若学习率很大: 振荡, 超出最小值</li>
-</ul>
-<p>我们无法在训练前就预知最优的学习率.</p>
-<figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/8a0280ce5fa12521df322cc115dfe04d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8a0280ce5fa12521df322cc115dfe04d.png" width="500" /></a></p>
-</figure>
-<p>学习率可以是固定的, 也可以随时间变化. 后者一开始学习率交大, 随着时间推移, 慢慢减小. 一开始学习率较大能够造成更大的权重变化, 能够减少训练批次, 甚至还可能跳过某些局部最小值; 而后, 学习率慢慢减小, 防止振荡的发生. 公式有两种:</p>
-<ul>
-<li><span class="arithmatex">\(\eta_n = \frac{\eta_{n-1}}{1+d*n}\)</span></li>
-<li><span class="arithmatex">\(\eta_n = \eta_0 e^{-dn}\)</span></li>
-</ul>
-<p>其中, <span class="arithmatex">\(\eta_n\)</span>表示第<span class="arithmatex">\(n\)</span>批次的学习率, <span class="arithmatex">\(d\)</span>是一个超参数, 表示衰减率.</p>
-<h2 id="动量">动量</h2>
-<p>动量, momentum, 通过在权重更新公式中引入一个额外的动量项, 使得当前的权重更新依赖于之前的更新, 从而减少振荡并允许使用更大的学习率. 计算公式为<span class="arithmatex">\(\Delta w_{pq}(t)=\eta\delta_q o_p + \mu(w_{pq}(t)-w_{pq}(t-1))\)</span>.</p>
-<h2 id="weight-initialization">初始化</h2>
-<p>神经网络模型的性能非常依赖于权重和截距的初始化.常见的做法有:</p>
-<ul>
-<li>标准的做法: 从<span class="arithmatex">\(-1\)</span>到<span class="arithmatex">\(1\)</span>之间选择小的随机数</li>
-<li>Xavier初始化: 权重从一个正态分布中产生, <span class="arithmatex">\(\sigma=\sqrt{\frac{2}{N_{in}+N_{out}}}\)</span>, 其中<span class="arithmatex">\(N_{in}\)</span>是输入神经元的数量, <span class="arithmatex">\(N_{out}\)</span>是输出神经元的数量, 注意, 这里的输入输出神经元不是整个神经网络的输入输出神经元, 是相对于当前层神经元来说的上一层/下一层神经元, 当前层神经元就是权重/截距待更新的神经元</li>
-</ul>
+
 
 
 
@@ -1974,7 +1526,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
   </span>
 
     
@@ -1984,34 +1536,11 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月3日</span>
   </span>
 
     
     
-    
-      
-  <span class="md-source-file__fact">
-    
-      
-  <span class="md-icon" title="贡献者">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-  </span>
-  <span>GitHub</span>
-
-    
-    <nav>
-      
-        <a href="https://github.com/ricolxwz" class="md-author" title="@ricolxwz">
-          
-          <img src="https://avatars.githubusercontent.com/u/92409532?v=4&size=72" alt="ricolxwz">
-        </a>
-      
-      
-      
-    </nav>
-  </span>
-
     
   </aside>
 
@@ -2140,20 +1669,20 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
-        <script src="../../../javascripts/favicon.js"></script>
+        <script src="../../../../javascripts/favicon.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="../../../js/open_in_new_tab.js"></script>
+        <script src="../../../../js/open_in_new_tab.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

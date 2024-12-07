@@ -1,115 +1,176 @@
 .md-header__button.md-logo {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
-.md-header__button.md-logo img, .md-header__button.md-logo svg {
-  height: 2.5rem;
-  width: 2.5rem;
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 #logo_light_mode {
-display: var(--md-footer-logo-light-mode);
-height: 25px;
+    display: var(--md-footer-logo-light-mode);
+    height: 25px;
 }
 #logo_dark_mode {
-display: var(--md-footer-logo-dark-mode);
-height: 25px;
+    display: var(--md-footer-logo-dark-mode);
+    height: 25px;
 }
 
 [data-md-color-scheme="default"] {
---md-footer-logo-dark-mode:         none;
---md-footer-logo-light-mode:         block;
---md-footer-bg-color: white;
---md-footer-bg-color--dark: white;
---md-footer-fg-color: var(--md-typeset-color);
---md-footer-fg-color--light: rgba(18, 19, 23, 0.6);
-  --md-footer-border-color: rgba(0, 0, 0, 0.1);
-  --md-top-custom: rgba(256, 256, 256, 0.2);
-  --md-banner-color: rgba(18, 19, 23, 0.6);
+    --md-footer-logo-dark-mode: none;
+    --md-footer-logo-light-mode: block;
+    --md-footer-bg-color: white;
+    --md-footer-bg-color--dark: white;
+    --md-footer-fg-color: var(--md-typeset-color);
+    --md-footer-fg-color--light: rgba(18, 19, 23, 0.6);
+    --md-footer-border-color: rgba(0, 0, 0, 0.1);
+    --md-top-custom: rgba(256, 256, 256, 0.2);
+    --md-banner-color: rgba(18, 19, 23, 0.6);
 }
 [data-md-color-scheme="slate"] {
---md-footer-logo-dark-mode:         block;
---md-footer-logo-light-mode:         none;
---md-primary-color-dark: rgba(18, 19, 23, 0.3);
---md-primary-fg-color: var(--md-primary-color-dark);
---md-header-bg-color: var(--md-primary-color-dark);
---md-footer-bg-color: var(--md-primary-color-dark);
---md-footer-bg-color--dark: var(--md-primary-color-dark);
---md-default-bg-color: rgba(18, 19, 23, 1);
-  --md-footer-border-color: rgba(256, 256, 256, 0.2);
-  --md-shadow-z2: 0 0.2rem 0.5rem #000,0 0 0.05rem #ffffff40;
-  --md-top-custom: rgba(18, 19, 23, 0.2);
-  --md-banner-color: var(--md-typeset-color);
+    --md-footer-logo-dark-mode: block;
+    --md-footer-logo-light-mode: none;
+    --md-primary-color-dark: rgba(18, 19, 23, 0.3);
+    --md-primary-fg-color: var(--md-primary-color-dark);
+    --md-header-bg-color: var(--md-primary-color-dark);
+    --md-footer-bg-color: var(--md-primary-color-dark);
+    --md-footer-bg-color--dark: var(--md-primary-color-dark);
+    --md-default-bg-color: rgba(18, 19, 23, 1);
+    --md-footer-border-color: rgba(256, 256, 256, 0.2);
+    --md-shadow-z2: 0 0.2rem 0.5rem #000, 0 0 0.05rem #ffffff40;
+    --md-top-custom: rgba(18, 19, 23, 0.2);
+    --md-banner-color: var(--md-typeset-color);
 }
 
 .md-top {
-  backdrop-filter: saturate(180%) blur(20px);
-  background-color: var(--md-top-custom);
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: var(--md-top-custom);
 }
 
 .md-tabs {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .md-banner {
-background-color: var(--md-primary-fg-color);
-color: var(--md-banner-color);
+    background-color: var(--md-primary-fg-color);
+    color: var(--md-banner-color);
 }
 
 .md-footer {
-  border-top: 1px solid var(--md-footer-border-color);
+    border-top: 1px solid var(--md-footer-border-color);
 }
 
 .md-banner .twemoji-custom {
-  border-radius: unset !important;
-  box-shadow: unset !important;
-  transition: unset !important;
+    border-radius: unset !important;
+    box-shadow: unset !important;
+    transition: unset !important;
 }
 
 .md-banner .twemoji {
-  border-radius: 100%;
-  box-shadow: inset 0 0 0 .05rem currentcolor;
-  display: inline-block;
-  height: 1.2rem;
-  padding: .25rem;
-  transition: all .25s;
-  vertical-align: bottom;
-  width: 1.2rem;
+    border-radius: 100%;
+    box-shadow: inset 0 0 0 0.05rem currentcolor;
+    display: inline-block;
+    height: 1.2rem;
+    padding: 0.25rem;
+    transition: all 0.25s;
+    vertical-align: bottom;
+    width: 1.2rem;
 }
 
 [data-md-color-primary="black"] .md-header {
-background-color: var(--md-header-bg-color);
+    background-color: var(--md-header-bg-color);
 }
 .md-header {
-box-shadow: none;
-transition: none;
-backdrop-filter: saturate(180%) blur(20px);
--webkit-backdrop-filter: saturate(180%) blur(20px);
-background-color: var(--md-header-bg-color);
+    box-shadow: none;
+    transition: none;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background-color: var(--md-header-bg-color);
 }
 .md-tabs {
-box-shadow: none;
-transition: none;
-backdrop-filter: saturate(180%) blur(20px);
--webkit-backdrop-filter: saturate(180%) blur(20px);
-background-color: var(--md-header-bg-color);
+    box-shadow: none;
+    transition: none;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background-color: var(--md-header-bg-color);
 }
 
 .katex {
-font-size: 1em;
+    font-size: 1em;
 }
 
-/* .md-typeset .admonition,
-.md-typeset details {
-border-width: 0;
-border-left-width: 4px;
-} */
+summary {
+    background-color: #ffffff00 !important;
+}
+
+details.note {
+    background: #448aff1a;
+}
+
+details.example {
+    background: #7c4dff1a;
+}
+
+details.tip {
+    background: #00bfa51a;
+}
+
+details.warning {
+    background: #00bfa51a;
+}
+
+details.abstract {
+    background: #00b0ff1a;
+}
+
+details.info {
+    background: #00b8d41a;
+}
+
+details.success {
+    background: #00c8531a;
+}
+
+details.question {
+    background: #64dd171a;
+}
+
+details.warning {
+    background: #ff91001a;
+}
+
+details.failure {
+    background: #ff52521a;
+}
+
+details.danger {
+    background: #ff17441a;
+}
+
+details.bug {
+    background: #f500571a;
+}
+
+details.quote {
+    background: #9e9e9e1a;
+}
+
+details {
+    border: unset !important;
+    /* box-shadow: unset !important; */
+    border-radius: 0.5rem !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+}
 
 :root {
---md-code-font: "mononoki", "HarmonyOS Sans SC";
---md-text-font: "mononoki", "HarmonyOS Sans SC";
+    --md-code-font: "mononoki", "HarmonyOS Sans SC";
+    --md-text-font: "mononoki", "HarmonyOS Sans SC";
 }
 
 .katex-display {
-  margin: -.5em;
+    margin: -0.5em;
 }
