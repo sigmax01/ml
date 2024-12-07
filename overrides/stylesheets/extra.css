@@ -158,7 +158,7 @@ details.quote {
 
 details {
     border: unset !important;
-    /* box-shadow: unset !important; */
+    box-shadow: unset !important;
     border-radius: 0.5rem !important;
     padding-top: 0.3rem !important;
     padding-bottom: 0.3rem !important;
