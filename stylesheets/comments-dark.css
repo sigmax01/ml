@@ -68,6 +68,18 @@
     font-display: swap;
 }
 
+main {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
+
+/* for code */
+code,
+kbd,
+pre,
+samp {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
+
 /*! Modified from GitHub's dark theme in primer/primitives.
  * MIT License
  * Copyright (c) 2018 GitHub Inc.
@@ -184,16 +196,4 @@ main .pagination-loader-container {
 }
 main .gsc-loading-image {
     background-image: url(https://github.githubassets.com/images/mona-loading-dark.gif);
-}
-
-main {
-    font-family: "mononoki", "HarmonyOS Sans SC";
-}
-
-/* for code */
-code,
-kbd,
-pre,
-samp {
-    font-family: "mononoki", "HarmonyOS Sans SC";
 }
