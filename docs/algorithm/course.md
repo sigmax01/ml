@@ -1,6 +1,6 @@
 ---
 title: 课程
-comments: false
+comments: true
 ---
 
 该库的配套课程为[COMP5318](https://www.sydney.edu.au/units/COMP5318/2024-S2C-NE-CC).

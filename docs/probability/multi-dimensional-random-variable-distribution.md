@@ -1,6 +1,6 @@
 ---
 title: 多维随机变量及其分布
-comments: false
+comments: true
 ---
 
 ## 随机变量

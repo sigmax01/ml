@@ -1,6 +1,6 @@
 ---
 title: 考点
-comments: false
+comments: true
 ---
 
 考前提醒:

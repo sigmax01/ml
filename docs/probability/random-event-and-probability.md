@@ -1,6 +1,6 @@
 ---
 title: 随机事件与概率
-comments: false
+comments: true
 ---
 
 ## 基本概念

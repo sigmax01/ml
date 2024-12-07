@@ -1,6 +1,6 @@
 ---
 title: Transformer
-comments: false
+comments: true
 ---
 
 ## 起源和发展

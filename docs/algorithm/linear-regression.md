@@ -1,6 +1,6 @@
 ---
 title: 线性回归
-comments: false
+comments: true
 ---
 
 ???+ info "信息"

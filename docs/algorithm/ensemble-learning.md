@@ -1,6 +1,6 @@
 ---
 title: 集成学习
-comments: false
+comments: true
 ---
 
 ???+ info "信息"

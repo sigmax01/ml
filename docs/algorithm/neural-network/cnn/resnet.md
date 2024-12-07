@@ -1,6 +1,6 @@
 ---
 title: ResNet
-comments: false
+comments: true
 ---
 
 ## 背景[^1]

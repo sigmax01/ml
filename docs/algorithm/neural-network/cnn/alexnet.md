@@ -1,6 +1,6 @@
 ---
 title: AlexNet
-comments: false
+comments: true
 ---
 
 ## 架构[^1]

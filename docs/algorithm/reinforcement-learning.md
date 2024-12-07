@@ -1,6 +1,6 @@
 ---
 title: 强化学习
-comments: false
+comments: true
 ---
 
 ## 背景

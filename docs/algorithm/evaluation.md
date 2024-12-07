@@ -1,6 +1,6 @@
 ---
 title: 评估
-comments: false
+comments: true
 ---
 
 ## 留出验证

@@ -1,6 +1,6 @@
 ---
 title: 聚类
-comments: false
+comments: true
 ---
 
 ## 定义

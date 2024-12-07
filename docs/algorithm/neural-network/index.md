@@ -1,6 +1,6 @@
 ---
 title: 神经网络
-comments: false
+comments: true
 ---
 
 ## 神经元

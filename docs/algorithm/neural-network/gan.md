@@ -1,6 +1,6 @@
 ---
 title: 生成对抗网络
-comments: false
+comments: true
 ---
 
 ## 核心思想[^1]

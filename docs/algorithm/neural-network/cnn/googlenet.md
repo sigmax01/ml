@@ -1,6 +1,6 @@
 ---
 title: GoogLeNet
-comments: false
+comments: true
 ---
 
 ## 背景

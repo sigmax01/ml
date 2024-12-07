@@ -1,5 +1,5 @@
 ---
 title: ViT
-comments: false
+comments: true
 ---
 
