@@ -1,3 +1,8 @@
+---
+title: 开始
+comments: true
+---
+
 # 开始
 
 欢迎来到机器学习笔记项目.
@@ -53,7 +58,3 @@
 - [Driven to discover](https://chmx0929.gitbook.io)
 
 [DMIT CN2 GIA电信优质线路注册链接](https://www.dmit.io/aff.php?aff=11247)
-
-## 状态
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b0cb135b-2f6f-431b-b7e8-78374038ab9f/deploy-status)](https://app.netlify.com/sites/sigmax01-ml/deploys)
