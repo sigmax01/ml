@@ -8,7 +8,7 @@ copyright: <p xmlns:cc="http://creativecommons.org/ns#" >版权所有 &copy 2024
 site_description: 一个有待面面俱到的机器学习文档
 theme:
   name: material
-  logo_light_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg 
+  logo_light_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg
   logo_dark_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-000000-212121-1.svg
   language: zh
   custom_dir: overrides
@@ -52,7 +52,7 @@ theme:
       accent: indigo
       toggle:
         icon: material/brightness-4
-        name: Switch to system preference 
+        name: Switch to system preference
   # font:
   #   text: "Roboto"
   #   code: "Ubuntu Mono"
@@ -71,7 +71,7 @@ theme:
     #   danger: octicons/zap-16
     #   bug: octicons/bug-16
     #   example: octicons/beaker-16
-    #   quote: octicons/quote-16 
+    #   quote: octicons/quote-16
 extra:
   social:
     - icon: fontawesome/mug-hot-solid
@@ -89,9 +89,9 @@ extra:
     - icon: fontawesome/at-solid
       link: mailto:ricol.xwz@outlook.com
   generator: false
-  # analytics:
-  #   provider: google
-  #   property: G-65D8M5V1CL
+  analytics:
+    provider: google
+    property: G-65D8M5V1CL
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
   - https://unpkg.com/@waline/client@v3/dist/waline.css
@@ -101,7 +101,7 @@ extra_javascript:
   - javascripts/katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
-  - javascripts/analysis.js
+  # - javascripts/analysis.js
 markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
@@ -157,9 +157,9 @@ plugins:
   - glightbox:
       skip_classes:
         - skipbox
-#  - mkdocs-jupyter:
-#      theme: slate
-#      include_source: True
+  #  - mkdocs-jupyter:
+  #      theme: slate
+  #      include_source: True
   - git-revision-date-localized:
       locale: zh
       enable_creation_date: true
@@ -170,39 +170,40 @@ plugins:
       enabled: !ENV [CI, false]
 nav:
   - 开始:
-    - index.md
+      - index.md
   - 概率:
-    - probability/index.md
-    - 随机事件和概率: probability/random-event-and-probability.md
-    - 一维随机变量及其分布: probability/one-dimensional-random-variable-distribution.md
-    - 多维随机变量及其分布: probability/multi-dimensional-random-variable-distribution.md
-    - 随机变量的数字特征: probability/numerical-characteristics-of-random-variable.md
-    - 大数定律与中心极限定理: probability/large-number-central-limit-theorem.md
+      - probability/index.md
+      - 随机事件和概率: probability/random-event-and-probability.md
+      - 一维随机变量及其分布: probability/one-dimensional-random-variable-distribution.md
+      - 多维随机变量及其分布: probability/multi-dimensional-random-variable-distribution.md
+      - 随机变量的数字特征: probability/numerical-characteristics-of-random-variable.md
+      - 大数定律与中心极限定理: probability/large-number-central-limit-theorem.md
   - 算法:
-    - algorithm/index.md
-    - 线性回归: algorithm/linear-regression.md
-    - 预处理: algorithm/preprocessing.md
-    - 最邻近: algorithm/knn.md
-    - 朴素贝叶斯: algorithm/naive-bayes.md
-    - 评估: algorithm/evaluation.md
-    - 决策树: algorithm/decision-tree.md
-    - 集成学习: algorithm/ensemble-learning.md
-    - 支持向量机: algorithm/svm.md
-    - 降维: algorithm/dimensional-reduction.md
-    - 神经网络:
-      - algorithm/neural-network/index.md
-      - 前馈神经网络: algorithm/neural-network/fnn.md
-      - 卷积神经网络:
-        - algorithm/neural-network/cnn/index.md
-        - AlexNet: algorithm/neural-network/cnn/alexnet.md
-        - ResNet: algorithm/neural-network/cnn/resnet.md
-      - 递归神经网络: algorithm/neural-network/rnn.md
-      - 生成对抗网络: algorithm/neural-network/gan.md
-      - 词嵌入: algorithm/neural-network/word-embedding.md
-      - Transformer:
-        - algorithm/neural-network/transformer/index.md
-        - BERT: algorithm/neural-network/transformer/bert.md
-        - ViT: algorithm/neural-network/transformer/vit.md
-    - 聚类: algorithm/clustering.md
-    - 马尔可夫链: algorithm/markov-chain.md
-    - 强化学习: algorithm/reinforcement-learning.md
+      - algorithm/index.md
+      - 线性回归: algorithm/linear-regression.md
+      - 预处理: algorithm/preprocessing.md
+      - 最邻近: algorithm/knn.md
+      - 朴素贝叶斯: algorithm/naive-bayes.md
+      - 评估: algorithm/evaluation.md
+      - 决策树: algorithm/decision-tree.md
+      - 集成学习: algorithm/ensemble-learning.md
+      - 支持向量机: algorithm/svm.md
+      - 降维: algorithm/dimensional-reduction.md
+      - 神经网络:
+          - algorithm/neural-network/index.md
+          - 前馈神经网络: algorithm/neural-network/fnn.md
+          - 卷积神经网络:
+              - algorithm/neural-network/cnn/index.md
+              - AlexNet: algorithm/neural-network/cnn/alexnet.md
+              - ResNet: algorithm/neural-network/cnn/resnet.md
+              - GoogLeNet: algorithm/neural-network/cnn/googlenet.md
+          - 递归神经网络: algorithm/neural-network/rnn.md
+          - 生成对抗网络: algorithm/neural-network/gan.md
+          - 词嵌入: algorithm/neural-network/word-embedding.md
+          - Transformer:
+              - algorithm/neural-network/transformer/index.md
+              - BERT: algorithm/neural-network/transformer/bert.md
+              - ViT: algorithm/neural-network/transformer/vit.md
+      - 聚类: algorithm/clustering.md
+      - 马尔可夫链: algorithm/markov-chain.md
+      - 强化学习: algorithm/reinforcement-learning.md
