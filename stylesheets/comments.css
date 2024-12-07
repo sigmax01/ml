@@ -1,0 +1,11 @@
+main {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
+
+/* for code */
+code,
+kbd,
+pre,
+samp {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}

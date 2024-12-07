@@ -1475,15 +1475,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      状态
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1578,8 +1569,6 @@
 <li><a href="https://chmx0929.gitbook.io">Driven to discover</a></li>
 </ul>
 <p><a href="https://www.dmit.io/aff.php?aff=11247">DMIT CN2 GIA电信优质线路注册链接</a></p>
-<h2 id="_5">状态</h2>
-<p><a href="https://app.netlify.com/sites/sigmax01-ml/deploys"><img alt="Netlify Status" src="https://api.netlify.com/api/v1/badges/b0cb135b-2f6f-431b-b7e8-78374038ab9f/deploy-status" /></a></p>
 
 
 
@@ -1625,6 +1614,62 @@
 
 
 
+
+<h2 id="__comments">Comments</h2>
+<!-- Insert generated snippet here -->
+<script
+    src="https://giscus.app/client.js"
+    data-repo="sigmax01/ml"
+    data-repo-id="R_kgDOMNX2Cw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMNX2C84CgVid"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="top"
+    data-theme="https://ml.ricolxwz.de/stylesheets/comments.css"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]");
+
+    // Set palette on initial load
+    var palette = __md_get("__palette");
+    if (palette && typeof palette.color === "object") {
+        var theme =
+            palette.color.scheme === "slate" ? "transparent_dark" : "light";
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme);
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]");
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette");
+            if (palette && typeof palette.color === "object") {
+                var theme =
+                    palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light";
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame");
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app",
+                );
+            }
+        });
+    });
+</script>
 
                  
               </article>
