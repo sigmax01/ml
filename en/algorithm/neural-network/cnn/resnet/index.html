@@ -1742,7 +1742,7 @@
 
 <h2 id="_1">背景<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
 <p>最近的研究显示网络的层数是一个比较重要的问题. 并且最近的ImageNet竞赛中, 所有方法都利用了"非常深度"的模型. 那么就会产生一个问题: "训练好的网络是否就是简单的堆叠更多的层?"</p>
-<p>一个臭名昭著的阻碍就是梯度消失/爆炸现象. 这个问题, 已经很大程度上被归一化初始化和中间归一化层(如BN)解决了, 使得网络可以在较深的层数下通过SGD和反向传播开始收敛. </p>
+<p>一个臭名昭著的阻碍就是梯度消失/爆炸现象. 这个问题, 已经很大程度上被归一化初始化和中间归一化层(如BN)解决了, 使得网络可以在较深的层数下通过SGD和反向传播开始收敛.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/bca8ca0cfe726369f49294dd19322075.png" width="600" /></a></p>
 <figcaption>使用25层和56层的普通网络在CIFAR-10数据集上的表现, 训练误差(左), 测试误差(右)</figcaption>
@@ -1828,13 +1828,13 @@
 <p>卷积层大多数用的是3*3的卷积核, 并且遵循两条简单的设计原则: 1. 对于具有相同大小输入输出特征图的层之间的卷积核的数量应该是相同的; 2. 如果特征图的大小减半了, 那么卷积核的数量应该翻倍以保持层之间的复杂度大致相同.</p>
 <details class="note" open="open">
 <summary>为什么特征图越小, 卷积核越多</summary>
-<p>在网络的前期, 输入特征图较大, 如果使用过多卷积核, 计算量会大幅度增加, 后期特征图逐渐缩小, 增加卷积核数量对计算复杂度的影响较小, 但是可以大幅提升表达能力. </p>
-<p>底层特征相对简单, 种类虽然多, 但是它们的表示复杂度较低, 不需要大量的卷积核就可以捕捉到这些模式. 高层特征更加复杂, 它们需要更多的滤波器来进行区分和表示. </p>
+<p>在网络的前期, 输入特征图较大, 如果使用过多卷积核, 计算量会大幅度增加, 后期特征图逐渐缩小, 增加卷积核数量对计算复杂度的影响较小, 但是可以大幅提升表达能力.</p>
+<p>底层特征相对简单, 种类虽然多, 但是它们的表示复杂度较低, 不需要大量的卷积核就可以捕捉到这些模式. 高层特征更加复杂, 它们需要更多的滤波器来进行区分和表示.</p>
 </details>
 <p>与VGG不同的是, 这里直接采用stride=2, padding=0, 3*3的卷积核实现降采样.</p>
 <details class="example" open="open">
 <summary>直接使用卷积降采样</summary>
-<p>比如特征图的大小从<span class="arithmatex">\(56\)</span>到<span class="arithmatex">\(28\)</span>, 输出的大小可以这样计算<span class="arithmatex">\(\frac{56-3+2*0}{2}+1=28.5\)</span>. </p>
+<p>比如特征图的大小从<span class="arithmatex">\(56\)</span>到<span class="arithmatex">\(28\)</span>, 输出的大小可以这样计算<span class="arithmatex">\(\frac{56-3+2*0}{2}+1=28.5\)</span>.</p>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span> 注意, 大多数的深度学习框架会默认执行向下取整, 所以输出特征图的大小是<span class="arithmatex">\(28\)</span>.</p>
 </details>
 <details class="note" open="open">
@@ -1850,9 +1850,9 @@
 <li>使用1*1的卷积核进行升维操作. 具体操作参考<a href="/algorithm/neural-network/cnn/#increase-dimension">这里</a></li>
 </ol>
 <h2 id="_11">实现</h2>
-<p>作者对于ImageNet上训练的ResNet实现如下: </p>
-<p>在训练的时候, 将图片的最短边随机resize到[256, 480], 然后参考AlexNet中的<a href="/algorithm/neural-network/cnn/alexnet/#random-cropping">随机裁剪</a>对图片进行224*224的随机裁剪(包括它的水平反转)以防止过拟合. 然后, 减去每个像素的平均值, 去掉很多不必要的背景信息, 例如全局亮度 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span>. 然后在每一个卷积层之后采用BN. 对所有的参数进行从头训练. 采用mini-batch SGD, batch的大小为256. 学习率从0.1开始下降当错误率遇到平稳的情况除以10避免震荡. 采用0.0001的权重衰减(就是<a href="/algorithm/linear-regression/#l2-regularization">L2正则化</a>, 防止模型过拟合), <a href="/algorithm/neural-network/fnn/#动量">动量</a>设置为0.9. 并没有使用Dropout. </p>
-<p>在测试的时候, 采取了"10-crop"的方法, 就是说, 从输入图像中采样10个不同的区域来进行评估, 减少由于图像中不同位置的信息丢失带来的影响. 并且, 图像会被调整为多个不同的尺度, 例如, 缩放到<span class="arithmatex">\(224, 256, 384, 480, 640\)</span>, 然后对每个尺寸进行预测, 去平均值, 增强模型的尺度不变性. </p>
+<p>作者对于ImageNet上训练的ResNet实现如下:</p>
+<p>在训练的时候, 将图片的最短边随机resize到[256, 480], 然后参考AlexNet中的<a href="/algorithm/neural-network/cnn/alexnet/#random-cropping">随机裁剪</a>对图片进行224*224的随机裁剪(包括它的水平反转)以防止过拟合. 然后, 减去每个像素的平均值, 去掉很多不必要的背景信息, 例如全局亮度 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span>. 然后在每一个卷积层之后采用BN. 对所有的参数进行从头训练. 采用mini-batch SGD, batch的大小为256. 学习率从0.1开始下降当错误率遇到平稳的情况除以10避免震荡. 采用0.0001的权重衰减(就是<a href="/algorithm/linear-regression/#l2-regularization">L2正则化</a>, 防止模型过拟合), <a href="/algorithm/neural-network/fnn/#动量">动量</a>设置为0.9. 并没有使用Dropout.</p>
+<p>在测试的时候, 采取了"10-crop"的方法, 就是说, 从输入图像中采样10个不同的区域来进行评估, 减少由于图像中不同位置的信息丢失带来的影响. 并且, 图像会被调整为多个不同的尺度, 例如, 缩放到<span class="arithmatex">\(224, 256, 384, 480, 640\)</span>, 然后对每个尺寸进行预测, 去平均值, 增强模型的尺度不变性.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -1886,7 +1886,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
   </span>
 
     
