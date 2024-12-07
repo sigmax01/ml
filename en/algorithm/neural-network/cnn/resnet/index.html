@@ -1279,7 +1279,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#plain-network" class="md-nav__link">
     <span class="md-ellipsis">
       普通网络
     </span>
@@ -1288,7 +1288,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       残差网络
     </span>
@@ -1307,7 +1307,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       实现
     </span>
@@ -1709,7 +1709,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#plain-network" class="md-nav__link">
     <span class="md-ellipsis">
       普通网络
     </span>
@@ -1718,7 +1718,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       残差网络
     </span>
@@ -1737,7 +1737,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       实现
     </span>
@@ -1855,7 +1855,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/5637f76757e67bc2888327a110a9937a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/5637f76757e67bc2888327a110a9937a.png" width="350" /></a></p>
 <figcaption>参与ImageNet的网络架构图. VGG-19(左, 19.6 billion FLOPs), 普通网络(中, 3.6 billion FLOPs), ResNet(右, 3.6 billion FLOPs). 点状的Shortcut Connection表示会对维度进行提升(参考前面的$W_s$), 不是点状的Shortcut Connection表示不对维度进行改变</figcaption>
 </figure>
-<h4 id="_9">普通网络</h4>
+<h4 id="plain-network">普通网络</h4>
 <p>普通网络借鉴了VGG网络的设计哲学.</p>
 <details class="tip" open="open">
 <summary>卷积操作后特征图的大小计算公式</summary>
@@ -1881,13 +1881,13 @@
 <p>所以, 越来越多的现代网络架构如ResNet开始减少池化层的使用, 代之以卷积层的下采样.</p>
 </details>
 <p>以此得到的普通网络比VGG网络的复杂度更低, 可以计算它们俩的FLOPS, FLOPS由以下的几个因素决定: 输入特征图高度, 输入特征图宽度, 输入通道数, 卷积核高度, 卷积核宽度, 输出通道数.</p>
-<h4 id="_10">残差网络</h4>
+<h4 id="_9">残差网络</h4>
 <p>基于上面的普通网络, 作者插入了Shortcut Connections. 在输入和输出特征图维度(通道)相同的情况下, 可以直接使用恒等映射(即上图中实现的连接). 当维度(通道)升高的情况下, 它们采取了两种措施.</p>
 <ol>
 <li>Shortcut Connection依旧采用的是恒等映射, 但是会对新增额外的零通道. 假设, 输入的通道数是64, 在一系列操作后, 通道数增加到了128, 则这种恒等映射需要进行变换, 多出的64张特征图全部填充为0. 这种不会引入额外的训练参数</li>
 <li>使用1*1的卷积核进行升维操作. 具体操作参考<a href="/algorithm/neural-network/cnn/#increase-dimension">这里</a></li>
 </ol>
-<h2 id="_11">实现</h2>
+<h2 id="_10">实现</h2>
 <p>作者对于ImageNet上训练的ResNet实现如下:</p>
 <p>在训练的时候, 将图片的最短边随机resize到[256, 480], 然后参考AlexNet中的<a href="/algorithm/neural-network/cnn/alexnet/#random-cropping">随机裁剪</a>对图片进行224*224的随机裁剪(包括它的水平反转)以防止过拟合. 然后, 减去每个像素的平均值, 去掉很多不必要的背景信息, 例如全局亮度 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span>. 然后在每一个卷积层之后采用BN. 对所有的参数进行从头训练. 采用mini-batch SGD, batch的大小为256. 学习率从0.1开始下降当错误率遇到平稳的情况除以10避免震荡. 采用0.0001的权重衰减(就是<a href="/algorithm/linear-regression/#l2-regularization">L2正则化</a>, 防止模型过拟合), <a href="/algorithm/neural-network/fnn/#动量">动量</a>设置为0.9. 并没有使用Dropout.</p>
 <p>在测试的时候, 采取了"10-crop"的方法, 就是说, 从输入图像中采样10个不同的区域来进行评估, 减少由于图像中不同位置的信息丢失带来的影响. 并且, 图像会被调整为多个不同的尺度, 例如, 缩放到<span class="arithmatex">\(224, 256, 384, 480, 640\)</span>, 然后对每个尺寸进行预测, 去平均值, 增强模型的尺度不变性.</p>
