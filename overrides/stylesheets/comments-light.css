@@ -68,6 +68,18 @@
     font-display: swap;
 }
 
+main {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
+
+/* for code */
+code,
+kbd,
+pre,
+samp {
+    font-family: "mononoki", "HarmonyOS Sans SC";
+}
+
 /*! MIT License
  * Copyright (c) 2018 GitHub Inc.
  * https://github.com/primer/primitives/blob/main/LICENSE
@@ -163,16 +175,4 @@ main .pagination-loader-container {
 }
 main .gsc-loading-image {
     background-image: url(https://github.githubassets.com/images/mona-loading-default.gif);
-}
-
-main {
-    font-family: "mononoki", "HarmonyOS Sans SC";
-}
-
-/* for code */
-code,
-kbd,
-pre,
-samp {
-    font-family: "mononoki", "HarmonyOS Sans SC";
 }
