@@ -1628,7 +1628,7 @@
     data-reactions-enabled="1"
     data-emit-metadata="1"
     data-input-position="top"
-    data-theme="https://ml.ricolxwz.de/stylesheets/comments.css"
+    data-theme="https://ml.ricolxwz.de/stylesheets/comments-fonts.css"
     data-lang="zh-CN"
     data-loading="lazy"
     crossorigin="anonymous"
@@ -1643,7 +1643,9 @@
     var palette = __md_get("__palette");
     if (palette && typeof palette.color === "object") {
         var theme =
-            palette.color.scheme === "slate" ? "transparent_dark" : "light";
+            palette.color.scheme === "slate"
+                ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
+                : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
 
         // Instruct Giscus to set theme
         giscus.setAttribute("data-theme", theme);
@@ -1657,8 +1659,8 @@
             if (palette && typeof palette.color === "object") {
                 var theme =
                     palette.color.scheme === "slate"
-                        ? "transparent_dark"
-                        : "light";
+                        ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
+                        : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
 
                 // Instruct Giscus to change theme
                 var frame = document.querySelector(".giscus-frame");
