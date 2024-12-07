@@ -130,7 +130,7 @@ main {
     --color-btn-active-bg: #282e3380;
     --color-btn-active-border: #6e7681;
     --color-btn-selected-bg: #2d333b80;
-    --color-btn-primary-text: #fff;
+    --color-btn-primary-text: #e2e4e9d1;
     --color-btn-primary-bg: #238636;
     --color-btn-primary-border: #f0f6fc1a;
     --color-btn-primary-shadow: 0 0 #0000;
@@ -139,7 +139,7 @@ main {
     --color-btn-primary-hover-border: #f0f6fc1a;
     --color-btn-primary-selected-bg: #238636;
     --color-btn-primary-selected-shadow: 0 0 #0000;
-    --color-btn-primary-disabled-text: #f0f6fc80;
+    --color-btn-primary-disabled-text: #e2e4e98f;
     --color-btn-primary-disabled-bg: #23863699;
     --color-btn-primary-disabled-border: #f0f6fc1a;
     --color-action-list-item-default-hover-bg: #909dab1f;
