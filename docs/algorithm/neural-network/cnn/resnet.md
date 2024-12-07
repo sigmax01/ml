@@ -108,7 +108,7 @@ comments: false
 <figcaption>参与ImageNet的网络架构图. VGG-19(左, 19.6 billion FLOPs), 普通网络(中, 3.6 billion FLOPs), ResNet(右, 3.6 billion FLOPs). 点状的Shortcut Connection表示会对维度进行提升(参考前面的$W_s$), 不是点状的Shortcut Connection表示不对维度进行改变</figcaption>
 </figure>
 
-#### 普通网络
+#### 普通网络 {#plain-network}
 
 普通网络借鉴了VGG网络的设计哲学.
 
