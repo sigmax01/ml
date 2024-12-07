@@ -80,6 +80,10 @@ samp {
     font-family: "mononoki", "HarmonyOS Sans SC";
 }
 
+.gsc-comment-box-md-toolbar {
+    visibility: hidden;
+}
+
 /*! Modified from GitHub's dark theme in primer/primitives.
  * MIT License
  * Copyright (c) 2018 GitHub Inc.
