@@ -157,13 +157,13 @@ details {
     padding-left: 0.8rem !important;
     padding-right: 0.8rem !important;
 }
-details>:last-child {
-    margin-bottom: 0.6rem !important;
+details > :last-child {
+    margin-bottom: 0.8rem !important;
 }
 /* details>:first-child {
     margin-top: -0.2em !important;
 } */
-details>:nth-child(2) {
+details > :nth-child(2) {
     margin-top: 0.4em !important;
 }
 
@@ -189,8 +189,15 @@ details>:nth-child(2) {
 }
 
 /* 解决行间公式框的边框圆角问题, 并修改媒体响应策略使得44.9844em下不会自动缩小 */
-pre > code {
+.highlight {
+    background-color: var(--md-code-bg-color);
     border-radius: 0.5rem !important;
+}
+.highlight > .filename {
+    background-color: transparent !important;
+}
+.highlight code {
+    background-color: transparent !important;
 }
 @media screen and (max-width: 44.9844em) {
     .md-content__inner > .highlight {
