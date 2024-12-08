@@ -173,3 +173,14 @@ details {
 .katex-display {
     margin: -0.5em;
 }
+
+.md-sidebar__scrollwrap {
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.md-sidebar__scrollwrap:hover {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    /* scrollbar-color: var(--md-default-fg-color--lighter); */
+}
