@@ -44,8 +44,9 @@
 }
 
 .md-top {
-    backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: blur(20px);
     background-color: var(--md-top-custom);
+    box-shadow: unset;
 }
 
 .md-tabs {
