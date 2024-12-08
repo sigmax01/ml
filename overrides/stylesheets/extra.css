@@ -158,7 +158,13 @@ details {
     padding-right: 0.8rem !important;
 }
 details>:last-child {
-    margin-bottom: 0.6rem !important;
+    margin-bottom: 0.4rem !important;
+}
+/* details>:first-child {
+    margin-top: -0.2em !important;
+} */
+details>:nth-child(2) {
+    margin-top: 0.4em !important;
 }
 
 /* 设置全局字体 */
