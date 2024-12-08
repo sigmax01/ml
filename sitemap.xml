@@ -211,46 +211,53 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/transformer/vit/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/probability/</loc>
+        <loc>https://ml.ricolxwz.de/code/pytorch/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/code/pytorch/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/code/pytorch/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/probability/large-number-central-limit-theorem/</loc>
+        <loc>https://ml.ricolxwz.de/math/probability/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/large-number-central-limit-theorem/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/large-number-central-limit-theorem/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/probability/multi-dimensional-random-variable-distribution/</loc>
+        <loc>https://ml.ricolxwz.de/math/probability/large-number-central-limit-theorem/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/multi-dimensional-random-variable-distribution/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/multi-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/large-number-central-limit-theorem/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/large-number-central-limit-theorem/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/probability/numerical-characteristics-of-random-variable/</loc>
+        <loc>https://ml.ricolxwz.de/math/probability/multi-dimensional-random-variable-distribution/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/numerical-characteristics-of-random-variable/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/numerical-characteristics-of-random-variable/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/multi-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/multi-dimensional-random-variable-distribution/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/probability/one-dimensional-random-variable-distribution/</loc>
+        <loc>https://ml.ricolxwz.de/math/probability/numerical-characteristics-of-random-variable/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/one-dimensional-random-variable-distribution/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/one-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/numerical-characteristics-of-random-variable/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/numerical-characteristics-of-random-variable/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/probability/random-event-and-probability/</loc>
+        <loc>https://ml.ricolxwz.de/math/probability/one-dimensional-random-variable-distribution/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/random-event-and-probability/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/random-event-and-probability/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/one-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/one-dimensional-random-variable-distribution/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/math/probability/random-event-and-probability/</loc>
+        <lastmod>2024-12-08</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/random-event-and-probability/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/random-event-and-probability/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/</loc>
@@ -463,45 +470,52 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/transformer/vit/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/probability/</loc>
+        <loc>https://ml.ricolxwz.de/en/code/pytorch/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/code/pytorch/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/code/pytorch/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/probability/large-number-central-limit-theorem/</loc>
+        <loc>https://ml.ricolxwz.de/en/math/probability/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/large-number-central-limit-theorem/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/large-number-central-limit-theorem/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/probability/multi-dimensional-random-variable-distribution/</loc>
+        <loc>https://ml.ricolxwz.de/en/math/probability/large-number-central-limit-theorem/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/multi-dimensional-random-variable-distribution/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/multi-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/large-number-central-limit-theorem/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/large-number-central-limit-theorem/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/probability/numerical-characteristics-of-random-variable/</loc>
+        <loc>https://ml.ricolxwz.de/en/math/probability/multi-dimensional-random-variable-distribution/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/numerical-characteristics-of-random-variable/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/numerical-characteristics-of-random-variable/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/multi-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/multi-dimensional-random-variable-distribution/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/probability/one-dimensional-random-variable-distribution/</loc>
+        <loc>https://ml.ricolxwz.de/en/math/probability/numerical-characteristics-of-random-variable/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/one-dimensional-random-variable-distribution/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/one-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/numerical-characteristics-of-random-variable/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/numerical-characteristics-of-random-variable/"/>
     </url>
     <url>
-        <loc>https://ml.ricolxwz.de/en/probability/random-event-and-probability/</loc>
+        <loc>https://ml.ricolxwz.de/en/math/probability/one-dimensional-random-variable-distribution/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/probability/random-event-and-probability/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/probability/random-event-and-probability/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/one-dimensional-random-variable-distribution/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/one-dimensional-random-variable-distribution/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/math/probability/random-event-and-probability/</loc>
+        <lastmod>2024-12-08</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/math/probability/random-event-and-probability/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/math/probability/random-event-and-probability/"/>
     </url>
 </urlset>

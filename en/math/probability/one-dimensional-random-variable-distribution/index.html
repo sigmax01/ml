@@ -12,28 +12,28 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/en/probability/multi-dimensional-random-variable-distribution/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/en/math/probability/one-dimensional-random-variable-distribution/">
       
       
-        <link rel="prev" href="../one-dimensional-random-variable-distribution/">
+        <link rel="prev" href="../random-event-and-probability/">
       
       
-        <link rel="next" href="../numerical-characteristics-of-random-variable/">
+        <link rel="next" href="../multi-dimensional-random-variable-distribution/">
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
-        <title>多维随机变量及其分布 - 机器蝉</title>
+        <title>一维随机变量及其分布 - 机器蝉</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -56,9 +56,9 @@
     
       <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -85,7 +85,7 @@
     href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css"
 />
 
-   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -94,7 +94,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -127,7 +127,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../" title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../../" title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -168,7 +168,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              多维随机变量及其分布
+              一维随机变量及其分布
             
           </span>
         </div>
@@ -225,7 +225,7 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../../../probability/multi-dimensional-random-variable-distribution/" hreflang="zh" class="md-select__link">
+            <a href="../../../../math/probability/one-dimensional-random-variable-distribution/" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -320,7 +320,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../" class="md-tabs__link">
+        <a href="../../../" class="md-tabs__link">
           
   
     
@@ -341,13 +341,44 @@
   
     
     
+      
+  
+  
+    
+  
+  
+    
+    
       <li class="md-tabs__item md-tabs__item--active">
         <a href="../" class="md-tabs__link">
           
   
     
   
-  概率
+  数学
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../algorithm/" class="md-tabs__link">
+          
+  
+    
+  
+  算法
 
         </a>
       </li>
@@ -361,16 +392,25 @@
   
     
     
+      
+  
+  
+  
+    
+    
       <li class="md-tabs__item">
-        <a href="../../algorithm/" class="md-tabs__link">
+        <a href="../../../code/pytorch/" class="md-tabs__link">
           
   
     
   
-  算法
+  代码
 
         </a>
       </li>
+    
+  
+
     
   
 
@@ -397,7 +437,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../" title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../../" title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -471,7 +511,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -511,18 +551,6 @@
     
       
         
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
       
     
     
@@ -540,6 +568,62 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    数学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            数学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
@@ -553,14 +637,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             概率
           </label>
@@ -593,27 +677,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../one-dimensional-random-variable-distribution/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    一维随机变量及其分布
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -628,7 +691,7 @@
           
   
   <span class="md-ellipsis">
-    多维随机变量及其分布
+    一维随机变量及其分布
   </span>
   
 
@@ -639,7 +702,7 @@
         
   
   <span class="md-ellipsis">
-    多维随机变量及其分布
+    一维随机变量及其分布
   </span>
   
 
@@ -710,25 +773,10 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      边缘分布函数
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="边缘分布函数">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      定义
+      应用
     </span>
   </a>
   
@@ -740,7 +788,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       离散型随机变量及其概率分布
     </span>
@@ -750,9 +798,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#联合分布律" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      联合分布率
+      分布律
     </span>
   </a>
   
@@ -761,25 +809,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      联合分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#边缘分布函数" class="md-nav__link">
-    <span class="md-ellipsis">
-      边缘分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      条件分布
+      分布函数
     </span>
   </a>
   
@@ -791,7 +821,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       连续型随机变量及其概率密度
     </span>
@@ -801,27 +831,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      概率密度/联合分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      边缘概率密度/边缘分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      条件分布函数/条件概率密度
+      概率密度/分布函数
     </span>
   </a>
   
@@ -833,7 +845,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       常见的随机变量分布类型
     </span>
@@ -843,9 +855,46 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="离散型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(0-1\)分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      二项分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      泊松分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
-      二维均匀分布
+      几何分布
     </span>
   </a>
   
@@ -854,7 +903,7 @@
           <li class="md-nav__item">
   <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
-      二维正态分布
+      超几何分布
     </span>
   </a>
   
@@ -864,62 +913,51 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#_18" class="md-nav__link">
-    <span class="md-ellipsis">
-      随机变量的相互独立性
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="随机变量的相互独立性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
-    <span class="md-ellipsis">
-      定义
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="定义">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
-    <span class="md-ellipsis">
-      充要条件
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="充要条件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
-    <span class="md-ellipsis">
-      离散型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_22" class="md-nav__link">
     <span class="md-ellipsis">
       连续型
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="连续型">
+      <ul class="md-nav__list">
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      均匀分布
+    </span>
+  </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      指数分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      正态分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正态分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准正态分布
+    </span>
+  </a>
   
 </li>
         
@@ -936,61 +974,9 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_24" class="md-nav__link">
-    <span class="md-ellipsis">
-      多维随机变量函数的分布
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="多维随机变量函数的分布">
-      <ul class="md-nav__list">
         
-          <li class="md-nav__item">
-  <a href="#_25" class="md-nav__link">
-    <span class="md-ellipsis">
-      定义
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_26" class="md-nav__link">
-    <span class="md-ellipsis">
-      求法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_27" class="md-nav__link">
-    <span class="md-ellipsis">
-      常见函数的分布及卷积公式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="常见函数的分布及卷积公式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_28" class="md-nav__link">
-    <span class="md-ellipsis">
-      和的分布
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="和的分布">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_29" class="md-nav__link">
-    <span class="md-ellipsis">
-      常见分布的可加性
-    </span>
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -998,47 +984,40 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      一维随机变量函数的分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一维随机变量函数的分布">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_30" class="md-nav__link">
+  <a href="#_25" class="md-nav__link">
     <span class="md-ellipsis">
-      差的分布
+      随机变量函数的分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="随机变量函数的分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散型 -&gt; 离散型
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_31" class="md-nav__link">
+  <a href="#-_1" class="md-nav__link">
     <span class="md-ellipsis">
-      积的分布
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_32" class="md-nav__link">
-    <span class="md-ellipsis">
-      商的分布
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#maxx-y" class="md-nav__link">
-    <span class="md-ellipsis">
-      \(max\{X, Y\}\)分布
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minx-y" class="md-nav__link">
-    <span class="md-ellipsis">
-      \(min\{X, Y\}\)分布
+      连续型 -&gt; 连续型
     </span>
   </a>
   
@@ -1058,6 +1037,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-dimensional-random-variable-distribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多维随机变量及其分布
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1100,6 +1100,14 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1168,7 +1176,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../algorithm/" class="md-nav__link ">
+            <a href="../../../algorithm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1201,7 +1209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/linear-regression/" class="md-nav__link">
+      <a href="../../../algorithm/linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1222,7 +1230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/preprocessing/" class="md-nav__link">
+      <a href="../../../algorithm/preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1243,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/knn/" class="md-nav__link">
+      <a href="../../../algorithm/knn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1264,7 +1272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/naive-bayes/" class="md-nav__link">
+      <a href="../../../algorithm/naive-bayes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1285,7 +1293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/evaluation/" class="md-nav__link">
+      <a href="../../../algorithm/evaluation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1306,7 +1314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/decision-tree/" class="md-nav__link">
+      <a href="../../../algorithm/decision-tree/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1327,7 +1335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/ensemble-learning/" class="md-nav__link">
+      <a href="../../../algorithm/ensemble-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1348,7 +1356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/svm/" class="md-nav__link">
+      <a href="../../../algorithm/svm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1369,7 +1377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/dimensional-reduction/" class="md-nav__link">
+      <a href="../../../algorithm/dimensional-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1425,7 +1433,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../algorithm/neural-network/" class="md-nav__link ">
+            <a href="../../../algorithm/neural-network/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1458,7 +1466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/fnn/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/fnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1510,7 +1518,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../algorithm/neural-network/cnn/" class="md-nav__link ">
+            <a href="../../../algorithm/neural-network/cnn/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1543,7 +1551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/cnn/alexnet/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/cnn/alexnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1564,7 +1572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1585,7 +1593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/cnn/nin/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/cnn/nin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1606,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/cnn/googlenet/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/cnn/googlenet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1635,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/rnn/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/rnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1656,7 +1664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/gan/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/gan/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1677,7 +1685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/word-embedding/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/word-embedding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1725,7 +1733,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../algorithm/neural-network/transformer/" class="md-nav__link ">
+            <a href="../../../algorithm/neural-network/transformer/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1758,7 +1766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/transformer/bert/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/transformer/bert/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1779,7 +1787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/neural-network/transformer/vit/" class="md-nav__link">
+      <a href="../../../algorithm/neural-network/transformer/vit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1816,7 +1824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/clustering/" class="md-nav__link">
+      <a href="../../../algorithm/clustering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1837,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/markov-chain/" class="md-nav__link">
+      <a href="../../../algorithm/markov-chain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1858,7 +1866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithm/reinforcement-learning/" class="md-nav__link">
+      <a href="../../../algorithm/reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1867,6 +1875,116 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    代码
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            代码
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../code/pytorch/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    PyTorch
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            PyTorch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1955,25 +2073,10 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      边缘分布函数
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="边缘分布函数">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      定义
+      应用
     </span>
   </a>
   
@@ -1985,7 +2088,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       离散型随机变量及其概率分布
     </span>
@@ -1995,9 +2098,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#联合分布律" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      联合分布率
+      分布律
     </span>
   </a>
   
@@ -2006,25 +2109,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      联合分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#边缘分布函数" class="md-nav__link">
-    <span class="md-ellipsis">
-      边缘分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      条件分布
+      分布函数
     </span>
   </a>
   
@@ -2036,7 +2121,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       连续型随机变量及其概率密度
     </span>
@@ -2046,27 +2131,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      概率密度/联合分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      边缘概率密度/边缘分布函数
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      条件分布函数/条件概率密度
+      概率密度/分布函数
     </span>
   </a>
   
@@ -2078,7 +2145,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       常见的随机变量分布类型
     </span>
@@ -2088,9 +2155,46 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="离散型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(0-1\)分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      二项分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      泊松分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
-      二维均匀分布
+      几何分布
     </span>
   </a>
   
@@ -2099,7 +2203,7 @@
           <li class="md-nav__item">
   <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
-      二维正态分布
+      超几何分布
     </span>
   </a>
   
@@ -2109,62 +2213,51 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#_18" class="md-nav__link">
-    <span class="md-ellipsis">
-      随机变量的相互独立性
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="随机变量的相互独立性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
-    <span class="md-ellipsis">
-      定义
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="定义">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
-    <span class="md-ellipsis">
-      充要条件
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="充要条件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
-    <span class="md-ellipsis">
-      离散型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_22" class="md-nav__link">
     <span class="md-ellipsis">
       连续型
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="连续型">
+      <ul class="md-nav__list">
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      均匀分布
+    </span>
+  </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      指数分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      正态分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正态分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准正态分布
+    </span>
+  </a>
   
 </li>
         
@@ -2181,61 +2274,9 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_24" class="md-nav__link">
-    <span class="md-ellipsis">
-      多维随机变量函数的分布
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="多维随机变量函数的分布">
-      <ul class="md-nav__list">
         
-          <li class="md-nav__item">
-  <a href="#_25" class="md-nav__link">
-    <span class="md-ellipsis">
-      定义
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_26" class="md-nav__link">
-    <span class="md-ellipsis">
-      求法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_27" class="md-nav__link">
-    <span class="md-ellipsis">
-      常见函数的分布及卷积公式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="常见函数的分布及卷积公式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_28" class="md-nav__link">
-    <span class="md-ellipsis">
-      和的分布
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="和的分布">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_29" class="md-nav__link">
-    <span class="md-ellipsis">
-      常见分布的可加性
-    </span>
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -2243,47 +2284,40 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      一维随机变量函数的分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一维随机变量函数的分布">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_30" class="md-nav__link">
+  <a href="#_25" class="md-nav__link">
     <span class="md-ellipsis">
-      差的分布
+      随机变量函数的分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="随机变量函数的分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散型 -&gt; 离散型
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_31" class="md-nav__link">
+  <a href="#-_1" class="md-nav__link">
     <span class="md-ellipsis">
-      积的分布
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_32" class="md-nav__link">
-    <span class="md-ellipsis">
-      商的分布
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#maxx-y" class="md-nav__link">
-    <span class="md-ellipsis">
-      \(max\{X, Y\}\)分布
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minx-y" class="md-nav__link">
-    <span class="md-ellipsis">
-      \(min\{X, Y\}\)分布
+      连续型 -&gt; 连续型
     </span>
   </a>
   
@@ -2314,7 +2348,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/probability/multi-dimensional-random-variable-distribution.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/math/probability/one-dimensional-random-variable-distribution.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2323,147 +2357,148 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/probability/multi-dimensional-random-variable-distribution.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/math/probability/one-dimensional-random-variable-distribution.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>多维随机变量及其分布</h1>
+  <h1>一维随机变量及其分布</h1>
 
 <h2 id="_1">随机变量</h2>
 <h3 id="_2">定义</h3>
-<p>如果<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>是定义在同一个样本空间<span class="arithmatex">\(\Omega\)</span>上的<span class="arithmatex">\(n\)</span>个随机变量, 则称<span class="arithmatex">\((X_1, X_2, ..., X_n)\)</span>为<span class="arithmatex">\(n\)</span>维随机变量或<span class="arithmatex">\(n\)</span>维随机向量, <span class="arithmatex">\(X_i(i=1, 2, ..., n)\)</span>称为第<span class="arithmatex">\(i\)</span>个分量.</p>
-<p>当<span class="arithmatex">\(n=2\)</span>时, 记<span class="arithmatex">\((X, Y)\)</span>为二维随机变量或二维随机向量. </p>
+<p>随机变量<span class="arithmatex">\(X(\omega)\)</span>是一个函数, 它将每一个随机试验结果<span class="arithmatex">\(\omega\)</span>映射到一个实数.</p>
 <h2 id="_3">分布函数</h2>
 <h3 id="_4">定义</h3>
-<p>对任意的<span class="arithmatex">\(n\)</span>个实数<span class="arithmatex">\(x_1, x_2, ..., x_n\)</span>, 称<span class="arithmatex">\(n\)</span>元函数<span class="arithmatex">\(F(x_1, x_2, ..., x_n)=P\{X_1\leq x_1, X_2\leq x_2, ..., X_n\leq x_n\}\)</span>为<span class="arithmatex">\(n\)</span>维随机变量(<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>)的联合分布函数.</p>
-<p>当<span class="arithmatex">\(n=2\)</span>时, 则对任意的实数<span class="arithmatex">\(x, y\)</span>, 称二元函数<span class="arithmatex">\(F(x, y)=P\{X\leq x, Y\leq y\}\)</span>为二维随机变量<span class="arithmatex">\((X, Y)\)</span>的联合分布函数, 简称分布函数, 记为<span class="arithmatex">\((X, Y)\sim F(x, y)\)</span>.</p>
-<details class="note" open="open">
-<summary>笔记</summary>
-<p><span class="arithmatex">\(F(x, y)\)</span>是事件<span class="arithmatex">\(A=\{X\leq x\}\)</span>和<span class="arithmatex">\(B=\{Y\leq y\}\)</span>同时发生的概率.</p>
-</details>
+<p>设<span class="arithmatex">\(X\)</span>是随机变量, <span class="arithmatex">\(x\)</span>是任意实数, 称函数<span class="arithmatex">\(F(x)=P\{X\leq x\}(x\in R)\)</span>为随机变量<span class="arithmatex">\(X\)</span>的分布函数, 或称<span class="arithmatex">\(X\)</span>服从<span class="arithmatex">\(F(x)\)</span>分布, 记为<span class="arithmatex">\(X\sim F(x)\)</span>.</p>
 <h3 id="_5">性质</h3>
 <ul>
-<li><span class="arithmatex">\(F(x, y)\)</span>是<span class="arithmatex">\(x, y\)</span>的单调不减函数<ul>
-<li>对任意固定的<span class="arithmatex">\(y\)</span>, 当<span class="arithmatex">\(x_1&lt; x_2\)</span>时, <span class="arithmatex">\(F(x_1, y)\leq F(x_2, y)\)</span></li>
-<li>对任意固定的<span class="arithmatex">\(x\)</span>, 当<span class="arithmatex">\(y_1&lt; y_2\)</span>时, <span class="arithmatex">\(F(x, y_1)\leq F(x, y_2)\)</span></li>
+<li><span class="arithmatex">\(F(x)\)</span>是<span class="arithmatex">\(x\)</span>的单调不减函数</li>
+<li><span class="arithmatex">\(F(x)\)</span>是<span class="arithmatex">\(x\)</span>的右连续函数, 即对任意<span class="arithmatex">\(x_0\in R\)</span>, 有<span class="arithmatex">\(\lim_{x\rightarrow x_0^+}F(x)=F(x_0+0)=F(x_0)\)</span></li>
+<li><span class="arithmatex">\(F(-\infty)=\lim_{x\rightarrow -\infty}F(x)=0, F(+\infty)=\lim_{x\rightarrow +\infty}F(x)=1\)</span></li>
 </ul>
+<h3 id="_6">应用</h3>
+<ul>
+<li><span class="arithmatex">\(P\{X\leq a\}=F(a)\)</span></li>
+<li><span class="arithmatex">\(P\{X&lt; a\}=F(a-0)\)</span></li>
+<li><span class="arithmatex">\(P\{X=a\}=F(a)-F(a-0)\)</span></li>
+</ul>
+<h2 id="_7">离散型随机变量及其概率分布</h2>
+<h3 id="_8">分布律</h3>
+<p>如果随机变量<span class="arithmatex">\(X\)</span>只能取有限个或可列个值<span class="arithmatex">\(x_1, x_2, ...\)</span>, 则称<span class="arithmatex">\(X\)</span>为离散型随机变量, 称<span class="arithmatex">\(P\{X=x_i\}=p_i\)</span>, <span class="arithmatex">\(i=1, 2, ...\)</span>为<span class="arithmatex">\(X\)</span>的分布列/律或者概率分布, 记为<span class="arithmatex">\(X\sim p\)</span>, 概率分布常常用表格形式或矩阵形式表示.</p>
+<p>数列<span class="arithmatex">\(\{p_i\}\)</span>是离散型随机变量的概率分布的充要条件: <span class="arithmatex">\(p_i\geq 0(i=1, 2, ...)\)</span>, 且<span class="arithmatex">\(\sum_i p_i = 1\)</span>.</p>
+<h3 id="_9">分布函数</h3>
+<p>设离散型随机变量<span class="arithmatex">\(X\)</span>的概率分布为<span class="arithmatex">\(P\{X=x_i\}=p_i\)</span>, 则<span class="arithmatex">\(X\)</span>的分布函数为: <span class="arithmatex">\(F(x)=P\{X\leq x\}=\sum_{x\geq x_i}P\{X=x_i\}\)</span>. <span class="arithmatex">\(P\{X=x_i\}=P\{X\leq x_i\}-P\{X&lt;x_i\}=F(x_i)-F(x_i-0)\)</span></p>
+<p>对实数轴上任一集合<span class="arithmatex">\(B\)</span>有: <span class="arithmatex">\(P\{X\in B\}=\sum_{x_i\in B}P\{X=x_i\}\)</span>.</p>
+<p>特别地, <span class="arithmatex">\(P\{a&lt;X\leq b\}=P\{X\leq b\}-P\{X\leq a\}=F(b)-F(a)\)</span></p>
+<h2 id="_10">连续型随机变量及其概率密度</h2>
+<h3 id="_11">概率密度/分布函数</h3>
+<p>如果随机变量的分布函数可以表示为</p>
+<p><span class="arithmatex">\(F(x)=\int_{-\infty}^x f(t)d t(x\in R)\)</span></p>
+<p>其中<span class="arithmatex">\(f(x)\)</span>为非负可积函数, 则称<span class="arithmatex">\(X\)</span>为连续型随机变量, 称<span class="arithmatex">\(f(x)\)</span>为<span class="arithmatex">\(X\)</span>的概率密度函数, 简称概率密度, 记为<span class="arithmatex">\(X\sim f(x)\)</span>.</p>
+<p><span class="arithmatex">\(f(x)\)</span>为某一随机变量<span class="arithmatex">\(X\)</span>的概率密度的充分必要条件: <span class="arithmatex">\(f(x)\geq 0\)</span>, 且<span class="arithmatex">\(\int_{-\infty}^{\infty}f(x)dx=1\)</span>.</p>
+<p>设<span class="arithmatex">\(X\)</span>为连续随机变量, <span class="arithmatex">\(X\sim f(x)\)</span>, 则对任意实数<span class="arithmatex">\(c\)</span>, 有<span class="arithmatex">\(P\{X=c\}=0\)</span>. 对实数轴上的任一集合<span class="arithmatex">\(B\)</span>, 有: <span class="arithmatex">\(P\{X\in B\}=\int_Bf(x)dx\)</span></p>
+<p>特别地, <span class="arithmatex">\(P\{a&lt;X&lt;b\}=P\{a\leq X&lt; b\}=P\{a&lt;X\leq b\}=P\{a\leq X\leq b\}=\int_a^bf(x)dx=F(b)-F(a)\)</span></p>
+<h2 id="_12">常见的随机变量分布类型</h2>
+<h3 id="_13">离散型</h3>
+<h4 id="0-1"><span class="arithmatex">\(0-1\)</span>分布</h4>
+<p>若<span class="arithmatex">\(X\)</span>的概率分布为</p>
+<p><span class="arithmatex">\(P\{X=1\}=p, P\{X=0\}=1-p\)</span></p>
+<p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(p\)</span>的<span class="arithmatex">\(0-1\)</span>分布, 记为<span class="arithmatex">\(X\sim B(1, p)(0&lt;p&lt;1)\)</span>.</p>
+<h4 id="_14">二项分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
+<p><span class="arithmatex">\(P\{X=k\}=C_n^kp^k(1-p)^{n-k}(k=0, 1, ..., n; 0&lt;p&lt;1)\)</span></p>
+<p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\((n, p)\)</span>的二项分布, 记为<span class="arithmatex">\(X\sim B(n, p)\)</span>.</p>
+<details class="note" open="open">
+<summary>笔记</summary>
+<p>二项分布描述的是在<span class="arithmatex">\(n\)</span>次独立的伯努利试验中, 成功次数分布的情况.</p>
+</details>
+<h4 id="_15">泊松分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
+<p><span class="arithmatex">\(P\{X=k\}=\frac{\lambda^k}{k!}e^{-k}(k=0, 1, ...; \lambda&gt;0)\)</span></p>
+<p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(\lambda\)</span>的泊松分布, 记为<span class="arithmatex">\(X\sim P(\lambda)\)</span>.</p>
+<details class="note" open="open">
+<summary>笔记</summary>
+<p>泊松分布指的是在一个给定的时间或空间范围内, 某事件发生的次数的分布情况.</p>
+</details>
+<h4 id="_16">几何分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
+<p><span class="arithmatex">\(P\{X=k\}=(1-p)^{k-1}p(k=1, 2, ...; 0&lt; p&lt; 1)\)</span></p>
+<p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(p\)</span>的几何分布, 记为<span class="arithmatex">\(X\sim G(p)\)</span>.</p>
+<details class="note" open="open">
+<summary>笔记</summary>
+<p>几何分布描述的是进行独立重复试验, 知道第一次成功所需要的试验次数的分布情况.</p>
+</details>
+<h4 id="_17">超几何分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
+<p><span class="arithmatex">\(P\{X=k\}=\frac{C^k_MC^{n-k}_{N-M}}{C^n_N}(max\{0, n-N+M\}\leq k\leq min\{M, n\}\)</span>; <span class="arithmatex">\(M, N, n\)</span>为正整数且<span class="arithmatex">\(M\leq N, n\leq N, k\)</span>为整数<span class="arithmatex">\()\)</span></p>
+<p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\((n, N, M)\)</span>的超几何分布, 记为<span class="arithmatex">\(X\sim H(n, N, M)\)</span>.</p>
+<details class="note" open="open">
+<summary>笔记</summary>
+<p>超几何分布描述的是从有限总体中不放回抽取样本后某种特定属性的元素个数的分布情况.</p>
+</details>
+<h3 id="_18">连续型</h3>
+<h4 id="_19">均匀分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率密度和分布函数分别为</p>
+<ul>
+<li>概率密度: <span class="arithmatex">\(f(x)=\frac{1}{b-a}, a&lt;x&lt;b\)</span>; <span class="arithmatex">\(f(x)=0,\)</span> 其他</li>
+<li>分布函数: <span class="arithmatex">\(f(x)=0, x&lt;a\)</span>; <span class="arithmatex">\(f(x)=\frac{x-a}{b-a}, a\leq x&lt;b\)</span>; <span class="arithmatex">\(f(x)=1, x\geq b\)</span></li>
+</ul>
+<p>则称<span class="arithmatex">\(X\)</span>在区间<span class="arithmatex">\((a, b)\)</span>上服从均匀分布, 记为<span class="arithmatex">\(X\sim U(a, b)\)</span>.</p>
+<h4 id="_20">指数分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率密度和分布函数分别为</p>
+<ul>
+<li>概率密度: <span class="arithmatex">\(f(x)=\lambda e^{-\lambda x}, x&gt;0\)</span>; <span class="arithmatex">\(0,\)</span> 其他</li>
+<li>分布函数: <span class="arithmatex">\(f(x)=1-e^{-\lambda x}, x\geq 0\)</span>; <span class="arithmatex">\(0, x&lt;0\)</span></li>
+</ul>
+<p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(\lambda\)</span>的指数分布, 记为<span class="arithmatex">\(X\sim E(\lambda)\)</span></p>
+<h4 id="_21">正态分布</h4>
+<p>如果<span class="arithmatex">\(X\)</span>的概率密度为</p>
+<p><span class="arithmatex">\(f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}(-\infty&lt;x&lt;+\infty)\)</span></p>
+<p>其中<span class="arithmatex">\(-\infty&lt;\mu&lt;+\infty, \sigma&gt;0\)</span>, 则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\((\mu, \sigma^2)\)</span>的正态分布或称<span class="arithmatex">\(X\)</span>为正态变量, 记为<span class="arithmatex">\(X\sim N(\mu, \sigma^2)\)</span>. 此时, <span class="arithmatex">\(f(x)\)</span>的图形关于直线<span class="arithmatex">\(x=\mu\)</span>对称, 并在<span class="arithmatex">\(x=\mu\)</span>有唯一最大值<span class="arithmatex">\(f(\mu)=\frac{1}{\sqrt{2\pi}\sigma}\)</span>, 如下图所示.</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6d3d4be8b41e0ba51c9f09c7af3e4988.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/6d3d4be8b41e0ba51c9f09c7af3e4988.png" style="width:300px" /></a></p>
+<h5 id="_22">标准正态分布</h5>
+<p>称<span class="arithmatex">\(\mu=0, \sigma=1\)</span>时的正态分布<span class="arithmatex">\(N(0, 1)\)</span>为标准正态分布.</p>
+<ul>
+<li>概率密度<span class="arithmatex">\(\varphi(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}x^2}\)</span></li>
+<li>分布函数<span class="arithmatex">\(\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}}dt\)</span></li>
+</ul>
+<p>显然, <span class="arithmatex">\(\varphi(x)\)</span>为偶函数, 则<span class="arithmatex">\(\Phi(0)=\frac{1}{2}, \Phi(-x)=1-\Phi(x)\)</span></p>
+<p><span class="arithmatex">\(\varphi(x)\)</span>如下图所示:</p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b0296862698495281f20c7440fc49899.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/b0296862698495281f20c7440fc49899.png" style="width:300px" /></a></p>
+<p>若<span class="arithmatex">\(X\sim N(0, 1), P\{X&gt;\mu_0\}=a\)</span>, 则称<span class="arithmatex">\(\mu_0\)</span>为标准正态分布的上侧<span class="arithmatex">\(a\)</span>分位数(上<span class="arithmatex">\(a\)</span>分位点).</p>
+<h5 id="_23">性质</h5>
+<p>如果<span class="arithmatex">\(X\sim N(\mu, \sigma^2)\)</span>, 有:</p>
+<ul>
+<li><span class="arithmatex">\(F(x)=P\{X&lt;x\}=\Phi(\frac{x-\mu}{\sigma})\)</span></li>
+<li><span class="arithmatex">\(F(\mu-x)+F(\mu+x)=1\)</span></li>
+<li><span class="arithmatex">\(P\{a&lt;X&lt;b\}=\Phi(\frac{b-\mu}{\sigma})-\Phi(\frac{a-\mu}{\sigma})\)</span></li>
+<li><span class="arithmatex">\(aX+b\sim N(a\mu+b, a^2\sigma^2), (a\neq 0)\)</span></li>
+</ul>
+<p>利用这些性质可以将所有的正态分布都用标准正态分布求解.</p>
+<h2 id="_24">一维随机变量函数的分布</h2>
+<p>设<span class="arithmatex">\(X\)</span>为随机变量, 函数<span class="arithmatex">\(y=g(x)\)</span>, 则以随机变量<span class="arithmatex">\(X\)</span>作为自变量的函数<span class="arithmatex">\(Y=g(X)\)</span>也是随机变量, 称为随机变量<span class="arithmatex">\(X\)</span>的函数.</p>
+<h3 id="_25">随机变量函数的分布</h3>
+<h4 id="-">离散型 -&gt; 离散型</h4>
+<p>设<span class="arithmatex">\(X\)</span>为离散型随机变量, 其概率分布为<span class="arithmatex">\(p_i=P\{X=x_i\}(i=1, 2, ...)\)</span>, 则<span class="arithmatex">\(X\)</span>作为自变量的函数<span class="arithmatex">\(Y=g(X)\)</span>也是离散型随机变量, 其概率分布为<span class="arithmatex">\(P\{Y=g(x_i)\}=p_i(i=1, 2, ...)\)</span>. </p>
+<p class="annotate">若有若干个<span class="arithmatex">\(g(x_i)\)</span>值相同, 则合并诸项为一项<span class="arithmatex">\(g(x_k)\)</span>, 并将相应的概率相加作为<span class="arithmatex">\(Y\)</span>取<span class="arithmatex">\(g(x_k)\)</span>值的概率(1).</p>
+<ol>
+<li>
+<details class="example" open="open">
+<summary>例子</summary>
+<p>求<span class="arithmatex">\(W=X^2\)</span>的分布率, <span class="arithmatex">\(X\)</span>中有绝对值相同的正数和负数, 则需要合并诸项为一项, 并将相应的概率相加.</p>
+</details>
 </li>
-<li><span class="arithmatex">\(F(x, y)\)</span>是<span class="arithmatex">\(x, y\)</span>的右连续函数<ul>
-<li><span class="arithmatex">\(\lim_{x\rightarrow x_0^+}F(x, y)=F(x_0+0, y)=F(x_0, y)\)</span></li>
-<li><span class="arithmatex">\(\lim_{y\rightarrow y_0+}F(x, y)=F(x, y_0+0)=F(x, y_0)\)</span></li>
-</ul>
-</li>
-<li><span class="arithmatex">\(F(-\infty, y)=F(x, -\infty)=F(-\infty, -\infty)=0, F(+\infty, +\infty)=1\)</span></li>
-<li>对于任意<span class="arithmatex">\(x_1&lt;x_2, y_1&lt;y_2\)</span>, 有<span class="arithmatex">\(P\{x_1&lt;X\leq x_2, y_1&lt;Y\leq y_2\}=F(x_2, y_2)-F(x_2, y_1)-F(x_1, y_2)+F(x_1, y_1)\geq 0\)</span></li>
-</ul>
-<h2 id="_6">边缘分布函数</h2>
-<h3 id="_7">定义</h3>
-<p>设二维随机变量<span class="arithmatex">\((X, Y)\)</span>的联合分布函数为<span class="arithmatex">\(F(x, y)\)</span>, 随机变量<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>的分布函数<span class="arithmatex">\(F_X(x)\)</span>与<span class="arithmatex">\(F_Y(y)\)</span>分别称为<span class="arithmatex">\((X, Y)\)</span>关于<span class="arithmatex">\(X\)</span>和关于<span class="arithmatex">\(Y\)</span>的边缘分布函数, 由概率性质得</p>
-<p><span class="arithmatex">\(F_X(x)=P\{X\leq x\}=P\{X\leq x, Y&lt;+\infty\}=\lim_{y\rightarrow +\infty}P\{X\leq x, Y\leq y\}=\lim_{y\rightarrow +\infty}F(x, y)=F(x, +\infty)\)</span></p>
-<p>同理, 有<span class="arithmatex">\(F_Y(y)=F(+\infty, y)\)</span>.</p>
-<h2 id="_8">离散型随机变量及其概率分布</h2>
-<h3 id="联合分布律">联合分布率</h3>
-<p>如果二维随机变量<span class="arithmatex">\((X, Y)\)</span>只能取有限对值或可列对值<span class="arithmatex">\((x_1, y_1), (x_2, y_2), ..., (x_n, y_n), ...\)</span>, 则称<span class="arithmatex">\((X, Y)\)</span>为二维离散型随机变量. 称<span class="arithmatex">\(p_{ij}=P\{X=x_i, Y=y_i\}, i, j=1, 2, ...\)</span>为<span class="arithmatex">\((X, Y)\)</span>的分布率或随机变量<span class="arithmatex">\((X, Y)\)</span>的联合分布率, 记为<span class="arithmatex">\((X, Y)\sim p_{ij}\)</span>, 联合分布率常用表格形式表示.</p>
-<h3 id="_9">联合分布函数</h3>
-<p>设<span class="arithmatex">\((X, Y)\)</span>的概率分布为<span class="arithmatex">\(p_{ij}, i, j=1, 2, ...\)</span>, 则<span class="arithmatex">\((X, Y)\)</span>的联合分布函数为: <span class="arithmatex">\(F(x, y)=P\{X\leq x, Y\leq y\}=\sum_{x_i\leq x}\sum_{y_j\leq y}p_{ij}\)</span>.</p>
-<p>设<span class="arithmatex">\(G\)</span>是平面上的某个区域, 则<span class="arithmatex">\(P\{(X, Y)\in G\}=\sum_{(x_i, y_j)\in G}p_{ij}\)</span></p>
-<h3 id="边缘分布函数">边缘分布函数</h3>
-<ul>
-<li><span class="arithmatex">\(X\)</span>的边缘分布函数: <span class="arithmatex">\(p_{i\cdot}=P\{X=x_i\}=\sum^{\infty}_{j=1}P\{X=x_i, Y=y_j\}=\sum^{\infty}_{j=1}p_{ij}(i=1, 2, ...)\)</span></li>
-<li><span class="arithmatex">\(Y\)</span>的边缘分布函数: <span class="arithmatex">\(p_{\cdot j}=P\{Y=y_j\}=\sum^{\infty}_{i=1}P\{X=x_i, Y=y_j\}=\sum^{\infty}_{i=1}p_{ij}(i=1, 2, ...)\)</span></li>
-</ul>
-<h3 id="_10">条件分布</h3>
-<p>如果<span class="arithmatex">\((X, Y)\sim p_{ij}(i, j=1, 2, ...)\)</span>, 对固定的<span class="arithmatex">\(j\)</span>, 如果<span class="arithmatex">\(p_{\cdot j}=P\{Y=y_j\}&gt;0\)</span>, 则称<span class="arithmatex">\(P\{X=x_i|Y=y_j\}=\frac{P\{X=x_i, Y=y_j\}}{P\{Y=y_j\}}=\frac{p_{ij}}{p_{\cdot j}}(i=1, 2, ...)\)</span>为<span class="arithmatex">\(X\)</span>为<span class="arithmatex">\(Y=y_j\)</span>条件下的条件分布.</p>
-<p>同理, 对固定的<span class="arithmatex">\(i\)</span>, 如果<span class="arithmatex">\(p_{i\cdot}&gt;0\)</span>, 可定义<span class="arithmatex">\(Y\)</span>在<span class="arithmatex">\(X=x_i\)</span>条件下的条件分布<span class="arithmatex">\(P\{Y=y_j|X=x_i\}=\frac{p_{ij}}{p_{i\cdot}}(j=1, 2, ...)\)</span>.</p>
-<h2 id="_11">连续型随机变量及其概率密度</h2>
-<h3 id="_12">概率密度/联合分布函数</h3>
-<p>如果二维随机变量<span class="arithmatex">\((X, Y)\)</span>的联合分布函数<span class="arithmatex">\(F(x, y)\)</span>可以表示为<span class="arithmatex">\(F(x, y)=P\{X\leq x, Y\leq y\}=\int_{-\infty}^y\int_{-\infty}^xf(u, v)dudv\)</span>, 其中<span class="arithmatex">\(f(x, y)\)</span>是非负可积函数, 则称<span class="arithmatex">\((X, Y)\)</span>为二维连续型随机变量, 称<span class="arithmatex">\(f(x, y)\)</span>为<span class="arithmatex">\((X, Y)\)</span>的概率密度, 记为<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>.</p>
-<p>二元函数<span class="arithmatex">\(f(x, y)\)</span>是概率密度的充分必要条件: <span class="arithmatex">\(f(x, y)\geq 0, \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(x, y)dxdy = 1\)</span>.</p>
-<p>设<span class="arithmatex">\(G\)</span>为平面上的某个区域, 则<span class="arithmatex">\(P\{(X, Y)\in G\}=\iint_G f(x, y)dxdy\)</span>.</p>
-<p>若<span class="arithmatex">\(f(x, y)\)</span>在点<span class="arithmatex">\((x, y)\)</span>处连续, 则<span class="arithmatex">\(\frac{\partial^2F(x, y)}{\partial x\partial y}=f(x, y)\)</span>.</p>
-<p>若<span class="arithmatex">\(F(x, y)\)</span>连续且可导, 则<span class="arithmatex">\((X, Y)\)</span>是连续型随机变量, 且<span class="arithmatex">\(\frac{\partial^2F(x, y)}{\partial x\partial y}\)</span>是它的概率密度.</p>
-<h3 id="_13">边缘概率密度/边缘分布函数</h3>
-<p>设<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, 则<span class="arithmatex">\(X\)</span>的边缘分布函数为<span class="arithmatex">\(F_X(x)=F(x, +\infty)=\int^x_{-\infty}[\int^{+\infty}_{-\infty}f(u, v)dv]du\)</span>, 其概率密度<span class="arithmatex">\(f_X(x)=\int_{-\infty}^{+\infty}f(x, y)dy\)</span>称<span class="arithmatex">\(f_X(x)\)</span>为<span class="arithmatex">\((X, Y)\)</span>关于<span class="arithmatex">\(X\)</span>的边缘概率密度.</p>
-<p>同理, <span class="arithmatex">\(Y\)</span>也是连续型随机变量, 其概率密度为<span class="arithmatex">\(f_Y(y)=\int_{-\infty}^{+\infty}f(x, y)dx\)</span>.</p>
-<h3 id="_14">条件分布函数/条件概率密度</h3>
-<p>设<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, <span class="arithmatex">\(f_X(x)&gt;0\)</span>, 则称<span class="arithmatex">\(f_{Y|X}(y|x)=\frac{f(x, y)}{f_X(x)}\)</span>为<span class="arithmatex">\(Y\)</span>在<span class="arithmatex">\(X=x\)</span>条件下的条件概率密度.</p>
-<p>同理可定义<span class="arithmatex">\(X\)</span>在<span class="arithmatex">\(Y=y\)</span>条件下的条件概率密度<span class="arithmatex">\(f_{X|Y}(x|y)=\frac{f(x, y)}{f_Y(y)}(f_Y(y)&gt;0)\)</span>.</p>
-<p>称<span class="arithmatex">\(F_{Y|X}(y|x)=\int^y_{-\infty}f_{Y|X}(y|x)dy=\int^y_{-\infty}\frac{f(x, y)}{f_X(x)}dy\)</span>为<span class="arithmatex">\(Y\)</span>在<span class="arithmatex">\(X=x\)</span>条件下的条件分布函数.</p>
-<p>同理可定义<span class="arithmatex">\(X\)</span>在<span class="arithmatex">\(Y=y\)</span>条件下的条件分布函数<span class="arithmatex">\(F_{X|Y}(x|y)=\int^x_{-\infty}f_{X|Y}(x|y)dx=\int_{-\infty}^x\frac{f(x, y)}{f_Y(y)}dx\)</span>.</p>
-<h2 id="_15">常见的随机变量分布类型</h2>
-<h3 id="_16">二维均匀分布</h3>
-<p>称<span class="arithmatex">\((X, Y)\)</span>在平面有界区域<span class="arithmatex">\(D\)</span>上服从均匀分布, 如果<span class="arithmatex">\((X, Y)\)</span>的概率密度为<span class="arithmatex">\(f(x, y)=\frac{1}{S_D}, (x, y)\in D; f(x, y)=0\)</span>, 其他. 其中<span class="arithmatex">\(S_D\)</span>为区域<span class="arithmatex">\(D\)</span>的面积.</p>
-<h3 id="_17">二维正态分布</h3>
-<p>如果<span class="arithmatex">\((X, Y)\)</span>的概率密度为<span class="arithmatex">\(f(x, y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}exp\{-\frac{1}{2(1-\rho^2)}[(\frac{x-\mu_1}{\sigma_1})^2-2\rho(\frac{x-\mu_1}{\sigma_1})(\frac{y-\mu_2}{\sigma_2})+(\frac{y-\mu_2}{\sigma_2})^2]\}\)</span>, 其中<span class="arithmatex">\(\mu_1\in R, \mu_2\in R, \sigma_1&gt;0, \sigma_2&gt;0, -1&lt;\rho&lt;1\)</span>, 则称<span class="arithmatex">\((X, Y)\)</span>服从参数为<span class="arithmatex">\(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho\)</span>的二维正态分布, 记为<span class="arithmatex">\((X, Y)\sim N(\mu_1, \mu_2; \sigma_1^2, \sigma_2^2; \rho)\)</span>, 此时有</p>
-<ul>
-<li><span class="arithmatex">\(X\sim N(\mu_1, \sigma_1^2), Y\sim N(\mu_2, \sigma_2^2)\)</span>, <span class="arithmatex">\(\rho\)</span>为<span class="arithmatex">\(X\)</span>和<span class="arithmatex">\(Y\)</span>的相关系数, 即<span class="arithmatex">\(\rho=\frac{Cov(X, Y)}{\sqrt{DX}\sqrt{DY}}=\frac{Cov(X, Y)}{\sigma_1\sigma_2}\)</span></li>
-<li><span class="arithmatex">\(X, Y\)</span>的条件分布都是正态分布</li>
-<li><span class="arithmatex">\(aX+bY(a\neq 0\ or\ b\neq 0)\)</span>服从正态分布</li>
-<li><span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立的充要条件是<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>不相关, 即<span class="arithmatex">\(\rho=0\)</span></li>
-</ul>
-<h2 id="_18">随机变量的相互独立性</h2>
-<h3 id="_19">定义</h3>
-<p>设二维随机变量<span class="arithmatex">\((X, Y)\)</span>的联合分布函数为<span class="arithmatex">\(F(x, y)\)</span>, 边缘分布函数为<span class="arithmatex">\(F_X(x), F_Y(y)\)</span>, 如果对任意实数<span class="arithmatex">\(x, y\)</span>都有<span class="arithmatex">\(F(x, y)=F_X(x)\cdot F_Y(y)\)</span>, 则称<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立, 否则称<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>不相互独立.</p>
-<p>如果<span class="arithmatex">\(n\)</span>维随机变量<span class="arithmatex">\((X_1, X_2, ..., X_n)\)</span>的联合分布函数等于边缘分布函数的乘积, 即<span class="arithmatex">\(F(x_1, x_2, ..., x_n)=F_1(x_1)\cdot F_2(x_2)\cdot ... \cdot F_n(x_n)\)</span>, 其中<span class="arithmatex">\(F_i(x_i)(i=1, 2, ..., n)\)</span>为<span class="arithmatex">\(X_i\)</span>的边缘分布函数, <span class="arithmatex">\(x_i\)</span>为任意实数, 则称<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立.</p>
-<h4 id="_20">充要条件</h4>
-<p><span class="arithmatex">\(n\)</span>个随机变量<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立<span class="arithmatex">\(\Leftrightarrow\)</span>对任意的<span class="arithmatex">\(n\)</span>个实数<span class="arithmatex">\(x_i(i=1, 2, ..., n)\)</span>, <span class="arithmatex">\(n\)</span>个事件<span class="arithmatex">\(\{X_1\leq x_1\}, \{X_2\leq x_2\}, ..., \{X_n\leq x_n\}\)</span>相互独立.</p>
-<h5 id="_21">离散型</h5>
-<ul>
-<li>设<span class="arithmatex">\((X, Y)\)</span>为二维离散型随机变量, 则<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立<span class="arithmatex">\(\Leftrightarrow\)</span>联合分布等于边缘分布相乘, 即<span class="arithmatex">\(P\{X=x_i, Y=y_i\}=P\{X=x_i\}\cdot P\{Y=y_j\}(i, j=1, 2, ...)\)</span></li>
-<li>设<span class="arithmatex">\(n\)</span>个离散型随机变量<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立<span class="arithmatex">\(\Leftrightarrow\)</span>对任意的<span class="arithmatex">\(x_i\in D_i=\{X_i\)</span>一切可能值<span class="arithmatex">\(\}(i=1, 2, ..., n)\)</span>有<span class="arithmatex">\(P\{X_1=x_1, ..., X_n=x_n\}=\prod_{i=1}^n P\{X_i=x_i\}\)</span></li>
-</ul>
-<h5 id="_22">连续型</h5>
-<ul>
-<li>设#<span class="arithmatex">\((X, Y)\)</span>为二维连续型随机变量, 则<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立<span class="arithmatex">\(\Leftrightarrow\)</span>概率密度等于边缘概率密度相乘, 即<span class="arithmatex">\(f(x, y)=f_X(x)\cdot f_Y(y)\)</span></li>
-<li>设<span class="arithmatex">\((X_1, X_2, ..., X_n)\)</span>为<span class="arithmatex">\(n\)</span>维连续型随机变量, 则<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立<span class="arithmatex">\(\Leftrightarrow\)</span>概率密度等于边缘概率密度相乘, 即<span class="arithmatex">\(f(x_1, x_2, ..., x_n)=f_1(x_1)\cdot f_2(x_2)\cdot ...\cdot f_n(x_n)\)</span>, 其中<span class="arithmatex">\(f_i(x_i)\)</span>为<span class="arithmatex">\(X_i\)</span>的边缘概率密度</li>
-</ul>
-<h3 id="_23">性质</h3>
-<ul>
-<li>设<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立, 则其中任意<span class="arithmatex">\(k(2\leq k\leq n)\)</span>个随机变量也相互独立</li>
-<li>两个多维随机变量<span class="arithmatex">\((X_1, X_2, ..., X_n)\)</span>与<span class="arithmatex">\((Y_1, Y_2, ..., Y_m)\)</span>相互独立, 如果对任意实数<span class="arithmatex">\(x_i(i=1, 2, ..., n)\)</span>与<span class="arithmatex">\(y_j(j=1, 2, ..., m)\)</span>有<span class="arithmatex">\(P\{X_1\leq x_1, X_2\leq x_2, ..., X_n\leq x_n; Y_1\leq y_1, Y_2\leq y_2, ..., Y_m\leq y_m\}=P\{X_1\leq x_1, X_2\leq x_2, ..., X_n\leq x_n\}\cdot P\{Y_1\leq y_1, Y_2\leq y_2, ..., Y_m\leq y_m\}\)</span>. 即联合分布函数等于各自的分布函数相乘<span class="arithmatex">\(F(x_1, x_2, ..., x_n, y_1, y_2, ..., y_m)=F_1(x_1, x_2, ..., x_n)\cdot F_2(y_1, y_2, ..., y_m)\)</span></li>
-<li>设<span class="arithmatex">\((X, Y)\)</span>为二维离散型随机变量, <span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>独立, 则条件分布等于边缘分布: <span class="arithmatex">\(P\{X=x_i|Y=y_i\}=P\{X=x_i\}(P\{Y=y_i\}&gt;0)\)</span>, <span class="arithmatex">\(P\{Y=y_i|X=x_i\}=P\{Y=y_i\}(P\{X=x_i\}&gt;0)\)</span></li>
-<li>设<span class="arithmatex">\((X, Y)\)</span>为二维连续型随机变量, <span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>独立, 则条件概率密度等于边缘概率密度: <span class="arithmatex">\(f_{X|Y}(x|y)=\frac{f(x, y)}{f_Y(y)}=f_X(x)(f_Y(y)&gt;0)\)</span>, <span class="arithmatex">\(f_{Y|X}(y|x)=\frac{f(x, y)}{f_X(x)}=f_Y(y)(f_X(x)&gt;0)\)</span></li>
-<li>若<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立, <span class="arithmatex">\(g_1(x), g_2(x), ..., g_n(x)\)</span>为一元连续函数, 则<span class="arithmatex">\(g_1(X_1), g_2(X_2), ..., g_n(X_n)\)</span>相互独立</li>
-</ul>
-<h2 id="_24">多维随机变量函数的分布</h2>
-<h3 id="_25">定义</h3>
-<p>设<span class="arithmatex">\(X, Y\)</span>为随机变量, <span class="arithmatex">\(g(x, y)\)</span>为二元函数, 则以随机变量<span class="arithmatex">\(X, Y\)</span>作为变量的函数<span class="arithmatex">\(U=g(X, Y)\)</span>也是随机变量, 称之为随机变量<span class="arithmatex">\(X, Y\)</span>的函数. </p>
-<h3 id="_26">求法</h3>
-<p>已知<span class="arithmatex">\((X, Y)\)</span>的联合分布, 求函数<span class="arithmatex">\(Z=g(X, Y)\)</span>的分布, 首先要确定<span class="arithmatex">\(X, Y\)</span>的类型, 而后才用相应的公式计算:</p>
-<ul>
-<li>如果<span class="arithmatex">\((X, Y)\)</span>为二维离散型随机变量, 则<span class="arithmatex">\(Z=g(X, Y)\)</span>也是离散型的, 先确定<span class="arithmatex">\(Z\)</span>的值, 而后求其相应的概率, 求其相应的概率, 用一般解题模式(矩阵法)即可求得<span class="arithmatex">\(Z\)</span>的分布</li>
-<li>如果<span class="arithmatex">\(X, Y\)</span>其中一个离散型的, 另一个是非离散型的, 我们总是将事件对离散型的一切可能值进行全集分解, 而后应用全概率公式求得<span class="arithmatex">\(Z\)</span>的分布</li>
-<li>如果<span class="arithmatex">\((X, Y)\)</span>是二维连续型随机变量, 即<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, 则<span class="arithmatex">\(Z=g(X, Y)\)</span>的分布函数<span class="arithmatex">\(F(z)=P\{g(X, Y)\leq z\}=\iint_{g(x, y)\leq z}f(x, y)dxdy\)</span></li>
-</ul>
-<h3 id="_27">常见函数的分布及卷积公式</h3>
-<h4 id="_28">和的分布</h4>
-<p>设<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, 则<span class="arithmatex">\(Z=X+Y\)</span>的概率密度为<span class="arithmatex">\(f_Z(z)=\int_{-\infty}^{+\infty}f(x, z-x)dx=\int_{-\infty}^{+\infty}f(z-y, y)dy\)</span>.</p>
-<p>当<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立时, 有卷积公式<span class="arithmatex">\(f_Z(z)=\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)dx=\int_{-\infty}^{+\infty}f_X(z-y)f_Y(y)dy\)</span>.</p>
-<h5 id="_29">常见分布的可加性</h5>
-<p>有些相互独立且服从同类型分布的随机变量, 其和的分布也是同类型的, 它们是二项分布, 泊松分布, 正态分布与<span class="arithmatex">\(\mathcal{X}^2\)</span>分布.</p>
-<p>设随机变量<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立, 则:</p>
-<ul>
-<li>若<span class="arithmatex">\(X\sim B(n, p), Y\sim B(m, p)\)</span>, 则<span class="arithmatex">\(X+Y\sim B(n+m, p)\)</span>, 注意<span class="arithmatex">\(p\)</span>相同</li>
-<li>若<span class="arithmatex">\(X\sim P(\lambda_1), Y\sim P(\lambda_2)\)</span>, 则<span class="arithmatex">\(X+Y\sim P(\lambda_1+\lambda_2)\)</span></li>
-<li>若<span class="arithmatex">\(X\sim N(\mu_1, \sigma_1^2), Y\sim N(\mu_2, \sigma_2^2)\)</span>, 则<span class="arithmatex">\(X+Y\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)\)</span></li>
-<li>若<span class="arithmatex">\(X\sim \mathcal{X}^2(n), Y\sim \mathcal{X}^2(m)\)</span>, 则<span class="arithmatex">\(X+Y\sim \mathcal{X}^2(n+m)\)</span></li>
-</ul>
-<h4 id="_30">差的分布</h4>
-<p>设<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, 则<span class="arithmatex">\(Z=X-Y\)</span>的概率密度为<span class="arithmatex">\(f_Z(z)=\int_{-\infty}^{+\infty}f(x, x-z)dx=\int_{-\infty}^{+\infty}f(y+z, y)dy\)</span>.</p>
-<p>当<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>独立时, 有<span class="arithmatex">\(f_Z(z)=\int_{-\infty}^{+\infty}f_X(x)(y+z)f_Y(y)dy\)</span>.</p>
-<h4 id="_31">积的分布</h4>
-<p>设<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, 则<span class="arithmatex">\(Z=XY\)</span>的概率密度为<span class="arithmatex">\(f_Z(z)=\int_{-\infty}^{+\infty}\frac{1}{|x|}f(x, \frac{z}{x})dx=\int_{-\infty}^{+\infty}\frac{1}{|y|}f(\frac{z}{y}, y)dy\)</span>.</p>
-<h4 id="_32">商的分布</h4>
-<p>设<span class="arithmatex">\((X, Y)\sim f(x, y)\)</span>, 则<span class="arithmatex">\(Z=\frac{X}{Y}\)</span>的概率密度为<span class="arithmatex">\(f_Z(z)=\int_{-\infty}^{+\infty}|y|f(yz, y)dy\)</span>.</p>
-<h4 id="maxx-y"><span class="arithmatex">\(max\{X, Y\}\)</span>分布</h4>
-<p>设<span class="arithmatex">\((X, Y)\sim F(X, Y)\)</span>, 则<span class="arithmatex">\(Z=max\{X, Y\}\)</span>的分布函数为<span class="arithmatex">\(F_{max}(z)=P\{max\{X, Y\}\leq z\}=P\{X\leq z, Y\leq z\}=F(z, z)\)</span>.</p>
-<p>当<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>独立时, <span class="arithmatex">\(F_{max}(z)=F_X(z)\cdot F_Y(z)\)</span>.</p>
-<h4 id="minx-y"><span class="arithmatex">\(min\{X, Y\}\)</span>分布</h4>
-<p>设<span class="arithmatex">\((X, Y)\sim F(x, y)\)</span>, 则<span class="arithmatex">\(Z=min\{X, Y\}\)</span>的分布函数为<span class="arithmatex">\(F_{min}(z)=P\{min\{X, Y\}\leq z\}=P\{\{X\leq z\}\cup \{Y\leq z\}=P\{X\leq z\}+P\{Y\leq z\}-P\{X\leq z, Y\leq z\}=F_X(z)+F_Y(z)-F(z, z)\)</span>.</p>
-<p>当<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>独立时, <span class="arithmatex">\(F_{min}(z)=F_X(z)+F_Y(z)-F_X(z)F_y(z)=1-[1-F_X(z)][1-F_Y(z)]\)</span>.</p>
+</ol>
+<h4 id="-_1">连续型 -&gt; 连续型</h4>
+<p>设<span class="arithmatex">\(X\)</span>为连续型随机变量, 其分布函数, 概率密度分别为<span class="arithmatex">\(F_X(x)\)</span>和<span class="arithmatex">\(f_X(x)\)</span>, 随机变量<span class="arithmatex">\(Y=g(X)\)</span>是<span class="arithmatex">\(X\)</span>的函数, 则<span class="arithmatex">\(Y\)</span>的分布函数和概率密度可用分布函数法求得.</p>
+<p><span class="arithmatex">\(F_Y(y)=P\{Y\leq y\}=P\{g(X)\leq y\}=\int_{g(X)\leq y}f_X(x)dx\)</span></p>
+<p>如果<span class="arithmatex">\(F_Y(y)\)</span>连续, 且除有限个点外, <span class="arithmatex">\(F'_Y(y)\)</span>存在且连续, 则<span class="arithmatex">\(Y\)</span>的概率密度<span class="arithmatex">\(f_Y(y)=F'_Y(y)\)</span>.</p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>思路: 若给出的是原始随机变量的概率密度函数, 则首先将其转为原始随机变量的分布函数, 新随机变量的分布函数可以和原始随机变量的分布函数产生联系, 通过这个联系求出新随机变量的分布函数, 最后求导得到新随机变量的概率密度函数.</p>
+</details>
 
 
 
@@ -2687,22 +2722,22 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
-        <script src="../../../javascripts/favicon.js"></script>
+        <script src="../../../../javascripts/favicon.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="../../../js/open_in_new_tab.js"></script>
+        <script src="../../../../js/open_in_new_tab.js"></script>
       
-        <script src="../../../js/open_in_new_tab.js"></script>
+        <script src="../../../../js/open_in_new_tab.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
