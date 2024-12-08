@@ -15,12 +15,13 @@ title: 开始
 
 ## 进度
 
-- [ ] [概率](/probability/)
-    - [x] [随机事件与概率](/probability/random-event-and-probability)
-    - [x] [一维随机变量及其分布](/probability/one-dimensional-random-variable-distribution)
-    - [x] [多维随机变量及其分布](/probability/multi-dimensional-random-variable-distribution)
-    - [x] [随机变量的数字特征](/probability/numerical-characteristics-of-random-variable)
-    - [ ] [大数定律与中心极限定理](/probability/large-number-central-limit-theorem)
+- [ ] 数学
+    - [ ] [概率](/math/probability/)
+        - [x] [随机事件与概率](/math/probability/random-event-and-math/probability)
+        - [x] [一维随机变量及其分布](/math/probability/one-dimensional-random-variable-distribution)
+        - [x] [多维随机变量及其分布](/math/probability/multi-dimensional-random-variable-distribution)
+        - [x] [随机变量的数字特征](/math/probability/numerical-characteristics-of-random-variable)
+        - [ ] [大数定律与中心极限定理](/math/probability/large-number-central-limit-theorem)
 - [ ] [算法](/algorithm/)
     - [x] [线性回归](/algorithm/linear-regression)
     - [x] [预处理](/algorithm/preprocessing)
@@ -47,6 +48,8 @@ title: 开始
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
+  - [ ] 代码
+    - [ ] [PyTorch](/code/pytorch/)
 
 ## 推荐
 
