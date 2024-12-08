@@ -113,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#nin" class="md-skip">
           Skip to content
         </a>
       
@@ -1159,6 +1159,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -1186,6 +1188,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1247,7 +1251,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nin" class="md-nav__link">
+  <a href="#nin_1" class="md-nav__link">
     <span class="md-ellipsis">
       NiN的设计
     </span>
@@ -1575,6 +1579,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1635,7 +1641,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nin" class="md-nav__link">
+  <a href="#nin_1" class="md-nav__link">
     <span class="md-ellipsis">
       NiN的设计
     </span>
@@ -1688,8 +1694,7 @@
   
 
 
-  <h1>NiN</h1>
-
+<h1 id="nin">NiN<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h1>
 <h2 id="_1">动机</h2>
 <h3 id="glm">卷积层是一个GLM</h3>
 <p>CNN由卷积层和池化层交替连接构成. 卷积层中线性滤波器(卷积核)和底层感受野做内积, 然后在输入的每个局部部分应用非线性激活函数, 产生的结果叫做特征图.</p>
@@ -1714,16 +1719,16 @@
 <p>在这里, “抽象”的意思是指某个特征对于同一个概念的不同变体保持不变性, 具体来说, 这意味着无论同一个概念有多少不同的表现形式或者变化, 这个特征都能够保持一致, 从而有效地代表该概念的核心特征. 如, 无论一个猫的爪子如何在不同方向, 颜色, 姿态变化, 都属于猫爪子这个概念. CNN的隐含假设是猫的爪子和猫的尾巴的样本是线性可分的, 而实际情况是, 可能猫的尾巴上有一些特征和猫的爪子上有点像, 导致无法线性可分. 如果所有的猫的爪子样本和猫的尾巴样本在特征空间可以被一个超平面在搞维度中分开, 那么GLM就可以很好的工作, 但是实际情况是, GLM无法在高维找到一个很好的线性边界, 因此需要更加强大的非线性函数逼近器来捕捉这种复杂的, 非线性的关系. 该观点参考<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
 <p>在传统的CNN中, 为了表达这种高维的非线性函数逼近器, 他们用一系列过于完备(over-complete)的卷积核去应对潜空间中的所有概念(concept), 以确保能够捕捉到数据中潜在的变异或者特征.但是, 太多的卷积核描述一个概念可能会导致后面层的负担变大(我们需要考虑所有前一个层的所有组合), 因此, 他们从网络复杂度, 过拟合风险的角度再次说明了在局部使用更好的抽象表示方法的必要性.</p>
 <h3 id="maxout">Maxout的启发</h3>
-<p>Maxout是由Goodfellow等人提出的一种新的激活函数. 在利用了Maxout技术的网络中, 每个神经元的输出不是通过传统的激活函数, 如ReLU, sigmoid等进行非线性变换, 而是通过选择多个线性变换中的最大值来拟合一种凸函数的非线性变换. 假设我们有多个仿射变换(就是卷积操作之后没有经过激活函数处理). Maxout会选择其中最大的一项作为该神经元的输出. 具体来说, Maxout将第<span class="arithmatex">\(i\)</span>个仿射结果<span class="arithmatex">\(z_i\)</span>划分为具有<span class="arithmatex">\(k\)</span>个值的组<span class="arithmatex">\(z_{i, j}, j\in[1, k]\)</span>(<span class="arithmatex">\(j\)</span>表示组内序号), 而不是直接将ReLu等函数作用于那个仿射结果上, 如<span class="arithmatex">\(ReLU(z_i)\)</span>, 然后这个Maxout单元的输出为<span class="arithmatex">\(Maxout(z_i)=\max_{j\in [1, k]}z_{i, j}\)</span>, 而<span class="arithmatex">\(z_{i, j}\)</span>表示的是这个仿射结果对应的第<span class="arithmatex">\(j\)</span>个线性函数, 所以Maxout能够产生一个分段性的输出, 选择的是<span class="arithmatex">\(z_{i1}\)</span>到<span class="arithmatex">\(z_{ij}\)</span>中较大的那个线性函数, 这种分段线性能力是的Maxout在理论上能够表示任意的凸函数. 而且Maxout激活函数还有一个重要的特点就是它是可以学习的, 而不是像传统的ReLU那样是固定的, Maxout对每一个仿射结果都可以学习<span class="arithmatex">\(k\)</span>个不同的线性变换, 并根据数据的特征选择最合适的线性变换, 该观点参考<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.</p>
+<p>Maxout是由Goodfellow等人<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>提出的一种新的激活函数. 在利用了Maxout技术的网络中, 每个神经元的输出不是通过传统的激活函数, 如ReLU, sigmoid等进行非线性变换, 而是通过选择多个线性变换中的最大值来拟合一种凸函数的非线性变换. 假设我们有多个仿射变换(就是卷积操作之后没有经过激活函数处理). Maxout会选择其中最大的一项作为该神经元的输出. 具体来说, Maxout将第<span class="arithmatex">\(i\)</span>个仿射结果<span class="arithmatex">\(z_i\)</span>划分为具有<span class="arithmatex">\(k\)</span>个值的组<span class="arithmatex">\(z_{i, j}, j\in[1, k]\)</span>(<span class="arithmatex">\(j\)</span>表示组内序号), 而不是直接将ReLu等函数作用于那个仿射结果上, 如<span class="arithmatex">\(ReLU(z_i)\)</span>, 然后这个Maxout单元的输出为<span class="arithmatex">\(Maxout(z_i)=\max_{j\in [1, k]}z_{i, j}\)</span>, 而<span class="arithmatex">\(z_{i, j}\)</span>表示的是这个仿射结果对应的第<span class="arithmatex">\(j\)</span>个线性函数, 所以Maxout能够产生一个分段性的输出, 选择的是<span class="arithmatex">\(z_{i1}\)</span>到<span class="arithmatex">\(z_{ij}\)</span>中较大的那个线性函数, 这种分段线性能力是的Maxout在理论上能够表示任意的凸函数. 而且Maxout激活函数还有一个重要的特点就是它是可以学习的, 而不是像传统的ReLU那样是固定的, Maxout对每一个仿射结果都可以学习<span class="arithmatex">\(k\)</span>个不同的线性变换, 并根据数据的特征选择最合适的线性变换, 该观点参考<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.</p>
 <p>Maxout运用在仿射特征图上的表现就是, 假设有<span class="arithmatex">\(96\)</span>个通道, 然后设置<span class="arithmatex">\(k=4\)</span>, 说明以<span class="arithmatex">\(4\)</span>张仿射特征图(通道)作为一组, 那么总共有<span class="arithmatex">\(24\)</span>组, 对于每一个组的<span class="arithmatex">\(4\)</span>个通道中的每一个像素点, Maxout层会选出这<span class="arithmatex">\(4\)</span>个通道中值最大的像素作为这个位置的输出值, 其他位置的像素同理. 这样, 输出特征图的数量(通道)会减少到<span class="arithmatex">\(24\)</span>个, 这种方法又叫做仿射特征图的最大池化(maximum pooling over affine feature maps).</p>
 <p>与普通的卷积层相比, ReLU的非线性特性确实给网络带来了很多表达能力, 但是它仍然保留了一些线性结构, 换句话说, ReLU在输入大于<span class="arithmatex">\(0\)</span>的区域表现为线性. Maxout通过选择不同的线性函数来表达更加复杂的决策边界, 尤其是处理那些输入空间凸集可分的数据时候, 比单一的ReLU更有表达力, 这也导致Maxout在使用之前有一个前提条件, 那就是输入空间中概念的表现形式都在一个凸集里面<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>, 但这在实际情况下不一定是成立的. 所以, 有必要提出一种更加普遍的函数逼近器(激活函数). 作者由此提出了NiN的架构.</p>
 <h2 id="_2">创新</h2>
-<h3 id="nin">NiN的设计</h3>
+<h3 id="nin_1">NiN的设计</h3>
 <p>NiN, Network in Network通过一个称为"微网络"(micro network)的结构来替代传统的GLM. 在这个工作中, 作者采用的是MLP作为这个非线性函数逼近器, 该结构又被称为mlpconv.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0ede5e8e0112ff9b4584ad3a4187afe3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ede5e8e0112ff9b4584ad3a4187afe3.png" width="500" /></a></p>
 </figure>
-<p>这个夹在卷积层之间的MLP对于所有的感受野都是共享权重的, 它会随着卷积核一起滑动(就是接受卷积核的输出). 具体来说, 对input进行卷积, 然后将卷积得到的特征图放到MLP中.</p>
+<p>这个夹在卷积层之间的MLP对于所有的感受野都是共享权重的, 它会随着卷积核一起滑动(就是接受卷积核的输出, sliding a micro network). 具体来说, 对input进行卷积, 然后将卷积得到的特征图放到MLP中. 这个和之前的SMLP(Structured Multilayer Perceptron)<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>不太一样, 那个是不会滑动的, 也就是输入的不同区域输入一个共享的MLP.</p>
 <h3 id="_3">全局平均池化</h3>
 <div class="footnote">
 <hr />
@@ -1739,6 +1744,12 @@
 </li>
 <li id="fn:4">
 <p>Teng-Sun. (2017, 十月 17). 深度学习方法（十）：卷积神经网络结构变化——Maxout Networks，Network In Network，Global Average Pooling. Csdn. <a href="https://blog.csdn.net/stt12345678/article/details/78261858">https://blog.csdn.net/stt12345678/article/details/78261858</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>Gülçehre, Ç., &amp; Bengio, Y. (2013). Knowledge matters: Importance of prior information for optimization (No. arXiv:1301.4083). arXiv. <a href="https://doi.org/10.48550/arXiv.1301.4083">https://doi.org/10.48550/arXiv.1301.4083</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>Goodfellow, I. J., Warde-Farley, D., Mirza, M., Courville, A., &amp; Bengio, Y. (2013). Maxout networks (No. arXiv:1302.4389). arXiv. <a href="https://doi.org/10.48550/arXiv.1302.4389">https://doi.org/10.48550/arXiv.1302.4389</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
