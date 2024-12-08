@@ -68,7 +68,7 @@ comments: true
 
 > To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.
 
-🌟如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即$F(x)=x+f(x)\simeq x$, 而$f(x)\simeq 0$要比让一堆非线型层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线型变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有$F(x)=x+f(x)$这种形式, 如果最优解是恒等映射, 那么训练只需要让$f(x)$的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线型层直接拟合恒等映射要容易得多.🌟
+🌟如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即$F(x)=x+f(x)\simeq x$, 而$f(x)\simeq 0$要比让一堆非线性层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线性变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有$F(x)=x+f(x)$这种形式, 如果最优解是恒等映射, 那么训练只需要让$f(x)$的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线性层直接拟合恒等映射要容易得多.🌟
 
 > If one hypothesizes that multiple nonlinear layers can asymptotically approximate complicated functions, then it is equivalent to hypothesize that they can asymptotically approximate the residual functions, i.e., H(x) − x
 
@@ -97,7 +97,7 @@ comments: true
 
 残差函数$\mathcal{F}$的结构是可选的, 可以是两层或者多层神经网络. 但是如果$\mathcal{F}$只有一层的话, 那么就相当于$\bm{y}=W_1\bm{x}+\bm{x}$. 作者并没有发现这样做的优势.
 
-作者还发现上述的残差函数结构中不仅仅可以含有全连接层还可以是卷积层. 对于卷积层, 残差块输入的通道数和输出的通道数通常是相等的(需要逐个通道相加). 如果不一样的话, 可能需要使用Shortcut Connection上的线型变换(如$W_s$)或者使用零填充...
+作者还发现上述的残差函数结构中不仅仅可以含有全连接层还可以是卷积层. 对于卷积层, 残差块输入的通道数和输出的通道数通常是相等的(需要逐个通道相加). 如果不一样的话, 可能需要使用Shortcut Connection上的线性变换(如$W_s$)或者使用零填充...
 
 ### 架构
 

@@ -1,6 +1,6 @@
 ---
 title: GoogLeNet
-comments: true
+comments: false
 ---
 
 ## 背景
@@ -11,8 +11,8 @@ GoogLeNet是2014年Christian Szegedy提出的一种全新的深度学习结构, 
 
 尽管最大池化可能会导致空间信息的丢失, 比如在ResNet中就使用了[设置stride=2](/algorithm/neural-network/cnn/resnet/#plain-network)来减半特征图的尺寸. 但是相同的卷积层结构(指使用最大池化)也成功地被运用于定位, 问题检测等任务中. Serre等人借鉴了灵长类动物的视觉皮层的工作原理, 使用了不同尺度的Gabor滤波器来处理多尺度特征, 这些滤波器的参数(如频率, 方向, 尺度等)在训练过程中保持不变. Inception类似于它们的模型, 但是Inception模型所有的滤波器都是通过学习得到的, 此外, Inception模型中的层会被重复多次, 在GoogLeNet中, 最终的网络深度达到了22层.
 
-Network-in-Network是一个由Lin等人提出的用于增加神经网络表示能力的一种方法. 该网络的亮点在于,
+[Network-in-Network](/algorithm/neural-network/cnn/nin)是一个由Lin等人提出的用于增加神经网络表示能力的一种方法. 经典CNN中的卷积层其实是利用线性滤波器对图像进行内积运算, 在每个局部输出后面跟着一个非线性的激活函数, 最终得到的叫做特征图. 而这种卷积滤波器是一种广义线性模型(GLM, Generalized Linear Model). 所以用CNN进行特征提取的时候, 其实就隐含地假设了特征是线性可分的, 可实际问题往往是难以线性可分的. GLM的抽象能力是比较低水平的, 自然而然地我们想到用一种抽象能力更强的模型去替换它, 从而提升传统CNN的表达能力. NiN通过在卷积操作之后加入一个微型的MLP, 替代原版的线性卷积核, 从而增加网络的非线性表示能力. [^3]
 
 [^1]: Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D., Vanhoucke, V., & Rabinovich, A. (2014). Going deeper with convolutions (No. arXiv:1409.4842). arXiv. https://doi.org/10.48550/arXiv.1409.4842
 [^2]: GoogLeNet. (2022). 收入 百度百科. https://baike.baidu.com/item/GoogLeNet/22689587
-[^3]: 放风筝的猪. (不详). Network in network（NIN）网络结构详解，网络搭建. Csdn. 取读于 2024年12月7日, 从 https://blog.csdn.net/weixin_45897172/article/details/128736549
+[^3]: Network in Network 简单理解. (2015, 十二月 26). Emanuel’s Notes. http://yoursite.com/2015/12/26/nin/index.html

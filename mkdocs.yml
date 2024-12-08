@@ -165,7 +165,7 @@ plugins:
       enable_creation_date: true
       enabled: !ENV [CI, false]
   - git-committers:
-      repository: ricolxwz/ml
+      repository: sigmax01/ml
       branch: master
       enabled: !ENV [CI, false]
 nav:
@@ -196,6 +196,7 @@ nav:
               - algorithm/neural-network/cnn/index.md
               - AlexNet: algorithm/neural-network/cnn/alexnet.md
               - ResNet: algorithm/neural-network/cnn/resnet.md
+              - NiN: algorithm/neural-network/cnn/nin.md
               - GoogLeNet: algorithm/neural-network/cnn/googlenet.md
           - 递归神经网络: algorithm/neural-network/rnn.md
           - 生成对抗网络: algorithm/neural-network/gan.md
