@@ -157,6 +157,9 @@ details {
     padding-left: 0.8rem !important;
     padding-right: 0.8rem !important;
 }
+details>:last-child {
+    margin-bottom: .4rem !important;
+}
 
 /* 设置全局字体 */
 :root {
