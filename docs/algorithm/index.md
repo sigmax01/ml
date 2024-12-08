@@ -1,6 +1,5 @@
 ---
 title: 绪论
-comments: true
 ---
 
 ## 机器学习定义

@@ -171,13 +171,14 @@ plugins:
 nav:
   - 开始:
       - index.md
-  - 概率:
-      - probability/index.md
-      - 随机事件和概率: probability/random-event-and-probability.md
-      - 一维随机变量及其分布: probability/one-dimensional-random-variable-distribution.md
-      - 多维随机变量及其分布: probability/multi-dimensional-random-variable-distribution.md
-      - 随机变量的数字特征: probability/numerical-characteristics-of-random-variable.md
-      - 大数定律与中心极限定理: probability/large-number-central-limit-theorem.md
+  - 数学:
+      - 概率:
+        - math/probability/index.md
+        - 随机事件和概率: math/probability/random-event-and-probability.md
+        - 一维随机变量及其分布: math/probability/one-dimensional-random-variable-distribution.md
+        - 多维随机变量及其分布: math/probability/multi-dimensional-random-variable-distribution.md
+        - 随机变量的数字特征: math/probability/numerical-characteristics-of-random-variable.md
+        - 大数定律与中心极限定理: math/probability/large-number-central-limit-theorem.md
   - 算法:
       - algorithm/index.md
       - 线性回归: algorithm/linear-regression.md
@@ -208,3 +209,6 @@ nav:
       - 聚类: algorithm/clustering.md
       - 马尔可夫链: algorithm/markov-chain.md
       - 强化学习: algorithm/reinforcement-learning.md
+  - 代码:
+    - PyTorch:
+      - code/pytorch/index.md
