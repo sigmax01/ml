@@ -176,6 +176,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/googlenet/"/>
     </url>
     <url>
+        <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/nin/</loc>
+        <lastmod>2024-12-08</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/nin/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/nin/"/>
+    </url>
+    <url>
         <loc>https://ml.ricolxwz.de/algorithm/neural-network/cnn/resnet/</loc>
         <lastmod>2024-12-08</lastmod>
         <changefreq>daily</changefreq>
@@ -419,6 +426,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/googlenet/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/googlenet/"/>
+    </url>
+    <url>
+        <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/nin/</loc>
+        <lastmod>2024-12-08</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/nin/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://ml.ricolxwz.de/algorithm/neural-network/cnn/nin/"/>
     </url>
     <url>
         <loc>https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/resnet/</loc>

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ml.ricolxwz.de/en/algorithm/neural-network/cnn/googlenet/">
       
       
-        <link rel="prev" href="../resnet/">
+        <link rel="prev" href="../nin/">
       
       
         <link rel="next" href="../../rnn/">
@@ -1061,6 +1061,8 @@
       
         
       
+        
+      
     
     
       
@@ -1135,6 +1137,27 @@
   
   <span class="md-ellipsis">
     ResNet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NiN
   </span>
   
 
@@ -1539,7 +1562,7 @@
 <p>GoogLeNet是2014年Christian Szegedy提出的一种全新的深度学习结构, 在这之前的AlexNet, VGG等结构都是通过增大网络的深度(层数)来获得更好的训练效果, 但是层数的增加会带来很多副作用, 比如过拟合, 梯度消失/爆炸等<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. 它是2014年ImageNet比赛的冠军, 它的主要特点是网络不仅有深度, 而且在横向上具有“宽度”, 并且能够在增加深度和宽度的情况下节约计算资源. 从名字GoogLeNet更是致敬了LeNet. GoogLeNet中最核心的部分是其内部的子网络结构Inception, 该结构灵感来源于NiN(Network in Network).</p>
 <p>最近的实验证明, 深度学习领域很大的提升是由于新算法, 新网络架构的出现, 而不是新的数据集, 新的硬件设施. 它们提交到ILSVRC 2014的GoogleNet架构实际上比两年前的由Krizhevsky等人提出的架构少12倍的参数, 但是准度显著高于后者. 另外一个值得关注的电视, 随着手机和嵌入式设备的发展, 本地的算力变得越来越重要. GoogLeNet的优化重心并不完全是准度上的提升, 而是综合考虑了算力的稀缺性等因素, 对于多数的实验, GoogLeNet将推理的算力预算控制在了15亿线性操作内.</p>
 <p>尽管最大池化可能会导致空间信息的丢失, 比如在ResNet中就使用了<a href="/algorithm/neural-network/cnn/resnet/#plain-network">设置stride=2</a>来减半特征图的尺寸. 但是相同的卷积层结构(指使用最大池化)也成功地被运用于定位, 问题检测等任务中. Serre等人借鉴了灵长类动物的视觉皮层的工作原理, 使用了不同尺度的Gabor滤波器来处理多尺度特征, 这些滤波器的参数(如频率, 方向, 尺度等)在训练过程中保持不变. Inception类似于它们的模型, 但是Inception模型所有的滤波器都是通过学习得到的, 此外, Inception模型中的层会被重复多次, 在GoogLeNet中, 最终的网络深度达到了22层.</p>
-<p>Network-in-Network是一个由Lin等人提出的用于增加神经网络表示能力的一种方法. 该网络的亮点在于,</p>
+<p><a href="/algorithm/neural-network/cnn/nin">Network-in-Network</a>是一个由Lin等人提出的用于增加神经网络表示能力的一种方法. 经典CNN中的卷积层其实是利用线性滤波器对图像进行内积运算, 在每个局部输出后面跟着一个非线性的激活函数, 最终得到的叫做特征图. 而这种卷积滤波器是一种广义线性模型(GLM, Generalized Linear Model). 所以用CNN进行特征提取的时候, 其实就隐含地假设了特征是线性可分的, 可实际问题往往是难以线性可分的. GLM的抽象能力是比较低水平的, 自然而然地我们想到用一种抽象能力更强的模型去替换它, 从而提升传统CNN的表达能力. NiN通过在卷积操作之后加入一个微型的MLP, 替代原版的线性卷积核, 从而增加网络的非线性表示能力. <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
 <div class="footnote">
 <hr />
 <ol>
@@ -1550,7 +1573,7 @@
 <p>GoogLeNet. (2022). 收入 百度百科. <a href="https://baike.baidu.com/item/GoogLeNet/22689587">https://baike.baidu.com/item/GoogLeNet/22689587</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:3">
-<p>放风筝的猪. (不详). Network in network（NIN）网络结构详解，网络搭建. Csdn. 取读于 2024年12月7日, 从 <a href="https://blog.csdn.net/weixin_45897172/article/details/128736549">https://blog.csdn.net/weixin_45897172/article/details/128736549</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Network in Network 简单理解. (2015, 十二月 26). Emanuel’s Notes. <a href="http://yoursite.com/2015/12/26/nin/index.html">http://yoursite.com/2015/12/26/nin/index.html</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -1576,7 +1599,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月8日</span>
   </span>
 
     
@@ -1599,64 +1622,6 @@
 
 
 
-
-<h2 id="__comments">Comments</h2>
-<!-- Insert generated snippet here -->
-<script
-    src="https://giscus.app/client.js"
-    data-repo="sigmax01/ml"
-    data-repo-id="R_kgDOMNX2Cw"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOMNX2C84CgVid"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="1"
-    data-input-position="top"
-    data-theme="preferred_color_scheme"
-    data-lang="zh-CN"
-    data-loading="lazy"
-    crossorigin="anonymous"
-    async
-></script>
-
-<!-- Synchronize Giscus theme with palette -->
-<script>
-    var giscus = document.querySelector("script[src*=giscus]");
-
-    // Set palette on initial load
-    var palette = __md_get("__palette");
-    if (palette && typeof palette.color === "object") {
-        var theme =
-            palette.color.scheme === "slate"
-                ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
-                : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
-
-        // Instruct Giscus to set theme
-        giscus.setAttribute("data-theme", theme);
-    }
-
-    // Register event handlers after documented loaded
-    document.addEventListener("DOMContentLoaded", function () {
-        var ref = document.querySelector("[data-md-component=palette]");
-        ref.addEventListener("change", function () {
-            var palette = __md_get("__palette");
-            if (palette && typeof palette.color === "object") {
-                var theme =
-                    palette.color.scheme === "slate"
-                        ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
-                        : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
-
-                // Instruct Giscus to change theme
-                var frame = document.querySelector(".giscus-frame");
-                frame.contentWindow.postMessage(
-                    { giscus: { setConfig: { theme } } },
-                    "https://giscus.app",
-                );
-            }
-        });
-    });
-</script>
 
                  
               </article>

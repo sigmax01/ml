@@ -18,7 +18,7 @@
         <link rel="prev" href="../alexnet/">
       
       
-        <link rel="next" href="../googlenet/">
+        <link rel="next" href="../nin/">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -1061,6 +1061,8 @@
       
         
       
+        
+      
     
     
       
@@ -1292,6 +1294,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NiN
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1800,7 +1823,7 @@
 <blockquote>
 <p>To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.</p>
 </blockquote>
-<p>🌟如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即<span class="arithmatex">\(F(x)=x+f(x)\simeq x\)</span>, 而<span class="arithmatex">\(f(x)\simeq 0\)</span>要比让一堆非线型层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线型变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有<span class="arithmatex">\(F(x)=x+f(x)\)</span>这种形式, 如果最优解是恒等映射, 那么训练只需要让<span class="arithmatex">\(f(x)\)</span>的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线型层直接拟合恒等映射要容易得多.🌟</p>
+<p>🌟如果一个网络的最优映射恰好就是恒等映射, 那么通过学习一个函数使其输出趋近于0, 即<span class="arithmatex">\(F(x)=x+f(x)\simeq x\)</span>, 而<span class="arithmatex">\(f(x)\simeq 0\)</span>要比让一堆非线性层直接组合出恒等函数更加容易. 换句话说, 传统的深层网络在没有残差结构的时候, 加入最优解就是恒等映射, 要让多层非线性变换层叠加后输出结果是输入本身是相对困难的, 因为这些层被来就是用来学习复杂映射的, 很难精确地"什么也不做", 而在ResNet的框架下, 由于有<span class="arithmatex">\(F(x)=x+f(x)\)</span>这种形式, 如果最优解是恒等映射, 那么训练只需要让<span class="arithmatex">\(f(x)\)</span>的输出逼近于0, 就能得到恒等映射的效果, 这比通过堆叠多层非线性层直接拟合恒等映射要容易得多.🌟</p>
 <blockquote>
 <p>If one hypothesizes that multiple nonlinear layers can asymptotically approximate complicated functions, then it is equivalent to hypothesize that they can asymptotically approximate the residual functions, i.e., H(x) − x</p>
 <p>Although both forms should be able to asymptotically approximate the desired functions (as hypothesized), the ease of learning might be different</p>
@@ -1821,7 +1844,7 @@
 <p>在实现Shortcut Connection的时候, 残差层的输出和输入的维度必须一致, 因为在公式中维度相同的矩阵才可以相加. 文章将残差块看作是<span class="arithmatex">\(\bm{y} = \mathcal{F}(\bm{x}, \{W_i\}) + \bm{x}\)</span>, 其中<span class="arithmatex">\(\{W_i\}\)</span>表示的是当前层的权重参数集合, 表示网络需要学习的参数. 后面这个<span class="arithmatex">\(\bm{x}\)</span>的维度必须和残差块的输出的维度相同, 如果不相同话, 可以在Shortcut Connection那边做一个线性变换, 去把维度对应上: <span class="arithmatex">\(\bm{y} = \mathcal{F}(\bm{x}, \{W_i\}) + W_s\bm{x}\)</span>. 注意, 这里使用<span class="arithmatex">\(W_s\)</span>的唯一目的是保持维度的统一, 如果维度本来就统一, 就没必要使用<span class="arithmatex">\(W_s\)</span>, 因为不使用<span class="arithmatex">\(W_s\)</span>更加经济高效, 可以减少参数量, 简单的加上<span class="arithmatex">\(\bm{x}\)</span>已经足够解决退化问题.</p>
 <h3 id="_7">残差函数结构</h3>
 <p>残差函数<span class="arithmatex">\(\mathcal{F}\)</span>的结构是可选的, 可以是两层或者多层神经网络. 但是如果<span class="arithmatex">\(\mathcal{F}\)</span>只有一层的话, 那么就相当于<span class="arithmatex">\(\bm{y}=W_1\bm{x}+\bm{x}\)</span>. 作者并没有发现这样做的优势.</p>
-<p>作者还发现上述的残差函数结构中不仅仅可以含有全连接层还可以是卷积层. 对于卷积层, 残差块输入的通道数和输出的通道数通常是相等的(需要逐个通道相加). 如果不一样的话, 可能需要使用Shortcut Connection上的线型变换(如<span class="arithmatex">\(W_s\)</span>)或者使用零填充...</p>
+<p>作者还发现上述的残差函数结构中不仅仅可以含有全连接层还可以是卷积层. 对于卷积层, 残差块输入的通道数和输出的通道数通常是相等的(需要逐个通道相加). 如果不一样的话, 可能需要使用Shortcut Connection上的线性变换(如<span class="arithmatex">\(W_s\)</span>)或者使用零填充...</p>
 <h3 id="_8">架构</h3>
 <p>作者测试了普通网络和残差网络的表现.</p>
 <figure>
@@ -1897,7 +1920,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月8日</span>
   </span>
 
     
