@@ -3,6 +3,8 @@ title: NiN
 comments: false
 ---
 
+# NiN[^1]
+
 ## 动机
 
 ### 卷积层是一个GLM
@@ -35,7 +37,7 @@ CNN中的卷积层能够被视为一个GLM的原因在于:
 
 ### Maxout的启发
 
-Maxout是由Goodfellow等人提出的一种新的激活函数. 在利用了Maxout技术的网络中, 每个神经元的输出不是通过传统的激活函数, 如ReLU, sigmoid等进行非线性变换, 而是通过选择多个线性变换中的最大值来拟合一种凸函数的非线性变换. 假设我们有多个仿射变换(就是卷积操作之后没有经过激活函数处理). Maxout会选择其中最大的一项作为该神经元的输出. 具体来说, Maxout将第$i$个仿射结果$z_i$划分为具有$k$个值的组$z_{i, j}, j\in[1, k]$($j$表示组内序号), 而不是直接将ReLu等函数作用于那个仿射结果上, 如$ReLU(z_i)$, 然后这个Maxout单元的输出为$Maxout(z_i)=\max_{j\in [1, k]}z_{i, j}$, 而$z_{i, j}$表示的是这个仿射结果对应的第$j$个线性函数, 所以Maxout能够产生一个分段性的输出, 选择的是$z_{i1}$到$z_{ij}$中较大的那个线性函数, 这种分段线性能力是的Maxout在理论上能够表示任意的凸函数. 而且Maxout激活函数还有一个重要的特点就是它是可以学习的, 而不是像传统的ReLU那样是固定的, Maxout对每一个仿射结果都可以学习$k$个不同的线性变换, 并根据数据的特征选择最合适的线性变换, 该观点参考[^3].
+Maxout是由Goodfellow等人[^6]提出的一种新的激活函数. 在利用了Maxout技术的网络中, 每个神经元的输出不是通过传统的激活函数, 如ReLU, sigmoid等进行非线性变换, 而是通过选择多个线性变换中的最大值来拟合一种凸函数的非线性变换. 假设我们有多个仿射变换(就是卷积操作之后没有经过激活函数处理). Maxout会选择其中最大的一项作为该神经元的输出. 具体来说, Maxout将第$i$个仿射结果$z_i$划分为具有$k$个值的组$z_{i, j}, j\in[1, k]$($j$表示组内序号), 而不是直接将ReLu等函数作用于那个仿射结果上, 如$ReLU(z_i)$, 然后这个Maxout单元的输出为$Maxout(z_i)=\max_{j\in [1, k]}z_{i, j}$, 而$z_{i, j}$表示的是这个仿射结果对应的第$j$个线性函数, 所以Maxout能够产生一个分段性的输出, 选择的是$z_{i1}$到$z_{ij}$中较大的那个线性函数, 这种分段线性能力是的Maxout在理论上能够表示任意的凸函数. 而且Maxout激活函数还有一个重要的特点就是它是可以学习的, 而不是像传统的ReLU那样是固定的, Maxout对每一个仿射结果都可以学习$k$个不同的线性变换, 并根据数据的特征选择最合适的线性变换, 该观点参考[^3].
 
 Maxout运用在仿射特征图上的表现就是, 假设有$96$个通道, 然后设置$k=4$, 说明以$4$张仿射特征图(通道)作为一组, 那么总共有$24$组, 对于每一个组的$4$个通道中的每一个像素点, Maxout层会选出这$4$个通道中值最大的像素作为这个位置的输出值, 其他位置的像素同理. 这样, 输出特征图的数量(通道)会减少到$24$个, 这种方法又叫做仿射特征图的最大池化(maximum pooling over affine feature maps).
 
@@ -51,7 +53,7 @@ NiN, Network in Network通过一个称为"微网络"(micro network)的结构来�
   ![](https://img.ricolxwz.io/0ede5e8e0112ff9b4584ad3a4187afe3.png){ loading=lazy width='500' }
 </figure>
 
-这个夹在卷积层之间的MLP对于所有的感受野都是共享权重的, 它会随着卷积核一起滑动(就是接受卷积核的输出). 具体来说, 对input进行卷积, 然后将卷积得到的特征图放到MLP中.
+这个夹在卷积层之间的MLP对于所有的感受野都是共享权重的, 它会随着卷积核一起滑动(就是接受卷积核的输出, sliding a micro network). 具体来说, 对input进行卷积, 然后将卷积得到的特征图放到MLP中. 这个和之前的SMLP(Structured Multilayer Perceptron)[^5]不太一样, 那个是不会滑动的, 也就是输入的不同区域输入一个共享的MLP.
 
 ### 全局平均池化
 
@@ -59,3 +61,5 @@ NiN, Network in Network通过一个称为"微网络"(micro network)的结构来�
 [^2]: 月来客栈. (2021, 十一月 26). NIN一个即使放到现在也不会过时的网络 [知乎专栏文章]. 深深深-深度学习. https://zhuanlan.zhihu.com/p/337035992
 [^3]: Jasmine_Feng (导演). (2020, 十月 15). 小茉的花书笔记——神经网络激活函数之maxout [Video recording]. https://www.bilibili.com/video/BV1bD4y1d7Zz/?spm_id_from=333.337.search-card.all.click&vd_source=f86bed5e9ae170543d583b3f354fcaa9
 [^4]: Teng-Sun. (2017, 十月 17). 深度学习方法（十）：卷积神经网络结构变化——Maxout Networks，Network In Network，Global Average Pooling. Csdn. https://blog.csdn.net/stt12345678/article/details/78261858
+[^5]: Gülçehre, Ç., & Bengio, Y. (2013). Knowledge matters: Importance of prior information for optimization (No. arXiv:1301.4083). arXiv. https://doi.org/10.48550/arXiv.1301.4083
+[^6]: Goodfellow, I. J., Warde-Farley, D., Mirza, M., Courville, A., & Bengio, Y. (2013). Maxout networks (No. arXiv:1302.4389). arXiv. https://doi.org/10.48550/arXiv.1302.4389
