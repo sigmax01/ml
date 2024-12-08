@@ -179,8 +179,12 @@ details {
     scrollbar-width: none;
 }
 
-.md-sidebar__scrollwrap:hover {
+.md-sidebar__scrollwrap:hover, .md-sidebar__scrollwrap:focus-within {
     overflow-y: auto;
     scrollbar-width: thin;
     /* scrollbar-color: var(--md-default-fg-color--lighter); */
+}
+
+.md-sidebar__scrollwrap::-webkit-scrollbar {
+    width: 0px; /* 默认没有滚动条 */
 }
