@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.48">
     
     
       
@@ -1924,11 +1924,37 @@
 <p>与普通的卷积层相比, ReLU的非线性特性确实给网络带来了很多表达能力, 但是它仍然保留了一些线性结构, 换句话说, ReLU在输入大于<span class="arithmatex">\(0\)</span>的区域表现为线性. Maxout通过选择不同的线性函数来表达更加复杂的决策边界, 尤其是处理那些输入空间凸集可分的数据时候, 比单一的ReLU更有表达力, 这也导致Maxout在使用之前有一个前提条件, 那就是输入空间中概念的表现形式都在一个凸集里面<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>, 但这在实际情况下不一定是成立的. 所以, 有必要提出一种更加普遍的函数逼近器(激活函数). 作者由此提出了NiN的架构.</p>
 <h2 id="_2">创新</h2>
 <h3 id="nin_1">NiN的设计</h3>
+<p>人们通常使用径向基函数网络(Radial basis network)和MLP来构造一个通用非线性函数逼近器, 作者选择的是MLP是因为MLP和CNN架构兼容, 可以通过反向传播算法进行训练, 而且MLP本身可以是一个深度模型, 这个和feature-reused的精神是一致的.</p>
 <p>NiN, Network in Network通过一个称为"微网络"(micro network)的结构来替代传统的GLM. 在这个工作中, 作者采用的是MLP作为这个非线性函数逼近器, 该结构又被称为mlpconv.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0ede5e8e0112ff9b4584ad3a4187afe3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ede5e8e0112ff9b4584ad3a4187afe3.png" width="500" /></a></p>
 </figure>
 <p>这个夹在卷积层之间的MLP对于所有的感受野都是共享权重的, 它会随着卷积核一起滑动(就是接受卷积核的输出, sliding a micro network). 具体来说, 对input进行卷积, 然后将卷积得到的特征图放到MLP中. 这个和之前的SMLP(Structured Multilayer Perceptron)<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>不太一样, 那个是不会滑动的, 也就是输入的不同区域输入一个共享的MLP.</p>
+<p>总体的架构如图所示, 使用三个mlpconv层和一个全局平均池化层.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/eff083e2de846c303cca9ce7090a2b77.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eff083e2de846c303cca9ce7090a2b77.png" width="500" /></a></p>
+</figure>
+<p>mlpconv层进行的数学运算如下:</p>
+<div class="arithmatex">\[f_{i,j,k_1}^1 = \max(w_{k_1}^T x_{i,j} + b_{k_1}, 0).\\
+\vdots\\
+f_{i,j,k_n}^n = \max(w_{k_n}^T f_{i,j}^{n-1} + b_{k_n}, 0)\]</div>
+<p>其中, <span class="arithmatex">\(x_{i, j}\)</span>表示输入特征图中位置为<span class="arithmatex">\((i, j)\)</span>的特征向量(大小为通道数), 假设输入是一个具有<span class="arithmatex">\(C\)</span>个通道的特征图, 尺寸为<span class="arithmatex">\(H\times W\times C\)</span>, 其中<span class="arithmatex">\(H\)</span>和<span class="arithmatex">\(W\)</span>分别表示高度和宽度, <span class="arithmatex">\(C\)</span>表示通道数, 那么对于空间位置<span class="arithmatex">\((i, j)\)</span>, 特征向量<span class="arithmatex">\(x_{i, j}\)</span>是一个长度为<span class="arithmatex">\(C\)</span>的向量, 包含该位置上所有通道的激活值<span class="arithmatex">\(x_{i, j}=[x_{i, j}^1, x_{i, j}^2, ..., x_{i, j}^C]^T\)</span>, 它是一个列向量, 形状为<span class="arithmatex">\(C\times 1\)</span>. 这里的<span class="arithmatex">\(k_1\)</span>表示的是第<span class="arithmatex">\(1\)</span>层中的第<span class="arithmatex">\(k\)</span>个神经元, <span class="arithmatex">\(k_n\)</span>表示的是第<span class="arithmatex">\(n\)</span>中的第<span class="arithmatex">\(k\)</span>个神经元. 对于第<span class="arithmatex">\(l\)</span>层的第<span class="arithmatex">\(k\)</span>个神经元, 其权重<span class="arithmatex">\(w^l_{k_l}\)</span>是一个与输入特征向量长度相同的向量(对于第一层来说, 形状为<span class="arithmatex">\(1\times C\)</span>), 每个神经元通过权重向量和输入特征向量进行点积, 再加上偏置值<span class="arithmatex">\(b_{k_l}\)</span>, 然后应用到激活函数上, 这里使用的是ReLU激活函数.</p>
+<details class="note" open="open">
+<summary>为什么这里神经元的权重是一个向量而不是一个标量</summary>
+<blockquote>
+<p>The cross channel parametric pooling layer is also equivalent to a convolution layer with 1x1 convolution kernel. This interpretation makes it straightforawrd to understand the structure of NIN.</p>
+</blockquote>
+<p>在普通的MLP当中, 如前馈神经网络, 我们看到的神经元的权重往往是一个标量, 而在这里是一个向量, 如第一层的神经元的权重是一个形状为<span class="arithmatex">\(1\times C\)</span>的向量. 这个其实要结合MLP的实现来理解, 因为它实现MLP用的是一个<span class="arithmatex">\(1\times 1\)</span>的卷积核, 那么特征图的通道数为<span class="arithmatex">\(C\)</span>, 而这个<span class="arithmatex">\(1\times 1\times C\)</span>卷积核代表的就是一个神经元的权重, 所以这里的神经元的权重是一个向量而不是一个标量. 相当于这个神经元的作用是总结了一下<span class="arithmatex">\(i, j\)</span>这个位置的所有通道的非线性信息.</p>
+</details>
+<blockquote>
+<p>From cross channel (cross feature map) pooling point of view, Equation 2 is equivalent to cascaded cross channel parametric pooling on a normal convolution layer. Each pooling layer performs weighted linear recombination on the input feature maps, which then go through a rectifier linear unit. The cross channel pooled feature maps are cross channel pooled again and again in the next layers. This cascaded cross channel parameteric pooling structure allows complex and learnable interactions of cross channel information.</p>
+</blockquote>
+<p>在传统的池化操作中, 通常是对特征图的高度和宽度进行池化, 以缩小特征图的高宽, 减小尺寸. 但是, 这里的池化是对特征图的通道进行池化, 即对每个空间位置<span class="arithmatex">\(i, j\)</span>的不同通道的特征值进行组合和池化. 假设输入特征图的尺寸是<span class="arithmatex">\(H\times W\times C\)</span>, 其中<span class="arithmatex">\(C\)</span>是通道数, 跨通道池化(cross-chanel pooling)会对所有通道进行加权线性组合(通过<span class="arithmatex">\(1\times 1\times C\)</span>)的卷积核实现, 得到一个新的值, 然后这个值会通过一个ReLU函数.</p>
+<details class="tip" open="open">
+<summary>跨通道信息整合的挑战</summary>
+<p>传统的CNN所用的ReLU激活函数是针对某个通道的某个特征值的, 而Maxout可以看作是将<span class="arithmatex">\(C\)</span>个通道中的<span class="arithmatex">\(M\)</span>个通道的特征值拿出来, 然后拟合一个凸函数. 而mlpconv是将<span class="arithmatex">\(C\)</span>个通道中的<span class="arithmatex">\(C\)</span>个通道的特征值拿出来, 然后拟合一个函数. 可以看到, 跨通道信息整合的能力是在层层递进的.</p>
+</details>
+<p>并且, 这里还用到了级联跨通道参数池化, 这值的是每一层的池化都在前一层的池化结果上进行, 对应的就是这里有<span class="arithmatex">\(n\)</span>层, 每一层都是在前一层的池化结果上进一步池化. 每一层的跨通道池化操作, 都可以根据前一层跨通道池化结果和提取出更加复杂的跨通道关系和高层次的特征.</p>
 <h3 id="_3">全局平均池化</h3>
 <div class="footnote">
 <hr />
@@ -1975,7 +2001,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月9日</span>
   </span>
 
     

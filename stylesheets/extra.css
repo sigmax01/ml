@@ -158,7 +158,7 @@ details {
     padding-right: 0.8rem !important;
 }
 details > :last-child {
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 0.7rem !important;
 }
 /* details>:first-child {
     margin-top: -0.2em !important;
