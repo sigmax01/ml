@@ -1411,6 +1411,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1917,6 +1926,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1973,6 +1991,17 @@
 <p>最基本的解决上述问题的方法是将视线从全连接转移到稀疏连接的架构, 甚至是在卷积层内部. 稀疏连接的一个原因是模仿大脑的结构和工作方式, 大脑中的神经网络也不是完全连接的, 只有一部分神经元之间有直接的连, 因此参数量大大减少. 但问题是现有的硬件大多针对密集矩阵的运算进行优化, 非均匀稀疏模型的设计更加复杂, 需要更加精密的工程和计算基础设施类实现, 也就是说, 即使使用了稀疏连接, 稀疏矩阵的计算时间也不比密集矩阵小很多<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup>.</p>
 <p>那么有没有解决办法呢, 将稀疏矩阵聚类为相对密集的矩阵, Arora等人<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup>的研究指出如果一个数据集的概率分布能够被一个非常大, 非常稀疏的网络描述的话, 那么可以通过分析激活值的统计特性和对高度相关的输出进行聚类来逐层构建出一个最有网络, 这说明臃肿的稀疏网络可以被不失性能的简化, 也就是简化后的网络比原来的全连接网络的性能更高<sup id="fnref2:8"><a class="footnote-ref" href="#fn:8">8</a></sup>. 虽然数学证明需要很多的条件, 但是这个现象和Hebbian Priciple很像, 简单的说, 如果两个神经元常常同时产生动作电位, 或者说同时激活(fire), 这两个神经元之间的连接就会变强, 反之变弱(neurons that fire together, wire together), 所以说, 这个结论在条件不是很全的情况下也可以用.</p>
 <p>所以现在的问题就是找到一个架构使得能够使用稀疏网络, 同时又能够更高效地利用我们目前的硬件. 正如Hebbian所说的一样, 许多文献指出, 将稀疏矩阵聚类为多个较为密集的子矩阵, 并对每个子矩阵进行单独计算能够创造出SOTA的稀疏矩阵乘法效率. Inception架构是该文章第一作者的一个案例研究, 目的是评估一个假设的网络拓扑构建算法的效果, 这个算法的目标是近似一个稀疏结构, 即使用密集的, 现成的组件来模拟这些稀疏结构. 尽管最初的设计和构建非常具有推测性, 但是在进行了两轮的调整后, Inception架构已经超过了NiN的表现. 在进一步调整学习率, 超参数和训练方法后, Inception架构的性能得到了显著提升, 特别是在定位和目标检测等任务中.</p>
+<h2 id="_9">架构</h2>
+<p>正如前面所说的, Inception架构的目的是找到怎么才能在CNN中将已经存在的密集组件近似为最佳稀疏结构. 由于我们的网络要具有平移不变性(即图片平移不会影响结果), 所以网络是基于CNN的, 要做的是找到一种最佳的局部构造, 并在空间上重复应用. Arora等人<sup id="fnref2:9"><a class="footnote-ref" href="#fn:9">9</a></sup>提出了一种逐层构建的方式, 在这种方式中, 应该分析网络的最后一层的相关统计信息, 并将具有高度相关性的神经元聚类.</p>
+<details class="example" open="open">
+<summary>如何进行逐层构建</summary>
+<p>例如, 最后一层包含1000个神经元, 每个神经元对应一个不同的类别, 通过计算这些神经元的相关性, 发现200个神经元的相关性较高, 将这200个高度相关的神经元分成10个簇, 每个簇包含20个功能近似的神经元, 根据上述簇, 为倒数第二层设计10个子模块, 每个模块复杂处理对应簇内的特定类别的信息. 重复这一过程, 直到构建完整个网络的所有层. 前一层根据下一层的模块划分, 前一层的每个神经元只连接到最后一层对应模块的神经元, 而不与其他模块的神经元连接.</p>
+</details>
+<p>作者假设在CNN中, 前面层的每个神经元都对应于输入图像的某一部分区域, 这些单元被组合为滤波器组(filter banks). 靠近输入的低层, 它们的神经元通常会集中在图像的局部区域, 这意味着, 会有很多的聚焦于一个局部区域的簇, 这可以通过<span class="arithmatex">\(1\times 1\)</span>的卷积核覆盖. 相反的, 可能会有数量较少的, 但是分布更广的簇, 这些簇可以通过卷积覆盖更大的区域. 随着区域越来越大, 簇的数量会越来越少.</p>
+<details class="question" open="open">
+<summary>对于Inception架构这样设计的理解</summary>
+<p>Inception架构本质上就是根据下一层的结果通过关联一些相似的滤波器, 将它们归为一类, 然后这些滤波器所对应的神经元只会下一层的对应类的神经元连接, 以模拟稀疏网络.</p>
+</details>
 <div class="footnote">
 <hr />
 <ol>
@@ -2001,7 +2030,7 @@
 <p>Liiiii_Regina. (2021, 十月 19). GoogLeNet 论文阅读笔记. Csdn. <a href="https://blog.csdn.net/qq_43488473/article/details/120848718">https://blog.csdn.net/qq_43488473/article/details/120848718</a>&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
 </li>
 <li id="fn:9">
-<p>Arora, S., Bhaskara, A., Ge, R., &amp; Ma, T. (2013). Provable bounds for learning some deep representations (No. arXiv:1310.6343). arXiv. <a href="https://doi.org/10.48550/arXiv.1310.6343">https://doi.org/10.48550/arXiv.1310.6343</a>&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+<p>Arora, S., Bhaskara, A., Ge, R., &amp; Ma, T. (2013). Provable bounds for learning some deep representations (No. arXiv:1310.6343). arXiv. <a href="https://doi.org/10.48550/arXiv.1310.6343">https://doi.org/10.48550/arXiv.1310.6343</a>&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
