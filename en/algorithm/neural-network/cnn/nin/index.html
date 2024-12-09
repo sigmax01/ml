@@ -1954,6 +1954,10 @@ f_{i,j,k_n}^n = \max(w_{k_n}^T f_{i,j}^{n-1} + b_{k_n}, 0)\]</div>
 <summary>跨通道信息整合的挑战</summary>
 <p>传统的CNN所用的ReLU激活函数是针对某个通道的某个特征值的, 而Maxout可以看作是将<span class="arithmatex">\(C\)</span>个通道中的<span class="arithmatex">\(M\)</span>个通道的特征值拿出来, 然后拟合一个凸函数. 而mlpconv是将<span class="arithmatex">\(C\)</span>个通道中的<span class="arithmatex">\(C\)</span>个通道的特征值拿出来, 然后拟合一个函数. 可以看到, 跨通道信息整合的能力是在层层递进的.</p>
 </details>
+<details class="tip" open="open">
+<summary>利用<span class="arithmatex">\(1\times 1\)</span>卷积核进行升降维</summary>
+<p>经过mlpconv层后, 特征图通道的数量取决于最后一层mlpconv层的神经元的数量, 它既可以扩大通道数, 也可以减少通道数(当然, 一般都是减少通道数). 但是mlpconv层并不会改变特征图的尺寸(高度和宽度), 因为它的卷积核的尺寸是是<span class="arithmatex">\(1\times 1\)</span>的.</p>
+</details>
 <p>并且, 这里还用到了级联跨通道参数池化, 这值的是每一层的池化都在前一层的池化结果上进行, 对应的就是这里有<span class="arithmatex">\(n\)</span>层, 每一层都是在前一层的池化结果上进一步池化. 每一层的跨通道池化操作, 都可以根据前一层跨通道池化结果和提取出更加复杂的跨通道关系和高层次的特征.</p>
 <h3 id="_3">全局平均池化</h3>
 <p>传统的CNN会将最后一个卷积层的输出向量flatten然后喂到一个全连接网络里面, 然后在通过softmax得到输出. 这个结构将卷积层看作是特征提取器然后将这些特征通过传统的全连接网络进行分类. 然而, 这个全连接网络是容易过拟合的, 因此Hinton等人提出了Dropout来很大程度上缓解了这一现象<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>.</p>
