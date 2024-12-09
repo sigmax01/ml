@@ -1,6 +1,6 @@
 ---
 title: NiN
-comments: false
+comments: true
 ---
 
 # NiN[^1]
