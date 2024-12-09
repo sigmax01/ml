@@ -47,6 +47,8 @@ Maxout运用在仿射特征图上的表现就是, 假设有$96$个通道, 然后
 
 ### NiN的设计
 
+人们通常使用径向基函数网络(Radial basis network)和MLP来构造一个通用非线性函数逼近器, 作者选择的是MLP是因为MLP和CNN架构兼容, 可以通过反向传播算法进行训练, 而且MLP本身可以是一个深度模型, 这个和feature-reused的精神是一致的.
+
 NiN, Network in Network通过一个称为"微网络"(micro network)的结构来替代传统的GLM. 在这个工作中, 作者采用的是MLP作为这个非线性函数逼近器, 该结构又被称为mlpconv.
 
 <figure markdown='1'>
@@ -54,6 +56,36 @@ NiN, Network in Network通过一个称为"微网络"(micro network)的结构来�
 </figure>
 
 这个夹在卷积层之间的MLP对于所有的感受野都是共享权重的, 它会随着卷积核一起滑动(就是接受卷积核的输出, sliding a micro network). 具体来说, 对input进行卷积, 然后将卷积得到的特征图放到MLP中. 这个和之前的SMLP(Structured Multilayer Perceptron)[^5]不太一样, 那个是不会滑动的, 也就是输入的不同区域输入一个共享的MLP.
+
+总体的架构如图所示, 使用三个mlpconv层和一个全局平均池化层.
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/eff083e2de846c303cca9ce7090a2b77.png){ loading=lazy width='500' }
+</figure>
+
+mlpconv层进行的数学运算如下:
+
+$$f_{i,j,k_1}^1 = \max(w_{k_1}^T x_{i,j} + b_{k_1}, 0).\\
+\vdots\\
+f_{i,j,k_n}^n = \max(w_{k_n}^T f_{i,j}^{n-1} + b_{k_n}, 0)$$
+
+其中, $x_{i, j}$表示输入特征图中位置为$(i, j)$的特征向量(大小为通道数), 假设输入是一个具有$C$个通道的特征图, 尺寸为$H\times W\times C$, 其中$H$和$W$分别表示高度和宽度, $C$表示通道数, 那么对于空间位置$(i, j)$, 特征向量$x_{i, j}$是一个长度为$C$的向量, 包含该位置上所有通道的激活值$x_{i, j}=[x_{i, j}^1, x_{i, j}^2, ..., x_{i, j}^C]^T$, 它是一个列向量, 形状为$C\times 1$. 这里的$k_1$表示的是第$1$层中的第$k$个神经元, $k_n$表示的是第$n$中的第$k$个神经元. 对于第$l$层的第$k$个神经元, 其权重$w^l_{k_l}$是一个与输入特征向量长度相同的向量(对于第一层来说, 形状为$1\times C$), 每个神经元通过权重向量和输入特征向量进行点积, 再加上偏置值$b_{k_l}$, 然后应用到激活函数上, 这里使用的是ReLU激活函数.
+
+???+ note "为什么这里神经元的权重是一个向量而不是一个标量"
+
+    > The cross channel parametric pooling layer is also equivalent to a convolution layer with 1x1 convolution kernel. This interpretation makes it straightforawrd to understand the structure of NIN.
+
+    在普通的MLP当中, 如前馈神经网络, 我们看到的神经元的权重往往是一个标量, 而在这里是一个向量, 如第一层的神经元的权重是一个形状为$1\times C$的向量. 这个其实要结合MLP的实现来理解, 因为它实现MLP用的是一个$1\times 1$的卷积核, 那么特征图的通道数为$C$, 而这个$1\times 1\times C$卷积核代表的就是一个神经元的权重, 所以这里的神经元的权重是一个向量而不是一个标量. 相当于这个神经元的作用是总结了一下$i, j$这个位置的所有通道的非线性信息.
+
+> From cross channel (cross feature map) pooling point of view, Equation 2 is equivalent to cascaded cross channel parametric pooling on a normal convolution layer. Each pooling layer performs weighted linear recombination on the input feature maps, which then go through a rectifier linear unit. The cross channel pooled feature maps are cross channel pooled again and again in the next layers. This cascaded cross channel parameteric pooling structure allows complex and learnable interactions of cross channel information.
+
+在传统的池化操作中, 通常是对特征图的高度和宽度进行池化, 以缩小特征图的高宽, 减小尺寸. 但是, 这里的池化是对特征图的通道进行池化, 即对每个空间位置$i, j$的不同通道的特征值进行组合和池化. 假设输入特征图的尺寸是$H\times W\times C$, 其中$C$是通道数, 跨通道池化(cross-chanel pooling)会对所有通道进行加权线性组合(通过$1\times 1\times C$)的卷积核实现, 得到一个新的值, 然后这个值会通过一个ReLU函数.
+
+???+ tip "跨通道信息整合的挑战"
+
+    传统的CNN所用的ReLU激活函数是针对某个通道的某个特征值的, 而Maxout可以看作是将$C$个通道中的$M$个通道的特征值拿出来, 然后拟合一个凸函数. 而mlpconv是将$C$个通道中的$C$个通道的特征值拿出来, 然后拟合一个函数. 可以看到, 跨通道信息整合的能力是在层层递进的.
+
+并且, 这里还用到了级联跨通道参数池化, 这值的是每一层的池化都在前一层的池化结果上进行, 对应的就是这里有$n$层, 每一层都是在前一层的池化结果上进一步池化. 每一层的跨通道池化操作, 都可以根据前一层跨通道池化结果和提取出更加复杂的跨通道关系和高层次的特征.
 
 ### 全局平均池化
 
