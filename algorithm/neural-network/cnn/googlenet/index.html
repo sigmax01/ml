@@ -1999,8 +1999,8 @@
 </details>
 <p>作者假设在CNN中, 前面层的每个神经元都对应于输入图像的某一部分区域, 这些单元被组合为滤波器组(filter banks). 靠近输入的低层, 它们的神经元通常会集中在图像的局部区域, 这意味着, 会有很多的聚焦于一个局部区域的簇, 这可以通过<span class="arithmatex">\(1\times 1\)</span>的卷积核覆盖. 相反的, 可能会有数量较少的, 但是分布更广的簇, 这些簇可以通过卷积覆盖更大的区域. 随着区域越来越大, 簇的数量会越来越少.</p>
 <details class="question" open="open">
-<summary>对于Inception架构这样设计的理解</summary>
-<p>Inception架构本质上就是根据下一层的结果通过关联一些相似的滤波器, 将它们归为一类, 然后这些滤波器所对应的神经元只会下一层的对应类的神经元连接, 以模拟稀疏网络.</p>
+<summary>对于Inception架构以及filter bank这样设计的理解</summary>
+<p>个人理解: Inception架构本质上就是根据下一层的结果通过关联一些相似的滤波器, 将它们归为一类, 然后这些滤波器所对应的神经元只会下一层的对应类的神经元连接, 以模拟稀疏网络. 如果不是稀疏连接而是全连接的话, 使用<span class="arithmatex">\(3\times 3\)</span>的滤波器就可以了, 因为所有的神经元都是连接的. 但是对于Inception来说, 如果是不同的簇之间的神经元上下层是没有连接的, 这也就是说, 我们要手动将关注局部和全局的簇所对应的神经元都连接起来, 这也就是为什么Inception会有一个filter bank的概念, <span class="arithmatex">\(1\times 1\)</span>的卷积核所形成的簇代表的是局部特征, 对应的是代表局部特征的簇所在的神经元之间的连接, 而<span class="arithmatex">\(5\times 5\)</span>的卷积核所形成的簇代表的是全局特征, 对应的是代表全局特征的簇所在的神经元之间的连接, 如果缺少<span class="arithmatex">\(5\times 5\)</span>, 那么这部分的连接就消失了, 网络的可解释性就会降低.</p>
 </details>
 <div class="footnote">
 <hr />
