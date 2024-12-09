@@ -89,9 +89,16 @@ f_{i,j,k_n}^n = \max(w_{k_n}^T f_{i,j}^{n-1} + b_{k_n}, 0)$$
 
 ### 全局平均池化
 
+传统的CNN会将最后一个卷积层的输出向量flatten然后喂到一个全连接网络里面, 然后在通过softmax得到输出. 这个结构将卷积层看作是特征提取器然后将这些特征通过传统的全连接网络进行分类. 然而, 这个全连接网络是容易过拟合的, 因此Hinton等人提出了Dropout来很大程度上缓解了这一现象[^7].
+
+作者提出了一种全新的策略来替代传统的全连接层, 即全局平均池化. 在最后一个mlpconv, 每个特征图代表了图像的某个抽象特征, 使用全局平均池化的时候, 不再对这些特征图进行展平或者是加权求和, 而是对每个特征图计算平均值, 这个平均值可以看作是该特征图在整个空间上对特定类别的贡献, 得到一个长度为“特征图数量”的向量. 然后, 这个向量被直接输入到softmax层进行分类.
+
+全局平均池化相对于全连接层的优势在于, 它能够强制特征图和图像之间类别的对应, 因此特征图可以被容易地解释为类别的置信度. 另外一个好处是全局平均池化没有可以优化的参数, 因此在这一层就没有过拟合的问题, 而且它对输入空间平移有更强的鲁棒性...
+
 [^1]: Lin, M., Chen, Q., & Yan, S. (2014). Network In network (No. arXiv:1312.4400). arXiv. https://doi.org/10.48550/arXiv.1312.4400
 [^2]: 月来客栈. (2021, 十一月 26). NIN一个即使放到现在也不会过时的网络 [知乎专栏文章]. 深深深-深度学习. https://zhuanlan.zhihu.com/p/337035992
 [^3]: Jasmine_Feng (导演). (2020, 十月 15). 小茉的花书笔记——神经网络激活函数之maxout [Video recording]. https://www.bilibili.com/video/BV1bD4y1d7Zz/?spm_id_from=333.337.search-card.all.click&vd_source=f86bed5e9ae170543d583b3f354fcaa9
 [^4]: Teng-Sun. (2017, 十月 17). 深度学习方法（十）：卷积神经网络结构变化——Maxout Networks，Network In Network，Global Average Pooling. Csdn. https://blog.csdn.net/stt12345678/article/details/78261858
 [^5]: Gülçehre, Ç., & Bengio, Y. (2013). Knowledge matters: Importance of prior information for optimization (No. arXiv:1301.4083). arXiv. https://doi.org/10.48550/arXiv.1301.4083
 [^6]: Goodfellow, I. J., Warde-Farley, D., Mirza, M., Courville, A., & Bengio, Y. (2013). Maxout networks (No. arXiv:1302.4389). arXiv. https://doi.org/10.48550/arXiv.1302.4389
+[^7]: Hinton, G. E., Srivastava, N., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. R. (2012). Improving neural networks by preventing co-adaptation of feature detectors (No. arXiv:1207.0580). arXiv. https://doi.org/10.48550/arXiv.1207.0580
