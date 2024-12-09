@@ -107,7 +107,7 @@ VGG架构由Simonyan和Zisserman等人在2014年提出, 这是一个改进类型
 
 GoogleNet架构由Szegedy等人在2014年提出, 这是一个更深的, 计算上效率更高的架构. 它是ILSVRC'14分类竞赛的获胜者-$6.7\%$的错误率. https://arxiv.org/abs/1409.4842
 
-GoogleNet总共包含了$22$层深度神经网络, 仅有$500$万个参数, 比AlexNet少$12$倍, 比VGG-16少$27$倍. 它没有全连接层, 改用绿全局平均池化, global average pooling. 采用了更加高效的"Inception"模块.
+GoogleNet总共包含了$22$层深度神经网络, 仅有$500$万个参数, 比AlexNet少$12$倍, 比VGG-16少$27$倍. 它没有全连接层, 改用了全局平均池化, global average pooling. 采用了更加高效的"Inception"模块.
 
 ## 层
 
@@ -263,9 +263,6 @@ FC的最后一层会输出一个$n$维的向量, $n$是类的数量, 我们通�
 ![](https://img.ricolxwz.io/a16b34d538a9f16749f44a2fe03e2169.png){ loading=lazy width='500' }
 </figure>
 
-[^1]: 彻底搞懂感受野的含义与计算 - shine-lee - 博客园. (不详). 取读于 2024年9月18日, 从 https://www.cnblogs.com/shine-lee/p/12069176.html
-[^2]: 郑之杰. (2002, 七月 21). 卷积神经网络中的池化(Pooling)层. 郑之杰的个人网站. https://0809zheng.github.io/2021/07/02/pool.html
-
 ## 升降维 {#increase-dimension}
 
 使用$1\times 1$的卷积核可以对输入进行升降维.
@@ -277,3 +274,6 @@ FC的最后一层会输出一个$n$维的向量, $n$是类的数量, 我们通�
 ???+ question "这个思想是不是从NiN那里来的?"
 
     [NiN](/algorithm/neural-network/cnn/nin)那里的mlpconv也是用了$1\times 1$的卷积核, 但是那边的主要目的是更好的表示非线性概念, 不是用于升维降维. 所以这个东西实际上应该是有双重作用的, 在GoogLeNet中就提到了这个东西主要用于升维降维以移除计算瓶颈.
+
+[^1]: 彻底搞懂感受野的含义与计算 - shine-lee - 博客园. (不详). 取读于 2024年9月18日, 从 https://www.cnblogs.com/shine-lee/p/12069176.html
+[^2]: 郑之杰. (2002, 七月 21). 卷积神经网络中的池化(Pooling)层. 郑之杰的个人网站. https://0809zheng.github.io/2021/07/02/pool.html
