@@ -209,3 +209,8 @@ details > :nth-child(2) {
 .arithmatex {
     overflow-x: hidden !important;
 }
+
+/* 解决公式有滑动窗口问题 */
+code {
+    scrollbar-width: none !important;
+}
