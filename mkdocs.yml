@@ -5,7 +5,7 @@ repo_url: https://github.com/sigmax01/ml
 edit_uri: https://github.com/sigmax01/ml/edit/master/docs
 repo_name: sigmax01/ml
 copyright: <p xmlns:cc="http://creativecommons.org/ns#" >版权所有 &copy 2024-至今 由 <span property="cc:attributionName">许文泽</span> 采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0&nbsp</a>许可证发布</p>
-site_description: 一个有待面面俱到的机器学习文档
+site_description: 提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.
 theme:
   name: material
   logo_light_mode: https://cdn.jsdelivr.net/gh/sigmax0124/logo@master/favion-big-mc-212121-000000-1.svg
@@ -94,7 +94,6 @@ extra:
     property: G-65D8M5V1CL
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
-  - https://unpkg.com/@waline/client@v3/dist/waline.css
   - stylesheets/extra.css
 extra_javascript:
   - javascripts/favicon.js
@@ -120,6 +119,8 @@ markdown_extensions:
   - footnotes
   - def_list
   - tables
+  - toc:
+      permalink: true
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.highlight:
