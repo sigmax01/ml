@@ -58,5 +58,6 @@ title: 开始
 - [高等数学+线性代数pdf](https://drive.google.com/file/d/1uJUmy7Oq01kbhPDJRsWitrzaWtva4A9F/view?usp=sharing)
 - [动手实战人工智能 AI By Doing](https://aibydoing.com/)
 - [Driven to discover](https://chmx0929.gitbook.io)
+- [机器学习初学者-AI入门的宝典](http://www.ai-start.com/)
 
 [DMIT CN2 GIA电信优质线路注册链接](https://www.dmit.io/aff.php?aff=11247)
