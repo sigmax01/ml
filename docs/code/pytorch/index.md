@@ -75,7 +75,7 @@ Shape of y: torch.Size([64]) torch.int64
 
 `test_dataloader`是一个可迭代对象. 里面包含了整个测试数据集, 并将其分成了很多批次. 每次迭代`test_dataloader`的时候, 它会返回一个批次的数据, 直到遍历完整个数据集. 所以上面的`X`对应的是第一批数据, `N`表示的是批次大小, `C`表示的是通道数, `H`表示的是图像高度, `W`表示的是图像宽度.
 
-## 创建模型
+### 创建模型
 
 在PyTorch中创建模型的方法是写一个继承`nn.Module`的类. 在`__init__`函数中定义网络的层. 然后在`forward`函数中定义数据如何流经这些层. 为了加速我们的神经网络, 最好把操作转移到GPU或者MPS上面.
 
@@ -130,7 +130,7 @@ NeuralNetwork(
 )
 ```
 
-## 优化参数
+### 优化参数
 
 为了训练模型, 我们需要定义一个损失函数和一个优化器.
 
@@ -203,24 +203,28 @@ def train(dataloader, model, loss_fn, optimizer):
 
 ```py
 def test(dataloader, model, loss_fn):
-    size = len(dataloader.dataset)
-    num_batches = len(dataloader)
+    size = len(dataloader.dataset) # 返回整个训练集的大小
+    num_batches = len(dataloader) # 返回总的批次数
     model.eval() # 将模型设置为评估模式
     test_loss, correct = 0, 0
     with torch.no_grad(): # 作用见下方
         for X, y in dataloader:
             X, y = X.to(device), y.to(device)
             pred = model(X)
-            test_loss += loss_fn(pred, y).item()
-            correct += (pred.argmax(1) == y).type(torch.float).sum().item()
-    test_loss /= num_batches
-    correct /= size
+            test_loss += loss_fn(pred, y).item() # 将当前批次的损失值, 累加到test_loss上
+            correct += (pred.argmax(1) == y).type(torch.float).sum().item() # 将当前批次的正确预测数, 累加到correct上
+    test_loss /= num_batches # 计算平均损失
+    correct /= size # 计算准度
     print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 ```
 
 ??? note "`torch.no_grad()`的作用"
 
     用于禁用梯度计算, 这意味着在这个代码块内, 不会跟踪模型参数的梯度, 因为这是评估模式, 所以不需要更新模型的参数. 这段代码和上下文管理器一起使用, 简化表示.
+
+??? note "`pred.argmax(1)`的作用"
+
+    在这里, `pred`是一个形状为(64, 10)的tensor. 表示这一批中所有图片对应10个分类的概率. `pred.argmax(1)`的作用是沿着`pred`tensor的第1个维度查找最大值对应的index, 即在64张图片中查找各自概率最大的分类. `pred.argmax(1) == y`得到的应该是一个形状为(64, )的tensor, 其中的值是`True, False`, 将其转化为`True/False`之后统计一下`True`的个数, 然后用`.item()`将标量tensor转化为Python数值.
 
 ```py title='输入'
 epochs = 5
@@ -308,4 +312,59 @@ Test Error:
  Accuracy: 65.0%, Avg loss: 1.074178
 
 Done!
+```
+
+### 保存模型
+
+一种常见的保存模型的做法是序列化内部状态的相关字典, internal state dictionary, 这个字典用于存储模型或者优化器的内部状态(如权重, 偏置, 学习率等).
+
+```py title='输入'
+torch.save(model.state_dict(), "drive/MyDrive/Model/FashionMNIST/model.pth")
+print("Saved PyTorch Model State to model.pth")
+```
+
+``` title='输出'
+Saved PyTorch Model State to model.pth
+```
+
+### 加载模型
+
+加载模型的方法是重新创造模型并反序列化得到内部状态的相关字典, 然后用这个字典去覆盖初始化好的模型.
+
+```py title='输入'
+model = NeuralNetwork().to(device)
+model.load_state_dict(torch.load("drive/MyDrive/Model/FashionMNIST/model.pth", weights_only=True))
+```
+
+``` title='输出'
+<All keys matched successfully>
+```
+
+然后这个模型就能够用来预测了.
+
+```py title='输入'
+classes = [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot",
+]
+
+model.eval()
+x, y = test_data[0][0], test_data[0][1] # 只拿出第一个样本出来
+with torch.no_grad():
+    x = x.to(device)
+    pred = model(x)
+    predicted, actual = classes[pred[0].argmax(0)], classes[y]
+    print(f'Predicted: "{predicted}", Actual: "{actual}"')
+```
+
+``` title='输出'
+Predicted: "Ankle boot", Actual: "Ankle boot"
 ```
