@@ -214,3 +214,7 @@ details > :nth-child(2) {
 code {
     scrollbar-width: none !important;
 }
+
+p code {
+    border-radius: 0.25rem !important;
+}

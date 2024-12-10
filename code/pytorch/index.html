@@ -1672,6 +1672,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建模型
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1747,6 +1756,8 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Shape of y: torch.Size([64]) torch.int64
 </code></pre></div>
 <p><code>test_dataloader</code>是一个可迭代对象. 里面包含了整个测试数据集, 并将其分成了很多批次. 每次迭代<code>test_dataloader</code>的时候, 它会返回一个批次的数据, 直到遍历完整个数据集. 所以上面的<code>X</code>对应的是第一批数据, <code>N</code>表示的是批次大小, <code>C</code>表示的是通道数, <code>H</code>表示的是图像高度, <code>W</code>表示的是图像宽度.</p>
+<h2 id="_3">创建模型</h2>
+<p>在PyTorch中创建模型的方法是写一个继承<code>nn.Module</code>的类.</p>
 
 
 
@@ -1769,7 +1780,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月10日</span>
   </span>
 
     
