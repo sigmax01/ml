@@ -38,7 +38,7 @@ title: 开始
             - [x] [AlexNet](/algorithm/neural-network/cnn/alexnet)
             - [x] [ResNet](/algorithm/neural-network/cnn/resnet)
             - [x] [NiN](/algorithm/neural-network/cnn/nin)
-            - [ ] [GoogLeNet](/algorithm/neural-network/cnn/googlenet)
+            - [x] [GoogLeNet](/algorithm/neural-network/cnn/googlenet)
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
         - [ ] [生成对抗网络](/algorithm/neural-network/gan)
         - [ ] [词嵌入](/algorithm/neural-network/word-embedding)
