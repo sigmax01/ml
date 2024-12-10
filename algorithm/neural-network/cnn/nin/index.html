@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1871,9 +1869,9 @@
   
 
 
-<h1 id="nin">NiN<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h1>
-<h2 id="_1">动机</h2>
-<h3 id="glm">卷积层是一个GLM</h3>
+<h1 id="nin">NiN<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#nin" title="Permanent link">&para;</a></h1>
+<h2 id="_1">动机<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="glm">卷积层是一个GLM<a class="headerlink" href="#glm" title="Permanent link">&para;</a></h3>
 <p>CNN由卷积层和池化层交替连接构成. 卷积层中线性滤波器(卷积核)和底层感受野做内积, 然后在输入的每个局部部分应用非线性激活函数, 产生的结果叫做特征图.</p>
 <p>CNN的滤波器是一个底层数据块的广义线性模型(GLM). 下面是GLM的解释: 在某些情况下, 线性回归模型是不合适的, 如果:
 1. X和y之间的关系不是线性的, 它们之间存在某种非线性的关系, 例如, y随着X的增加而呈现指数级增长
@@ -1889,18 +1887,18 @@
 <li>系统成分: 卷积操作本质上是对输入数据进行加权求和, 即感受野和卷积核做内积(多变量线性组合), 得到一个值, 这类似于GLM中的系统成分</li>
 <li>连接函数: 经过卷积操作得到的结果会通过一个非线性激活函数(例如ReLU)进行处理, 这个激活函数在CNN中起到了连接函数的作用, 将线性组合的结果和卷积后的激活结果联系起来, 映射到了非线性特征空间</li>
 </ul>
-<h3 id="glm_1">GLM的缺陷</h3>
+<h3 id="glm_1">GLM的缺陷<a class="headerlink" href="#glm_1" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>By abstraction we mean that the feature is invariant to the variants of the same concept [2]. Replacing the GLM with a more potent nonlinear function approximator can enhance the abstraction ability of the local model. GLM can achieve a good extent of abstraction when the samples of the latent concepts are linearly separable, i.e. the variants of the concepts all live on one side of the separation plane defined by the GLM.</p>
 </blockquote>
 <p>在这里, “抽象”的意思是指某个特征对于同一个概念的不同变体保持不变性, 具体来说, 这意味着无论同一个概念有多少不同的表现形式或者变化, 这个特征都能够保持一致, 从而有效地代表该概念的核心特征. 如, 无论一个猫的爪子如何在不同方向, 颜色, 姿态变化, 都属于猫爪子这个概念. CNN的隐含假设是猫的爪子和猫的尾巴的样本是线性可分的, 而实际情况是, 可能猫的尾巴上有一些特征和猫的爪子上有点像, 导致无法线性可分. 如果所有的猫的爪子样本和猫的尾巴样本在特征空间可以被一个超平面在搞维度中分开, 那么GLM就可以很好的工作, 但是实际情况是, GLM无法在高维找到一个很好的线性边界, 因此需要更加强大的非线性函数逼近器来捕捉这种复杂的, 非线性的关系. 该观点参考<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
 <p>在传统的CNN中, 为了表达这种高维的非线性函数逼近器, 他们用一系列过于完备(over-complete)的卷积核去应对潜空间中的所有概念(concept), 以确保能够捕捉到数据中潜在的变异或者特征.但是, 太多的卷积核描述一个概念可能会导致后面层的负担变大(我们需要考虑所有前一个层的所有组合), 因此, 他们从网络复杂度, 过拟合风险的角度再次说明了在局部使用更好的抽象表示方法的必要性.</p>
-<h3 id="maxout">Maxout的启发</h3>
+<h3 id="maxout">Maxout的启发<a class="headerlink" href="#maxout" title="Permanent link">&para;</a></h3>
 <p>Maxout是由Goodfellow等人<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>提出的一种新的激活函数. 在利用了Maxout技术的网络中, 每个神经元的输出不是通过传统的激活函数, 如ReLU, sigmoid等进行非线性变换, 而是通过选择多个线性变换中的最大值来拟合一种凸函数的非线性变换. 假设我们有多个仿射变换(就是卷积操作之后没有经过激活函数处理). Maxout会选择其中最大的一项作为该神经元的输出. 具体来说, Maxout将第<span class="arithmatex">\(i\)</span>个仿射结果<span class="arithmatex">\(z_i\)</span>划分为具有<span class="arithmatex">\(k\)</span>个值的组<span class="arithmatex">\(z_{i, j}, j\in[1, k]\)</span>(<span class="arithmatex">\(j\)</span>表示组内序号), 而不是直接将ReLu等函数作用于那个仿射结果上, 如<span class="arithmatex">\(ReLU(z_i)\)</span>, 然后这个Maxout单元的输出为<span class="arithmatex">\(Maxout(z_i)=\max_{j\in [1, k]}z_{i, j}\)</span>, 而<span class="arithmatex">\(z_{i, j}\)</span>表示的是这个仿射结果对应的第<span class="arithmatex">\(j\)</span>个线性函数, 所以Maxout能够产生一个分段性的输出, 选择的是<span class="arithmatex">\(z_{i1}\)</span>到<span class="arithmatex">\(z_{ij}\)</span>中较大的那个线性函数, 这种分段线性能力是的Maxout在理论上能够表示任意的凸函数. 而且Maxout激活函数还有一个重要的特点就是它是可以学习的, 而不是像传统的ReLU那样是固定的, Maxout对每一个仿射结果都可以学习<span class="arithmatex">\(k\)</span>个不同的线性变换, 并根据数据的特征选择最合适的线性变换, 该观点参考<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.</p>
 <p>Maxout运用在仿射特征图上的表现就是, 假设有<span class="arithmatex">\(96\)</span>个通道, 然后设置<span class="arithmatex">\(k=4\)</span>, 说明以<span class="arithmatex">\(4\)</span>张仿射特征图(通道)作为一组, 那么总共有<span class="arithmatex">\(24\)</span>组, 对于每一个组的<span class="arithmatex">\(4\)</span>个通道中的每一个像素点, Maxout层会选出这<span class="arithmatex">\(4\)</span>个通道中值最大的像素作为这个位置的输出值, 其他位置的像素同理. 这样, 输出特征图的数量(通道)会减少到<span class="arithmatex">\(24\)</span>个, 这种方法又叫做仿射特征图的最大池化(maximum pooling over affine feature maps).</p>
 <p>与普通的卷积层相比, ReLU的非线性特性确实给网络带来了很多表达能力, 但是它仍然保留了一些线性结构, 换句话说, ReLU在输入大于<span class="arithmatex">\(0\)</span>的区域表现为线性. Maxout通过选择不同的线性函数来表达更加复杂的决策边界, 尤其是处理那些输入空间凸集可分的数据时候, 比单一的ReLU更有表达力, 这也导致Maxout在使用之前有一个前提条件, 那就是输入空间中概念的表现形式都在一个凸集里面<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>, 但这在实际情况下不一定是成立的. 所以, 有必要提出一种更加普遍的函数逼近器(激活函数). 作者由此提出了NiN的架构.</p>
-<h2 id="_2">创新</h2>
-<h3 id="nin_1">NiN的设计</h3>
+<h2 id="_2">创新<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="nin_1">NiN的设计<a class="headerlink" href="#nin_1" title="Permanent link">&para;</a></h3>
 <p>人们通常使用径向基函数网络(Radial basis network)和MLP来构造一个通用非线性函数逼近器, 作者选择的是MLP是因为MLP和CNN架构兼容, 可以通过反向传播算法进行训练, 而且MLP本身可以是一个深度模型, 这个和feature-reused的精神是一致的.</p>
 <p>NiN, Network in Network通过一个称为"微网络"(micro network)的结构来替代传统的GLM. 在这个工作中, 作者采用的是MLP作为这个非线性函数逼近器, 该结构又被称为mlpconv.</p>
 <figure>
@@ -1936,7 +1934,7 @@ f_{i,j,k_n}^n = \max(w_{k_n}^T f_{i,j}^{n-1} + b_{k_n}, 0)\]</div>
 <p>经过mlpconv层后, 特征图通道的数量取决于最后一层mlpconv层的神经元的数量, 它既可以扩大通道数, 也可以减少通道数(当然, 一般都是减少通道数). 但是mlpconv层并不会改变特征图的尺寸(高度和宽度), 因为它的卷积核的尺寸是是<span class="arithmatex">\(1\times 1\)</span>的.</p>
 </details>
 <p>并且, 这里还用到了级联跨通道参数池化, 这值的是每一层的池化都在前一层的池化结果上进行, 对应的就是这里有<span class="arithmatex">\(n\)</span>层, 每一层都是在前一层的池化结果上进一步池化. 每一层的跨通道池化操作, 都可以根据前一层跨通道池化结果和提取出更加复杂的跨通道关系和高层次的特征.</p>
-<h3 id="_3">全局平均池化</h3>
+<h3 id="_3">全局平均池化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>传统的CNN会将最后一个卷积层的输出向量flatten然后喂到一个全连接网络里面, 然后在通过softmax得到输出. 这个结构将卷积层看作是特征提取器然后将这些特征通过传统的全连接网络进行分类. 然而, 这个全连接网络是容易过拟合的, 因此Hinton等人提出了Dropout来很大程度上缓解了这一现象<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>.</p>
 <p>作者提出了一种全新的策略来替代传统的全连接层, 即全局平均池化. 在最后一个mlpconv, 每个特征图代表了图像的某个抽象特征, 使用全局平均池化的时候, 不再对这些特征图进行展平或者是加权求和, 而是对每个特征图计算平均值, 这个平均值可以看作是该特征图在整个空间上对特定类别的贡献, 得到一个长度为“特征图数量”的向量. 然后, 这个向量被直接输入到softmax层进行分类.</p>
 <p>全局平均池化相对于全连接层的优势在于, 它能够强制特征图和图像之间类别的对应, 因此特征图可以被容易地解释为类别的置信度. 另外一个好处是全局平均池化没有可以优化的参数, 因此在这一层就没有过拟合的问题, 而且它对输入空间平移有更强的鲁棒性...</p>

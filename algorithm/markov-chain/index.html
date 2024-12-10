@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -1976,7 +1974,7 @@
   <h1>马尔可夫链</h1>
 
 <p>马尔可夫链因俄国数学家Andrey Andreyevich Markov得名, 为状态空间中从一个状态到另一个状态转换的随机过程, 该过程要求具备"无记忆"的性质, 下一状态的概率分布只能由当前状态决定, 在时间序列中和它前面的事件无关, 这种特定类型的"无记忆性"称作马尔可夫性质.</p>
-<h2 id="markov-assumption">马尔可夫假设</h2>
+<h2 id="markov-assumption">马尔可夫假设<a class="headerlink" href="#markov-assumption" title="Permanent link">&para;</a></h2>
 <p>马尔可夫假设是马尔可夫链的基础.公式可以表示为<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1})\)</span>. 它说明, 当前状态<span class="arithmatex">\(S_{t}\)</span>只依赖于上一个状态<span class="arithmatex">\(S_{t-1}\)</span>, 而与之前的状态<span class="arithmatex">\(S_{1}, ..., S_{t-2}\)</span>无关. 对于其余状态也是同理的.</p>
 <p>上述只是一阶马尔可夫假设, 即假定当前的状态仅依赖于前面一个状态. 由此衍生出<span class="arithmatex">\(k\)</span>阶马尔可夫假设, 即假设当前状态依赖于最近的<span class="arithmatex">\(k\)</span>个状态, 即<span class="arithmatex">\(p(X)=\prod_{i=1}^n p(S_t|S_{t-1}, ..., S_{t-k})\)</span>. 这个概率又叫作状态转移概率.</p>
 <figure>
@@ -2008,7 +2006,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <li>多云 -&gt; 晴天 -&gt; 多云 -&gt; 雨天</li>
 </ul>
 </details>
-<h2 id="_1">隐马尔可夫模型</h2>
+<h2 id="_1">隐马尔可夫模型<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>在普通的马尔可夫模型中, 系统的状态是完全可见的. 也就是说, 每个时刻系统处于哪个状态是已知的, 可以直接观测到. 而在隐马尔可夫模型, HMM中, 系统的状态是隐藏的, 无法直接观测到, 但是受状态影像的某些变量是可见的. 每一个状态在可能输出的序号上都有一概率分布, 因此输出符号的序列能够透露出状态序列的一些信息.</p>
 <details class="example" open="open">
 <summary>例子</summary>
@@ -2047,27 +2045,27 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <a class="glightbox" href="https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e4556d9676b6bd8bb2ee73554008d8d1.png" width="400" /></a>
 </figure></p>
 </details>
-<h3 id="_2">参数</h3>
+<h3 id="_2">参数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>HMM的参数可以表示为<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>, 定义隐状态的可能的取值的数量为<span class="arithmatex">\(N\)</span>, 如雨天, 阴天, 晴天, <span class="arithmatex">\(N=3\)</span>. 观测变量的可能的取值的数量为<span class="arithmatex">\(M\)</span>, 如穿夹克, 穿棉袄, <span class="arithmatex">\(M=2\)</span>. </p>
 <ul>
 <li>初始状态概率向量<span class="arithmatex">\(\bm{\pi}\)</span>. 它是一个长度为<span class="arithmatex">\(N\)</span>的向量, 其中<span class="arithmatex">\(\pi_i\)</span>表示在初始时刻<span class="arithmatex">\(t=1\)</span>时处于隐状态<span class="arithmatex">\(i\)</span>的概率, 所有的初始状态满足<span class="arithmatex">\(\sum_{i=1}^N \pi_i=1\)</span></li>
 <li>状态转移概率矩阵<span class="arithmatex">\(\bm{A}\)</span>, <span class="arithmatex">\(\bm{A}=[a_{ij}]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(a_{ij}\)</span>表示在时刻<span class="arithmatex">\(t\)</span>处于隐状态<span class="arithmatex">\(i\)</span>时, 下一时刻<span class="arithmatex">\(t+1\)</span>转移到隐状态<span class="arithmatex">\(j\)</span>的概率, 所有的转移概率满足<span class="arithmatex">\(\sum_{j=1}^N a_{ij}=1\)</span></li>
 <li>观测概率矩阵<span class="arithmatex">\(\bm{B}\)</span>, <span class="arithmatex">\(\bm{B}=[b_j(o_k)]\)</span>, 它是一个<span class="arithmatex">\(N\times M\)</span>的矩阵. <span class="arithmatex">\(b_j(o_k)\)</span>表示在隐状态<span class="arithmatex">\(j\)</span>下生成观测值<span class="arithmatex">\(o_k\)</span>的概率. 对于连续的观测值, 可以使用概率密度函数来表示概率</li>
 </ul>
-<h3 id="hmm-assumptions">假设</h3>
+<h3 id="hmm-assumptions">假设<a class="headerlink" href="#hmm-assumptions" title="Permanent link">&para;</a></h3>
 <p>HMM做了两个基本假设, 在上面的例子中也提到了.</p>
 <ul>
 <li>齐次性假设: 即假设隐藏的马尔可夫链在任意时刻<span class="arithmatex">\(t\)</span>的状态只依赖于它在前一时刻的状态, 与其他时刻的状态和观测无关, 也与时刻<span class="arithmatex">\(t\)</span>本身无关</li>
 <li>观测独立性假设: 即假设任意时刻的观测值只依赖于该时刻的马尔可夫链的状态, 与其他观测及状态无关</li>
 </ul>
-<h3 id="hmm-problems">问题</h3>
+<h3 id="hmm-problems">问题<a class="headerlink" href="#hmm-problems" title="Permanent link">&para;</a></h3>
 <p>HMM的三个基本问题:</p>
 <ul>
 <li>概率计算问题(也叫做Evaluation Problem): 给定模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 计算观测序列<span class="arithmatex">\(O\)</span>出现的概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>. 即评估模型<span class="arithmatex">\(\lambda\)</span>与观测序列<span class="arithmatex">\(\bm{O}\)</span>之间的匹配程度.</li>
 <li>学习问题(也叫做Learning Problem): 已知观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 估计模型<span class="arithmatex">\(\lambda=(\bm{A}, \bm{B}, \bm{\pi})\)</span>的参数, 使得在该模型下的观测序列概率<span class="arithmatex">\(p(\bm{O}; \lambda)\)</span>最大, 即用极大似然估计的方法估计参数</li>
 <li>预测问题(也叫做Decoding Problem): 已知模型<span class="arithmatex">\(\lambda = (\bm{A}, \bm{B}, \bm{\pi})\)</span>和观测序列<span class="arithmatex">\(\bm{O}=(o_1, o_2, ..., o_M)\)</span>, 求对给定观测序列的条件概率<span class="arithmatex">\(P(\bm{I}|\bm{O})\)</span>最大的状态序列<span class="arithmatex">\(\bm{I}=(i_1, i_2, ..., i_r)\)</span>, 即给定观测序列, 求最可能的对应的状态序列</li>
 </ul>
-<h4 id="evaluation-problem">概率计算问题</h4>
+<h4 id="evaluation-problem">概率计算问题<a class="headerlink" href="#evaluation-problem" title="Permanent link">&para;</a></h4>
 <p>概率计算问题, Evaluation Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda = (\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算该观测序列出现的概率.</p>
 <details class="warning" open="open">
 <summary>注意</summary>
@@ -2093,7 +2091,7 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 <p>所以, 结果为<span class="arithmatex">\(0.6\times 0.3\times 0.8\times 0.1=0.0144\)</span>. 对于所有的状态序列, 如上所示计算观测序列的条件概率. 相加这<span class="arithmatex">\(9\)</span>个条件概率, 得到最终的观测序列概率. </p>
 <p>可以看到, 计算一个简单的观测序列Short, Hoodie的过程就进行了<span class="arithmatex">\(4\times 9=36\)</span>次乘法. 令<span class="arithmatex">\(N\)</span>为可能的状态的数量, 在这里有三个可能的状态, Rainy, Cloudy, Sunny. 令<span class="arithmatex">\(T\)</span>为观测序列的长度, 在这里是<span class="arithmatex">\(2\)</span>. 那么复杂度就是<span class="arithmatex">\(2TN^T\)</span>. 在实际中, 观测序列<span class="arithmatex">\(T\)</span>往往很大, 而状态数<span class="arithmatex">\(N\)</span>相对来说较小, 导致该算法的复杂度异常高. 解决这种问题的方法是使用前向算法.</p>
 </details>
-<h5 id="forward-algorithm">前向算法</h5>
+<h5 id="forward-algorithm">前向算法<a class="headerlink" href="#forward-algorithm" title="Permanent link">&para;</a></h5>
 <p>前向算法, Forward Algorithm, 是一种动态规划算法, 用于高效计算给定观察序列的概率. 就像之前我们干的一样, 对于所有可能的隐藏状态序列, 前向算法都会求观测序列的条件概率, 但是在计算过程中会存储中间值来加速计算.</p>
 <p>前向概率<span class="arithmatex">\(f_k(i)\)</span>表示在时间<span class="arithmatex">\(i\)</span>时处于状态<span class="arithmatex">\(k\)</span>的条件下, 观察到<em>部分</em>观测序列的概率. <span class="arithmatex">\(f_k(i)=e_k(x_i)\sum_j f_j(i-1)a_{jk}\)</span>, 其中<span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>是状态<span class="arithmatex">\(k\)</span>下观察到观测序列<span class="arithmatex">\(x_i\)</span>的观测概率, <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>是从状态<span class="arithmatex">\(j\)</span>转移到状态<span class="arithmatex">\(k\)</span>的转移概率. 通过上述公式, 可以递归地计算<span class="arithmatex">\(f_k(i)\)</span>, 因为<span class="arithmatex">\(f_k(i)\)</span>依赖于上一个时刻<span class="arithmatex">\(i-1\)</span>地前向概率<span class="arithmatex">\(f_j(i-1)\)</span>. 这种递归计算不需要重新计算已经求得的中间结果, 大大减少了重复计算的次数.</p>
 <p>前向算法的时间复杂度为<span class="arithmatex">\(N^2T\)</span>, 其中<span class="arithmatex">\(T\)</span>是观测序列长度, <span class="arithmatex">\(N\)</span>是状态数量, 相比枚举法的<span class="arithmatex">\(2TN^T\)</span>的复杂度, 前向算法的效率显著提高.</p>
@@ -2143,9 +2141,9 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </li>
 </ol>
 </details>
-<h4 id="_3">预测问题</h4>
+<h4 id="_3">预测问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
 <p>预测问题, Decoding Problem. 指的是给定一个HMM模型<span class="arithmatex">\(\lambda=(\bm{\pi}, \bm{A}, \bm{A_0})\)</span>和一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>, 计算最可能对应的隐藏序列.</p>
-<h5 id="viterbi">Viterbi算法</h5>
+<h5 id="viterbi">Viterbi算法<a class="headerlink" href="#viterbi" title="Permanent link">&para;</a></h5>
 <p>Viterbi算法是一种动态规划算法, 用于计算每个状态的最优路径的概率, 称之为Viterbi得分. 由于它在每个时间点, 只需要维护每个状态的最高得分路径, 所以和前向算法类似, 能提高计算效率.</p>
 <p>给定时间<span class="arithmatex">\(i\)</span>和状态<span class="arithmatex">\(k\)</span>. 状态的Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>表示到达该状态的最优路径的概率, 计算公式为<span class="arithmatex">\(V_k(i)=e_k(x_i)max_j V_j(i-1)a_{jk}\)</span>. 其中, <span class="arithmatex">\(e_k(x_i)=p(x_i|\pi_i=k)\)</span>表示在当前状态<span class="arithmatex">\(k\)</span>下, 观测到<span class="arithmatex">\(x_i\)</span>的观测概率. <span class="arithmatex">\(a_{jk}=p(\pi_i=k|\pi_{i-1}=j)\)</span>表示从前一状态<span class="arithmatex">\(j\)</span>转移到当前状态<span class="arithmatex">\(k\)</span>的转移概率. <span class="arithmatex">\(max_j V_j(i-1)a_{jk}\)</span>用于选择上一个时间步中到达当前状态<span class="arithmatex">\(k\)</span>的最优路径.</p>
 <p>Viterbi得分<span class="arithmatex">\(V_k(i)\)</span>可以递归地基于上一时间步的得分<span class="arithmatex">\(V_j(i-1)\)</span>计算, 因此, 不需要重复计算所有路径, 而是逐步优化路径选择.</p>
@@ -2223,9 +2221,9 @@ S_{N1} &amp; S_{N2} &amp; \cdots &amp; S_{NN} \\
 </li>
 </ol>
 </details>
-<h4 id="_4">学习问题</h4>
+<h4 id="_4">学习问题<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>学习问题, Learning Problem. 指的是给定一个观测序列<span class="arithmatex">\(X=x_1, x_2, ..., x_m\)</span>. 找出HMM模型<span class="arithmatex">\(\lambda=(\bm{\pi}, \bm{A}, \bm{A_0})\)</span>.</p>
-<h5 id="_5">期望最大化算法</h5>
+<h5 id="_5">期望最大化算法<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
 <p>期望最大发算法, Expectation Maximization, 用于计算HMM模型. 它分为4步:</p>
 <ol>
 <li>

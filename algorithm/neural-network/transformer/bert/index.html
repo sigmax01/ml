@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1993,8 +1991,8 @@
 
   <h1>BERT</h1>
 
-<h2 id="_1">背景</h2>
-<h3 id="nlp">NLP领域中的两大类任务</h3>
+<h2 id="_1">背景<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="nlp">NLP领域中的两大类任务<a class="headerlink" href="#nlp" title="Permanent link">&para;</a></h3>
 <p>NLP领域中的两大类任务包括: 句子级任务和词级任务.</p>
 <ul>
 <li>
@@ -2004,7 +2002,7 @@
 <p><strong>词级任务:</strong> 这类任务的重点是对文本中的具体单词或者短句进行精细化处理, 输出粒度较细, 关注单个词或者词组的特定意义或者功能. 如<strong>命名实体识别</strong>(Named Entity Recognition, NER), 目标是识别文本中的特定实体, 并对其进行分类. 再如<strong>问答抽取</strong>, 目标是从一段文本中抽取具体的问题和答案</p>
 </li>
 </ul>
-<h3 id="_2">预训练模型用于下游任务的方法</h3>
+<h3 id="_2">预训练模型用于下游任务的方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>主要有两种将预训练模型用于下游任务的方法: 一种是feature-based, 另一种是fine-tuning based.</p>
 <ul>
 <li>
@@ -2021,21 +2019,21 @@
 </li>
 </ul>
 <p>总的来说, feature-based中预训练模型作为”特征提取器”, 固定不动, 适合资源受限的场景, 任务架构设计灵活但是工程复杂. fine-tuning通过微调让模型适应任务需求, 性能更好, 但是需要更多的资源支持, 任务架构改动少, 训练流程简单.  </p>
-<h3 id="gpt">GPT等模型的问题</h3>
+<h3 id="gpt">GPT等模型的问题<a class="headerlink" href="#gpt" title="Permanent link">&para;</a></h3>
 <p>GPT等模型的问题就是它是单方向的, 只能看到前文, 但是无法利用后文. 在句子级的任务中, 由于某些任务可能对全局的信息依赖较小, 但是仍可能会比双向模型如BERT表现略逊一筹. 在词级任务中, 这种单向信息会对任务造成严重的负面影响, 远比句子级任务中更加明显, 因为这些任务通常需要综合考虑目标词前后的信息, 而不仅仅是词的前文.</p>
-<h2 id="_3">架构</h2>
-<h3 id="mlm">MLM</h3>
+<h2 id="_3">架构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="mlm">MLM<a class="headerlink" href="#mlm" title="Permanent link">&para;</a></h3>
 <p>MLM, Masked Language Model是BERT中采用的核心预训练技术之一, 即”掩码语言模型”. 它的原理是在输入序列中, 随机选择一部分词(通常是15%)进行替换, 模型的目标是预测被掩码词汇的原始词. MLM利用句子的双向上下文信息进行预测, 包括前文信息和后文信息. 优化目标是使用交叉熵损失, 最大化模型预测掩码词的概率.</p>
-<h3 id="nsp">NSP</h3>
+<h3 id="nsp">NSP<a class="headerlink" href="#nsp" title="Permanent link">&para;</a></h3>
 <p>NSP, Next Sentence Prediction描述了BERT预训练过程使用的一项额外任务, 称为”下一句预测任务”, 它是BERT的预训练目标之一, 用于增强模型对句子间关系的理解能力, 特别是针对涉及两段文本的任务.</p>
-<h3 id="_4">计算参数量</h3>
+<h3 id="_4">计算参数量<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>在Attention is all you need论文中, 可以找到上面的这一段话, 那么对于BERT Large来说, 其每个头中可学习矩阵的参数数量是3*H*H/A, 所有头的可学习的矩阵的参数数量为3*H*H/A*A=3*H^2, 那么, 还有一个将所有头concateneate在一起的矩阵的参数量是H^2, 所以attention层的总参数量为4*H^2.</p>
 <p>对于全连接层, 第一层的输入是H, 但是输出是4H. 第二层的输入是4H, 但是输出是H. 所以全连接层的可学习的参数量为8*H^2.</p>
 <p>对于嵌入层, 可以学习的参数是30000*H(因为它的字典大小是30000).</p>
 <p>所以一个transformer块中的可学习参数是30000*H+12*H^2L, 那么总共有L个transformer块, 所以总共的可学习参数为</p>
-<h3 id="_5">输入表示方法</h3>
+<h3 id="_5">输入表示方法<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>为了让BERT能够处理多种不同下游任务(如情感分析, 问答系统, 文本分类等), BERT的输入表示方式被设计成能够清楚地表示单个句子或者两个句子的组合. 注意, 这个”句子”并不局限于语法上的句子, 而是可以是任意连续的文本片段, 输入可以是一个完整句子, 一个段落, 甚至是一个短语. 序列是指输入到BERT模型中的一串标记, 这串标记可以代表单个句子, 也可以是由两个句子组合成的一段连续文本.</p>
-<h3 id="wordpiece">WordPiece</h3>
+<h3 id="wordpiece">WordPiece<a class="headerlink" href="#wordpiece" title="Permanent link">&para;</a></h3>
 <p>BERT使用的是WordPiece作为词嵌入方法. 模型输入的是子序列, 如对于单词unbelievable, 自注意力层输入的是##believ, ##able的词向量, 而不是整个单词的词向量.</p>
 <p>它的主要步骤有:</p>
 <ol>
@@ -2050,16 +2048,16 @@
 </li>
 </ol>
 <p>所以, 只要使用30000个子序列的词典就能得到比较好的效果, 不用特别大的词典(因为很多片段都是在词语中重复出现的). 并且它还能解决稀有词问题, 如果一个单词在词表中不存在, wordpiece会将其分解为更小的, 常见的子词, 直到找到匹配的单位.</p>
-<h3 id="cls">[cls]的设计</h3>
+<h3 id="cls">[cls]的设计<a class="headerlink" href="#cls" title="Permanent link">&para;</a></h3>
 <p>普通的token的最终表示依然服务于它自己的语义, [cls]的最终表示被训练为全局语义的浓缩. [cls]和普通token本质上是一样的, 但是这个无明显语义信息的符号会更加公平地融合文本中各个词的语义信息, 模型最终学会让[cls]成为全局信息的浓缩表示, 而普通token则更关注自身的语义信息.</p>
 <p>为什么需要[cls]? 其一是它提供了统一的全局序列表示, 在自然语言处理中, 许多任务(如文本分类, 下一句预测)需要用到整个输入序列的全局语义. 如果没有[cls], 需要通过其他方式提取全局信息, 例如, 使用平均池化(对所有的token的向量取平均), 使用最大池化(对每个维度取最大值), 或者自行选择一个关键token, 但是上述的方法在实践中存在问题: 池化方式可能丢失序列的细粒度信息, 手动选择token容易引入偏差或者限制模型的能力.</p>
-<h3 id="sep">[sep]的设计</h3>
+<h3 id="sep">[sep]的设计<a class="headerlink" href="#sep" title="Permanent link">&para;</a></h3>
 <p>在BERT中, 许多任务涉及两个序列(句子对)的输入, 例如, 下一句预测任务需要判断两个句子之间是否有逻辑链接, 它还能有助于模型避免误将输入后的填充部分视为实际内容.</p>
 <p>其他的方法是我们向句子A和句子B中加入不同的一个额外的嵌入向量来表示token是属于句子A还是句子B.</p>
 <p>在BERT中, 这两种方法都用了.</p>
-<h3 id="_6">嵌入向量</h3>
+<h3 id="_6">嵌入向量<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>在BERT中, 需要对三种嵌入向量进行求和, 得到最终的词向量表示, 这三种嵌入向量分别是通过WordPiece得到的嵌入向量, 分句嵌入向量(Segment Embeddings)和位置嵌入向量.</p>
-<h3 id="mask">[mask]的设计</h3>
+<h3 id="mask">[mask]的设计<a class="headerlink" href="#mask" title="Permanent link">&para;</a></h3>
 <p>在微调的时候, 是没有[mask]是这个东西的, 这就会导致在预训练的时候和微调的时候产生了一些不同, 解决的方法是有一定的几率不替换为[mask], 保持原有的词.</p>
 
 

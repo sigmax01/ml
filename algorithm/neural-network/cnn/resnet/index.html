@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1951,7 +1949,7 @@
 
   <h1>ResNet</h1>
 
-<h2 id="_1">背景<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
+<h2 id="_1">背景<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>最近的研究显示网络的层数是一个比较重要的问题. 并且最近的ImageNet竞赛中, 所有方法都利用了"非常深度"的模型. 那么就会产生一个问题: "训练好的网络是否就是简单的堆叠更多的层?"</p>
 <p>一个臭名昭著的阻碍就是梯度消失/爆炸现象. 这个问题, 已经很大程度上被归一化初始化和中间归一化层(如BN)解决了, 使得网络可以在较深的层数下通过SGD和反向传播开始收敛.</p>
 <figure>
@@ -1983,19 +1981,19 @@
 <li>误差积累: 深层网路中的每一层都会对后续层的输入产生影响, 如果某些层的输出有轻微偏差, 这些偏差可能随着层数的增加而累积放大, 导致最终的误差增大</li>
 </ul>
 <p>由此一个想法就自然而然的产生, 对于一个56层的神经网络相比于20层的浅层网络, 如果后36层是恒等映射, 那么56层的神经网络不就和20层的一样好了吗? 更近一步, 如果这36层神经网络相比于恒等映射更好上那么一点点(跟接近最优函数), 那么不就起到正优化作用了吗, ResNet的insight由此诞生.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
-<h2 id="_2">概念<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
+<h2 id="_2">概念<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>深度残差神经网络, Deep Residual Network, 简称ResNet, 它由微软研究院何凯明等人在2015年首次提出, 在深度学习领域产生了深远的影响. 它通过一种创新的"残差学习"机制, 从而实现了对非常深度网络的有效训练.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2c69b6152dba08a21c64cb133c5020a2.png" width="600" /></a></p>
 <figcaption>在ImageNet上的训练结果. 细线表示训练误差, 粗线表示验证误差. 左图是18和34层普通网络的表现, 右图是18和34层ResNet的表现</figcaption>
 </figure>
-<h3 id="_3">怎么做</h3>
+<h3 id="_3">怎么做<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>基于背景中最后一段话的考虑, 我们在所拟合的函数中加入恒等函数. 假设在某一层内, 最优的函数记为<span class="arithmatex">\(H(x)\)</span>, 那么我们所拟合的目标函数<span class="arithmatex">\(F(x)\)</span>定义为<span class="arithmatex">\(F(x):=H(x)-x\)</span>, 函数<span class="arithmatex">\(F(x)\)</span>被称为“残差函数”.</p>
 <p>每个残差模块都有一条跳跃连接(Shortcut Connection), 这条跳跃连接不对输入做任何复杂变化, 只是简单地将输入直接传递过去(即“恒等映射”). 而经过叠加的卷积层(或者其他变换层)处理后得到的输出, 会与这条“原样传递”的输入信号相加在一起. 恒等映射不会增加额外的参数也不会增加计算复杂度, 如下图所示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0ac52a866f3a39e361c7406ff4e8a214.png" width="400" /></a></p>
 </figure>
-<h3 id="_4">为什么</h3>
+<h3 id="_4">为什么<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>由此可见, 我们所需要的函数由两部分组成: 恒等函数和残差函数. 恒等函数的存在, 避免了“负优化”问题, 而残差函数则起到了“锦上添花”的作用.</p>
 <blockquote>
 <p>To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.</p>
@@ -2016,19 +2014,19 @@
 <li><strong>减少了优化难度</strong>: 在传统的深度网络中, 每一层都需要去拟合目标函数本身. 而在ResNet的残差块中, 我们将目标函数拆解为恒等映射+残差函数的形式. 这样, 网络只需要关注学习更加简单的残差函数, 而不必重新开始拟合整个映射. 这使得优化问题更加接近于学习小的, 便宜量式的调整, 有助于减少训练过程中的优化障碍</li>
 <li><strong>避免负优化</strong>: 没有引入残差的时候, 额外的层可能会在优化初期大幅偏离已有模型的性能. 通过提供恒等映射的捷径(Shortcut Connection), 新加入的层在最初近似为恒等映射, 即使它们的参数还未充分优化, 也不会使性能变得更差, 这保障了深度网络至少可以"退化"回一个较浅的网络性能, 不会因为层数的增加而性能下降</li>
 </ul>
-<h2 id="_5">细节<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
-<h3 id="_6">维度统一</h3>
+<h2 id="_5">细节<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">维度统一<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>在实现Shortcut Connection的时候, 残差层的输出和输入的维度必须一致, 因为在公式中维度相同的矩阵才可以相加. 文章将残差块看作是<span class="arithmatex">\(\bm{y} = \mathcal{F}(\bm{x}, \{W_i\}) + \bm{x}\)</span>, 其中<span class="arithmatex">\(\{W_i\}\)</span>表示的是当前层的权重参数集合, 表示网络需要学习的参数. 后面这个<span class="arithmatex">\(\bm{x}\)</span>的维度必须和残差块的输出的维度相同, 如果不相同话, 可以在Shortcut Connection那边做一个线性变换, 去把维度对应上: <span class="arithmatex">\(\bm{y} = \mathcal{F}(\bm{x}, \{W_i\}) + W_s\bm{x}\)</span>. 注意, 这里使用<span class="arithmatex">\(W_s\)</span>的唯一目的是保持维度的统一, 如果维度本来就统一, 就没必要使用<span class="arithmatex">\(W_s\)</span>, 因为不使用<span class="arithmatex">\(W_s\)</span>更加经济高效, 可以减少参数量, 简单的加上<span class="arithmatex">\(\bm{x}\)</span>已经足够解决退化问题.</p>
-<h3 id="_7">残差函数结构</h3>
+<h3 id="_7">残差函数结构<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>残差函数<span class="arithmatex">\(\mathcal{F}\)</span>的结构是可选的, 可以是两层或者多层神经网络. 但是如果<span class="arithmatex">\(\mathcal{F}\)</span>只有一层的话, 那么就相当于<span class="arithmatex">\(\bm{y}=W_1\bm{x}+\bm{x}\)</span>. 作者并没有发现这样做的优势.</p>
 <p>作者还发现上述的残差函数结构中不仅仅可以含有全连接层还可以是卷积层. 对于卷积层, 残差块输入的通道数和输出的通道数通常是相等的(需要逐个通道相加). 如果不一样的话, 可能需要使用Shortcut Connection上的线性变换(如<span class="arithmatex">\(W_s\)</span>)或者使用零填充...</p>
-<h3 id="_8">架构</h3>
+<h3 id="_8">架构<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>作者测试了普通网络和残差网络的表现.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/5637f76757e67bc2888327a110a9937a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/5637f76757e67bc2888327a110a9937a.png" width="350" /></a></p>
 <figcaption>参与ImageNet的网络架构图. VGG-19(左, 19.6 billion FLOPs), 普通网络(中, 3.6 billion FLOPs), ResNet(右, 3.6 billion FLOPs). 点状的Shortcut Connection表示会对维度进行提升(参考前面的$W_s$), 不是点状的Shortcut Connection表示不对维度进行改变</figcaption>
 </figure>
-<h4 id="plain-network">普通网络</h4>
+<h4 id="plain-network">普通网络<a class="headerlink" href="#plain-network" title="Permanent link">&para;</a></h4>
 <p>普通网络借鉴了VGG网络的设计哲学.</p>
 <details class="tip" open="open">
 <summary>卷积操作后特征图的大小计算公式</summary>
@@ -2054,13 +2052,13 @@
 <p>所以, 越来越多的现代网络架构如ResNet开始减少池化层的使用, 代之以卷积层的下采样.</p>
 </details>
 <p>以此得到的普通网络比VGG网络的复杂度更低, 可以计算它们俩的FLOPS, FLOPS由以下的几个因素决定: 输入特征图高度, 输入特征图宽度, 输入通道数, 卷积核高度, 卷积核宽度, 输出通道数.</p>
-<h4 id="_9">残差网络</h4>
+<h4 id="_9">残差网络<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <p>基于上面的普通网络, 作者插入了Shortcut Connections. 在输入和输出特征图维度(通道)相同的情况下, 可以直接使用恒等映射(即上图中实现的连接). 当维度(通道)升高的情况下, 它们采取了两种措施.</p>
 <ol>
 <li>Shortcut Connection依旧采用的是恒等映射, 但是会对新增额外的零通道. 假设, 输入的通道数是64, 在一系列操作后, 通道数增加到了128, 则这种恒等映射需要进行变换, 多出的64张特征图全部填充为0. 这种不会引入额外的训练参数</li>
 <li>使用1*1的卷积核进行升维操作. 具体操作参考<a href="/algorithm/neural-network/cnn/#increase-dimension">这里</a></li>
 </ol>
-<h2 id="_10">实现</h2>
+<h2 id="_10">实现<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <p>作者对于ImageNet上训练的ResNet实现如下:</p>
 <p>在训练的时候, 将图片的最短边随机resize到[256, 480], 然后参考AlexNet中的<a href="/algorithm/neural-network/cnn/alexnet/#random-cropping">随机裁剪</a>对图片进行224*224的随机裁剪(包括它的水平反转)以防止过拟合. 然后, 减去每个像素的平均值, 去掉很多不必要的背景信息, 例如全局亮度 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span>. 然后在每一个卷积层之后采用BN. 对所有的参数进行从头训练. 采用mini-batch SGD, batch的大小为256. 学习率从0.1开始下降当错误率遇到平稳的情况除以10避免震荡. 采用0.0001的权重衰减(就是<a href="/algorithm/linear-regression/#l2-regularization">L2正则化</a>, 防止模型过拟合), <a href="/algorithm/neural-network/fnn/#动量">动量</a>设置为0.9. 并没有使用Dropout.</p>
 <p>在测试的时候, 采取了"10-crop"的方法, 就是说, 从输入图像中采样10个不同的区域来进行评估, 减少由于图像中不同位置的信息丢失带来的影响. 并且, 图像会被调整为多个不同的尺度, 例如, 缩放到<span class="arithmatex">\(224, 256, 384, 480, 640\)</span>, 然后对每个尺寸进行预测, 去平均值, 增强模型的尺度不变性.</p>

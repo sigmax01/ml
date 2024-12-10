@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -49,8 +49,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1747,7 +1745,7 @@
 
   <h1>生成对抗网络</h1>
 
-<h2 id="_1">核心思想<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
+<h2 id="_1">核心思想<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>GAN的基本思想是, 首先我们有一个"生成器", Generator, 其实就是一个神经网络, 或者是更简单的理解, 他就是一个函数. 输入一组向量, 经由生成器, 产生一组目标矩阵(如果要生成图片, 那么矩阵就是图片的像素集合). 它的目的就是使得自己造样本的能力尽可能强, 强到什么程度呢, 强到判别网络无法判断我是真样本还是假样本. 同时我们还有一个"判别器", 判别器的目的是判别出来一张图片它是来自真实样本集还是假样本集. 假如输入的是真样本, 网络输出就接近1, 输入的是假样本, 网络输出接近0, 那么很完美, 达到了很好判别的目的. </p>
 <p>那为什么需要这两个组件呢? GAN在结构上受到了博弈论中的二人<a href="https://zh.wikipedia.org/zh-hans/零和博弈">零和博弈</a>(即二人的利益之和为0, 一方的所得是另一方的所失)的启发, 系统由一个生成模型(G)和一个判别模型(D)构成. G捕捉真实数据样本的潜在分布, 并生成新的数据样本; D是一个二分类器, 判别输入是真实数据还是生成的样本. 生成器和判别器均可以采用深度神经网络. GAN的优化过程是一个极小极大博弈问题, 优化目标是达到<a href="https://wiki.mbalib.com/wiki/纳什均衡">纳什平衡</a>. </p>
 <figure>
@@ -1766,8 +1764,8 @@
 </figure>
 <p>对于生成网络, 目的是生成尽可能逼真的样本. 所以在训练生成网络的时候, 我们需要联合判别网络才能达到训练的目的. 也就是说, 通过将两者串接起来的方式来产生误差从而得以训练生成网络. 步骤是: 我们通过随机向量(噪声数据)经由生成网络产生一组假数据, 并将这些假数据都标记为1. 然后将这些假数据输入到判别网络里面, 判别器肯定会发现这些标榜为真实数据(标记为1)的输入都是假数据(给出低分), 这样就产生了误差, 在训练这个串接的网络的时候, 一个很重要的草做是不要让判别网络的参数发生变化, 只是把误差一直传, 传到生成网络那块后更新网络的参数. 这样就完成了对生成网络的训练了. </p>
 <p>在完成了生成网络的训练之后, 我们又可以产生新的假数据去训练判别网络了. 我们把这个过程称作为单独交替训练. 同时要定义一个迭代次数, 交替迭代到一定次数之后停止即可.</p>
-<h2 id="_2">数学推导</h2>
-<h3 id="_3">最大似然估计</h3>
+<h2 id="_2">数学推导<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">最大似然估计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>最大似然估计, 就是利用已知的样本结果信息, 反推最具有可能性(最大概率)导致这些样本结果出现的模型参数值. 样本从某一个客观存在的模型中抽样得来, 然后根据样本来计算该模型的数学参数, 即模型已定, 参数未知.</p>
 <p>假设一组含有<span class="arithmatex">\(m\)</span>个样本的数据集<span class="arithmatex">\(X = \{x^{(1)}, x^{(2)}, x^{(3)}, \ldots, x^{(m)}\}\)</span>, 该数据集中的样本是从某个现实的数据生成分布<span class="arithmatex">\(p_{data}(x)\)</span>中独立采样生成的. 这个现实的数据生成分布的具体形式和参数是未知的, 换句话说, 我们完全无法了解这个分布, 只能通过已有的数据来近似理解和建模它.</p>
 <p>令<span class="arithmatex">\(p_{model}(x;\theta)\)</span>是一个由参数<span class="arithmatex">\(\theta\)</span>(未知)确定在相同空间上的概率分布, 也就是说, 我们的目的就是找到一个合适的<span class="arithmatex">\(\theta\)</span>使得<span class="arithmatex">\(p_{model}(x;\theta)\)</span>尽可能地去接近<span class="arithmatex">\(p_{data}(x)\)</span>.</p>
@@ -1780,7 +1778,7 @@
 <p>多个概率的乘积会因为很多原因不便于计算. 例如, 计算中很可能会出现指数下溢(概率值通常介于0和1之间, 多个概率相乘的结果会越来与小, 计算机用有限的位数来表示浮点数, 所能表示的最小正数有一个下限, 当计算结果小于这个下限的时候, 就会发生下溢, 近似为0). 为了得到一个便于计算的等价优化问题, 我们观察到似然对数不会改变其<span class="arithmatex">\(\arg \max\)</span>, 于是将成绩转换为了便于计算的求和形式: </p>
 <p><span class="arithmatex">\(\theta_{ML} = \arg \max_{\theta} \sum_{i=1}^{m} \log p_{model}(x^{(i)}; \theta)\)</span></p>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span> 但是上述直接使用样本的对数似然总和作为优化目标可能会因为样本的不同而有较大的波动, 尤其是在样本量<span class="arithmatex">\(m\)</span>较小的情况下, 优化可能会受到噪声的影响较大. 为此, 由于重新缩放代价函数的时候<span class="arithmatex">\(\argmax\)</span>不会改变, 可以引入期望对似然函数进行平均化. 随着样本量的增大, 样本的均值会趋近于总体均值, 即经验分布<span class="arithmatex">\(\hat{p}_{data}(x)\)</span>会越来越接近真实分布<span class="arithmatex">\(p_{data}(x)\)</span>. 通过引入期望作为目标, 能够获得以下优点: 平滑优化(期望操作有助于减少由样本的随机性或噪声引起的波动), 减少过拟合(避免了模型过于拟合有限样本的波动, 提升了估计的泛化能力). </p>
-<h3 id="kl">KL散度</h3>
+<h3 id="kl">KL散度<a class="headerlink" href="#kl" title="Permanent link">&para;</a></h3>
 <p>一种解释最大似然估计的观点是将其看作是最小化训练集上的经验分布<span class="arithmatex">\(\hat{p}_{data}\)</span>和模型分布<span class="arithmatex">\(p_{model}(x;\theta)\)</span>之间的差异, 两者之间的差异程度可以用KL散度来度量, KL散度的含义是分布保留了多少原始分布的信息.  </p>
 <p>关于KL散度, 在信息论中<a href="https://gk.ricolxwz.de/information-theory/what-is-information/#KL散度">提到</a>过.</p>
 <p>KL散度在这里被定义为<span class="arithmatex">\(D_{KL}(\hat{p}_{data}||p_{model})=E_{x\sim \hat{p}_{data}}[\log \hat{p}_{data}(x)-\log p_{model}(x)]\)</span>. 注意到, 这里的公式其实是和在信息论中所写的公式有一点出入, 这是因为期望和加权求和的等价性. </p>
@@ -1812,11 +1810,11 @@
 </figure>
 <p>假设<span class="arithmatex">\(z\)</span>是从高斯分布<span class="arithmatex">\(p_{prior}(z)\)</span>中采样而来, 然后通过一个神经网络(也就是G)得到<span class="arithmatex">\(x\)</span>, 这个<span class="arithmatex">\(x\)</span>满足另一个分布<span class="arithmatex">\(p_{model}(x;\theta)\)</span>, 然后我们要找到这个分布的参数<span class="arithmatex">\(\theta\)</span>使得它和真实分布越相近越好, 这里的<span class="arithmatex">\(p_{model}(x;\theta)\)</span>可以写作: <span class="arithmatex">\(p_G(x) = \int p_{prior}(z) I(G(z) = x) dz\)</span>, 这个公式的含义是, 生成的样本<span class="arithmatex">\(x\)</span>是通过输入噪声<span class="arithmatex">\(z\)</span>生成的, 而<span class="arithmatex">\(z\)</span>是一个已知的先验分布<span class="arithmatex">\(p_{prior}(z)\)</span>中采样得到的, 生成<span class="arithmatex">\(x\)</span>的概率是所有可能的<span class="arithmatex">\(z\)</span>贡献的概率总和, <span class="arithmatex">\(I(G(z)=x)\)</span>是指示函数, 当<span class="arithmatex">\(G(z)\)</span>的输出等于<span class="arithmatex">\(x\)</span>的时候, <span class="arithmatex">\(I(G(z)=x)\)</span>的值为<span class="arithmatex">\(1\)</span>, 否则为<span class="arithmatex">\(0\)</span>, 它的作用是筛选出哪些<span class="arithmatex">\(z\)</span>能生成特定的<span class="arithmatex">\(x\)</span>.</p>
 <p>难点在于, 在现实中, 如GMM等模型, 由于<span class="arithmatex">\(G(z)\)</span>的复杂性, 基本上很难找到<span class="arithmatex">\(x\)</span>的分布<span class="arithmatex">\(p_{model}(x;\theta)\)</span>, 而GAN的作用就是通过神经网络调整参数<span class="arithmatex">\(\theta\)</span>, 让G产生的分布尽量接近真实分布.</p>
-<h3 id="js">JS散度</h3>
+<h3 id="js">JS散度<a class="headerlink" href="#js" title="Permanent link">&para;</a></h3>
 <p>JS散度(Jensen-Shannon Divergence)衡量了两个概率分布的相似度, 基于KL散度的变体, 解决了KL散度非对称的问题, 也就是说, 在KL散度下, <span class="arithmatex">\(D_{KL}(\hat{p}_{data}||p_{model})\neq D_{KL}(p_{model}||\hat{p}_{data})\)</span>. JS散度是对称的, 其取值在<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间, 定义如下:</p>
 <div class="arithmatex">\[JSD(P \| Q) = \frac{1}{2} KL\left(P \| \frac{P + Q}{2}\right) + \frac{1}{2} KL\left(Q \| \frac{P + Q}{2}\right)\]</div>
 <p>KL散度和JS散度在度量的时候还有一个问题, 如果两个分布离得很远, 完全没有重叠的时候, 那么散度的值是没有意义的. 这在学习算法中是比较致命的, 这就意味着在这一点的梯度为<span class="arithmatex">\(0\)</span>了, 梯度消失了.</p>
-<h2 id="_4">算法推导</h2>
+<h2 id="_4">算法推导<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>首先, 来重申一下重要的参数和名词.</p>
 <ul>
 <li>生成器, G<ul>
@@ -1836,7 +1834,7 @@
 <p>这条公式衡量的是<span class="arithmatex">\(p_G(x)\)</span>和<span class="arithmatex">\(p_{data}(x)\)</span>之间的不同程度. 对于GAN, 做法是, 给定G, 找到一个D<sup>*</sup>使得<span class="arithmatex">\(V(G, D)\)</span>最大, 即<span class="arithmatex">\(\max_D V(G, D)\)</span>, 直觉上理解为: 生成器固定的时候, 就是通过判别器尽可能地将生成图片和真实图片区别开来, 也就是需要最大化两者之间的交叉熵: <span class="arithmatex">\(D^*=\argmax_D V(G, D)\)</span></p>
 <p>然后, 要是固定D, 使得<span class="arithmatex">\(\max_D V(G, D)\)</span>最小的这个G代表的就是最好的生成器. 所以G的终极目标就是找到G<sup>*</sup>, 找到了G<sup>*</sup>我们就找到了分布<span class="arithmatex">\(p_G(x)\)</span>对应的参数<span class="arithmatex">\(\theta_G\)</span>: <span class="arithmatex">\(G^*=\arg \min_G\max_D V(G, D)\)</span></p>
 <p>上面的步骤给出了我们期望优化的目标, 现在按照步骤对目标进行推导.</p>
-<h3 id="d">寻找最好的D<sup>*</sup></h3>
+<h3 id="d">寻找最好的D<sup>*</sup><a class="headerlink" href="#d" title="Permanent link">&para;</a></h3>
 <p>首先是第一步, 给定G, 找到一个最好的D<sup>*</sup>使得<span class="arithmatex">\(V(G, D)\)</span>最大, 即求<span class="arithmatex">\(\max_D V(G, D)\)</span>. </p>
 <div class="arithmatex">\[\begin{align*}
 V &amp;= \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log D(x) \right] + \mathbb{E}_{x \sim p_G} \left[ \log (1 - D(x)) \right] \\

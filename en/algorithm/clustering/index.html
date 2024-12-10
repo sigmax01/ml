@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
@@ -2623,9 +2621,9 @@
 
   <h1>聚类</h1>
 
-<h2 id="_1">定义</h2>
+<h2 id="_1">定义<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>聚类, Clustering, 是将数据对象分割为组(也叫作簇)的过程. 同一个簇内的对象特征相似, 不同簇内的对象特征不相似. 最简单的相似性测量方法是测量距离. 对象之间距离小说明相似度高, 对象之间距离大说明相似度小. 它是一种无监督学习, 也就是说输入一个未标注的训练集和想要的簇的数量<span class="arithmatex">\(k\)</span>, 输出<span class="arithmatex">\(k\)</span>个簇. 一个好的聚类应该具备: 高内聚性(即簇内的高度相似性); 高分离度(即簇之间的低相似性).</p>
-<h2 id="_2">应用</h2>
+<h2 id="_2">应用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>聚类可以用于:</p>
 <ul>
 <li>作为独立的工具对数据进行分簇</li>
@@ -2642,11 +2640,11 @@
 <li>聚类像素点, 然后用几何中心的颜色替代达到图像压缩的效果</li>
 <li>基于不同的颜色将图像分割为不同的部分</li>
 </ol>
-<h2 id="_3">测量</h2>
-<h3 id="_4">点的距离</h3>
+<h2 id="_3">测量<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">点的距离<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>数据点A和B之间的相似性是通过距离测量的. 距离测量的方式有很多种. 请参考<a href="/algorithm/preprocessing/#相似性测量">相似性测量</a>.</p>
-<h3 id="簇的距离">簇的距离</h3>
-<h3 id="_5">质心和中心</h3>
+<h3 id="簇的距离">簇的距离<a class="headerlink" href="#簇的距离" title="Permanent link">&para;</a></h3>
+<h3 id="_5">质心和中心<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>考虑一个含有<span class="arithmatex">\(N\)</span>个点的簇<span class="arithmatex">\(\{p_1, ..., p_N\}\)</span>. 质心, Centroid, 是簇的几何中心, 通常不是簇中的一个数据点. 而中心点, Medoid, 是簇中一个具有代表性的数据点, 其选取方式是: 找到簇中所有点到该点的距离和最小的那个点, 如<a href="https://img.ricolxwz.io/e6cedeff0f7b2b51aa22fd01709d7a34.png">图</a>所示.</p>
 <hr />
 <p>簇的距离可以通过多种方式衡量.</p>
@@ -2657,7 +2655,7 @@
 <li>全链接: 根据簇A任意一个点和簇B任意一个点之间的最大距离</li>
 <li>平均链接: 根据簇A所有点和簇B所有点之间的平均距离</li>
 </ul>
-<h2 id="_6">分类</h2>
+<h2 id="_6">分类<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>聚类算法主要分为四种.</p>
 <ul>
 <li>划分式: Partitional, 代表算法为K-menas, K-medoids. 通过划分数据集生成一个簇的集合, 每个簇都对应数据中的一个子集</li>
@@ -2665,8 +2663,8 @@
 <li>层次式: Hierarchical, 代表算法为聚合式(Agglomerative), 分裂式(Divisive). 构建嵌套的簇结构, 可以通过层次图展示, 层次聚类逐步合并或分裂数据, 创建不同层次的簇</li>
 <li>密度式: Density-based, 代表算法为DBSCAN. 基于数据点的密度进行聚类, 能够识别出形状不规则的簇, 并能够检测出噪声点</li>
 </ul>
-<h2 id="_7">划分式</h2>
-<h3 id="k-means">K-means</h3>
+<h2 id="_7">划分式<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="k-means">K-means<a class="headerlink" href="#k-means" title="Permanent link">&para;</a></h3>
 <p>K均值聚类, K-means式一种非常流行且广泛使用的划分式聚类算法. 它通过将数据集划分为<span class="arithmatex">\(k\)</span>个簇来进行聚类. K-means因为其简单性和计算效率被广泛应用于各种领域的数据聚类任务. K-means算法要求用户预先定义簇的数量<span class="arithmatex">\(k\)</span>, 这是它的一个主要限制.</p>
 <p>算法的步骤为:</p>
 <ol>
@@ -2755,7 +2753,7 @@
 <li>E和A之间的距离是<span class="arithmatex">\(1\)</span>, E和B之间的距离是<span class="arithmatex">\(6\)</span>, 所以E被分配到簇<span class="arithmatex">\(1\)</span></li>
 </ul>
 </details>
-<h4 id="质心选取">质心选取</h4>
+<h4 id="质心选取">质心选取<a class="headerlink" href="#质心选取" title="Permanent link">&para;</a></h4>
 <p>算法对于初始的质心很敏感, 不同的初始质心可能会产生不同的簇.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">好的初始质心</label><label for="__tabbed_1_2">差的初始质心</label></div>
 <div class="tabbed-content">
@@ -2776,12 +2774,12 @@
 <li>运行数次初始质心不同的K-means算法, 然后找到Sum of Squared Error(SSE)最小的初始质心. 什么是SSE? 对于每一个点来说, 它的误差是到最近质心的距离, SSE就是这些距离的总和. 也就是<span class="arithmatex">\(SSE=\sum_{i=1}^k\sum_{x\in k_i}d(c_i, x)^2\)</span>, 其中<span class="arithmatex">\(c_i\)</span>是质心, <span class="arithmatex">\(k\)</span>是簇的数量, <span class="arithmatex">\(x\)</span>是数据点.</li>
 <li>使用K-means++算法</li>
 </ol>
-<h5 id="kmeans++">K-means++</h5>
+<h5 id="kmeans++">K-means++<a class="headerlink" href="#kmeans++" title="Permanent link">&para;</a></h5>
 <p>K-means++是一种K-means算法的变种, 它使用不同的方法选取初始质心. 剩余的和标准的K-means算法是相同的. 它的初始质心选取方法为: </p>
 <p>质心是逐个选择的, 直到选出<span class="arithmatex">\(k\)</span>个质心为止. 每一步中, 每个数据点都有一定的概率被选为质心, 该概率与该点到当前与其最近的质心的距离平方成正比, 这意味着离现有质心最远的点更有可能被选中, 这样能够确保质心分布良好, 互相分隔. </p>
 <p>该方法在实际使用中能够显著改进初始质心的选择, 从而提高K-means算法的整体效果. BTW, 在<a href="https://www.sydney.edu.au/units/COMP5045/2024-S1C-ND-CC">COMP5045(Computational Geometry)</a>中, 其中第11周讲到的Approximation Algorithms使用的也是这个思想, 那里叫"K-Clustering"算法, 过程是一样的.</p>
-<h4 id="_8">问题</h4>
-<h5 id="empty-cluster">空簇</h5>
+<h4 id="_8">问题<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<h5 id="empty-cluster">空簇<a class="headerlink" href="#empty-cluster" title="Permanent link">&para;</a></h5>
 <p>K-means会产生空簇, 也就是没有点会被分配到一个簇中, 只包含一个初始质心. 解决方法有:</p>
 <ul>
 <li>选取离当前质心最远的点 </li>
@@ -2789,11 +2787,11 @@
 <li>从具有最高SSE的簇中选取一个新的质心来分裂该簇</li>
 </ul>
 <p>如果有多个空簇出现, 可以重复上述步骤多次, 直至所有的簇都有点被分配.</p>
-<h5 id="outliers">离群</h5>
+<h5 id="outliers">离群<a class="headerlink" href="#outliers" title="Permanent link">&para;</a></h5>
 <p>离群点, Outliers, 是指在数据集中明显偏离其他数据点的样本点. 它们与大多数数据点的分布有很大的差异, 可能在空间中距离其他数据点较远. 当数据集中存在离群点的时候, 计算得到的质心往往不够代表性, 并且会导致SSE增加. 尤其是在多次聚类运行过程中, 离群点的影响会比较明显.</p>
 <p>一种常见的解决方法是在进行聚类之前移除掉离群点. 但是对于某些应用场景, 离群点非常重要, 移除它们可能导致信息丢失. 例如, 数据压缩, 金融分析. 另一种方法是在聚类完成之后再移除这些离群点: 通过跟踪每个点对SSE的贡献, 特别是对贡献异常高的数据点, 可以移除. </p>
-<h4 id="_9">其他扩展算法</h4>
-<h5 id="k-means_1">二分K-means</h5>
+<h4 id="_9">其他扩展算法<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<h5 id="k-means_1">二分K-means<a class="headerlink" href="#k-means_1" title="Permanent link">&para;</a></h5>
 <p>二分K-means, Bisecting K-means, 是对标准K-means算法的一种扩展. 它会讲数据集分成两个簇, 然后选择其中的一个簇进一步拆分, 如此重复, 直到获得<span class="arithmatex">\(k\)</span>个簇为止. </p>
 <ol>
 <li>开始时所有的点都放在一个簇中</li>
@@ -2815,7 +2813,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/2acfb8b14da20e49c79e2c88bfc5fe28.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/2acfb8b14da20e49c79e2c88bfc5fe28.png" width="500" /></a></p>
 </figure>
-<h4 id="_10">缺陷</h4>
+<h4 id="_10">缺陷<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
 <p>K-means算法在以球形分类, 同等大小, 分裂明显的原始数据上的表现非常好. 但是在非球形分类的, 复杂的, 大小不一致, 密度不一致的原始数据上表现不佳.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">非球形分类的原始数据</label><label for="__tabbed_2_2">大小不一致的原始数据</label><label for="__tabbed_2_3">密度不一致的原始数据</label></div>
 <div class="tabbed-content">
@@ -2838,8 +2836,8 @@
 </div>
 </div>
 </div>
-<h2 id="_11">模型式</h2>
-<h3 id="gmm">GMM</h3>
+<h2 id="_11">模型式<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="gmm">GMM<a class="headerlink" href="#gmm" title="Permanent link">&para;</a></h3>
 <p>高斯混合模型, Gaussian Mixture Model, 可以看作是对单一高斯分布的扩展, 它假设数据是由多个高斯分布混合而成的, 每个分布在模型中具有一定的权重. </p>
 <p>对于一个单一的高斯分布, 它的概率密度函数为<span class="arithmatex">\(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>, 其中<span class="arithmatex">\(\mu\)</span>是均值, <span class="arithmatex">\(\sigma\)</span>是标准差. 我们假设数据是由<span class="arithmatex">\(k\)</span>个高斯分布混合而成的, 每一个分布都有自己的均值和标准差, 一个高斯分布对应的是一个簇. 我们并不知道这些高斯分布的均值和标准差, 我们的目标是通过观察到的数据来估计这些参数. 在每一轮的估计结束后, 我们会重新计算每个数据点属于每个簇的概率, 然后重新估计参数, 如此循环直至收敛. 算法可以表示为:</p>
 <ol>
@@ -2866,12 +2864,12 @@
 <li>迭代和收敛, 重复步骤2和步骤3, 直到<span class="arithmatex">\(\mu_1\)</span>和<span class="arithmatex">\(\mu_2\)</span>的不再产生变化或变化非常小, 数据点最终分配给概率更高的分布</li>
 </ol>
 </details>
-<h4 id="gmm-vs-k-means">GMM vs. K-means</h4>
+<h4 id="gmm-vs-k-means">GMM vs. K-means<a class="headerlink" href="#gmm-vs-k-means" title="Permanent link">&para;</a></h4>
 <p>GMM其实是K-means算法的推广. K-means算法假设每个簇是圆形的, 而GMM则放宽了这个假设, 允许簇的形状为椭圆形, 因此更加灵活. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9927e4cc93c42ff8a27e38e94dee29f7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9927e4cc93c42ff8a27e38e94dee29f7.png" width="500" /></a></p>
 </figure>
-<h2 id="_12">层次式</h2>
+<h2 id="_12">层次式<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>层次式会产生一个嵌套的簇状结构, 这些簇会组成一棵具有层次的树, 这可以用树状图表示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0eee368bd98d0ffe70ddd197c3261992.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/0eee368bd98d0ffe70ddd197c3261992.png" width="400" /></a></p>
@@ -2883,15 +2881,15 @@
 <a class="glightbox" href="https://img.ricolxwz.io/95e3ffe4afc2c2a24487a4a81847ea99.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/95e3ffe4afc2c2a24487a4a81847ea99.png" width="300" /></a>
 </figure></p>
 </details>
-<h3 id="_13">优势</h3>
+<h3 id="_13">优势<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>使用层次式聚类无需在开始之前就明确簇的数量, 可以通过在树状图的不同层级进行"切割"得到所需的簇数量. </p>
 <p>树状图提供了一种可视化过程, 帮助理解不同的数据点如何逐步合并为簇. 通过观察树状图, 有时可以发现数据的有意义的层次结构或分类规则.</p>
 <p>它特别适合处理具有层次结构或者分类方法(如生物分类)的数据, 因为它能够反应数据中的嵌套关系.</p>
-<h3 id="_14">缺陷</h3>
+<h3 id="_14">缺陷<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>层次式聚类的计算复杂度较大, 限制了其在大规模数据集上的应用. 若<span class="arithmatex">\(n\)</span>为样本数量, 其空间复杂度为<span class="arithmatex">\(O(n^2)\)</span>(存储邻近矩阵和树状图); 时间复杂度是<span class="arithmatex">\(O(n^3)\)</span>(每次迭代都要搜索一遍邻近矩阵).</p>
 <p>其二是它不是增量的, incremental, 不像某些增量算法一样动态地处理新数据.</p>
 <p>噪声和离群点会对聚类结果产生较大影响, 特别是对于Ward法. 但是对单链接, 全链接, 平均链接的影响较小. 离群点通常会形成单独的小簇, 在聚类过程中不会和其他簇合并, 可以通过去除小簇来解决这个问题.</p>
-<h3 id="_15">分类</h3>
+<h3 id="_15">分类<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p>层次式聚合主要分为两种: </p>
 <ul>
 <li>聚合式, Agglomerative, bottom-up. 是一个自下往上构建树状图的过程. 即从各自的簇开始, 慢慢合并簇直到所有的数据点都属于一个簇</li>
@@ -2905,7 +2903,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/4accd298e44978a6fb715d72c1693c60.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4accd298e44978a6fb715d72c1693c60.png" width="500" /></a></p>
 </figure>
 <p>由于分裂式比聚合式的热度更低, 所以我们会注重讲解聚合式.</p>
-<h3 id="agglomerative-algorithm">聚合式</h3>
+<h3 id="agglomerative-algorithm">聚合式<a class="headerlink" href="#agglomerative-algorithm" title="Permanent link">&para;</a></h3>
 <p>聚合式是最热门的一种层次式聚合方案. 最关键的步骤就是计算两个簇之间的距离, 或者说是邻近矩阵, proximity matrix. 如何合并簇有不同的方法, 我们采用的方法是合并两个距离最近的簇.</p>
 <ol>
 <li>计算邻近矩阵</li>
@@ -2974,7 +2972,7 @@
 </div>
 </div>
 </details>
-<h3 id="_16">分裂式</h3>
+<h3 id="_16">分裂式<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>分裂式聚合相比于聚合是聚合更少见. 它是基于最小生成树, MST的一种算法.</p>
 <ol>
 <li>首先, 将数据点的距离关系表示为一个邻近图, 生成MST</li>
@@ -2987,8 +2985,8 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/7853562a1ce61712453679f9547630c3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7853562a1ce61712453679f9547630c3.png" width="500" /></a></p>
 </figure>
-<h2 id="_17">密度式</h2>
-<h3 id="dbscan">DBSCAN</h3>
+<h2 id="_17">密度式<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h3 id="dbscan">DBSCAN<a class="headerlink" href="#dbscan" title="Permanent link">&para;</a></h3>
 <p>带有噪声处理的基于密度的空间聚类算法, Density-Based Spatial Clustering of Applications with Noise, DBSCAN, 是一种基于密度的聚类方法, 特别适合处理带有噪声的复杂数据集. DBSCAN将高密度区域识别为一个簇, 并把低密度区域视为簇和簇之间的分割. 噪声点通常位于低密度区域, 被排除在簇之外.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/63eda41b125787211ac30a0e3a6836a5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/63eda41b125787211ac30a0e3a6836a5.png" width="300" /></a></p>
@@ -3003,7 +3001,7 @@
 <li>Eps太大: 所有的点都会有一个较大的密度<span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(m\)</span>是数据集中所有的点的数量</li>
 <li>Eps太小: 所有的点的密度都等于<span class="arithmatex">\(1\)</span>, 即只有一个自身</li>
 </ul>
-<h4 id="_18">三种点</h4>
+<h4 id="_18">三种点<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
 <p>DBSCAN中有三种点:</p>
 <ul>
 <li>核心点: core point, 如果一个点的Eps领域内包含至少MinPts个点, 那么这个点被认为是核心点, 核心点通常位于密度聚类的内部</li>
@@ -3106,7 +3104,7 @@
 </div>
 </div>
 </details>
-<h4 id="select-eps-minpts">选取Eps和MinPts</h4>
+<h4 id="select-eps-minpts">选取Eps和MinPts<a class="headerlink" href="#select-eps-minpts" title="Permanent link">&para;</a></h4>
 <p>不同的Eps和MinPts可能会对结果产生很大影响.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/baa3b7f497ca64173309b9cc5ad73a1f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/baa3b7f497ca64173309b9cc5ad73a1f.png" width="600" /></a></p>
@@ -3120,7 +3118,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/f3724bfa6246c2d1b2b3697b0f990f9f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/f3724bfa6246c2d1b2b3697b0f990f9f.png" width="500" /></a></p>
 </figure>
-<h4 id="_19">变化密度</h4>
+<h4 id="_19">变化密度<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
 <p>DBSCAN无法很好的处理密度不同的簇, 结果会取决于不同的Eps和MinPts.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/8da85a2173051ffa91b70729aa2cc5ce.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8da85a2173051ffa91b70729aa2cc5ce.png" width="600" /></a></p>
@@ -3150,12 +3148,12 @@
 </div>
 </div>
 </details>
-<h4 id="_20">复杂度</h4>
+<h4 id="_20">复杂度<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
 <ul>
 <li>时间复杂度: <span class="arithmatex">\(O(n^2)\)</span>, 其中, <span class="arithmatex">\(n\)</span>是点的数量. 可以使用kd树降为<span class="arithmatex">\(O(n\log n)\)</span>, 什么是kd树? 可以参考<a href="https://www.sydney.edu.au/units/COMP5045">COMP5045 Computational Geometry</a></li>
 <li>空间复杂度: <span class="arithmatex">\(O(n)\)</span>, 对于每个点, 都要保存其很小一部分的信息, 如它所属的簇和类型</li>
 </ul>
-<h4 id="_21">优缺点</h4>
+<h4 id="_21">优缺点<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
 <p>优点:</p>
 <ul>
 <li>可以形成任意形状和大小的簇</li>
@@ -3169,7 +3167,7 @@
 <li>对输入参数Eps和MinPts敏感</li>
 <li>Eps和MinPts选择通常不是直观的, 需要通过一些启发方法</li>
 </ul>
-<h2 id="_22">评估</h2>
+<h2 id="_22">评估<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
 <p>给出<span class="arithmatex">\(1000\)</span>个随机生成的数据点, 这些点没有任何明显的自然聚类结构, 只是纯粹的噪声数据. K-means算法和聚合式算法被设置为寻找<span class="arithmatex">\(3\)</span>个簇, 即使数据是随机的, 没有明显的聚类结构. </p>
 <details class="tip" open="open">
 <summary>Tip</summary>
@@ -3185,8 +3183,8 @@
 <li>有监督评估: 又叫做external evaluation. 即某些领域已有的专家或已有的数据为每个点提供了正确的簇标签. 在这种情况下, 聚类结果会和已知的正确簇标签进行比较, 以评估聚类的准确性. 常见的外部评估指标包括调整兰德系数(Adjusted Rand Index, ARI), 互信息(MI)等</li>
 </ul>
 <p>我们在这里侧重于讲解无监督评估.</p>
-<h3 id="_23">无监督</h3>
-<h4 id="conhesion-separration">凝聚度和分离度</h4>
+<h3 id="_23">无监督<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<h4 id="conhesion-separration">凝聚度和分离度<a class="headerlink" href="#conhesion-separration" title="Permanent link">&para;</a></h4>
 <p>一个好的聚类会产生高凝聚度和高分离度的簇.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/fae31b619ceba5cd790a22a12106e818.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/fae31b619ceba5cd790a22a12106e818.png" width="500" /></a></p>
@@ -3209,7 +3207,7 @@
 </figure></p>
 <p>所有点的质心坐标为<span class="arithmatex">\(3\)</span>, 计算得到<span class="arithmatex">\(separation(k_1)=1.5\)</span>, <span class="arithmatex">\(separation(k_2)=1.5\)</span>. 总的分离度是所有簇的加权和, 权重是簇内点的数量, <span class="arithmatex">\(sparation=2*1.5+2*1.5=6\)</span>.</p>
 </details>
-<h5 id="_24">平方距离</h5>
+<h5 id="_24">平方距离<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h5>
 <p>我们可以使用平方距离来表示凝聚度和分离度.</p>
 <ul>
 <li><span class="arithmatex">\(SSE=\sum_{i=1}^k\sum_{x\in k_i}(c_i, x)^2\)</span></li>
@@ -3226,7 +3224,7 @@
 <li><span class="arithmatex">\(BSE=2*(3-1.5)^2+2*(4.5-3)^2=9\)</span></li>
 </ul>
 </details>
-<h5 id="sihouette-coefficient">轮廓系数</h5>
+<h5 id="sihouette-coefficient">轮廓系数<a class="headerlink" href="#sihouette-coefficient" title="Permanent link">&para;</a></h5>
 <p>轮廓系数, Sihouette Coefficient. 可以为单个点, 簇或者整个聚类结果进行计算, 它结合了凝聚度和分离度, 是一个综合的衡量指标.</p>
 <p>对于某个点<span class="arithmatex">\(i\)</span>:</p>
 <ul>
@@ -3238,7 +3236,7 @@
 <p>轮廓系数是簇内所有点的轮廓系数的平均值.</p>
 <p>对于某个聚类:</p>
 <p>轮廓系数是所有簇的轮廓系数的平均值.</p>
-<h4 id="correlation-similarity-matrix">相似度矩阵的相关性</h4>
+<h4 id="correlation-similarity-matrix">相似度矩阵的相关性<a class="headerlink" href="#correlation-similarity-matrix" title="Permanent link">&para;</a></h4>
 <p>使用相似度矩阵的相关性来评估聚类质量的原理是找到相似的数据点(即彼此距离较近的数据点)是否被分配到相同的簇中. </p>
 <ul>
 <li>第一个相似度矩阵从距离得出</li>
@@ -3263,7 +3261,7 @@
 <p>这个相似度矩阵表示哪些数据点被分到了同一个簇中. 值为<span class="arithmatex">\(1\)</span>表示两个数据点在同一个簇中, 值为<span class="arithmatex">\(0\)</span>表示两个数据点不在同一个簇中.</p>
 <p>然后, 计算这两个相似度矩阵的相关性. 如果相关性高, 说明相似的数据点被分配到了同一个簇中, 聚类效果好. 如果相关性低, 说明相似的数据点没有被分配到同一个簇中, 聚类效果差.</p>
 </details>
-<h4 id="_25">相似度矩阵的可视化</h4>
+<h4 id="_25">相似度矩阵的可视化<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <p>可视化一个相似度矩阵. </p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6559e44882de330d90545c95a2358f3f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6559e44882de330d90545c95a2358f3f.png" width="500" /></a></p>
@@ -3274,7 +3272,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/cb4cdc1bb438804956337090b97c20b9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cb4cdc1bb438804956337090b97c20b9.png" width="500" /></a></p>
 </figure>
 <p>可以看到, 主对角线的块状结构是不太清晰的.</p>
-<h3 id="choose-number-cluster">选取簇的数量</h3>
+<h3 id="choose-number-cluster">选取簇的数量<a class="headerlink" href="#choose-number-cluster" title="Permanent link">&para;</a></h3>
 <p>可以参考PCA中的<a href="/algorithm/dimensional-reduction/#确定PC的数量">肘方法</a>. 对于不同的<span class="arithmatex">\(k\)</span>运行聚类算法, 使用无监督评估评估聚类结果, 如SSE, 轮廓系数. 然后, 找到SSE, 轮廓系数骤然下降对应的簇的数量.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eda3b8fa93926f79476591ff1adb01b1.png" width="500" /></a></p>

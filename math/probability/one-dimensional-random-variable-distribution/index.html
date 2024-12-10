@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
@@ -2343,47 +2341,47 @@
 
   <h1>一维随机变量及其分布</h1>
 
-<h2 id="_1">随机变量</h2>
-<h3 id="_2">定义</h3>
+<h2 id="_1">随机变量<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">定义<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>随机变量<span class="arithmatex">\(X(\omega)\)</span>是一个函数, 它将每一个随机试验结果<span class="arithmatex">\(\omega\)</span>映射到一个实数.</p>
-<h2 id="_3">分布函数</h2>
-<h3 id="_4">定义</h3>
+<h2 id="_3">分布函数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">定义<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>设<span class="arithmatex">\(X\)</span>是随机变量, <span class="arithmatex">\(x\)</span>是任意实数, 称函数<span class="arithmatex">\(F(x)=P\{X\leq x\}(x\in R)\)</span>为随机变量<span class="arithmatex">\(X\)</span>的分布函数, 或称<span class="arithmatex">\(X\)</span>服从<span class="arithmatex">\(F(x)\)</span>分布, 记为<span class="arithmatex">\(X\sim F(x)\)</span>.</p>
-<h3 id="_5">性质</h3>
+<h3 id="_5">性质<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><span class="arithmatex">\(F(x)\)</span>是<span class="arithmatex">\(x\)</span>的单调不减函数</li>
 <li><span class="arithmatex">\(F(x)\)</span>是<span class="arithmatex">\(x\)</span>的右连续函数, 即对任意<span class="arithmatex">\(x_0\in R\)</span>, 有<span class="arithmatex">\(\lim_{x\rightarrow x_0^+}F(x)=F(x_0+0)=F(x_0)\)</span></li>
 <li><span class="arithmatex">\(F(-\infty)=\lim_{x\rightarrow -\infty}F(x)=0, F(+\infty)=\lim_{x\rightarrow +\infty}F(x)=1\)</span></li>
 </ul>
-<h3 id="_6">应用</h3>
+<h3 id="_6">应用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><span class="arithmatex">\(P\{X\leq a\}=F(a)\)</span></li>
 <li><span class="arithmatex">\(P\{X&lt; a\}=F(a-0)\)</span></li>
 <li><span class="arithmatex">\(P\{X=a\}=F(a)-F(a-0)\)</span></li>
 </ul>
-<h2 id="_7">离散型随机变量及其概率分布</h2>
-<h3 id="_8">分布律</h3>
+<h2 id="_7">离散型随机变量及其概率分布<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">分布律<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>如果随机变量<span class="arithmatex">\(X\)</span>只能取有限个或可列个值<span class="arithmatex">\(x_1, x_2, ...\)</span>, 则称<span class="arithmatex">\(X\)</span>为离散型随机变量, 称<span class="arithmatex">\(P\{X=x_i\}=p_i\)</span>, <span class="arithmatex">\(i=1, 2, ...\)</span>为<span class="arithmatex">\(X\)</span>的分布列/律或者概率分布, 记为<span class="arithmatex">\(X\sim p\)</span>, 概率分布常常用表格形式或矩阵形式表示.</p>
 <p>数列<span class="arithmatex">\(\{p_i\}\)</span>是离散型随机变量的概率分布的充要条件: <span class="arithmatex">\(p_i\geq 0(i=1, 2, ...)\)</span>, 且<span class="arithmatex">\(\sum_i p_i = 1\)</span>.</p>
-<h3 id="_9">分布函数</h3>
+<h3 id="_9">分布函数<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>设离散型随机变量<span class="arithmatex">\(X\)</span>的概率分布为<span class="arithmatex">\(P\{X=x_i\}=p_i\)</span>, 则<span class="arithmatex">\(X\)</span>的分布函数为: <span class="arithmatex">\(F(x)=P\{X\leq x\}=\sum_{x\geq x_i}P\{X=x_i\}\)</span>. <span class="arithmatex">\(P\{X=x_i\}=P\{X\leq x_i\}-P\{X&lt;x_i\}=F(x_i)-F(x_i-0)\)</span></p>
 <p>对实数轴上任一集合<span class="arithmatex">\(B\)</span>有: <span class="arithmatex">\(P\{X\in B\}=\sum_{x_i\in B}P\{X=x_i\}\)</span>.</p>
 <p>特别地, <span class="arithmatex">\(P\{a&lt;X\leq b\}=P\{X\leq b\}-P\{X\leq a\}=F(b)-F(a)\)</span></p>
-<h2 id="_10">连续型随机变量及其概率密度</h2>
-<h3 id="_11">概率密度/分布函数</h3>
+<h2 id="_10">连续型随机变量及其概率密度<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="_11">概率密度/分布函数<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>如果随机变量的分布函数可以表示为</p>
 <p><span class="arithmatex">\(F(x)=\int_{-\infty}^x f(t)d t(x\in R)\)</span></p>
 <p>其中<span class="arithmatex">\(f(x)\)</span>为非负可积函数, 则称<span class="arithmatex">\(X\)</span>为连续型随机变量, 称<span class="arithmatex">\(f(x)\)</span>为<span class="arithmatex">\(X\)</span>的概率密度函数, 简称概率密度, 记为<span class="arithmatex">\(X\sim f(x)\)</span>.</p>
 <p><span class="arithmatex">\(f(x)\)</span>为某一随机变量<span class="arithmatex">\(X\)</span>的概率密度的充分必要条件: <span class="arithmatex">\(f(x)\geq 0\)</span>, 且<span class="arithmatex">\(\int_{-\infty}^{\infty}f(x)dx=1\)</span>.</p>
 <p>设<span class="arithmatex">\(X\)</span>为连续随机变量, <span class="arithmatex">\(X\sim f(x)\)</span>, 则对任意实数<span class="arithmatex">\(c\)</span>, 有<span class="arithmatex">\(P\{X=c\}=0\)</span>. 对实数轴上的任一集合<span class="arithmatex">\(B\)</span>, 有: <span class="arithmatex">\(P\{X\in B\}=\int_Bf(x)dx\)</span></p>
 <p>特别地, <span class="arithmatex">\(P\{a&lt;X&lt;b\}=P\{a\leq X&lt; b\}=P\{a&lt;X\leq b\}=P\{a\leq X\leq b\}=\int_a^bf(x)dx=F(b)-F(a)\)</span></p>
-<h2 id="_12">常见的随机变量分布类型</h2>
-<h3 id="_13">离散型</h3>
-<h4 id="0-1"><span class="arithmatex">\(0-1\)</span>分布</h4>
+<h2 id="_12">常见的随机变量分布类型<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="_13">离散型<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h4 id="0-1"><span class="arithmatex">\(0-1\)</span>分布<a class="headerlink" href="#0-1" title="Permanent link">&para;</a></h4>
 <p>若<span class="arithmatex">\(X\)</span>的概率分布为</p>
 <p><span class="arithmatex">\(P\{X=1\}=p, P\{X=0\}=1-p\)</span></p>
 <p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(p\)</span>的<span class="arithmatex">\(0-1\)</span>分布, 记为<span class="arithmatex">\(X\sim B(1, p)(0&lt;p&lt;1)\)</span>.</p>
-<h4 id="_14">二项分布</h4>
+<h4 id="_14">二项分布<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
 <p><span class="arithmatex">\(P\{X=k\}=C_n^kp^k(1-p)^{n-k}(k=0, 1, ..., n; 0&lt;p&lt;1)\)</span></p>
 <p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\((n, p)\)</span>的二项分布, 记为<span class="arithmatex">\(X\sim B(n, p)\)</span>.</p>
@@ -2391,7 +2389,7 @@
 <summary>笔记</summary>
 <p>二项分布描述的是在<span class="arithmatex">\(n\)</span>次独立的伯努利试验中, 成功次数分布的情况.</p>
 </details>
-<h4 id="_15">泊松分布</h4>
+<h4 id="_15">泊松分布<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
 <p><span class="arithmatex">\(P\{X=k\}=\frac{\lambda^k}{k!}e^{-k}(k=0, 1, ...; \lambda&gt;0)\)</span></p>
 <p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(\lambda\)</span>的泊松分布, 记为<span class="arithmatex">\(X\sim P(\lambda)\)</span>.</p>
@@ -2399,7 +2397,7 @@
 <summary>笔记</summary>
 <p>泊松分布指的是在一个给定的时间或空间范围内, 某事件发生的次数的分布情况.</p>
 </details>
-<h4 id="_16">几何分布</h4>
+<h4 id="_16">几何分布<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
 <p><span class="arithmatex">\(P\{X=k\}=(1-p)^{k-1}p(k=1, 2, ...; 0&lt; p&lt; 1)\)</span></p>
 <p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(p\)</span>的几何分布, 记为<span class="arithmatex">\(X\sim G(p)\)</span>.</p>
@@ -2407,7 +2405,7 @@
 <summary>笔记</summary>
 <p>几何分布描述的是进行独立重复试验, 知道第一次成功所需要的试验次数的分布情况.</p>
 </details>
-<h4 id="_17">超几何分布</h4>
+<h4 id="_17">超几何分布<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率分布为</p>
 <p><span class="arithmatex">\(P\{X=k\}=\frac{C^k_MC^{n-k}_{N-M}}{C^n_N}(max\{0, n-N+M\}\leq k\leq min\{M, n\}\)</span>; <span class="arithmatex">\(M, N, n\)</span>为正整数且<span class="arithmatex">\(M\leq N, n\leq N, k\)</span>为整数<span class="arithmatex">\()\)</span></p>
 <p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\((n, N, M)\)</span>的超几何分布, 记为<span class="arithmatex">\(X\sim H(n, N, M)\)</span>.</p>
@@ -2415,27 +2413,27 @@
 <summary>笔记</summary>
 <p>超几何分布描述的是从有限总体中不放回抽取样本后某种特定属性的元素个数的分布情况.</p>
 </details>
-<h3 id="_18">连续型</h3>
-<h4 id="_19">均匀分布</h4>
+<h3 id="_18">连续型<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<h4 id="_19">均匀分布<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率密度和分布函数分别为</p>
 <ul>
 <li>概率密度: <span class="arithmatex">\(f(x)=\frac{1}{b-a}, a&lt;x&lt;b\)</span>; <span class="arithmatex">\(f(x)=0,\)</span> 其他</li>
 <li>分布函数: <span class="arithmatex">\(f(x)=0, x&lt;a\)</span>; <span class="arithmatex">\(f(x)=\frac{x-a}{b-a}, a\leq x&lt;b\)</span>; <span class="arithmatex">\(f(x)=1, x\geq b\)</span></li>
 </ul>
 <p>则称<span class="arithmatex">\(X\)</span>在区间<span class="arithmatex">\((a, b)\)</span>上服从均匀分布, 记为<span class="arithmatex">\(X\sim U(a, b)\)</span>.</p>
-<h4 id="_20">指数分布</h4>
+<h4 id="_20">指数分布<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率密度和分布函数分别为</p>
 <ul>
 <li>概率密度: <span class="arithmatex">\(f(x)=\lambda e^{-\lambda x}, x&gt;0\)</span>; <span class="arithmatex">\(0,\)</span> 其他</li>
 <li>分布函数: <span class="arithmatex">\(f(x)=1-e^{-\lambda x}, x\geq 0\)</span>; <span class="arithmatex">\(0, x&lt;0\)</span></li>
 </ul>
 <p>则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\(\lambda\)</span>的指数分布, 记为<span class="arithmatex">\(X\sim E(\lambda)\)</span></p>
-<h4 id="_21">正态分布</h4>
+<h4 id="_21">正态分布<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
 <p>如果<span class="arithmatex">\(X\)</span>的概率密度为</p>
 <p><span class="arithmatex">\(f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}(-\infty&lt;x&lt;+\infty)\)</span></p>
 <p>其中<span class="arithmatex">\(-\infty&lt;\mu&lt;+\infty, \sigma&gt;0\)</span>, 则称<span class="arithmatex">\(X\)</span>服从参数为<span class="arithmatex">\((\mu, \sigma^2)\)</span>的正态分布或称<span class="arithmatex">\(X\)</span>为正态变量, 记为<span class="arithmatex">\(X\sim N(\mu, \sigma^2)\)</span>. 此时, <span class="arithmatex">\(f(x)\)</span>的图形关于直线<span class="arithmatex">\(x=\mu\)</span>对称, 并在<span class="arithmatex">\(x=\mu\)</span>有唯一最大值<span class="arithmatex">\(f(\mu)=\frac{1}{\sqrt{2\pi}\sigma}\)</span>, 如下图所示.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6d3d4be8b41e0ba51c9f09c7af3e4988.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/6d3d4be8b41e0ba51c9f09c7af3e4988.png" style="width:300px" /></a></p>
-<h5 id="_22">标准正态分布</h5>
+<h5 id="_22">标准正态分布<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h5>
 <p>称<span class="arithmatex">\(\mu=0, \sigma=1\)</span>时的正态分布<span class="arithmatex">\(N(0, 1)\)</span>为标准正态分布.</p>
 <ul>
 <li>概率密度<span class="arithmatex">\(\varphi(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}x^2}\)</span></li>
@@ -2445,7 +2443,7 @@
 <p><span class="arithmatex">\(\varphi(x)\)</span>如下图所示:</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b0296862698495281f20c7440fc49899.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/b0296862698495281f20c7440fc49899.png" style="width:300px" /></a></p>
 <p>若<span class="arithmatex">\(X\sim N(0, 1), P\{X&gt;\mu_0\}=a\)</span>, 则称<span class="arithmatex">\(\mu_0\)</span>为标准正态分布的上侧<span class="arithmatex">\(a\)</span>分位数(上<span class="arithmatex">\(a\)</span>分位点).</p>
-<h5 id="_23">性质</h5>
+<h5 id="_23">性质<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h5>
 <p>如果<span class="arithmatex">\(X\sim N(\mu, \sigma^2)\)</span>, 有:</p>
 <ul>
 <li><span class="arithmatex">\(F(x)=P\{X&lt;x\}=\Phi(\frac{x-\mu}{\sigma})\)</span></li>
@@ -2454,10 +2452,10 @@
 <li><span class="arithmatex">\(aX+b\sim N(a\mu+b, a^2\sigma^2), (a\neq 0)\)</span></li>
 </ul>
 <p>利用这些性质可以将所有的正态分布都用标准正态分布求解.</p>
-<h2 id="_24">一维随机变量函数的分布</h2>
+<h2 id="_24">一维随机变量函数的分布<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <p>设<span class="arithmatex">\(X\)</span>为随机变量, 函数<span class="arithmatex">\(y=g(x)\)</span>, 则以随机变量<span class="arithmatex">\(X\)</span>作为自变量的函数<span class="arithmatex">\(Y=g(X)\)</span>也是随机变量, 称为随机变量<span class="arithmatex">\(X\)</span>的函数.</p>
-<h3 id="_25">随机变量函数的分布</h3>
-<h4 id="-">离散型 -&gt; 离散型</h4>
+<h3 id="_25">随机变量函数的分布<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<h4 id="-">离散型 -&gt; 离散型<a class="headerlink" href="#-" title="Permanent link">&para;</a></h4>
 <p>设<span class="arithmatex">\(X\)</span>为离散型随机变量, 其概率分布为<span class="arithmatex">\(p_i=P\{X=x_i\}(i=1, 2, ...)\)</span>, 则<span class="arithmatex">\(X\)</span>作为自变量的函数<span class="arithmatex">\(Y=g(X)\)</span>也是离散型随机变量, 其概率分布为<span class="arithmatex">\(P\{Y=g(x_i)\}=p_i(i=1, 2, ...)\)</span>. </p>
 <p class="annotate">若有若干个<span class="arithmatex">\(g(x_i)\)</span>值相同, 则合并诸项为一项<span class="arithmatex">\(g(x_k)\)</span>, 并将相应的概率相加作为<span class="arithmatex">\(Y\)</span>取<span class="arithmatex">\(g(x_k)\)</span>值的概率(1).</p>
 <ol>
@@ -2468,7 +2466,7 @@
 </details>
 </li>
 </ol>
-<h4 id="-_1">连续型 -&gt; 连续型</h4>
+<h4 id="-_1">连续型 -&gt; 连续型<a class="headerlink" href="#-_1" title="Permanent link">&para;</a></h4>
 <p>设<span class="arithmatex">\(X\)</span>为连续型随机变量, 其分布函数, 概率密度分别为<span class="arithmatex">\(F_X(x)\)</span>和<span class="arithmatex">\(f_X(x)\)</span>, 随机变量<span class="arithmatex">\(Y=g(X)\)</span>是<span class="arithmatex">\(X\)</span>的函数, 则<span class="arithmatex">\(Y\)</span>的分布函数和概率密度可用分布函数法求得.</p>
 <p><span class="arithmatex">\(F_Y(y)=P\{Y\leq y\}=P\{g(X)\leq y\}=\int_{g(X)\leq y}f_X(x)dx\)</span></p>
 <p>如果<span class="arithmatex">\(F_Y(y)\)</span>连续, 且除有限个点外, <span class="arithmatex">\(F'_Y(y)\)</span>存在且连续, 则<span class="arithmatex">\(Y\)</span>的概率密度<span class="arithmatex">\(f_Y(y)=F'_Y(y)\)</span>.</p>

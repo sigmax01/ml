@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1887,20 +1885,20 @@
 
   <h1>大数定律与中心极限定理</h1>
 
-<h2 id="_1">依概率收敛</h2>
+<h2 id="_1">依概率收敛<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>设随机变量<span class="arithmatex">\(X\)</span>与随机变量序列<span class="arithmatex">\(\{X_n\}(n=1, 2, 3, ...)\)</span>, 如果对任意的<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|X_n-X|\geq \epsilon\}=0\)</span>或<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|X_n-X|&lt;\epsilon\}=1\)</span>, 则称随机变量序列<span class="arithmatex">\(\{X_n\}\)</span>依概率收敛于随机变量<span class="arithmatex">\(X\)</span>, 记为<span class="arithmatex">\(\lim_{n\rightarrow \infty}X_n=X(P)\)</span>或<span class="arithmatex">\(X_n\stackrel{P}{\rightarrow}X(n\rightarrow \infty)\)</span>.</p>
-<h2 id="_2">大数定律</h2>
-<h3 id="_3">切比雪夫大数定律</h3>
+<h2 id="_2">大数定律<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">切比雪夫大数定律<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>假设<span class="arithmatex">\(\{X_n(n=1, 2, ...)\}\)</span>是相互独立的随机变量序列, 如果方差<span class="arithmatex">\(DX_i(i\geq 1)\)</span>存在且一致有上界, 即存在常数<span class="arithmatex">\(C\)</span>, 使<span class="arithmatex">\(DX_i
 \leq C\)</span>对一切<span class="arithmatex">\(i\geq 1\)</span>均成立, 则<span class="arithmatex">\(\{X_n\}\)</span>服从大数定律: <span class="arithmatex">\(\frac{1}{n}\sum_{i=1}^{n}X_i\stackrel{P}{\rightarrow} \frac{1}{n}\sum_{i=1}^{n}EX_i\)</span>.</p>
-<h3 id="_4">伯努利大数定律</h3>
+<h3 id="_4">伯努利大数定律<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>假设<span class="arithmatex">\(\mu_n\)</span>是<span class="arithmatex">\(n\)</span>重伯努利试验中事件<span class="arithmatex">\(A\)</span>发生的次数, 在每次试验中事件<span class="arithmatex">\(A\)</span>发生的概率为<span class="arithmatex">\(p(0&lt;p&lt;1)\)</span>, 则<span class="arithmatex">\(\frac{\mu_0}{n}\stackrel{P}{\rightarrow}p\)</span>, 即对任意<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|\frac{\mu_0}{n}-p|&lt;\epsilon\}=1\)</span>.</p>
-<h3 id="_5">幸钦大数定律</h3>
+<h3 id="_5">幸钦大数定律<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>假设<span class="arithmatex">\(\{X_n\}\)</span>是独立同分布的随机变量序列, 如果<span class="arithmatex">\(EX_i=\mu(i=1, 2, ...)\)</span>存在, 则<span class="arithmatex">\(\frac{1}{n}\sum_{i=1}^{n}X_i\stackrel{P}{\rightarrow}\mu\)</span>, 即对任意<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|\frac{1}{n}\sum_{i=1}^n X_i-\mu|&lt;\epsilon\}=1\)</span>.</p>
-<h2 id="_6">中心极限定理</h2>
-<h3 id="-">列维-林德伯格定理</h3>
+<h2 id="_6">中心极限定理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="-">列维-林德伯格定理<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
 <p>假设<span class="arithmatex">\(\{X_n\}\)</span>是独立同分布的随机变量系列, 如果<span class="arithmatex">\(EX_i=\mu, DX_i=\sigma^2&gt;0(i=1, 2, ...)\)</span>存在, 则对任意实数<span class="arithmatex">\(x\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{\frac{\sum_{i=1}^n X_i-n\mu}{\sqrt{n}\sigma}\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}}dt=\Phi(x)\)</span>.</p>
-<h3 id="-_1">棣莫弗-拉普拉斯定理</h3>
+<h3 id="-_1">棣莫弗-拉普拉斯定理<a class="headerlink" href="#-_1" title="Permanent link">&para;</a></h3>
 <p>假设随机变量<span class="arithmatex">\(Y_n\sim B(n, p)(0&lt;p&lt;1, n\geq 1)\)</span>, 则对任意实数<span class="arithmatex">\(x\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{\frac{Y_n-np}{\sqrt{np(1-p)}}\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}}dt=\Phi(x)\)</span>.</p>
 
 

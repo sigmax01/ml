@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -2407,14 +2405,14 @@
 
   <h1>预处理</h1>
 
-<h2 id="_1">数据</h2>
+<h2 id="_1">数据<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>数据由一系列记录/实例/对象组成. 记录由属性/特征描述. </p>
-<h3 id="_2">名义/数值属性</h3>
+<h3 id="_2">名义/数值属性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>名义/分类属性: 这些属性的值包含在一个预定义, 有限种可能的集合中</li>
 <li>数值/连续属性: 这些属性的值是数字</li>
 </ul>
-<h3 id="_3">数据分类</h3>
+<h3 id="_3">数据分类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>矩阵数据/表格数据</li>
 <li>交易数据</li>
@@ -2423,33 +2421,33 @@
 <li>时空数据</li>
 <li>...</li>
 </ul>
-<h2 id="_4">数据清洗</h2>
+<h2 id="_4">数据清洗<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>数据不是完美的, 通常含有噪音. 这些噪音可以是值的失真(distortion), 虚假的值(spurious examples), 不一致或者重复的值. 此外, 还要考虑缺失的值.</p>
-<h3 id="_5">噪音</h3>
+<h3 id="_5">噪音<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>噪音是由于人为或者数据处理工具的限制造成的.</p>
 <p>总的来说, 不一致/重复的值比较好处理, 失真/虚假的值比较难处理. 对于后者, 通常采取的方法是:</p>
 <ul>
 <li>在DM(数据挖掘)前使用信号和图像处理以及异常检测技术</li>
 <li>使用更加适应噪音的机器学习算法, 在噪音存在的情况下给出可以接受的结果</li>
 </ul>
-<h4 id="_6">失真的值</h4>
+<h4 id="_6">失真的值<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <details class="example" open="open">
 <summary>例子</summary>
 <p>如在差劲的通话环境下, 人的声音的信号是这样的: </p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/00f2ff264dad186c92c52efb4c11ad57.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/00f2ff264dad186c92c52efb4c11ad57.png" style="width:600px" /></a></p>
 </details>
-<h4 id="_7">虚假的值</h4>
+<h4 id="_7">虚假的值<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>有一些值可能远离正常值, 有一些值可能和其他非噪音值混杂在了一起.</p>
 <details class="example" open="open">
 <summary>例子</summary>
 <p><a class="glightbox" href="https://img.ricolxwz.io/f1a3a65d8d33b23f41a23b7a5cb790fd.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/f1a3a65d8d33b23f41a23b7a5cb790fd.png" style="width:600px" /></a></p>
 </details>
-<h4 id="_8">不一致/重复的值</h4>
+<h4 id="_8">不一致/重复的值<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <details class="example" open="open">
 <summary>例子</summary>
 <p>如负数的体重/身高. 不存在的邮编代码, 同一个人有2条记录... </p>
 </details>
-<h3 id="_9">值缺失</h3>
+<h3 id="_9">值缺失<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>对于值缺失, 通常采取的方法是:</p>
 <ul>
 <li>忽略所有含有缺失值的记录: 如果这样的记录占比不是很大的话</li>
@@ -2460,7 +2458,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="_10">数据预处理</h2>
+<h2 id="_10">数据预处理<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <p>数据预处理包括:</p>
 <ul>
 <li>数据聚合</li>
@@ -2471,7 +2469,7 @@
 <li>属性类型转换</li>
 <li>归一化/标准化</li>
 </ul>
-<h3 id="_11">数据聚合</h3>
+<h3 id="_11">数据聚合<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>数据聚合指的是将两个或者多个属性聚合成一个属性的过程. 目的是: </p>
 <ul>
 <li>缩减数据, 占用更少的内存和计算事件; 为计算更加复杂的机器学习算法预留空间; </li>
@@ -2479,16 +2477,16 @@
 <li>稳定数据, 聚合数据比非聚合数据的变异性更小, 例如, 将每日消费的事务聚合成每周食物. 这里的变异性是指在不同观测和测量中的变化程度或差异. 它反映了数据的分散程度, 即数据点偏离平均值的程度. 高变异性表示数据点之间存在较大的差异, 而低变异性则表示数据点较集中, 差异较小</li>
 </ul>
 <p>缺点是可能会丧失有趣的细节.</p>
-<h3 id="_12">特征提取</h3>
+<h3 id="_12">特征提取<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>特征提取指的是从原始数据中提取特征的过程, 这个过程非常重要. 它需要领域专家的知识. 例如, 将图像分类为户外或者室内, 原始数据是每个像素的颜色值, 提取的特征可以是颜色直方图, 主色调, 边缘直方图等. 可能需要将数据映射到一个新的空间, 然后提取特征, 新的空间可能揭示重要特征.</p>
 <details class="example" open="open">
 <summary>例子</summary>
 <p>如下图, 左边的图显示的是横坐标为时间的信号, 该信号由两个正弦波和一些噪音组成. 右边的图是经过傅里叶变换之后的频域信号, 频域信号展示了信号在不同频率上的幅度分布. 在这个图中, 有两个明显的峰值, 这些峰值对应于原始信号中的两个主要正弦波的频率. </p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/f77c1d154335251b77981a08481e95bd.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/f77c1d154335251b77981a08481e95bd.png" style="width:600px" /></a></p>
 </details>
-<h3 id="_13">特征子集选择</h3>
+<h3 id="_13">特征子集选择<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>选择特征子集是移除不相关的多余的特征并且选择一小部分相关的充分的特征的过程. 对于实现好的分类至关重要, 更好的选择特征子集可以提高准确性. 使用更少的特征意味着更快的构建, 可以减少计算消耗, 更加紧凑且更容易解释的分类规则.</p>
-<h4 id="_14">选择方法</h4>
+<h4 id="_14">选择方法<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
 <p>在机器学习中, 特征子集选择的研究算是比较成熟的, 有许多优秀的方法. </p>
 <ul>
 <li>暴力法: 尝试所有可能的特征的组合将其输入到机器学习算法中, 选择结果最好的那一组</li>
@@ -2496,15 +2494,15 @@
 <li>筛选法: 在运行机器学习算法之前选择特征, 机器学习算法和特征选取是相互独立的. 这类方法通常基于统计学方法, 如信息增益, 互信息, 赔率比等; 或者基于相关性, 如Relief算法</li>
 <li>黑箱法: 为给定的机器学习算法选择最佳子集, 使用机器学习算法作为黑箱来评估不同子集并选择最优子集</li>
 </ul>
-<h3 id="_15">特征加权</h3>
+<h3 id="_15">特征加权<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p>特征加权用于根据特征的重要性分配不同的权重. 这些权重反映了每个特征在模型中的相对重要性, 更重要的特征会被分配更高的权重, 不重要的特征会被分配更低的权重, 分配的方法要么是根据专业领域的知识手动分配的; 要么是根据一些分类算法(如boosting)或者选择启用特征加权选项(如k邻近算法)自动调整权重. </p>
-<h3 id="_16">属性类型转化</h3>
+<h3 id="_16">属性类型转化<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>某些机器学习算法仅适用于数值, 名义或二进制属性, 需要进行一定的类型转化.</p>
 <ul>
 <li>将数值属性转换为名义属性(离散化)</li>
 <li>将数值和名义属性转换为二进制属性(二进制化)</li>
 </ul>
-<h4 id="bit-transform">二进制化</h4>
+<h4 id="bit-transform">二进制化<a class="headerlink" href="#bit-transform" title="Permanent link">&para;</a></h4>
 <p>二进制化用于将数值属性转换为二进制, 没有最佳的方法, 最佳的方法就是最适合特定机器学习算法的方法, 但是无法评估所有的可能性. 最简单的方式如下: </p>
 <ul>
 <li>分类属性 -&gt; 整数 -&gt; 二进制数</li>
@@ -2514,14 +2512,14 @@
 <summary>例子</summary>
 <p><a class="glightbox" href="https://img.ricolxwz.io/0c5968fc679a51290752b85f1f0fad37.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/0c5968fc679a51290752b85f1f0fad37.png" style="width:400px" /></a></p>
 </details>
-<h4 id="_17">离散化</h4>
+<h4 id="_17">离散化<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
 <p>离散化用于将数值属性转换为名义属性. 离散化有两种类型:</p>
 <ul>
 <li>无监督: 无法使用类别信息</li>
 <li>有监督: 可以使用类别信息</li>
 </ul>
 <p>需要考虑的是: 有多少的类别/区间, 在哪里分. </p>
-<h5 id="_18">无监督离散化</h5>
+<h5 id="_18">无监督离散化<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h5>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b1722f03cbe284678c874ce9efd607fb.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/b1722f03cbe284678c874ce9efd607fb.png" style="width:600px" /></a></p>
 <p>考虑的问题有:</p>
 <ul>
@@ -2533,7 +2531,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="normalization">归一化/标准化</h3>
+<h3 id="normalization">归一化/标准化<a class="headerlink" href="#normalization" title="Permanent link">&para;</a></h3>
 <ul>
 <li>归一化指的是将数据按照比例缩放到特定范围的过程. 适用于数据分布不确定或者存在显著范围差异时</li>
 <li>标准化指的是将数据转换为均值为0, 标准差为1的分布. 适用于假设数据符合正态分布或者需要保留数据分布特征时</li>
@@ -2552,22 +2550,22 @@
 <li>归一化: <span class="arithmatex">\(x'=\frac{x-min(x)}{max(x)-min(x)}\)</span></li>
 <li>标准化: <span class="arithmatex">\(x'=\frac{x-\mu(x)}{\sigma(x)}\)</span></li>
 </ul>
-<h2 id="相似性测量">相似性测量</h2>
+<h2 id="相似性测量">相似性测量<a class="headerlink" href="#相似性测量" title="Permanent link">&para;</a></h2>
 <p>许多机器学习算法需要测量两个记录之间的相似性. 假设有两条记录<span class="arithmatex">\(A\)</span>和<span class="arithmatex">\(B\)</span>, 有属性<span class="arithmatex">\(a_1, a_2, ..., a_n\)</span>和属性<span class="arithmatex">\(b_1, b_2, ..., b_n\)</span>, 以下是测量方法. </p>
-<h3 id="euclidean-distance">欧几里得距离</h3>
+<h3 id="euclidean-distance">欧几里得距离<a class="headerlink" href="#euclidean-distance" title="Permanent link">&para;</a></h3>
 <p>欧几里得距离是最经常用的测量方式. </p>
 <p>欧几里得距离<span class="arithmatex">\(D(A, B)=\sqrt{(a_1-b_1)^2+(a_2-b_2)^2+...+(a_n-b_n)^2}\)</span></p>
-<h3 id="曼哈顿距离">曼哈顿距离</h3>
+<h3 id="曼哈顿距离">曼哈顿距离<a class="headerlink" href="#曼哈顿距离" title="Permanent link">&para;</a></h3>
 <p>曼哈顿距离<span class="arithmatex">\(D(A, B)=|a_1-b_1|+|a_2-b_2|+...|a_n-b_n|\)</span>.</p>
-<h3 id="_19">闵可夫斯基距离</h3>
+<h3 id="_19">闵可夫斯基距离<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <p>闵可夫斯基距离<span class="arithmatex">\(D(A, B)=(|a_1-b_1|^q+|a_2-b_2|^q+...+|a_n-b_n|^q)^{1/q}\)</span>.</p>
-<h3 id="_20">加权距离</h3>
+<h3 id="_20">加权距离<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>为每一个属性根据它们的重要性分配一个权重(需要专业领域的知识).</p>
 <p>加权距离<span class="arithmatex">\(D(A, B)=\sqrt{w_1|a_1-b_1|^2+w_2|a_2-b_2|^2+...+w_n|a_n-b_n|^2}\)</span>.</p>
-<h3 id="_21">汉明距离</h3>
+<h3 id="_21">汉明距离<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <p>汉明距离用于测量二进制向量之间的距离.</p>
 <p>汉明距离<span class="arithmatex">\(D(A, B)=|a_1-b_1|+|a_2-b_2|+...+|a_n-b_n|\)</span>.</p>
-<h3 id="similarity-score">相似系数</h3>
+<h3 id="similarity-score">相似系数<a class="headerlink" href="#similarity-score" title="Permanent link">&para;</a></h3>
 <p>相似系数用于测量二进制向量之间的相似性. </p>
 <ul>
 <li>f00: 匹配的0-0位数. 这表示在两个比较的二进制序列中, 两个序列在相同位置上都是0的次数</li>
@@ -2579,15 +2577,15 @@
 <summary>例子</summary>
 <p><span class="arithmatex">\(A=[1 0 0 0 0 0 0 0 0 0], B=[0 0 0 0 0 0 1 0 0 1]\)</span>, 则<span class="arithmatex">\(f01=2, f10=1, f00=7, f11=0\)</span>.</p>
 </details>
-<h3 id="_22">简单匹配系数</h3>
+<h3 id="_22">简单匹配系数<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
 <p>简单匹配系数Simple Matching Coefficient(SMC)的定义为<span class="arithmatex">\(SMC=\frac{f11+f00}{f01+f10+f11+f00}\)</span>.</p>
 <details class="tip" open="open">
 <summary>Tip</summary>
 <p>SMC在设计上存在一定的缺陷. 若f00或f11特别大, 远远大于另一个, 则会导致其中一个值占主导地位. </p>
 </details>
-<h3 id="_23">雅卡尔指数</h3>
+<h3 id="_23">雅卡尔指数<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
 <p>雅卡尔指数, Jaccard Coefficient. 能够解决SMC的缺陷. 它的定义为<span class="arithmatex">\(J=\frac{f11}{f01+f10+f11}\)</span>.</p>
-<h3 id="cosine-similarity">余弦相似度</h3>
+<h3 id="cosine-similarity">余弦相似度<a class="headerlink" href="#cosine-similarity" title="Permanent link">&para;</a></h3>
 <p>余弦相似度, Consine Similarity. 是一种用于衡量两个向量在多维空间中的相似程度的方法. 余弦相似度主要用于稀疏数据(无论是二进制还是非二进制数据), 尤其常用于文本文档的分类. </p>
 <p>余弦相似度的定义为<span class="arithmatex">\(cos(A, B)=\frac{A\cdot B}{||A||||B||}\)</span>.</p>
 <details class="example" open="open">
@@ -2605,7 +2603,7 @@
 </ul>
 <p>得到: <span class="arithmatex">\(cos(d_1, d_2)=0.3150\)</span></p>
 </details>
-<h3 id="pearson-correlation-coefficient">皮尔逊相关系数</h3>
+<h3 id="pearson-correlation-coefficient">皮尔逊相关系数<a class="headerlink" href="#pearson-correlation-coefficient" title="Permanent link">&para;</a></h3>
 <p>皮尔逊相关系数, Pearson Correlation Coefficient, 用来衡量两个数值之间的线性关系.</p>
 <p>皮尔逊相关系数的定义为<span class="arithmatex">\(corr(x, y)=\frac{covar(x, y)}{std(x)std(y)}\)</span>. 公式中涉及的各个部分: </p>
 <ul>
@@ -2615,9 +2613,9 @@
 </ul>
 <p>皮尔逊相关系数的范围为<span class="arithmatex">\([-1, 1]\)</span>, <span class="arithmatex">\(-1\)</span>表示完全负相关, <span class="arithmatex">\(1\)</span>表示完全正相关, <span class="arithmatex">\(0\)</span>表示没有相关性.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/3e4007d639b983d41c0050bfdcfef2ce.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/3e4007d639b983d41c0050bfdcfef2ce.png" style="width:600px" /></a></p>
-<h2 id="_24">降维</h2>
+<h2 id="_24">降维<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <p>请见<a href="/algorithm/dimensional-reduction">降维</a>.</p>
-<h2 id="_25">分箱</h2>
+<h2 id="_25">分箱<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
 <p>请见<a href="https://gk.ricolxwz.de/information-theory/estimator/#分箱">分箱</a>.</p>
 
 

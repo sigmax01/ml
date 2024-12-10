@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
@@ -2139,27 +2137,27 @@
 
   <h1>随机变量的数字特征</h1>
 
-<h2 id="_1">一维随机变量的数字特征</h2>
-<h3 id="_2">数学期望</h3>
-<h4 id="_3">概念</h4>
+<h2 id="_1">一维随机变量的数字特征<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">数学期望<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="_3">概念<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
 <p>设<span class="arithmatex">\(X\)</span>为随机变量, <span class="arithmatex">\(Y\)</span>是<span class="arithmatex">\(X\)</span>的函数, <span class="arithmatex">\(Y=g(X)\)</span>(<span class="arithmatex">\(g\)</span>为连续函数).</p>
-<h5 id="_4">离散型</h5>
+<h5 id="_4">离散型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
 <p>如果<span class="arithmatex">\(X\)</span>是离散型随机变量, 其分布列为<span class="arithmatex">\(p_i=P\{X=x_i\}(i=1, 2, ...)\)</span>, 若级数<span class="arithmatex">\(\sum_{i=1}^{\infty}x_ip_i\)</span>绝对收敛, 称随机变量<span class="arithmatex">\(X\)</span>的数学期望存在, 并将级数<span class="arithmatex">\(\sum_{i=1}^{\infty}x_ip_i\)</span>的和称为随机变量<span class="arithmatex">\(X\)</span>的数学期望, 记为<span class="arithmatex">\(E(X)\)</span>或<span class="arithmatex">\(EX\)</span>, 即<span class="arithmatex">\(EX=\sum_{i=1}^{\infty}x_ip_i\)</span>, 否则称<span class="arithmatex">\(X\)</span>的数学期望不存在. </p>
 <p>若级数<span class="arithmatex">\(\sum_{i=1}^{\infty}g(x_i)p_i\)</span>绝对收敛, 则称<span class="arithmatex">\(Y=g(X)\)</span>的数学期望<span class="arithmatex">\(E[g(X)]\)</span>存在, 且<span class="arithmatex">\(E[g(X)]=\sum_{i=1}^{\infty}g(x_i)p_i\)</span>, 否则称<span class="arithmatex">\(g(X)\)</span>的数学期望不存在.</p>
-<h5 id="_5">连续型</h5>
+<h5 id="_5">连续型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
 <p>如果<span class="arithmatex">\(X\)</span>是连续型随机变量, 其概率密度为<span class="arithmatex">\(f(x)\)</span>, 若积分<span class="arithmatex">\(\int_{-\infty}^{\infty}xf(x)dx\)</span>绝对收敛, 则称<span class="arithmatex">\(X\)</span>的数学期望存在, 且<span class="arithmatex">\(EX=\int_{-\infty}^{+\infty}xf(x)dx\)</span>, 否则称<span class="arithmatex">\(X\)</span>的数学期望不存在. </p>
 <p>若积分<span class="arithmatex">\(\int_{-\infty}^{+\infty}g(x)f(x)dx\)</span>绝对收敛, 则称<span class="arithmatex">\(g(X)\)</span>的数学期望存在, 且<span class="arithmatex">\(E[g(X)]=\int_{-\infty}^{\infty}g(x)f(x)dx\)</span>, 否则称<span class="arithmatex">\(g(X)\)</span>的数学期望不存在.</p>
-<h4 id="_6">性质</h4>
+<h4 id="_6">性质<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <ul>
 <li>对任意常数<span class="arithmatex">\(a_i\)</span>和随机变量<span class="arithmatex">\(X_i(i=1, 2, ..., n)\)</span>有<span class="arithmatex">\(E(\sum_{i=1}^{n}a_iX_i)=\sum_{i=1}^n a_iEX_i\)</span></li>
 <li><span class="arithmatex">\(Ec=c, E(aX+c)=aEX+c, E(X\pm Y)=EX\pm EY\)</span></li>
 <li>设<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立, 则<span class="arithmatex">\(E(XY)=EX\cdot EY, E[g_1(X)\cdot g_2(Y)]=E[g_1(X)]\cdot E[g_2(Y)]\)</span></li>
 <li>一般地, 设<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立, 则<span class="arithmatex">\(E(\prod_{i=1}^{n}X_i)=\prod_{i=1}^{n}EX_i, E[\prod_{i=1}^ng_i(X_i)]=\prod_{i=1}^n E[g_i(X_i)]\)</span></li>
 </ul>
-<h3 id="_7">方差/标准差/切比雪夫不等式</h3>
-<h4 id="_8">概念</h4>
+<h3 id="_7">方差/标准差/切比雪夫不等式<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h4 id="_8">概念<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <p>设<span class="arithmatex">\(X\)</span>是随机变量, 如果<span class="arithmatex">\(E[(X-EX)^2]\)</span>存在, 则称<span class="arithmatex">\(E[(X-EX)^2]\)</span>为<span class="arithmatex">\(X\)</span>的方差, 记为<span class="arithmatex">\(DX\)</span>, 即<span class="arithmatex">\(DX=E[(X-EX)^2]=E(X^2)-(EX)^2\)</span>, 称<span class="arithmatex">\(\sqrt{DX}\)</span>为<span class="arithmatex">\(X\)</span>的标准差或均方差, 记为<span class="arithmatex">\(\sigma(X)\)</span>. 称随机变量<span class="arithmatex">\(X^*=\frac{X-EX}{\sqrt{DX}}\)</span>为<span class="arithmatex">\(X\)</span>的标准化随机变量, 此时<span class="arithmatex">\(EX^*=0, DX^*=1\)</span>.</p>
-<h4 id="_9">性质</h4>
+<h4 id="_9">性质<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <ul>
 <li><span class="arithmatex">\(DX\geq 0, E(X^2)=DX+(EX)^2\geq (EX)^2\)</span></li>
 <li><span class="arithmatex">\(Dc = 0\)</span></li>
@@ -2168,7 +2166,7 @@
 <li>如果<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立, 则<span class="arithmatex">\(D(aX+bY)=a^2DX+b^2DY\)</span></li>
 <li>一般地, 如果<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立, <span class="arithmatex">\(g_i(x)\)</span>为<span class="arithmatex">\(x\)</span>的连续函数, 则<span class="arithmatex">\(D(\sum_{i=1}^n a_iX_i)=\sum_{i=1}^n a_i^2DX_i\)</span>且<span class="arithmatex">\(D[\sum_{i=1}^ng_i(X_i)]=\sum_{i=1}^n D[g_i(X_i)]\)</span></li>
 </ul>
-<h4 id="_10">切比雪夫不等式</h4>
+<h4 id="_10">切比雪夫不等式<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
 <p>如果随机变量<span class="arithmatex">\(X\)</span>的期望<span class="arithmatex">\(EX\)</span>和方差<span class="arithmatex">\(DX\)</span>存在, 则对任意<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(P\{|X-EX|\geq \epsilon\}\leq \frac{DX}{\epsilon^2}\)</span>或<span class="arithmatex">\(P\{|X-EX|&lt;\epsilon\}\geq 1-\frac{DX}{\epsilon^2}\)</span>.</p>
 <details class="note" open="open">
 <summary>笔记</summary>
@@ -2229,16 +2227,16 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_11">二维随机变量的数字特征</h2>
-<h3 id="_12">数学期望</h3>
-<h4 id="_13">概念</h4>
+<h2 id="_11">二维随机变量的数字特征<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="_12">数学期望<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h4 id="_13">概念<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
 <p>设<span class="arithmatex">\(X, Y\)</span>为随机变量, <span class="arithmatex">\(g(X, Y)\)</span>为<span class="arithmatex">\(X, Y\)</span>的函数(<span class="arithmatex">\(g\)</span>是连续函数).</p>
-<h5 id="_14">离散型</h5>
+<h5 id="_14">离散型<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h5>
 <p>如果<span class="arithmatex">\((X, Y)\)</span>为离散型随机变量, 其联合分布为<span class="arithmatex">\(p_{ij}=P\{X=x_i, Y=y_i\}(i, j=1, 2, ...)\)</span>, 若级数<span class="arithmatex">\(\sum_i\sum_j g(x_i, y_j)p_{ij}\)</span>绝对收敛, 则定义<span class="arithmatex">\(E[g(X, Y)]=\sum_i\sum_j g(x_i, y_j)p_{ij}\)</span>.</p>
-<h5 id="_15">连续型</h5>
+<h5 id="_15">连续型<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h5>
 <p>如果<span class="arithmatex">\((X, Y)\)</span>为连续型随机变量, 其概率密度为<span class="arithmatex">\(f(x, y)\)</span>, 若积分<span class="arithmatex">\(\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x, y)f(x, y)dxdy\)</span>绝对收敛, 则定义<span class="arithmatex">\(E[g(X, Y)]=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x, y)f(x, y)dxdy\)</span>.</p>
-<h3 id="_16">协方差/相关系数</h3>
-<h4 id="_17">概念</h4>
+<h3 id="_16">协方差/相关系数<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h4 id="_17">概念<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
 <p>如果随机变量<span class="arithmatex">\(X\)</span>和<span class="arithmatex">\(Y\)</span>的方差存在且<span class="arithmatex">\(DX&gt;0, DY&gt;0\)</span>, 则称<span class="arithmatex">\(E[(X-EX)(Y-EY)]\)</span>为随机变量<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>的协方差, 并记为<span class="arithmatex">\(Cov(X, Y)\)</span>, 即<span class="arithmatex">\(Cov(X, Y)=E[(X-EX)(Y-EY)]=E(XY)-EX\cdot EY\)</span>.</p>
 <p>其中<span class="arithmatex">\(E(XY)\)</span>为:</p>
 <ul>
@@ -2246,7 +2244,7 @@
 <li><span class="arithmatex">\(\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}xyf(x, y)dxdy\)</span> (连续型)</li>
 </ul>
 <p>称<span class="arithmatex">\(\rho_{XY}=\frac{Cov(X, Y)}{\sqrt{DX}\sqrt{DY}}\)</span>为随机变量<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>的相关系数, 如果<span class="arithmatex">\(\rho_{XY}=0\)</span>, 则称<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>不相关; 如果<span class="arithmatex">\(\rho_{XY}\neq 0\)</span>, 则称<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相关.</p>
-<h4 id="_18">性质</h4>
+<h4 id="_18">性质<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
 <ul>
 <li><span class="arithmatex">\(Cov(X, Y)=Cov(Y, X), \rho_{XY}=\rho_{YX}\)</span>, <span class="arithmatex">\(Cov(X, X)=DX, \rho_{XX}=1\)</span></li>
 <li><span class="arithmatex">\(Cov(X, c)=0, Cov(aX+b, Y)=aCov(X, Y)\)</span>, <span class="arithmatex">\(Cov(X_1+X_2, Y)=Cov(X_1, Y)+Cov(X_2, Y)\)</span>, 一般的, <span class="arithmatex">\(Cov(\sum_{i=1}^n a_iX_i, Y)=\sum_{i=1}^n a_iCov(X_i, Y)\)</span></li>

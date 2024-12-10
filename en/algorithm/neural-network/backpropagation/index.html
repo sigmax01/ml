@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -49,8 +49,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1723,7 +1721,7 @@
 
   <h1>反向传播公式推导</h1>
 
-<h2 id="_1">符号设定</h2>
+<h2 id="_1">符号设定<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li><span class="arithmatex">\(t\)</span>: 真实标签</li>
 <li><span class="arithmatex">\(o_q\)</span>: 神经元<span class="arithmatex">\(q\)</span>的输出, 即激活函数激活后的输出</li>
@@ -1732,13 +1730,13 @@
 <li><span class="arithmatex">\(z_q\)</span>: 神经元<span class="arithmatex">\(q\)</span>的加权输入, 即激活函数激活前的输出</li>
 <li><span class="arithmatex">\(f(z_q)\)</span>: 激活函数</li>
 </ul>
-<h2 id="_2">前向传播</h2>
+<h2 id="_2">前向传播<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>对于每一个神经元<span class="arithmatex">\(q\)</span>, 有加权输入<span class="arithmatex">\(z_q = \sum_p w_{pq}o_p\)</span>. 经过激活函数激活<span class="arithmatex">\(o_q=f(z_q)=\frac{1}{1+e^{-z_q}}\)</span>. 这样一直传播到最后的输出神经元<span class="arithmatex">\(v\)</span>, 选择误差函数为MSE, 计算误差为<span class="arithmatex">\(L=\frac{1}{2}(t_v-o_v)^2\)</span>.</p>
-<h2 id="_3">反向传播</h2>
+<h2 id="_3">反向传播<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>目标是通过调整权重来最小化损失函数<span class="arithmatex">\(L\)</span>, 核心思想是对损失函数<span class="arithmatex">\(L\)</span>相对于权重<span class="arithmatex">\(w_{pq}\)</span>的偏导数进行计算, 并根据该梯度更新权重. </p>
-<h3 id="_4">输出层梯度计算</h3>
+<h3 id="_4">输出层梯度计算<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>对于输出层的神经元<span class="arithmatex">\(v\)</span>, 和前一层的某一个神经元<span class="arithmatex">\(u_t\)</span>, 我们需要计算损失函数<span class="arithmatex">\(L\)</span>对于<span class="arithmatex">\(w_{u_t v}\)</span>的导数, 有<span class="arithmatex">\(\frac{\partial L}{\partial w_{u_t v}}=\frac{\partial L}{\partial o_v}\cdot \frac{\partial o_v}{\partial z_v}\cdot \frac{\partial z_v}{\partial w_{u_tv}}\)</span>. 其中, <span class="arithmatex">\(\frac{\partial L}{\partial o_v}=-(t_v-o_v)\)</span>; <span class="arithmatex">\(\frac{\partial o_v}{\partial z_v}=o_v(1-o_v)\)</span>; <span class="arithmatex">\(\frac{\partial z_v}{\partial w_{u_t v}}=\frac{\partial (w_{u_1v}o_{u_1}+...+w_{u_t v}o_{u_t}+...w_{u_n v}o_{u_n}+b_v)}{\partial w_{u_t}}=o_{u_t}\)</span>. 将这三个部分结合起来, 我们得到该权重的导数为: <span class="arithmatex">\(\frac{\partial L}{\partial w_{u_t v}}=-(t_v-o_v)\cdot o_v(1-o_v)\cdot o_{u_t}\)</span>. 我们将<span class="arithmatex">\(\delta_v\)</span>定义为<span class="arithmatex">\(\delta_v = \frac{\partial L}{\partial o_v}\cdot \frac{\partial o_v}{\partial z_v}=\frac{\partial L}{\partial z_v}=(t_v-o_v)\cdot o_v(1-o_v)\)</span>, 因此, 该导数可以写为<span class="arithmatex">\(\frac{\partial L}{\partial w_{u_t v}}=-\delta_v o_{u_t}\)</span>. 而梯度就是<span class="arithmatex">\(L\)</span>对所有的权重求导得到的一个向量: <span class="arithmatex">\(\nabla L=(\frac{\partial L}{\partial w_{u_1}v},..., \frac{\partial L}{\partial w_{u_t}v},..., \frac{\partial L}{\partial w_{u_n}v})\)</span></p>
-<h3 id="_5">隐藏层梯度计算</h3>
+<h3 id="_5">隐藏层梯度计算<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>对于隐藏层的某一个神经元<span class="arithmatex">\(q\)</span>, 和前一层的某一个神经元<span class="arithmatex">\(p_t\)</span>, 我们需要计算损失函数<span class="arithmatex">\(L\)</span>对于权重<span class="arithmatex">\(w_{p_tq}\)</span>的导数., 有<span class="arithmatex">\(\frac{\partial L}{\partial w_{p_tq}}=\frac{\partial L}{\partial z_q}\cdot \frac{\partial z_q}{\partial w_{p_tq}}\)</span>. 其中, <span class="arithmatex">\(\frac{\partial z_q}{\partial w_{p_tq}}=\frac{\partial (w_{p_1q} o_{p_1}+...+w_{p_tq} o_{p_t}+...+w_{p_mq} o_{p_m}+b_q)}{\partial w_{p_t q}}=o_{p_t}\)</span>. 现在, 我们需要计算损失<span class="arithmatex">\(L\)</span>对于<span class="arithmatex">\(z_q\)</span>的偏导数<span class="arithmatex">\(\frac{\partial L}{\partial z_q}\)</span>, 注意, 隐藏层的神经元<span class="arithmatex">\(q\)</span>不能直接影响损失<span class="arithmatex">\(L\)</span>, 但是能通过后续的层传递给<span class="arithmatex">\(L\)</span>. 根据链式法则, 我们有<span class="arithmatex">\(\frac{\partial L}{\partial z_q}=\sum_k \frac{\partial L}{\partial o_k}\cdot \frac{\partial o_k}{\partial z_q}\)</span>, 这里的<span class="arithmatex">\(k\)</span>表示<span class="arithmatex">\(q\)</span>的后续一层的神经元<span class="arithmatex">\(k\)</span>. 我们首先来计算<span class="arithmatex">\(\frac{\partial o_k}{\partial z_q}\)</span>, <span class="arithmatex">\(\frac{\partial o_k}{\partial z_q} = \frac{\partial o_k}{\partial z_k}\cdot \frac{\partial z_k}{\partial z_q}\)</span>, 其中, <span class="arithmatex">\(o_k=f(z_k)\)</span>, 有<span class="arithmatex">\(\frac{\partial o_k}{\partial z_k}=f'(z_k)\)</span>; 而<span class="arithmatex">\(\frac{\partial z_k}{\partial z_q}=\frac{\partial z_k}{\partial o_q}\cdot \frac{\partial o_q}{\partial z_q}=\frac{\partial (w_{q_1k}o_{q_1}+...+w_{qk}o_{q}+...+w_{q_rk}o_{q_r})}{\partial o_q}=w_{qk}\cdot f'(z_q)\)</span>, 所以<span class="arithmatex">\(\frac{\partial o_k}{\partial z_q}=f'(z_k)\cdot w_{qk}\cdot f'(z_q)\)</span>. 从而有<span class="arithmatex">\(\frac{\partial L}{\partial z_q}=\sum_k \frac{\partial L}{\partial o_k}\cdot f'(z_k)\cdot w_{qk}\cdot f'(z_q)\)</span>. 我们定义<span class="arithmatex">\(\delta_q = \frac{\partial L}{\partial z_q}=\sum_k \frac{\partial L}{\partial o_k}\cdot f'(z_k)\cdot w_{qk}\cdot f'(z_q)\)</span>. 而<span class="arithmatex">\(\frac{\partial L}{\partial o_k}\cdot f'(z_k)=\delta_k\)</span>, 所以有<span class="arithmatex">\(\delta_q=\sum_k \delta_k w_{qk}\cdot f'(z_q)\)</span>, 而<span class="arithmatex">\(f'(z_q)=o_q(1-o_q)\)</span>, 所以最终有<span class="arithmatex">\(\delta_q=o_q(1-o_q)\sum_k \delta_kw_{qk}\)</span>. 而梯度就是<span class="arithmatex">\(L\)</span>对所有的权重求导得到的一个向量<span class="arithmatex">\(\nabla L = (\frac{\partial L}{\partial w_{p_1 q}},..., \frac{\partial L}{\partial w_{p_t q}},..., \frac{\partial L}{\partial w_{p_m q}})\)</span>. </p>
 
 

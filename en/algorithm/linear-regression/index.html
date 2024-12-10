@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
@@ -2786,13 +2784,13 @@
 <p>向量和标量之间表示不清楚, 向量应该由粗体注明.</p>
 </details>
 <p>线性回归属于监督学习, 同时是一个回归问题.</p>
-<h2 id="_1">单变量线性回归</h2>
+<h2 id="_1">单变量线性回归<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p class="annotate">单变量线性回归(1), 指的是只有一个特征的回归模型. </p>
 <ol>
 <li>univariate linear regression</li>
 </ol>
-<h3 id="_2">模型表示</h3>
-<h4 id="_3">问题</h4>
+<h3 id="_2">模型表示<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="_3">问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
 <p>例子: 预测住房价格.</p>
 <p>数据集: 已知一个数据集, 包括某个城市的住房价格. 每个样本包括住房尺寸和售价.</p>
 <p>要求: 根据不同住房尺寸所出售的价格, 画出数据集.</p>
@@ -2834,7 +2832,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_4">术语</h4>
+<h4 id="_4">术语<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>用如下符号来描述这个问题:</p>
 <ul>
 <li><span class="arithmatex">\(m\)</span>: 代表数据集中样本数量</li>
@@ -2845,7 +2843,7 @@
 <li>(<span class="arithmatex">\(x^{(i)}, y^{(i)}\)</span>): 代表第<span class="arithmatex">\(i\)</span>个样本</li>
 <li><span class="arithmatex">\(h\)</span>: 代表学习算法的模型或函数也称为假设(hypothesis)</li>
 </ul>
-<h4 id="_5">流程</h4>
+<h4 id="_5">流程<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <pre class="mermaid"><code>graph LR
   A[数据集] --&gt; B[学习算法];
   B --&gt; D;
@@ -2855,7 +2853,7 @@
 <li>把数据集输入到学习算法</li>
 <li>学习算法计算出函数<span class="arithmatex">\(h\)</span>. 函数的输入是输入<span class="arithmatex">\(x\)</span>, 输出是输出的预测<span class="arithmatex">\(\hat{y}\)</span></li>
 </ol>
-<h4 id="_6">模型</h4>
+<h4 id="_6">模型<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>对于房价预测问题, 模型/函数<span class="arithmatex">\(h\)</span>可能的表述如下:</p>
 <p><span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1 x\)</span></p>
 <p>将<span class="arithmatex">\(\theta_0\)</span>和<span class="arithmatex">\(\theta_1\)</span>称为模型/函数的参数. 在机器学习中, 模型的参数是可以在训练期间调整以改进模型的变量. 对于线性回归, 要做的就是选择参数的值以便更好的拟合数据, 选择的参数决定了<span class="arithmatex">\(h\)</span>相对与数据集的准确程度.</p>
@@ -2864,11 +2862,11 @@
 <li>modeling error</li>
 </ol>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6168b654649a0537c67df6f2454dc9ba.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/6168b654649a0537c67df6f2454dc9ba.png" style="width:400px" /></a></p>
-<h3 id="代价函数">代价函数</h3>
+<h3 id="代价函数">代价函数<a class="headerlink" href="#代价函数" title="Permanent link">&para;</a></h3>
 <ul>
 <li>基于均方误差函数最小化来进行模型求解的方法成为"最小二乘法"/"最小二乘估计".</li>
 </ul>
-<h4 id="_7">最小二乘估计</h4>
+<h4 id="_7">最小二乘估计<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p class="annotate">为了求解模型并衡量模型<span class="arithmatex">\(h\)</span>的性能, 常见的方法是定义代价函数(1). 最常用的是均方误差函数(2):</p>
 <ol>
 <li>cost function</li>
@@ -2885,8 +2883,8 @@
 <p>将其呈现为等高线图:</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/132051406ce50036d6f9d1efae279e0e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/132051406ce50036d6f9d1efae279e0e.png" style="width:550px" /></a></p>
 <p>根据上图, 人工的方法很容易找到代价函数最小时对应的<span class="arithmatex">\(\theta_0, \theta_1\)</span>, 但是我们真正需要的是一种有效的算法, 能够自动找出这些使代价函数达到最小值的参数, 参见下面的解法.</p>
-<h3 id="_8">求解代价函数</h3>
-<h4 id="梯度下降">梯度下降</h4>
+<h3 id="_8">求解代价函数<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="梯度下降">梯度下降<a class="headerlink" href="#梯度下降" title="Permanent link">&para;</a></h4>
 <p>梯度下降是一种求函数最小值的算法. </p>
 <p>梯度下降的思想是开始时随机选择一个参数组合<span class="arithmatex">\(\theta_0, \theta_1\)</span>, 计算代价函数. 然后寻找下一个能让代价函数值下降最多的参数组合. 持续这么做会找到一个局部最小值, 因为我们没有尝试完所有的参数组合, 所以无法确定得到的局部最小值是否是全局最小值, 选择不同的初始参数组合, 可能会得到不同的局部最小值.</p>
 <p>以输入为两个参数的代价函数为例, 不同的起始点导致不同的局部最小值:</p>
@@ -2910,7 +2908,7 @@
 <p>更新的时候需要同时更新所有的参数, 而不是逐个更新. 这种更新的方式确保了在计算下一个参数的梯度的时候, 其他参数的值保持不变. 在同步更新中, 所有的偏导数都是基于同一组参数值<span class="arithmatex">\(\theta_0, \theta_1\)</span>计算的.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/e4ab2e484fd9cfafaf0b36941b8c4991.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/e4ab2e484fd9cfafaf0b36941b8c4991.png" style="width:400px" /></a></p>
 </details>
-<h5 id="_9">直观理解</h5>
+<h5 id="_9">直观理解<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h5>
 <p>考虑梯度下降的公示. 其中求导, 就是取下图红点的切线. 红色直线的斜率正好是三角形的高度除以水平长度, 这条线的斜率为正数, 也就是说它有正导数. 因此, <span class="arithmatex">\(\theta_1\)</span>更新后等于<span class="arithmatex">\(\theta_1\)</span>减去一个正数乘以<span class="arithmatex">\(\alpha\)</span>.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/944f6113c29a5c8416914975df789d6c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/944f6113c29a5c8416914975df789d6c.png" style="width:550px" /></a></p>
 <p><span class="arithmatex">\(\alpha\)</span>的取值的影响:</p>
@@ -2929,7 +2927,7 @@
 <li>可以用梯度下降法最小化任何代价函数, 而不知是线性回归的代价函数</li>
 </ul>
 </details>
-<h5 id="在线性回归中的应用">在单变量线性回归中的应用</h5>
+<h5 id="在线性回归中的应用">在单变量线性回归中的应用<a class="headerlink" href="#在线性回归中的应用" title="Permanent link">&para;</a></h5>
 <p>在单变量线性回归中, 我们选择的<a href="#代价函数">代价函数</a>是均方误差函数:</p>
 <p><span class="arithmatex">\(J(\theta_0, \theta_1)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})^2\)</span></p>
 <ul>
@@ -2945,9 +2943,9 @@
 <p>根据批量梯度下降算法, 可以写出如下公式:</p>
 <p><span class="arithmatex">\(\mathrm{Repeat}\ \{\theta_0:=\theta_0-\alpha \frac{1}{m}\sum_{i=1}^m(h_{\theta}(x^{(i)})-y^{(i)})\quad \theta_1:=\theta_1-\alpha \frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x^{(i)}\}\)</span></p>
 <p>所谓"批量"由来是: 在梯度下降, 计算偏导数时, 需要求和运算, 对于每一个单独的梯度下降中, 最终都要计算这样一个东西, 我们用到了所有的训练样本.</p>
-<h2 id="_10">多变量线性回归</h2>
-<h3 id="_11">模型表示</h3>
-<h4 id="_12">问题</h4>
+<h2 id="_10">多变量线性回归<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="_11">模型表示<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h4 id="_12">问题<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <p>在之前的房价预测问题里面, 只考虑了一个特征, 即房屋大小, 这里我们考虑多个特征的问题, 比如在房价预测问题中, 引入房间数, 楼层, 年限等.</p>
 <p>下面是一个示例数据:</p>
 <table>
@@ -2998,33 +2996,33 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_13">术语</h4>
+<h4 id="_13">术语<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
 <p>由于多维的特性, 需要引入更多的术语:</p>
 <ul>
 <li><span class="arithmatex">\(n\)</span>: 特征的数量</li>
 <li><span class="arithmatex">\(x^{(i)}\)</span>: 第<span class="arithmatex">\(i\)</span>个样本/输入</li>
 <li><span class="arithmatex">\(x_j^{(i)}\)</span>: 第<span class="arithmatex">\(i\)</span>个样本/输入中的第<span class="arithmatex">\(j\)</span>个特征</li>
 </ul>
-<h4 id="_14">模型</h4>
+<h4 id="_14">模型<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
 <p>对于房价预测问题, 模型/函数<span class="arithmatex">\(h\)</span>可能的表述如下:</p>
 <p><span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1 x_1+\theta_2 x_2+...+\theta_n x_n\)</span></p>
 <p>上述的公式中有<span class="arithmatex">\(n+1\)</span>个参数和<span class="arithmatex">\(n\)</span>个变量, 为了简化公式, 引入<span class="arithmatex">\(x_0=1\)</span>, 上式写作:</p>
 <p><span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1 x_1+\theta_2 x_2+...+\theta_n x_n=\theta^TX\)</span>, <span class="arithmatex">\(T\)</span>表示矩阵转置.</p>
-<h3 id="代价函数">代价函数</h3>
+<h3 id="代价函数">代价函数<a class="headerlink" href="#代价函数" title="Permanent link">&para;</a></h3>
 <p>在多变量线性回归中, 也可以构建一个代价函数, 选取均方误差函数表示为:</p>
 <p><span class="arithmatex">\(J(\theta_0, \theta_1, ..., \theta_n)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})\)</span></p>
-<h3 id="_15">求解代价函数</h3>
-<h4 id="_16">梯度下降</h4>
+<h3 id="_15">求解代价函数<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h4 id="_16">梯度下降<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
 <p>多变量梯度下降的目标和单变量线性回归中的一样, 要找出使代价函数最小的一些列参数. 多变量线性回归的批量梯度下降算法可以抽象为公式:</p>
 <p><span class="arithmatex">\(\mathrm{Repeat}\ \{\theta_j:=\theta_j-\alpha\frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ..., \theta_n)\}\)</span>, <span class="arithmatex">\(j=0, 1, ..., n\)</span></p>
-<h5 id="_17">在多变量线性回归中的应用</h5>
+<h5 id="_17">在多变量线性回归中的应用<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h5>
 <p>在多变量线性回归中, 我们选择的<a href="#代价函数">代价函数</a>为均方误差函数:</p>
 <p><span class="arithmatex">\(J(\theta_0, \theta_1, ..., \theta_n)=\frac{1}{2m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})\)</span></p>
 <p>对于<span class="arithmatex">\(\theta_j\)</span>的偏导数为:</p>
 <p><span class="arithmatex">\(\frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x_j^{(i)}\)</span></p>
 <p>根据批量梯度下降算法, 可以写出如下公式:</p>
 <p><span class="arithmatex">\(\mathrm{Repeat}\ \{\theta_j:=\theta_j-\alpha\frac{1}{m}\sum^m_{i=1}(h_{\theta}(x^{(i)})-y^{(i)})x_j^{(i)}, j=0, 1, ..., n\}\)</span></p>
-<h5 id="_18">特征缩放</h5>
+<h5 id="_18">特征缩放<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h5>
 <p>在面对多变量线性回归时, 要保证特征具有相近的尺度, 使梯度下降算法更快收敛.</p>
 <p>以房价问题为例, 假如有两个特征, 房屋尺寸和房间数量. 尺寸值为<span class="arithmatex">\(0-2000\)</span>平方英尺, 房间数量为<span class="arithmatex">\(0-5\)</span>. 以这两个参数为横纵坐标, 绘制代价函数的等高线图, 可以看出图像会很扁. 梯度下降算法需要非常多次的迭代才能收敛.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/f4990470cacff936fce9bd4b435174ea.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/f4990470cacff936fce9bd4b435174ea.jpg" style="width:200px" /></a></p>
@@ -3034,17 +3032,17 @@
 </details>
 <p>解决方法是尝试将所有特征的尺度都尽量缩放到<span class="arithmatex">\(-1\)</span>和<span class="arithmatex">\(1\)</span>之间.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/97c5e67685e77eb3bfab5d14903a8b81.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/97c5e67685e77eb3bfab5d14903a8b81.png" style="width:550px" /></a></p>
-<h6 id="_19">数据标准化</h6>
+<h6 id="_19">数据标准化<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h6>
 <p>对于特征缩放, 一个更正规的方法是做数据标准化, 将所有的数据都限制到一个合理的区间内.</p>
 <p>标准化公式为:</p>
 <p><span class="arithmatex">\(x_n=\frac{x_n-\mu_n}{s_n}\)</span></p>
 <p>其中<span class="arithmatex">\(\mu_n\)</span>是平均值, <span class="arithmatex">\(s_n\)</span>是标准差.</p>
-<h5 id="_20">学习率</h5>
+<h5 id="_20">学习率<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h5>
 <p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同, 虽然不能提前预知, 但是可以画出迭代次数和代价函数的图标连观测算法在何时趋于收敛. 如下图所示, 可以看到代价函数随着迭代次数增加而不断减小. 当迭代次数来到300次后, 代价函数降低的趋势已经非常小了, 说明已经收敛.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/cd4e3df45c34f6a8e2bb7cd3a2849e6c.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/cd4e3df45c34f6a8e2bb7cd3a2849e6c.jpg" style="width:400px" /></a></p>
 <p>也有一些自动测试是否收敛的方法, 例如将代价函数的变化值和某个阈值(例如0.0001)进行比较, 如果比阈值小, 就认为已经收敛. </p>
 <p>原则是: 有效的学习率可以让代价函数随着迭代不断减小. 但是太小的学习率会导致收敛得很慢.</p>
-<h3 id="_21">特征工程</h3>
+<h3 id="_21">特征工程<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <p>特征工程是机器学习流程最花时间的步骤, 也是最重要的工作内容之一. 特征工程是一个过程, 这个过程将数据转换为能更好的表示业务逻辑的特征, 从而提高机器学习的性能.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
 <p>机器学习模型的准确度取决于特征的精确几何和组成. 例如, 在推荐音乐播放列表的机器学习应用程序中, 特征可能包含歌曲评分, 播放历史以及播放时长. 创建特征可能需要大量的工程工作. 特征工程涉及从原始数据(如价目表, 产品说明和销售量)中提取和转换变量, 以便您可以使用特征进行训练和预测. 工程特征所需要的步骤包括数据提取和清理, 以及特征创建和存储.<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
 <p>以房价预测为例. </p>
@@ -3055,9 +3053,9 @@
 <li>更多的数据优于聪明的算法, 而好的数据优于多的数据</li>
 </ul>
 <p>上述的房价预测模型应该改为更加高效的单变量线性回归, 用面积来代替宽度和长度, 作为特征输入: <span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1\times\)</span>面积.</p>
-<h3 id="多项式回归">多项式回归</h3>
+<h3 id="多项式回归">多项式回归<a class="headerlink" href="#多项式回归" title="Permanent link">&para;</a></h3>
 <p>线性回归并不适用于所有数据, 有时需要曲线来适应我们的数据, 比如一个二次方模型: <span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1x+\theta_2x^2\)</span>或者三次方模型<span class="arithmatex">\(h_{\theta}(x)=\theta_0+\theta_1x+\theta_2 x^2+\theta_3 x^3\)</span>. 通常, 我们需要先观察数据然后再决定模型的类型.</p>
-<h2 id="_22">欠拟合和过拟合</h2>
+<h2 id="_22">欠拟合和过拟合<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
 <p><a class="glightbox" href="https://img.ricolxwz.io/f899ef4cde8fc21ff7cf929789da7b88.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/f899ef4cde8fc21ff7cf929789da7b88.png" sytle="width:600px" /></a></p>
 <p>在<a href="#多项式回归">多项式回归</a>模型中, 存在欠拟合(Underfitting)和过拟合(Overfitting).</p>
 <ul>
@@ -3066,40 +3064,40 @@
 </ul>
 <p><a class="glightbox" href="https://img.ricolxwz.io/5f48f45bc05b1799abdd8e3cd8b29d73.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/5f48f45bc05b1799abdd8e3cd8b29d73.png" style="width:500px" /></a></p>
 <p>在上图中, 水平轴表示模型的复杂度. 简单的模型位于左侧(欠拟合), 复杂的模型位于右侧(过拟合). 垂直轴表示误差, 数值越低表示模型的表现越好. 经验风险(empirical risk)是在训练数据上测量的误差. 随着模型复杂度的增加, 经验风险会一直下降. 真实风险(true risk)是模型在从未见过的数据(如测试集)上的实际表现. 在模型复杂度较低时, 真实风险会较高, 因为模型欠拟合. 随着复杂度的增加, 真实风险逐渐降低. 然而, 当模型变得过于复杂度的时候, 真实风险又开始上升, 因为此时模型过拟合, 变得过于依赖训练数据, 导致泛化能力的下降.</p>
-<h3 id="偏差和方差">偏差和方差</h3>
+<h3 id="偏差和方差">偏差和方差<a class="headerlink" href="#偏差和方差" title="Permanent link">&para;</a></h3>
 <p>首先, 我们用一个例子来解释偏差和方差之间的关系.</p>
 <p>假设我们在射击馆, 我们的一次射击就是对一个样本进行预测, 用红色靶心表示真实值, 蓝色的命中点作为预测值. 偏差表示的就是蓝色的命中点和红色的命中点之间距离的远近, 若距离大, 则偏差大; 若距离小, 则偏差小. 方差表示的是蓝色的命中点的位置是否聚集, 蓝色的命中点之间越集中, 则表示方差越小, 反之方差越大.</p>
 <p>以过拟合作为示例, 过拟合的情况下, 模型在训练集上的偏差很小, 但是在测试集上的偏差很大, 也就是说, 它的方差很大, 对训练集中的数据做一点轻微的扰动都会导致偏差上升. 对于欠拟合来说, 模型在训练集和测试集的偏差都很大, 但是两个偏差的差异不大, 及方差较小. </p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/cd50bfc0f4566e6a9edbff070911b996.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/cd50bfc0f4566e6a9edbff070911b996.png" style="width:500px" /></a></p>
 <p>从图中可以看出, 在过拟合的情况下, 训练集的偏差很小, 方差很大. 在欠拟合的情况下, 训练集的偏差很大, 方差很小.</p>
 <p>关于偏差和方差的更详细解释和应用, 请见<a href="https://gk.ricolxwz.de/information-theory/estimator">估计器</a>.</p>
-<h2 id="regularization">正则化<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></h2>
+<h2 id="regularization">正则化<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup><a class="headerlink" href="#regularization" title="Permanent link">&para;</a></h2>
 <p>正则化主要用于控制模型的复杂度和防止过拟合. 其核心目的是改善模型的泛化能力, 即模型在新未见数据上的表现. 正则化可以通过在模型的代价函数中添加一个额外的项来实现. </p>
 <ul>
 <li>防止过拟合: 过拟合发生在模型对训练数据学得"太好", 以至于它甚至学到了数据中的噪声和误差, 导致模型在新数据上的表现不佳. 正则化通过惩罚的复杂度(如, 通过惩罚过大的参数值)来避免这种情况. 如上图, 若<span class="arithmatex">\(\theta_3, \theta_4\)</span>趋近于0, 那么曲线会更加平滑, 对新数据上表现更加好</li>
 <li>选择特征: 某些类型的正则化(如L1正则化)可以帮助进行特征选择, 因为它们倾向于将某些参数的估计值压缩到0. 这种性质使得L1正则化特别适用于处理那些具有大量特征, 但只有少数几个特征真正重要的情形</li>
 </ul>
 <p>正则化主要分为L1正则化, L2正则化和弹性网(L1和L2的集合).</p>
-<h3 id="l1">L1正则化</h3>
+<h3 id="l1">L1正则化<a class="headerlink" href="#l1" title="Permanent link">&para;</a></h3>
 <p>L1正则化, 也称为Lasso回归. 添加了L1正则化的损失函数一般可以表示为<span class="arithmatex">\(||X\omega-y||^2_2+\alpha||\omega||_1\)</span>. L1正则化容易产生稀疏系数矩阵, 即较多参数为0, 因此也可以用于特征选择.</p>
-<h3 id="l2-regularization">L2正则化</h3>
+<h3 id="l2-regularization">L2正则化<a class="headerlink" href="#l2-regularization" title="Permanent link">&para;</a></h3>
 <p>L2正则化, 也称为Ridge回归, 岭回归. 添加了L2正则化的损失函数一般可以表示为<span class="arithmatex">\(||X\omega-y||_2^2+\alpha||\omega||_2^2\)</span>. L2正则化倾向于让参数值减小, 但是不会完全为0.</p>
-<h2 id="_23">随机梯度下降</h2>
+<h2 id="_23">随机梯度下降<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
 <p>随机梯度下降, Stochastic Gradient Descent, SGD. 它的代价函数可以被表示为<span class="arithmatex">\(f_j(\omega)\simeq (\omega x^{(j)}-y^{(j)})^2\)</span>, 其中<span class="arithmatex">\(x^{(j)}\)</span>和<span class="arithmatex">\(y^{(j)}\)</span>是每次下降中随机选取的特征和标签, 在SGD中, 代价函数是会随着下降的过程产生变化的, 即<span class="arithmatex">\(x^{(j)}\)</span>和<span class="arithmatex">\(y^{(j)}\)</span>在每一次下降中都不同. 我们的目标就是要最小化这个变化的代价函数. 这个函数的导数为<span class="arithmatex">\(x^{(j)}(\omega x^{(j)}-y^{(j)})\)</span>, 同样的, 这个导数也是一直在变化的. 如果我们考虑将变量换成向量的形式(即将所有的<span class="arithmatex">\(k\)</span>个参数表示为一个向量), 我们可以得到<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i(w_i^Tx^{(j)}-y^{(j)})x^{(j)}\)</span>, 即<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i\nabla f_j(w_i)\)</span>, <span class="arithmatex">\(\nabla f_j(w_i)=[\frac{\partial f_j(\omega)}{\partial \omega_1}, ..., \frac{\partial f_j(\omega)}{\partial \omega_k}]\)</span>.</p>
 <p>与正常的梯度下降比较, SGD能够耗费更少的算力. 每次下降都只用随机选择一个特征和标签, 每次下降都少算<span class="arithmatex">\(n\)</span>次, 所以在时间复杂度上是<span class="arithmatex">\(O(k)\)</span>. 但是也有缺点, 它可能需要更多次的下降才会收敛, 并且更不稳定, 如图:</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/2c6bb6de8391fa8fdfaf784be5390441.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/2c6bb6de8391fa8fdfaf784be5390441.png" /></a></p>
-<h2 id="_24">小批量梯度下降</h2>
+<h2 id="_24">小批量梯度下降<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <p>小批量梯度下降, mini-batch SGD. 它介于随机梯度下降和梯度下降之间, 即选取一部分特征和标签用于计算每次下降的导数. 它的表达式为<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i\sum_{j\in B_i}^n(w_i^Tx^{(j)}-y^{(j)})x^{(j)}\)</span>即<span class="arithmatex">\(w_{i+1}=w_{i}-\alpha_i\nabla f_{B_i}(w_i), j\in B_i\)</span>. 每次选取的特征和标签应该在<span class="arithmatex">\(B_i\)</span>这个集合里面.</p>
 <p>这里是一张更为直观的三种梯度下降方式的对比图.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/79812ab60fc6faa5ccccd7f6bbbd8be7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/79812ab60fc6faa5ccccd7f6bbbd8be7.png" style="width:500px" /></a></p>
 <p>它的性能应该介于SGD和GD之间, 可以通过调整<span class="arithmatex">\(B_i\)</span>这个集合的大小对模型进行微调. 对比GD, 它收敛地更慢.</p>
-<h2 id="线性分类">线性分类</h2>
+<h2 id="线性分类">线性分类<a class="headerlink" href="#线性分类" title="Permanent link">&para;</a></h2>
 <p>线性分类其实是线性回归的一种衍生, 线性回归的预测结果放到一个符号函数<span class="arithmatex">\(sign\)</span>里面产生的结果就是线性分类的预测结果.</p>
 <p>如我们根据线性回归预测得到的模型为<span class="arithmatex">\(3x_1-4x_2-1=0\)</span>, 这个又被称为"决策边界", 对于样本向量<span class="arithmatex">\(x=[1, 2, 3]^T\)</span>来说, 预测结果为<span class="arithmatex">\(w^Tx=1\)</span>, 这个结果放到符号函数里面, 得到线性分类的预测结果<span class="arithmatex">\(\hat{y}=sign(1)=1\)</span>. 再来举一个例子, 对于样本向量<span class="arithmatex">\(x=[1, 3, 2.5]^T\)</span>, 预测结果为<span class="arithmatex">\(w^Tx=-2\)</span>, 这个结果放到符号函数里面, 得到线性分类的预测结果<span class="arithmatex">\(\hat{y}=sign(-2)=-1\)</span>. </p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/62c309e63e41dc8196816a50e735c95d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/62c309e63e41dc8196816a50e735c95d.png" style="width: 600px" /></a></p>
-<h3 id="_25">评估预测结果</h3>
+<h3 id="_25">评估预测结果<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
 <p>线性回归评估标签和预测结果的"近似程度", 即通过一个方差来评估. 而线性分类的值本身就是离散的, 对的就是对的, 错的就是错的.</p>
-<h2 id="_26">逻辑回归</h2>
+<h2 id="_26">逻辑回归<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
 <p>逻辑回归用于分类问题, 特别二分类问题. 我们想要知道在给定某些输入特征(比如身高, 体重, 年龄等)时, 某个事件发生的可能性有多大. 逻辑回归的目标就是估计这个概率, 即给定输入特征<span class="arithmatex">\(X\)</span>, 事件<span class="arithmatex">\(y=1\)</span>发生的概率(比如购买产品), 这就是条件概率<span class="arithmatex">\(p(y=1|X)\)</span>.</p>
 <p>Again, 逻辑回归是线性回归的一种衍生. 线性回归返回的是一个实数, 而逻辑回归先要转为一个<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(1\)</span>之间的概率, 然后用这个概率判断属于哪一各类或者也可以直接使用这个概率作为预测结果. 和线性分类类似, 我们需要有一个函数来完成概率的转换, 这里用到的就是逻辑函数<span class="arithmatex">\(\sigma\)</span>.</p>
 <p>逻辑函数的表达式为<span class="arithmatex">\(\sigma(z)=\frac{1}{1+exp(-z)}\)</span>. 这个函数的图像如下:</p>
@@ -3112,34 +3110,34 @@
 </ul>
 <p>为了定义逻辑回归的结果属于哪一个类, 我们可以定一个分水岭, 默认的分水岭就是<span class="arithmatex">\(0.5\)</span>, 即<span class="arithmatex">\(p[y=1|X]&gt;0.5\Rightarrow \hat{y}=1\)</span>.</p>
 <p>或者说, 直接使用概率作为预测结果. 概率能够提供更多的信息, 比如置信度, 还允许我们将不同来源的信息结合起来, 这在许多不同来源的信息结合起来, 这在许多复杂的决策场景中非常有用. 还有, 我们可以用逻辑损失来评估模型的优劣.</p>
-<h3 id="likelihood-function">似然函数</h3>
+<h3 id="likelihood-function">似然函数<a class="headerlink" href="#likelihood-function" title="Permanent link">&para;</a></h3>
 <p>我们选取某一个样本, 它的预测结果是<span class="arithmatex">\(1\)</span>的概率是<span class="arithmatex">\(\sigma(w^Tx_i)\)</span>, 预测结果是<span class="arithmatex">\(0\)</span>的概率为<span class="arithmatex">\(1-\sigma(w^Tx_i)\)</span>, 这两个式子本质上是一样的, 设预测结果为<span class="arithmatex">\(\hat{y_i}\)</span>, 那么和真实标签<span class="arithmatex">\(y_i=\{0, 1\}\)</span>相同的概率为<span class="arithmatex">\(p(y_i|x_i; w)=\sigma(w^Tx_i)^{y_i}[1-\sigma(w^Tx)]^{1-y_i}\)</span>, 这个式子怎么看取决于<span class="arithmatex">\(y_i\)</span>, 它的结果是和真实标签<span class="arithmatex">\(y_i\)</span>相同的概率, 它结合了两个函数得到了一个更加精简的函数, 如<a href="https://img.ricolxwz.io/8c57a39838b1374b236108e2be915fc0.png">图</a>. 这个就是似然函数.</p>
-<h4 id="_27">对数似然函数</h4>
+<h4 id="_27">对数似然函数<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h4>
 <p>对似然函数左右取对数, 就得到了对数似然函数. 整个训练集<span class="arithmatex">\(D\)</span>的对数似然函数为<span class="arithmatex">\(\log p(D)=\sum_{i=1}^n(y_i\log\sigma(w^Tx_i)+(1-y_i)\log[1-\sigma(w^Tx_i)])\)</span>. 这个对数似然函数的结果就是所有的样本和真实标签相等的可能性之和, 所以这个对数似然函数应该越大越好.</p>
-<h4 id="_28">交叉熵误差函数</h4>
+<h4 id="_28">交叉熵误差函数<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h4>
 <p>对对数似然函数取反就得到了交叉熵误差函数: <span class="arithmatex">\(f(w)=-\sum_{i=1}^n(y_i\log\sigma(w^Tx_i)+(1-y_i)\log[1-\sigma(w^Tx_i)])\)</span>. 交叉熵误差函数通常作为逻辑回归的代价函数, 即目标就是最小化交叉熵误差函数, 使得其导数为<span class="arithmatex">\(0\)</span>, 求得局部最小值下的回归系数. 为什么呢? 因为我们刚才在对数似然函数里面说过, 对数似然函数是所有的样本和真实标签相等的可能性之和, 那么交叉熵误差函数是对数似然函数取反, 所以说交叉熵误差函数是越小越好.</p>
 <p>那么, 怎么使交叉熵误差函数取到最小值呢? 也就是找到<span class="arithmatex">\(w*\)</span>使得<span class="arithmatex">\(f(w)\)</span>最小. 可以通过梯度下降解决, 对<span class="arithmatex">\(f(w)\)</span>求梯度可以得到<span class="arithmatex">\(\nabla f(w)=\sum_{i=1}^n\{\sigma(w^Tx_i)-y_i\}x_i\)</span>. 每次迭代的更新策略就是<span class="arithmatex">\(w_{t+1}=w_t-\alpha_t \sum_{i=1}^n (\sigma(w_t^T x^{(i)})-y^{(i)})x^{(i)}\)</span>.</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/3fa32c508830b64c1e28061a4a73b218.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/3fa32c508830b64c1e28061a4a73b218.png" style="width:400px" /></a></p>
-<h4 id="对数似然损失函数">对数似然损失函数</h4>
+<h4 id="对数似然损失函数">对数似然损失函数<a class="headerlink" href="#对数似然损失函数" title="Permanent link">&para;</a></h4>
 <p>对于真实标签为<span class="arithmatex">\(y_i=1\)</span>的时候, 其损失函数可以表示为<span class="arithmatex">\(-\log(p)\)</span>, 其中<span class="arithmatex">\(p\)</span>是标签为<span class="arithmatex">\(1\)</span>的概率. 显然, 当<span class="arithmatex">\(p\)</span>趋近于<span class="arithmatex">\(1\)</span>的时候, 表示属于分类<span class="arithmatex">\(1\)</span>的概率更大, 所以此时<span class="arithmatex">\(-\log(p)\)</span>趋近于<span class="arithmatex">\(0\)</span>, 表示损失最小.</p>
 <p>对于真实标签为<span class="arithmatex">\(y_i=0\)</span>的时候, 其损失函数可以表示为<span class="arithmatex">\(-\log(1-p)\)</span>, 其中<span class="arithmatex">\(p\)</span>是标签为<span class="arithmatex">\(1\)</span>的概率. 显然, 当<span class="arithmatex">\(p\)</span>趋近于<span class="arithmatex">\(1\)</span>的时候, 表示属于分类<span class="arithmatex">\(1\)</span>的概率更大. 所以此时<span class="arithmatex">\(-\log(1-p)\)</span>趋近于无穷, 表示损失最大.</p>
 <p>这个函数的图像为:</p>
 <p><a class="glightbox" href="https://img.ricolxwz.io/4087692c707dd86e20194bcec2dc5602.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="https://img.ricolxwz.io/4087692c707dd86e20194bcec2dc5602.png" style="width:400px" /></a></p>
-<h2 id="_29">多项式逻辑回归</h2>
-<h3 id="_30">多分类问题</h3>
+<h2 id="_29">多项式逻辑回归<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<h3 id="_30">多分类问题<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
 <p>多分类问题, Multiclass Classification是指在机器学习中, 模型需要从多个类别中选择一个正确的类别, 换句话说, 之前的是二元的, 现在是多元的. </p>
 <p>如给定一张手写数字的图片, 模型需要预测这张图片对应的数字是0到9之间的哪个数字. 给定一张图片, 模型需要判断图片中所包含的内容属于哪些约定义的类别, 如猫, 狗, 鸟等.</p>
-<h3 id="softmax">Softmax函数</h3>
+<h3 id="softmax">Softmax函数<a class="headerlink" href="#softmax" title="Permanent link">&para;</a></h3>
 <p>Softmax函数是一种用于用于多分类模型的激活函数, 它可以将线性回归的输出转化为属于每一个类别的概率. </p>
 <p>Softmax函数的定义如下: <span class="arithmatex">\(p(C_k|x)=\frac{e^{w_k^Tx}}{\sum_k' e^{w_{k'}^Tx}}\)</span>. <span class="arithmatex">\(k\)</span>是我们当前关心的具体类别, <span class="arithmatex">\(k'\)</span>表示所有可能的类别. 输出的就是可能属于类别<span class="arithmatex">\(k\)</span>的概率. 模型在预测的过程中关注的就是<span class="arithmatex">\(p(C_k|x)\)</span>中最大的那一个, 对应的<span class="arithmatex">\(k\)</span>就是预测的分类. 由于Softmax函数的单调性, 找<span class="arithmatex">\(p(C_k|x)\)</span>最大的, 就相当于找<span class="arithmatex">\(w^T_kx\)</span>最大的.</p>
-<h3 id="_31">对数似然函数</h3>
+<h3 id="_31">对数似然函数<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
 <p>多项式逻辑回归的对数似然函数可以表示为<span class="arithmatex">\(\log p(D)=\sum_i \log p(y_i|x_i)\)</span>. 表示的是根据<span class="arithmatex">\(x_i\)</span>这个样本的特征进行预测得到的预测结果是真实标签的可能性, 我们可以将<span class="arithmatex">\(y_i\)</span>表示为一个向量, 用<span class="arithmatex">\(1\)</span>标识出真实的分类, 如<span class="arithmatex">\(y_i=[0, 1, 0, 0, ..., 0]^T\)</span>, 我们可以利用这个向量"选择"出我们关心的那个是真实分类的预测概率. 比如说, 真实的分类是"第七类", 那么我们只需要关心属于第七类的概率<span class="arithmatex">\(p(C_7|x_i)\)</span>, 我们可以通过向量<span class="arithmatex">\(y_i=[0, 0, 0, 0, 0, 0, 1, 0, ...]^T\)</span>选择出第七个<span class="arithmatex">\(p(C_k|x)\)</span>, 将这个概率加入对数似然函数.</p>
 <p>为此, 定义<span class="arithmatex">\(y_{ik}=1\)</span>, 如果<span class="arithmatex">\(y_i=k\)</span>; <span class="arithmatex">\(y_{ik}=0\)</span>, 如果<span class="arithmatex">\(y_i\neq k\)</span>, 有<span class="arithmatex">\(\sum_i \log p(y_i|x_i)=\sum_i \log \prod_{k=1}^Kp(C_k|x_i)^{y_{ik}}=\sum_i\sum_k y_{ik}\log p(C_k|x_i)\)</span>. 其中, 如果<span class="arithmatex">\(y_{ik}=1\)</span>的话, 相当于保留第<span class="arithmatex">\(k\)</span>类的概率(因为<span class="arithmatex">\(k\)</span>等于真实分类), 如果<span class="arithmatex">\(y_{ik}=0\)</span>的话, 指数为<span class="arithmatex">\(0\)</span>, 相当于抛弃这一类的概率, 因为它不是真实分类. </p>
 <p>同样的, 对数似然函数越大越好.</p>
-<h3 id="_32">交叉熵误差函数</h3>
+<h3 id="_32">交叉熵误差函数<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
 <p>同样的, 交叉熵误差函数就是对数似然函数取反: </p>
 <p><span class="arithmatex">\(f(w_1, w_2, ..., w_3)=-\sum_i\sum_k y_{ik}\log p(C_k|x_i)=-\sum_i\sum_k y_{ik}\log p(\frac{e^{w_k^T x_n}}{\sum_{k'}e^{w_{k'}^Tx_n}})\)</span></p>
-<h2 id="哑变量">哑变量<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></h2>
+<h2 id="哑变量">哑变量<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup><a class="headerlink" href="#哑变量" title="Permanent link">&para;</a></h2>
 <p>在构建回归模型的时候, 如果自变量<span class="arithmatex">\(x\)</span>是连续型变量, 回归系数<span class="arithmatex">\(\omega\)</span>可以解释为在其他自变量不变的条件下, <span class="arithmatex">\(x\)</span>每改变一个单位, 所引起的因变量<span class="arithmatex">\(y\)</span>的平均变化量; 如果自变量<span class="arithmatex">\(x\)</span>是离散的二分类变量, 例如是否饮酒(<span class="arithmatex">\(1\)</span>=是, <span class="arithmatex">\(0\)</span>=否), 则回归系数<span class="arithmatex">\(\omega\)</span>可以解释为: 在其他自变量不变的条件下, <span class="arithmatex">\(x=1\)</span>和<span class="arithmatex">\(x=0\)</span>相比, 所引起的因变量<span class="arithmatex">\(y\)</span>的平均变化.</p>
 <p>但是, 当自变量<span class="arithmatex">\(x\)</span>是离散多分类变量的时候, 例如职业, 学历, 血型, 疾病严重程度等, 此时仅用一个回归系数来解释多分类变量之间的变化关系, 及其对因变量的影响, 就显得不太理想. </p>
 <p>此时, 我们通常会将原始的分类变量转化为哑变量, 每个哑变量只代表某两个级别或者若干级别之间的差异, 通过构建回归模型, 每一个哑变量都能得到一个估计的回归系数, 从而使回归的结果更易于解释, 更具有实际意义.</p>
@@ -3193,7 +3191,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_33">什么时候需要哑变量</h3>
+<h3 id="_33">什么时候需要哑变量<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>对于离散无序多分类变量, 需要转为哑变量</p>

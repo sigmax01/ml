@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -1957,7 +1955,7 @@
 
   <h1>前馈神经网络</h1>
 
-<h2 id="_1">架构</h2>
+<h2 id="_1">架构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>前馈神经网络, Feedforward NN, 的架构如图所示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/182181d298a387078d650701b708d254.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/182181d298a387078d650701b708d254.png" width="500" /></a></p>
@@ -1974,7 +1972,7 @@
 <li>当前层的每一个神经元都与前一个层的所有神经元相连</li>
 <li>每个神经元的输入在完成加权和计算后, 会通过一个激活函数, 这个激活函数不局限于阶跃函数, 可以是ReLu, Sigmoid, Tanh函数, 最常用的是Sigmoid函数. 特别注意, 这个激活函数要可微</li>
 </ul>
-<h2 id="backpropagation-algorithm">反向传播算法</h2>
+<h2 id="backpropagation-algorithm">反向传播算法<a class="headerlink" href="#backpropagation-algorithm" title="Permanent link">&para;</a></h2>
 <p>对于每一个训练样本<span class="arithmatex">\(\{\bm{x}, t\}\)</span>, <span class="arithmatex">\(\bm{x}=\{x_1, x_2, ..., x_n\}\)</span>, <span class="arithmatex">\(t\)</span>为其标签. 将其传入网络, 直到输出层, 这个过程称为正向传播, 将其输出<span class="arithmatex">\(o\)</span>与标签<span class="arithmatex">\(t\)</span>进行比较, 计算误差, 根据误差, 从输出层到输入层逐级反向传播, 调整每个神经元的权重, 以减小误差, 这个过程就是反向传播. 权重的更新公式为<span class="arithmatex">\(w_{pq}^{new}=w_{pq}^{old}+\Delta w_{pq}\)</span>. 这种过程会被不断重复, 即正向-&gt;反向-&gt;正向-&gt;反向, 直到输出层输出结果的误差在可以接受的范围内. "正向-&gt;反向"这样的一次更新就称为一次迭代.</p>
 <p>那么, 我们怎么计算这个权重变化<span class="arithmatex">\(\Delta w_{pq}\)</span>的呢? 参考线性回归, 我们可以定义一个误差损失函数然后使用梯度下降算法解决. 如均方误差函数, MSE. 每一次迭代/每一个批次对应于下山的"一步", 在山上的每一个位置对应于一组权重配置, 梯度的方向是误差增加最快的方向, 沿着负梯度的方向移动则可以使误差减小. 目标是通过调整权重, 使模型"下坡", 最终达到地形的最低点, 这样误差最小, 模型性能最佳. 用来下山的步子被称为"学习率", 这是算法的一个超参数.</p>
 <figure>
@@ -2000,7 +1998,7 @@
 <summary>Tip</summary>
 <p>🌈🥚: 反向传播公式推导请见<a href="/algorithm/neural-network/backpropagation">这里</a>.</p>
 </details>
-<h3 id="training-procedure">训练过程</h3>
+<h3 id="training-procedure">训练过程<a class="headerlink" href="#training-procedure" title="Permanent link">&para;</a></h3>
 <ol>
 <li>初始化所有的权重和截距为较小的随机数</li>
 <li>重复循环, 直到停止条件被满足<ol>
@@ -2061,7 +2059,7 @@
 </div>
 </div>
 </details>
-<h3 id="_2">其他梯度下降算法</h3>
+<h3 id="_2">其他梯度下降算法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>标准的梯度下降算法计算出<span class="arithmatex">\(\sum_i w_{qi}\delta_i\)</span>, 所有的误差之后再更新权重<span class="arithmatex">\(\delta_q\)</span>, 而随机梯度下降算法随机选一个<span class="arithmatex">\(i\)</span>层神经元来计算<span class="arithmatex">\(\delta_q\)</span>. 而小批量梯度下降是选取一小部分<span class="arithmatex">\(i\)</span>层神经元来计算<span class="arithmatex">\(\delta_q\)</span>.</p>
 <p>常用的优化算法总结:</p>
 <ul>
@@ -2074,21 +2072,21 @@
 <li>AdaDelta</li>
 <li>Adam</li>
 </ul>
-<h2 id="_3">通用逼近定理</h2>
+<h2 id="_3">通用逼近定理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>根据Cyberko和Hornik等人在1989年的研究, 任何连续函数都可以通过一个单隐藏层的神经网络, 以任意小的误差进行逼近. 这意味着即使是简单的神经网络, 也能处理复杂的连续函数. 根据Cyberko 1988年的研究, 任何函数(包括不连续函数)都可以通过一个具有两个隐藏层的神经网络, 以任意小的误差进行逼近. 这意味着即使是非连续的复杂函数, 神经网络也能够很好的逼近.</p>
 <p>这两个定理属于存在性定理, 也就是说, 它们仅仅说明了在理论上, 这样的神经网络能够逼近任意的函数, 但是并没有告诉我们应该如何选择网络的具体架构(如隐藏层侧数量, 每层神经元的数量等)以及如何设置超参数.</p>
-<h2 id="neuron-num">神经元的数量</h2>
-<h3 id="_4">输入层</h3>
+<h2 id="neuron-num">神经元的数量<a class="headerlink" href="#neuron-num" title="Permanent link">&para;</a></h2>
+<h3 id="_4">输入层<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>数值属性: 每个属性对应一个神经元</li>
 <li>类别属性: 如果该属性有<span class="arithmatex">\(k\)</span>个值, 那么就需要<span class="arithmatex">\(k\)</span>个神经元, 并使用one-hot编码方式. 这种编码方式将具有<span class="arithmatex">\(k\)</span>个值的属性表示为<span class="arithmatex">\(k\)</span>个二进制的属性, 只有一个位置是<span class="arithmatex">\(1\)</span>, 其余位置是<span class="arithmatex">\(0\)</span>, 如假设一个天气属性有三个取值, 晴天, 阴天, 雨天, 那么, 晴天可以表示为<span class="arithmatex">\(1\ 0\ 0\)</span>, 阴天可以表示为<span class="arithmatex">\(0\ 1\ 0\)</span>, 雨天可以表示为<span class="arithmatex">\(0\ 0\ 1\)</span></li>
 </ul>
-<h3 id="_5">输出层</h3>
+<h3 id="_5">输出层<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><span class="arithmatex">\(k\)</span>类问题: 对于一个有<span class="arithmatex">\(k\)</span>个类别的问题, 输出层会有<span class="arithmatex">\(k\)</span>个神经元, 也用one-hot编码</li>
 <li>二分类问题: 可以使用两个神经元, 使用one-hot编码; 也可以使用一个神经元, 配合sigmoid激活函数, 若输出值接近<span class="arithmatex">\(0\)</span>, 属于第一类, 接近<span class="arithmatex">\(1\)</span>则属于第二类</li>
 </ul>
-<h3 id="_6">隐藏层</h3>
+<h3 id="_6">隐藏层<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>隐藏层神经元对误差的影响如<a href="https://img.ricolxwz.io/54225f471feeb87e7664d00730b2f0cf.png">图</a>.</p>
 <ul>
 <li>隐藏层神经元过多: 导致过拟合</li>
@@ -2101,7 +2099,7 @@
 <li>此时, 向隐藏层中添加一些新神经元, 并使用随机初始化的权重重新训练网络, 均方误差会减少, 如<a href="https://img.ricolxwz.io/b8176513be1475a51dbd250cd4e9bcdc.png">图</a></li>
 <li>重复上述步骤, 直到满足终止条件, 例如添加新神经元不会导致显著的误差减少, 或者隐藏层达到设定的最大大小</li>
 </ol>
-<h2 id="learning-rate">学习率</h2>
+<h2 id="learning-rate">学习率<a class="headerlink" href="#learning-rate" title="Permanent link">&para;</a></h2>
 <p>神经网络的性能和学习率的相关性非常大. </p>
 <ul>
 <li>若学习率太小: 收敛地很慢</li>
@@ -2117,9 +2115,9 @@
 <li><span class="arithmatex">\(\eta_n = \eta_0 e^{-dn}\)</span></li>
 </ul>
 <p>其中, <span class="arithmatex">\(\eta_n\)</span>表示第<span class="arithmatex">\(n\)</span>批次的学习率, <span class="arithmatex">\(d\)</span>是一个超参数, 表示衰减率.</p>
-<h2 id="动量">动量</h2>
+<h2 id="动量">动量<a class="headerlink" href="#动量" title="Permanent link">&para;</a></h2>
 <p>动量, momentum, 通过在权重更新公式中引入一个额外的动量项, 使得当前的权重更新依赖于之前的更新, 从而减少振荡并允许使用更大的学习率. 计算公式为<span class="arithmatex">\(\Delta w_{pq}(t)=\eta\delta_q o_p + \mu(w_{pq}(t)-w_{pq}(t-1))\)</span>.</p>
-<h2 id="weight-initialization">初始化</h2>
+<h2 id="weight-initialization">初始化<a class="headerlink" href="#weight-initialization" title="Permanent link">&para;</a></h2>
 <p>神经网络模型的性能非常依赖于权重和截距的初始化.常见的做法有:</p>
 <ul>
 <li>标准的做法: 从<span class="arithmatex">\(-1\)</span>到<span class="arithmatex">\(1\)</span>之间选择小的随机数</li>

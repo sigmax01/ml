@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一个有待面面俱到的机器学习文档">
+        <meta name="description" content="提供数学与机器学习算法资源, 涵盖线性回归、决策树、神经网络等热门主题. 深入学习概率、大数据降维、强化学习以及先进的深度学习架构. 同时提供PyTorch等编程实战内容, 助力数据科学与人工智能领域的深入探索和提升.">
       
       
         <meta name="author" content="ricolxwz">
@@ -53,8 +53,6 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
-    
-      <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -2149,7 +2147,7 @@
 
   <h1>强化学习</h1>
 
-<h2 id="_1">背景</h2>
+<h2 id="_1">背景<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>监督学习旨在通过训练集中的已知标签<span class="arithmatex">\(y\)</span>来训练模型, 使模型的输出尽可能模仿这些标签, 通常用于分类或回归任务. 例如, 将不同类型的宝可梦进行分类, 在这种情况下, 输入有一个正确答案或者标签, 模型试图预测每个输入的标签.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/4ac5abb0cf015b7b4090727b14619b9f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4ac5abb0cf015b7b4090727b14619b9f.png" width="350" /></a></p>
@@ -2158,7 +2156,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/59327b41a383dd54769205f503770e69.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/59327b41a383dd54769205f503770e69.png" width="250" /></a></p>
 </figure>
-<h2 id="definition">定义</h2>
+<h2 id="definition">定义<a class="headerlink" href="#definition" title="Permanent link">&para;</a></h2>
 <p>强化学习可以用来解决上述问题, 可以通过婴儿学习的类比来解释: 婴儿在成长过程中没有明确的老是指导, 而是通过与环境的互动积累经验. 例如, 婴儿通过玩耍, 挥动手臂或四处观察等活动, 接受到来自环境的正面(如称赞)和负面(如批评)反馈, 这些反馈塑造了他们的行为和性格, 这种试错和反馈的过程类似于强化学习中的"反馈机制".</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/3c49aa991e47c617c6c802da039debb3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/3c49aa991e47c617c6c802da039debb3.png" width="500" /></a></p>
@@ -2172,7 +2170,7 @@
 <p>"奖励假设"告诉我们"所有目标都可以通过最大化预期的累计奖励来描述", 这意味着, 只要能够设计一个合适的奖励函数, 我们就可以通过强化学习实现各种复杂的目标, 涵盖从游戏到机器人控制的不用应用场景.</p>
 </details>
 <p>在每一个时间步, 智能体接受状态<span class="arithmatex">\(s_t\)</span>和奖励<span class="arithmatex">\(r_t\)</span>, 执行行动<span class="arithmatex">\(a_t\)</span>. 环境接受行动<span class="arithmatex">\(a_t\)</span>, 更新状态为<span class="arithmatex">\(s_{t+1}\)</span>, 并发出新奖励<span class="arithmatex">\(r_{t+1}\)</span>. 历史<span class="arithmatex">\(H_t=s_1, r_1, a_1, ..., a_{t-1}, s_t, r_t\)</span>记录了智能体从开始到当前时间步<span class="arithmatex">\(t\)</span>为止所有的状态, 行动和奖励, 接下来的行动<span class="arithmatex">\(a_t\)</span>取决于这个历史.</p>
-<h2 id="mdp">马尔可夫决策过程</h2>
+<h2 id="mdp">马尔可夫决策过程<a class="headerlink" href="#mdp" title="Permanent link">&para;</a></h2>
 <p>马尔可夫决策过程, Markov Decision Process, MDP, 是用于定义强化学习问题的数学框架, MDP通常通过五元组<span class="arithmatex">\((\mathcal{S}, \mathcal{A}, \mathcal{R}, \mathbb{P}, \gamma)\)</span>来表示:</p>
 <ul>
 <li><span class="arithmatex">\(\mathcal{S}\)</span>: 表示所有可能的状态集合, 即智能体在环境中可能遇到的不同状态</li>
@@ -2202,7 +2200,7 @@
 </figure></p>
 <p>如上图, 总共有<span class="arithmatex">\(12\)</span>个房间, 机器人完成扫地后可以在任意房间, 意味着总共有<span class="arithmatex">\(12\)</span>个状态, 它需要做的是在最少的步骤下回到灰色方块所指示的房间. 它的行为可以是向上, 向下, 向左, 向右. 每次移动都设置为一个负奖励, 表示每走一步就扣一分, 鼓励机器人在最少的步数内到达基地. </p>
 </details>
-<h3 id="policy">策略和最佳策略</h3>
+<h3 id="policy">策略和最佳策略<a class="headerlink" href="#policy" title="Permanent link">&para;</a></h3>
 <details class="example" open="open">
 <summary>例子</summary>
 <p>策略<span class="arithmatex">\(\pi\)</span>是机器人在每个状态下选择的动作规则, 例如, 在每个房间, 机器人可以选择向上, 向下, 向左, 向右. 最优策略<span class="arithmatex">\(\pi^*\)</span>是使得奖励总和最大化的策略. 由于初始状态和状态转移概率的不确定性, 如机器人初始可能在任意一个房间, 往各个房间(即下一个状态)走的概率也可能不一样.</p>
@@ -2211,17 +2209,17 @@
 </figure></p>
 <p>在这种情况下, 最优策略需要在所有可能的路径中最大化期望奖励. 使用公式可以表示为<span class="arithmatex">\(\pi^*=argmax_{\pi}\mathbb{E}[\sum_{t\geq 0}\gamma^t r_t|\pi]\)</span>. <span class="arithmatex">\(\sum_{t\geq 0}\)</span>表示的是从时间步<span class="arithmatex">\(t=0\)</span>开始一直到未来的所有时间步的奖励<span class="arithmatex">\(r_t\)</span>之和, 每个奖励都乘以折扣因子<span class="arithmatex">\(\gamma\)</span>, 用于表示对未来奖励的重视程度. 条件期望<span class="arithmatex">\(\mathbb{E[...|\pi]}\)</span>表示在给定策略<span class="arithmatex">\(\pi\)</span>下计算的期望值, 即在该策略引导下, 累积的折扣奖励的期望. 初始状态<span class="arithmatex">\(s_0\sim p(s_0)\)</span>, 表示机器人初始状态符合一定的概率分布. 行为<span class="arithmatex">\(a_t\sim \pi(\cdot |s_t)\)</span>, 表示在每个时间步<span class="arithmatex">\(t\)</span>, 机器人的行为符合概率分布<span class="arithmatex">\(\pi(\cdot|s_t)\)</span>, 策略<span class="arithmatex">\(\pi\)</span>是一个关于状态的概率分布, 描述了在不同状态下选择不同动作的概率. 状态转移<span class="arithmatex">\(s_{t+1}\sim p(\cdot | s_t, a_t)\)</span>, 表示机器人的下一个状态符合概率分布<span class="arithmatex">\(p(\cdot|s_t, a_t)\)</span>, 这个转移概率分布描述了在当前状态和采取的动作下, 环境可能转移到的下一个状态的分布.</p>
 </details>
-<h3 id="value-function">价值函数</h3>
+<h3 id="value-function">价值函数<a class="headerlink" href="#value-function" title="Permanent link">&para;</a></h3>
 <p>价值函数用于衡量智能体在<strong>某个策略</strong>下 <ins>给定状态</ins> 或 <ins>在给定状态下采取行动后</ins> 的预期回报. 根据划线部分的不同, 可以分为两种价值函数: 状态值函数和动作值函数.</p>
 <ul>
 <li>状态值函数: 表示在某个策略<span class="arithmatex">\(\pi\)</span>下, 特定状态<span class="arithmatex">\(s\)</span>的好坏程度. 它定义为从状态<span class="arithmatex">\(s\)</span>出发, 遵循策略<span class="arithmatex">\(\pi\)</span>所能获得的期望累计奖励. 公式为<span class="arithmatex">\(V^{\pi}(s)=\mathbb{E}[\sum_{t\geq 0}\gamma^t r_t|s_0=s, \pi]\)</span></li>
 <li>动作值函数: 表示在某个策略<span class="arithmatex">\(\pi\)</span>下, 当在状态<span class="arithmatex">\(s\)</span>时执行动作<span class="arithmatex">\(a\)</span>的好坏程度. 它定义为首先在状态<span class="arithmatex">\(s\)</span>执行动作<span class="arithmatex">\(a\)</span>, 然后遵循策略<span class="arithmatex">\(\pi\)</span>所能获得的期望累计奖励. 公式为<span class="arithmatex">\(Q^{\pi}(s, a)=\mathbb{E}[\sum_{t\geq 0}\gamma^t r_t|s_0=s, a_0=a, \pi]\)</span>. </li>
 </ul>
-<h4 id="bellman-function">Bellman方程</h4>
+<h4 id="bellman-function">Bellman方程<a class="headerlink" href="#bellman-function" title="Permanent link">&para;</a></h4>
 <p>定义<span class="arithmatex">\(Q^*(s, a)\)</span>为最优Q值函数, 公式为<span class="arithmatex">\(Q^*(s, a)=max_{\pi}\mathbb{E}[\sum_{t\geq 0}\gamma^t r_t|s_0=s, a_0=a, \pi]\)</span>, 注意和动作值函数做区分, 这里表示的是<strong>在所有可能的策略</strong>中, 而动作值函数表示的是<strong>在特定的策略下</strong>. 最优Q值函数满足以下Bellman方程: <span class="arithmatex">\(Q^*(s, a) = \mathbb{E}_{s' \sim \mathcal{E}} \left[ r + \gamma \max_{a'} Q^*(s', a') \,|\, s, a \right]\)</span>.</p>
 <p>这个公式的直观理解就是如果下一个状态-动作<span class="arithmatex">\(s', a'\)</span>对应的最优Q值<span class="arithmatex">\(Q^*(s', a')\)</span>已知, 那么在状态<span class="arithmatex">\(s\)</span>执行动作<span class="arithmatex">\(a\)</span>所能获得的最优回报<span class="arithmatex">\(Q^*(s, a)\)</span>, 等于即时奖励<span class="arithmatex">\(r\)</span>加上下一个状态-动作对<span class="arithmatex">\(s', a'\)</span>的最优Q值函数的期望值. <span class="arithmatex">\(s'\sim \mathcal{E}\)</span>指的是下一个状态<span class="arithmatex">\(s'\)</span>符合状态转移概率分布<span class="arithmatex">\(p(\cdot|s, a)\)</span>. </p>
 <p>最优策略<span class="arithmatex">\(\pi^*\)</span>指的就是在每个状态下, 都选择能够使得<span class="arithmatex">\(Q^*(s, a)\)</span>最大化的动作/行为. </p>
-<h2 id="q-algo">Q学习算法</h2>
+<h2 id="q-algo">Q学习算法<a class="headerlink" href="#q-algo" title="Permanent link">&para;</a></h2>
 <p>Q学习算法的目的就是获得所有状态-动作对的最优Q值, 步骤为:</p>
 <ol>
 <li>初始化: 对于所有的状态-动作对<span class="arithmatex">\(s, a\)</span>, 初始化<span class="arithmatex">\(Q(s, a)\)</span>, 通常为<span class="arithmatex">\(0\)</span>, 构成的表称为Q表</li>
@@ -2257,7 +2255,7 @@
 <li>终止: 若达到固定回合数, 或者Q表中所有的Q值变化都很小了, 小于某个阈值近似收敛, 则终止算法, Q表中的值作为学习到的最优Q值</li>
 </ol>
 </details>
-<h3 id="dql">深度Q学习算法</h3>
+<h3 id="dql">深度Q学习算法<a class="headerlink" href="#dql" title="Permanent link">&para;</a></h3>
 <p>在传统的Q学习中, Q值是保存在Q表中的, 这个方法在小规模的, 离散的状态空间中效果良好, 但是在复杂环境中主要会面临以下问题:</p>
 <ul>
 <li>状态空间过大, Q表会变得极其庞大, 导致存储和计算的资源需求变得不现实</li>
@@ -2275,9 +2273,9 @@
 <summary>注意</summary>
 <p>DQN能够处理连续的状态值, 但是不能处理连续的动作值. 因为DQN的输出层是每个离散动作输出一个Q值. 如果需要处理连续动作空间, 通常会使用其他算法, 如DDPG, SAC, TD3.</p>
 </details>
-<h4 id="_2">损失函数</h4>
+<h4 id="_2">损失函数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <p>为了训练Q网络, 我们需要定义一个损失函数<span class="arithmatex">\(L\)</span>来最小化Q值的预测误差. 它是预测Q值和目标值之间的均方误差. 根据Bellman方程, 目标Q值为<span class="arithmatex">\(r+\gamma max_{a'}Q_w(s', a')\)</span>, 所以<span class="arithmatex">\(L = \left( r + \gamma \max_{a'} Q_w(s', a') - Q_w(s, a) \right)^2\)</span>, 通过最小化这个损失函数, 神经网络会逐步调整权重, 使得<span class="arithmatex">\(Q_w(s, a)\)</span>尽可能逼近最优Q值<span class="arithmatex">\(Q^*(s, a)\)</span>.</p>
-<h4 id="_3">经验回放</h4>
+<h4 id="_3">经验回放<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
 <p>在连续的时间步中, 状态和动作是相关的, 因此直接使用这些样本进行训练会导致模型学习到时间相关性, 从而影响模型的稳定性.</p>
 <p>经验回放是指智能体在环境中收集的经验, 一个四元组(当前状态, 采取的动作, 获得的奖励和到达的下一状态)存储在一个记忆池中, 然后在训练神经网络的时候从这个数据集中随机抽取经验进行预测, 然后根据损失函数更新Q网络的参数. 这种随机抽样能够打破时间上的相关性, 使得训练数据更加多样化, 独立, 从而减少模型的偏差.</p>
 <hr />
@@ -2309,7 +2307,7 @@
 </li>
 <li>终止: 若达到固定回合数, 或所有的Q值变化都很小了, 小于某个阈值近似收敛, 则终止算法</li>
 </ol>
-<h4 id="_4">目标网络</h4>
+<h4 id="_4">目标网络<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>第一个场景:</p>
 <p>在Q网络中, 网络的参数<span class="arithmatex">\(\mathcal{w}\)</span>是在不断更新的, 而目标Q值的计算过程是基于网络的当前参数的, 这会导致目标Q值不太稳定, 导致Q值很难收敛. 为了解决这个问题, DQN引入了一个目标网络, 目标网络的参数由主网络的参数复制而来, 但是在一段时间内保持固定不变. 相应的, 损失函数应该更新为<span class="arithmatex">\(L=(r+\gamma max_{a'}Q_{\hat{w}}(s', a') - Q_w(s, a))^2\)</span>. <span class="arithmatex">\(\hat{w}\)</span>为目标网络的参数.</p>
 <p>第二个场景:</p>
@@ -2332,25 +2330,25 @@
 <p>这会导致我们选择<span class="arithmatex">\(a_2'\)</span>而不是<span class="arithmatex">\(a_1'\)</span></p>
 </details>
 <p>解决这种问题的方法还是使用目标网络. 使用当前网络<span class="arithmatex">\(Q_w\)</span>来选择动作<span class="arithmatex">\(a'=argmax_{a'}Q_w(s', a')\)</span>, 而使用目标网络<span class="arithmatex">\(Q_{\hat{w}}\)</span>来评估选择的动作<span class="arithmatex">\(Q_{\hat{w}}(s', a')\)</span>. 所以损失函数公式进一步改写为<span class="arithmatex">\(L=(r+\gamma Q_{\hat{w}}(s', argmax_{a'}Q_w(s', a')) - Q_w(s, a))^2\)</span></p>
-<h4 id="_5">优先级经验回放</h4>
+<h4 id="_5">优先级经验回放<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>这是对普通的经验回放的一种改进方法. 在普通的经验回放中, 都是均匀采样的, 不考虑每条经验的重要性. 但是在实际训练中, 有些经验对网络的改进有很大的影响, 特别是TD误差较大的经验, 因为它们表示了智能体对未来奖励较大的更新需求, 普通的均匀采样可能会浪费资源在较低TD误差的样本上.</p>
 <p>TD误差的计算公式为<span class="arithmatex">\(|\delta_i|=|r+\gamma max_{a'}Q_{\hat{w}}(s', a') - Q_w(s, a)|\)</span>. 将经验的优先级设置为TD误差加上一个小常数来防止优先级为零<span class="arithmatex">\(p_i=|\delta_i|+\epsilon\)</span>. 然后计算每条经验的被采样概率<span class="arithmatex">\(p(i) = \frac{p_i^\alpha}{\sum_k p_k^{\alpha}}\)</span>. <span class="arithmatex">\(\alpha\)</span>是一个超参数, 控制TD误差的影响程度, 当<span class="arithmatex">\(\alpha=0\)</span>的时候退化成均匀采样. 同时, 在实际采样的时候, 可以引入一定的随机性, 以增加样本的多样性, 避免集中在高TD误差的经验上, 同时保留了优先级的优势.</p>
-<h2 id="_6">应用</h2>
-<h3 id="alphago">AlphaGo</h3>
+<h2 id="_6">应用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="alphago">AlphaGo<a class="headerlink" href="#alphago" title="Permanent link">&para;</a></h3>
 <p><a href="https://deepmind.google/research/breakthroughs/alphago/">AlphaGo</a>是从2014年开始由Google DeepMind开发的人工智能围棋软件. 它背后使用的是强化学习, 相关论文: <a href="https://www.science.org/doi/10.1126/science.aar6404"><em>A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play</em></a>.</p>
-<h4 id="_7">神经网络</h4>
+<h4 id="_7">神经网络<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>AlphaGo中由两个神经网络: 策略网络(Policy Network)和价值网络(Value Network):</p>
 <ul>
 <li>策略网络: 用于生成围棋的落子策略, 对于当前棋盘的状态, 它输出每个可能落子位置的概率. 策略网络最初是通过人类专家对局的数据进行训练. 通过观察专家的走法, 它学习如何根据当前棋盘状态预测下一步的最佳落子位置, 这一阶段帮助AlphaGo建立基础的围棋理解, 模仿人类的策略. 在监督学习完成后, 策略网络进一步通过自我对弈的方式进行强化学习, 它不断和自己下棋, 通过优化获胜几率, 最终开发出新的策略</li>
 <li>价值网络: 用于估计当前棋盘的胜负值, 它输出一个值, 该值表示在给定棋盘状态下获胜的可能性. 它的训练方式主要依靠强化学习, 通过大量的自我对弈, 它学会了在任意棋盘下预测当前局面的胜负可能性 </li>
 </ul>
-<h4 id="search-tree">搜索过程</h4>
+<h4 id="search-tree">搜索过程<a class="headerlink" href="#search-tree" title="Permanent link">&para;</a></h4>
 <p>AlphaGo大大优化了搜索过程, 如果没有AlphaGo, 我们使用的是完整搜索树, 又叫"穷尽搜索", 其中的每个节点代表棋盘的一个状态, 每条路径代表可能的下一步行动, 这种方式会产生一个庞大的搜索树, 尤其在围棋这类游戏中, 完全搜索完所有的路径是不可能的, 因为节点数量会指数级增长. 策略网络和价值网络大大简化了这棵树:</p>
 <ul>
 <li>策略网络减少宽度: 策略网络能够减少在某个局面下需要考虑的落子位置数量. 它通过对可能的落子位置进行概率排序. 重点关注较高概率的几步, 从而缩小搜索空间</li>
 <li>价值网络减少深度: 价值网络通过对局面进行评估, 提前得出某些路径的大概率结果, 减少搜索树的深度. 这样可以在关键位置提前终止搜索, 不必深入每一个分支</li>
 </ul>
-<h4 id="_8">训练流程</h4>
+<h4 id="_8">训练流程<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <p>AlphaGo的训练过程可以总结为:</p>
 <ol>
 <li>AlphaGo的自我对弈: AlphaGo在每个局面下使用策略网络和价值网络进行选择, 生成一系列局面, 这种自我对弈会产生大量数据</li>
@@ -2358,16 +2356,16 @@
 <li>新的价值网络训练: AlphaGo通过自我对弈的结果, 改善价值网络</li>
 <li>在下一轮迭代中使用新的策略网络和价值网络</li>
 </ol>
-<h4 id="_9">战果</h4>
+<h4 id="_9">战果<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <p>AlphaZero在不同的棋类游戏中进展神速.</p>
 <ul>
 <li>国际象棋: AlphaZero在四小时就超过了顶尖国际象棋引擎StockFish的水平</li>
 <li>将棋: AlphaZero在两小时内超过了顶尖象棋引擎Elmo的水平</li>
 <li>围棋: AlphaZero在八小时内就超过了AlphaGo的水平</li>
 </ul>
-<h4 id="_10">特点</h4>
+<h4 id="_10">特点<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
 <p>深度学习能够处理复杂棋类游戏中的庞大搜索空间, 通过神经网络预测落子位置和局面胜负概率, 大大提高了搜索效率, 见<a href="#search-tree">搜索过程</a>. 自我对弈生成了大量数据用于训练神经网络, 从简单对手逐步提升, 自动构建了一个由弱到强的训练体系, 它不仅可以帮助AlphaZero掌握既定策略, 还可以发现新的策略和方法, 提高棋艺水平.</p>
-<h2 id="_11">深度强化学习</h2>
+<h2 id="_11">深度强化学习<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p>RL是一种用于决策制定的通用框架, 旨在训练一个能够自主行动的智能体. 而DL是一种通用的表示学习框架, 用于学习达到目标所需的表示. 而深度强化学习DRL是RL和DL的集合, 通过利用深度神经网络来处理和强化学习过程中的庞大状态和动作空间. 在传统的强化学习中, 智能体的状态和动作空间是非常大或是连续的, 难以有效表示和处理, 而深度学习的优势在于它可以通过神经网络从复杂的高维数据中提取有效特征, 使得它称为强化学习的有效工具. 之前讲的深度Q学习算法就是DRL的一种, 除此之外, 还有策略梯度方法, Actor-Critic方法等等.</p>
 
 
