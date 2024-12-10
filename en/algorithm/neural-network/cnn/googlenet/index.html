@@ -1418,6 +1418,48 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      逐层构建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波器组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积核的相对比例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1*1卷积核的使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1933,6 +1975,48 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      逐层构建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波器组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积核的相对比例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1*1卷积核的使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1992,11 +2076,13 @@
 <p>那么有没有解决办法呢, 将稀疏矩阵聚类为相对密集的矩阵, Arora等人<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup>的研究指出如果一个数据集的概率分布能够被一个非常大, 非常稀疏的网络描述的话, 那么可以通过分析激活值的统计特性和对高度相关的输出进行聚类来逐层构建出一个最有网络, 这说明臃肿的稀疏网络可以被不失性能的简化, 也就是简化后的网络比原来的全连接网络的性能更高<sup id="fnref2:8"><a class="footnote-ref" href="#fn:8">8</a></sup>. 虽然数学证明需要很多的条件, 但是这个现象和Hebbian Priciple很像, 简单的说, 如果两个神经元常常同时产生动作电位, 或者说同时激活(fire), 这两个神经元之间的连接就会变强, 反之变弱(neurons that fire together, wire together), 所以说, 这个结论在条件不是很全的情况下也可以用.</p>
 <p>所以现在的问题就是找到一个架构使得能够使用稀疏网络, 同时又能够更高效地利用我们目前的硬件. 正如Hebbian所说的一样, 许多文献指出, 将稀疏矩阵聚类为多个较为密集的子矩阵, 并对每个子矩阵进行单独计算能够创造出SOTA的稀疏矩阵乘法效率. Inception架构是该文章第一作者的一个案例研究, 目的是评估一个假设的网络拓扑构建算法的效果, 这个算法的目标是近似一个稀疏结构, 即使用密集的, 现成的组件来模拟这些稀疏结构. 尽管最初的设计和构建非常具有推测性, 但是在进行了两轮的调整后, Inception架构已经超过了NiN的表现. 在进一步调整学习率, 超参数和训练方法后, Inception架构的性能得到了显著提升, 特别是在定位和目标检测等任务中.</p>
 <h2 id="_9">架构</h2>
+<h3 id="_10">逐层构建</h3>
 <p>正如前面所说的, Inception架构的目的是找到怎么才能在CNN中将已经存在的密集组件近似为最佳稀疏结构. 由于我们的网络要具有平移不变性(即图片平移不会影响结果), 所以网络是基于CNN的, 要做的是找到一种最佳的局部构造, 并在空间上重复应用. Arora等人<sup id="fnref2:9"><a class="footnote-ref" href="#fn:9">9</a></sup>提出了一种逐层构建的方式, 在这种方式中, 应该分析网络的最后一层的相关统计信息, 并将具有高度相关性的神经元聚类.</p>
 <details class="example" open="open">
 <summary>如何进行逐层构建</summary>
 <p>例如, 最后一层包含1000个神经元, 每个神经元对应一个不同的类别, 通过计算这些神经元的相关性, 发现200个神经元的相关性较高, 将这200个高度相关的神经元分成10个簇, 每个簇包含20个功能近似的神经元, 根据上述簇, 为倒数第二层设计10个子模块, 每个模块复杂处理对应簇内的特定类别的信息. 重复这一过程, 直到构建完整个网络的所有层. 前一层根据下一层的模块划分, 前一层的每个神经元只连接到最后一层对应模块的神经元, 而不与其他模块的神经元连接.</p>
 </details>
+<h3 id="_11">滤波器组</h3>
 <p>作者假设在CNN中, 前面层的每个神经元都对应于输入图像的某一部分区域, 这些单元被组合为滤波器组(filter banks). 靠近输入的低层, 它们的神经元通常会集中在图像的局部区域, 这意味着, 会有很多的聚焦于一个局部区域的簇, 这可以通过<span class="arithmatex">\(1\times 1\)</span>的卷积核覆盖. 相反的, 可能会有数量较少的, 但是分布更广的簇, 这些簇可以通过更大的卷积核覆盖更大的区域. 随着区域越来越大, 簇的数量会越来越少(<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span> 对于filter bank中所有的滤波器都是). 为了避免对齐问题(也就是要通过调整步长stride使得它们输出的特征图在尺寸上是一样的), 当前版本的Inception架构限制滤波器的大小为<span class="arithmatex">\(1\times 1\)</span>, <span class="arithmatex">\(3\times 3\)</span>, <span class="arithmatex">\(5\times 5\)</span>. 该架构将所有的滤波器的输出进行拼接. 此外, 由于池化操作在当时的SOTA里面用得比较多, 所以他们在卷积的同时也有一条平行的池化路径.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/6012441b80690fcd0f07a2409a29f1ef.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6012441b80690fcd0f07a2409a29f1ef.png" width="400" /></a>
@@ -2007,6 +2093,16 @@
 <summary>对于Inception架构以及filter bank这样设计的理解</summary>
 <p>个人理解: Inception架构本质上就是根据下一层的结果通过关联一些相似的滤波器, 将它们归为一类, 然后这些滤波器所对应的神经元只会下一层的对应类的神经元连接, 以模拟稀疏网络. 如果不是稀疏连接而是全连接的话, 使用<span class="arithmatex">\(3\times 3\)</span>的滤波器就可以了, 因为所有的神经元都是连接的. 但是对于Inception来说, 如果是不同的簇之间的神经元上下层是没有连接的, 这也就是说, 我们要手动将关注局部和全局的簇所对应的神经元都连接起来, 这也就是为什么Inception会有一个filter bank的概念, <span class="arithmatex">\(1\times 1\)</span>的卷积核所形成的簇代表的是局部特征, 对应的是代表局部特征的簇所在的神经元之间的连接, 而<span class="arithmatex">\(5\times 5\)</span>的卷积核所形成的簇代表的是全局特征, 对应的是代表全局特征的簇所在的神经元之间的连接, 如果缺少<span class="arithmatex">\(5\times 5\)</span>, 那么这部分的连接就消失了, 网络的可解释性就会降低.</p>
 </details>
+<h3 id="_12">卷积核的相对比例</h3>
+<p>随着Inception模块的层层堆叠, 它们的输出统计相关性会产生变化. 由于高级层捕获了更高抽象度的特征, 高层特征图稀疏, 只有大卷积核才能整合这些分散的特征, 对应的就是<span class="arithmatex">\(3\times 3\)</span>和<span class="arithmatex">\(5\times 5\)</span>的卷积核的比例应该增加.</p>
+<h3 id="11">1*1卷积核的使用</h3>
+<p>上述结构(也叫做naive的版本)还有一个缺点, 卷积操作的复杂度是<span class="arithmatex">\(O(K^2\cdot C_{in}\cdot C_{out}\cdot H\cdot W)\)</span>, 其中<span class="arithmatex">\(K\)</span>是卷积核大小(如<span class="arithmatex">\(5\)</span>), <span class="arithmatex">\(C_{in}\)</span>和<span class="arithmatex">\(C_{out}\)</span>是输入和输出通道数, <span class="arithmatex">\(H\)</span>和<span class="arithmatex">\(W\)</span>是特征图的高度. 对比<span class="arithmatex">\(3\times 3\)</span>的卷积核, 我们发现计算量接近其<span class="arithmatex">\(2.8\)</span>倍. 而且, 对于池化操作来说, 通道数是保持不变的, 即输出通道数等于上一层的滤波器数量, 当上一层滤波器数量较大的时候, 这会直接导致池化层的输出通道数变得非常庞大, 由于池化层的输出最后是要和卷积层的输出合并的, 所以会取最大的通道数, max, 导致输出特征图的通道数比较大, 这会导致<span class="arithmatex">\(5\times 5\)</span>这样的卷积核上的计算复杂度很高.</p>
+<p>作者因此萌生了一种解决方法. 在Inception模块里面有选择性的进行降维操作. 即如何生成一个embedding, embedding是一种将高维数据映射到低维向量空间的方式, 通常以稠密(dense)的形式表示, 用于在更小的空间中有效捕捉输入数据的语义或者特征. 虽然embeddings能压缩信息, 但它们是密集的, 这种表示方式使得直接建模变得更加困难. 为了符合Arora等人的研究所说明的要求, 作者只在必须对信号进行大量聚合的时候, 才压缩信息以简化操作. 具体的操作就是在<span class="arithmatex">\(3\times 3\)</span>和<span class="arithmatex">\(5\times 5\)</span>卷积之前应用<span class="arithmatex">\(1\times 1\)</span>卷积进行降维, 并且借鉴了NiN中的思想, 包含了ReLU, 使得这个<span class="arithmatex">\(1\times 1\)</span>的mlpconv能够很好的拟合非线性关系. 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/6bf9c946fb02851d11e5ee87e769ec94.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/6bf9c946fb02851d11e5ee87e769ec94.png" width="400" /></a>
+  </p>
+<figcaption>包含降维操作的Inception模块</figcaption>
+</figure>
 <div class="footnote">
 <hr />
 <ol>
@@ -2061,7 +2157,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月10日</span>
   </span>
 
     
@@ -2084,6 +2180,64 @@
 
 
 
+
+<h2 id="__comments">Comments</h2>
+<!-- Insert generated snippet here -->
+<script
+    src="https://giscus.app/client.js"
+    data-repo="sigmax01/ml"
+    data-repo-id="R_kgDOMNX2Cw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMNX2C84CgVid"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]");
+
+    // Set palette on initial load
+    var palette = __md_get("__palette");
+    if (palette && typeof palette.color === "object") {
+        var theme =
+            palette.color.scheme === "slate"
+                ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
+                : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme);
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]");
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette");
+            if (palette && typeof palette.color === "object") {
+                var theme =
+                    palette.color.scheme === "slate"
+                        ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
+                        : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame");
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app",
+                );
+            }
+        });
+    });
+</script>
 
                  
               </article>
