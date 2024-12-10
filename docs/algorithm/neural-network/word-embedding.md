@@ -73,8 +73,6 @@ comments: false
 
 词嵌入和人脸编码之间有其妙的关系, 在人脸识别中, 我们训练了一个Siamese网络结构[^5], 这个网络会学习不同人脸的128维表示, 然后通过比较编码结果来判断两个图片是否是一个人脸, 词嵌入的意思和这个差不多, 在人脸识别领域大家更喜欢用编码这个词来指代这些词向量. 但是有一个显著的不同就是, 在人脸识别中, 我们训练一个网络, 任意给出一个人脸照片, 甚至是没有见过的照片, 神经网络都会计算出一个相应的编码结果. 而学习词嵌入是有一个固定的词汇表的, 比如10000个单词, 我们学习每个词的一个固定的编码, 而像一些没有出现过的单词就被标记为未知单词. 现代语言模型已经通过方法如WordPiece[^3]或者Byte Pair Encoding(BPE)[^4]解决了未知单词的限制, 但是不变的是, 它们都有一个词汇表.
 
-## 词嵌入的特性
-
 ### 类比推理
 
 之前我们讲到, 词嵌入的作用之一是捕捉相似词之间的关系. 词嵌入还有一个特性就是它能实现类比推理, 它更关注捕捉不同实体之间的关系模式. 假如提出一个问题, man如果对应woman, 那么king应该对应什么, 都知道king应该对应queen, 这里强调的是性别差异模式, 能否有一种算法能够自动推导出这种关系.
@@ -145,8 +143,45 @@ $$\mathbf{e}_{\text{king}} - \mathbf{e}_{\text{queen}} =
 0
 \end{bmatrix}$$
 
+这个结果表示, man和woman主要的差异是gender上的差异, 而king和queen之间的主要差异, 根据向量的表示, 也是gender上的差异, 这就是为什么$e_{man}-e_{woman}$和$e_{king}-e_{queen}$的结果是相同的. 所以的出这种方法对应的就是当算法被问及man对woman相当于king对什么的时候, 算法所做的就是计算$e_{man}-e_{woman}$, 然后找到一个向量也就是找出一个词, 使得$e_{man}-e_{woman}\simeq e_{king}-e_{?}$, 也就是说, 当这个新词是queen的时候, 式子的左边会近似地等于右边. 这种思想源于Tomas Mikolov等人的研究[^6].
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/d999f07762bbe97c0eb0c884eb2220f3.png){ loading=lazy width='500' }
+</figure>
+
+那么, 如何将这种思想写成算法呢? 在上图中, 词嵌入向量在一300维的空间里面, 每个单词对应的是300维空间上的一个点. 所示的箭头代表的就是向量在gender这一特征的差值, 可以看到man, woman的差值非常接近于king, woman之间的差值. 为了得出上述类比推理, 你能做的就是找到单词$w$使得$e_{man}-e_{woman}\simeq e_{king}-e_{w}$这个等式成立. 我们要做的是把$e_w$放到等式的一边, 于是等式的另一边就是$e_{king}-e_{man}+e_{woman}$, 这个式子的意思就是找到单词$w$最大化$e_w$和$e_{king}-e_{man}+e_{woman}$的相似度. 如果理想的话, 应该会得到单词queen. 但是, 如果查看一些研究文献不难发现, 通过这种方法做类比推理的准确率大概只有30%-75%.
+
+在继续之前, 需要明确一下上图中左边的这个平行四边形. 之前我们谈到过可以使用t-SNE算法将词嵌入可视化, t-SNE是一种非线性降维算法, 它将高维数据(如300维的词向量)映射到低维空间(如2维)以便于可视化, 这种映射方式复杂且非线性, 因此在降维后, 数据之间的几何关系可能会被扭曲. 在原始的高维空间中, 类比关系如man\:woman::king:queen可以通过集合关系(如平行四边形)表示, 而在t-SNE降维后的2维空间中, 由于映射的非线性特性, 这种几何关系通常无法保持, 平行四边形的形状和方向可能会完全改变甚至丢失.
+
+余弦函数是一种常用的相似度测量函数. 在余弦相似度中, 向量$u$和$v$之间的相似度可以被定义为$sim(u, v)=\frac{u^Tv}{||u||_2||v||_2}$. 如果$u$和$v$非常相似, 那么它们的内积会非常大, 当夹角是$90$度的话, 那么余弦相似度是0, 所以说, 这种相似性取决于向量$u$和$v$之间的角度.
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/fc0d12a75b44f0ad50c7817db6b35c6d.png){ loading=lazy width='700' }
+</figure>
+
+用到上述的例子中, 就是计算$e_w$和$e_{king}-e_{man}+e_{woman}$的余弦相似度.
+
+## 嵌入矩阵
+
+当你应用算法来学习词嵌入的时候, 实际上是在学习一个嵌入矩阵.
+
+和之前一样, 假设我们的词汇表含有$10000$个单词, 词汇表里有a, aaron, orange, zulu, 等等词汇. 我们要做的就是学习一个嵌入矩阵$E$, 它是一个$300\times 10000$的矩阵. 假设orange的单词编号是$6257$, 使用$O_{6257}$来表示这个one-hot向量, 显然它的形状是$10000\times 1$, 它不像下图(右侧)中的那么短, 它的高度应该和左边的那个嵌入矩阵的宽度($10000$)相等.
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/1d1a0c6e49eaa13069990aa098f06e5c.png){ loading=lazy width='500' }
+</figure>
+
+假设这个嵌入矩阵叫做$E$. 如果用$E$去乘右边的$O_{6257}$, 那么就会得到一个$300$维的向量, 产生的矩阵的形状是$300\times 1$的, 也就是一个列向量. 这个列向量的第一个元素(图中编号6)对应的就是嵌入矩阵中orange列的第一个元素(图中编号5), 以此类推, **得到的列向量与orange列构成的向量是相等的. 所以说每个单词的词向量其实就存储在嵌入矩阵的对应列中**.
+
+在下个小节中会随机初始化矩阵$E$, 然后使用梯度下降法来学习这$300\times 10000$的矩阵的各个参数. $E$乘以one-hot向量就会得到它的词向量. 在我们手动计算这个词向量的时候, 是很方便的. 在实际中, 由于所有词的one-hot编码会组成一个非常大又非常稀疏的矩阵, 嵌入矩阵和这个矩阵相乘的计算效率非常低下. 由于刚才我们提到“某个单词的词向量其实就是嵌入矩阵中的对应列”, 所以在实际中会使用一个专门的函数来单独查找嵌入矩阵的对应列, 而不是用矩阵乘法去取出那个列.
+
+## 学习嵌入矩阵
+
+
+
 [^1]: 深度学习笔记. (不详). 取读于 2024年12月10日, 从 http://www.ai-start.com/dl2017/html/lesson5-week2.html#header-n169
 [^2]: Maaten, L. van der, & Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9(86), 2579–2605.
 [^3]: Song, X., Salcianu, A., Song, Y., Dopson, D., & Zhou, D. (2021). Fast WordPiece tokenization (No. arXiv:2012.15524). arXiv. https://doi.org/10.48550/arXiv.2012.15524
 [^4]: Sennrich, R., Haddow, B., & Birch, A. (2016). Neural machine translation of rare words with subword units (No. arXiv:1508.07909). arXiv. https://doi.org/10.48550/arXiv.1508.07909
 [^5]: Koch, G. R. (2015). Siamese neural networks for one-shot image recognition. https://www.semanticscholar.org/paper/Siamese-Neural-Networks-for-One-Shot-Image-Koch/f216444d4f2959b4520c61d20003fa30a199670a
+[^6]: Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space (No. arXiv:1301.3781). arXiv. https://doi.org/10.48550/arXiv.1301.3781
