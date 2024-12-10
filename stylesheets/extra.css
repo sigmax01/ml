@@ -215,6 +215,10 @@ code {
     scrollbar-width: none !important;
 }
 
-p code {
-    border-radius: 0.25rem !important;
+/* 行内代码左右两边间距大一点 */
+p code,
+summary code {
+    /* border-radius: 0.25rem !important; */
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
