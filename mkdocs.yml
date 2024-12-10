@@ -173,12 +173,12 @@ nav:
       - index.md
   - 数学:
       - 概率:
-        - math/probability/index.md
-        - 随机事件和概率: math/probability/random-event-and-probability.md
-        - 一维随机变量及其分布: math/probability/one-dimensional-random-variable-distribution.md
-        - 多维随机变量及其分布: math/probability/multi-dimensional-random-variable-distribution.md
-        - 随机变量的数字特征: math/probability/numerical-characteristics-of-random-variable.md
-        - 大数定律与中心极限定理: math/probability/large-number-central-limit-theorem.md
+          - math/probability/index.md
+          - 随机事件和概率: math/probability/random-event-and-probability.md
+          - 一维随机变量及其分布: math/probability/one-dimensional-random-variable-distribution.md
+          - 多维随机变量及其分布: math/probability/multi-dimensional-random-variable-distribution.md
+          - 随机变量的数字特征: math/probability/numerical-characteristics-of-random-variable.md
+          - 大数定律与中心极限定理: math/probability/large-number-central-limit-theorem.md
   - 算法:
       - algorithm/index.md
       - 线性回归: algorithm/linear-regression.md
@@ -200,7 +200,6 @@ nav:
               - NiN: algorithm/neural-network/cnn/nin.md
               - GoogLeNet: algorithm/neural-network/cnn/googlenet.md
           - 递归神经网络: algorithm/neural-network/rnn.md
-          - 生成对抗网络: algorithm/neural-network/gan.md
           - 词嵌入: algorithm/neural-network/word-embedding.md
           - Transformer:
               - algorithm/neural-network/transformer/index.md
@@ -210,5 +209,5 @@ nav:
       - 马尔可夫链: algorithm/markov-chain.md
       - 强化学习: algorithm/reinforcement-learning.md
   - 代码:
-    - PyTorch:
-      - code/pytorch/index.md
+      - PyTorch:
+          - code/pytorch/index.md
