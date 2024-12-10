@@ -191,7 +191,15 @@ $$\mathbf{e}_{\text{king}} - \mathbf{e}_{\text{queen}} =
   ![](https://img.ricolxwz.io/c20828ff376bed49b8ce6268ffad46c0.png){ loading=lazy width='500' }
 </figure>
 
-这个是早期比较成功的学习词嵌入的方法之一. 我们先来概括一下这个算法, 看看我们怎样来推导出更加简单的算法. 假设你的训练集中有这样一个更长的句子"I want a glass of orange juice to go aloing with my cereal.". 我们将需要预测的词称为目标词, 即juice为目标词. 在上述方法中, 目标词是通过前面的4个词推导出来的.
+这个是早期比较成功的学习词嵌入的方法之一. 我们先来概括一下这个算法, 看看我们怎样来推导出更加简单的算法. 假设你的训练集中有这样一个更长的句子"I want a glass of orange juice to go aloing with my cereal.". 我们将需要预测的词称为目标词, 即juice为目标词. 在上述方法中, 目标词是通过前面的4个词推导出来的. 如果你要建立一个[语言模型](https://zh.wikipedia.org/zh-cn/%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8B), 那么一般选取目标词前的几个词作为上下文, 但是如果你的目标不是建立目标模型的话, 那么可以选择其他的上下文.
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/623d942029f748dededcff06919d5587.png){ loading=lazy width='500' }
+</figure>
+
+🌟比如, 提出这样一个学习问题, 它的上下文是左边和右边的四个词, 如上图编号3所示. 这个问题需要将左边和右边的4个词的嵌入向量供给给神经网络, 来预测中间的单词是什么. 或者用一个更加简单的上下文, 也许只提供目标词的前一个词, 比如只给出orange这个词来预测orange后面的是什么, 这又是另一个学习问题了, 可以构建一个神经网络, 只把目标词的前一个词或者说前一个词的嵌入向量输入到神经网络来预测该词的下一个词, 然后通过计算误差反向传播得到嵌入矩阵. 还有一个效果非常好的做法是告诉你目标词, 比如说, 告诉你glass, 然后附近有一个词和glass的位置很近, 那么这个词会是什么, 对应的是skip-gram模型的思想🌟.
+
+研究指出, 如果你真想建立一个语言模型, 那么用目标词的前几个单词作为上下文是常见做法. 但是如果你的目标是学习词嵌入, 那么你就可以用这些其他类型的上下文, 它们也能做到很好的词嵌入, 甚至更加出色.
 
 [^1]: 深度学习笔记. (不详). 取读于 2024年12月10日, 从 http://www.ai-start.com/dl2017/html/lesson5-week2.html#header-n169
 [^2]: Maaten, L. van der, & Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9(86), 2579–2605.
