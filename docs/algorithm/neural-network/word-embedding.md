@@ -13,11 +13,9 @@ comments: false
   ![](https://img.ricolxwz.io/c2ca6351fdf76fe5b747211d159b8472.png){ loading=lazy width='500' }
 </figure>
 
-???+ example "one-hot产生词表示的孤立性"
+假如你已经学习到了一个语言模型, 但你看到"I want a glass of orange \_\_"的时候, 那么下一个词的时候会是什么? 很可能是juice. 即使你的学习算法已经学习到了"I want a glass of orage juice"这样的一个很可能的橘子, 但是如果看到"I want a glass of apple __", 因为算法不知道apple和orange的关系很接近, 就像man和woman, king和queen一样. 所以算法很难从已经知道的orange juice是一个很常见的东西, 而明白apple juice也是很常见的东西或者说是常见的句子. 因为任何两个one-hot向量的内积都是0, 说明apple和orange是不相关的, 还无法表示相关的程度, 如无法知道apple, orange的相关程度和apple, peach的相关程度.
 
-    假如你已经学习到了一个语言模型, 但你看到"I want a glass of orange \_\_"的时候, 那么下一个词的时候会是什么? 很可能是juice. 即使你的学习算法已经学习到了"I want a glass of orage juice"这样的一个很可能的橘子, 但是如果看到"I want a glass of apple __", 因为算法不知道apple和orange的关系很接近, 就像man和woman, king和queen一样. 所以算法很难从已经知道的orange juice是一个很常见的东西, 而明白apple juice也是很常见的东西或者说是常见的句子. 因为任何两个one-hot向量的内积都是0, 说明apple和orange是不相关的, 还无法表示相关的程度, 如无法知道apple, orange的相关程度和apple, peach的相关程度.
-
-换一种表示方式, 如果不用one-hot表示, 而是用特征化的表示来表示每个词, man, woman, king, queen, apple, orange或者字典里面的任何一个单词, 我们学习这些词的特征或者数值. 举一个例子, 对于这些词, 比如我们想知道这些词在Gender上的表示是怎么样的, 假定男性的性别是+1, 女性的性别是-1, 那么man的这个Gender的属性可以用+1表示, woman的Gender属性可以用-1表示. 最终根据经验king就是-0.95((剩下的0.05人妖是吧), queen是+0.97. 另外一个特征是这些词有多高贵(Royal), man, woman和高贵没多大关系, 所以它们的特征值接近于0, 而king和queen很高贵, apple, orange跟高贵也没多大关系. 那么年龄呢? man和woman一般没有年龄的意思, 也许man和woman隐藏着成年人的意思, 但也可能接近于young和old之间, 所以它们的值也接近于0, 而通常king和queen都是成年人, apple和orange就跟年龄没什么关系了. 还有一个特征, 这个词是否是食物, man不是食物, woman不是食物, king和queen也不是, 但是apple和orange是食物. 当然还可以有很多其他特征, 如Size, Cost, Alive, Action, Noun, Verb等等.
+换一种表示方式, 如果不用one-hot表示, 而是用特征化的表示来表示每个词, man, woman, king, queen, apple, orange或者字典里面的任何一个单词, 我们学习这些词的特征或者数值. 举一个例子, 对于这些词, 比如我们想知道这些词在Gender上的表示是怎么样的, 假定男性的性别是+1, 女性的性别是-1, 那么man的这个Gender的属性可以用+1表示, woman的Gender属性可以用-1表示. 最终根据经验king就是-0.95(剩下的0.05人妖是吧), queen是+0.97. 另外一个特征是这些词有多高贵(Royal), man, woman和高贵没多大关系, 所以它们的特征值接近于0, 而king和queen很高贵, apple, orange跟高贵也没多大关系. 那么年龄呢? man和woman一般没有年龄的意思, 也许man和woman隐藏着成年人的意思, 但也可能接近于young和old之间, 所以它们的值也接近于0, 而通常king和queen都是成年人, apple和orange就跟年龄没什么关系了. 还有一个特征, 这个词是否是食物, man不是食物, woman不是食物, king和queen也不是, 但是apple和orange是食物. 当然还可以有很多其他特征, 如Size, Cost, Alive, Action, Noun, Verb等等.
 
 <figure markdown='1'>
   ![](https://img.ricolxwz.io/c679a2cc7a679aaa676627f906fc80b4.png){ loading=lazy width='500' }
