@@ -2329,7 +2329,14 @@
 </figure>
 <h4 id="glove">GloVe<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup><a class="headerlink" href="#glove" title="Permanent link">&para;</a></h4>
 <p>GloVe, global vectors for word representation, 这个词嵌入算法在NLP社区有着一定的势头, 这个算法不如Word2Vec或者是Skip-Gram模型用得多, 但是也有人热衷于它, 可能是因为它比较简便.</p>
-<p>在之前, 我们曾通过挑选语料库中位置相近的两个词, 列举出词对, 即上下文和目标词. GloVe算法所做的就是使其关系明确化. 假定<span class="arithmatex">\(X_{ij}\)</span>是单词i和单词j上下文中出现的次数.</p>
+<p>在之前, 我们曾通过挑选语料库中位置相近的两个词, 列举出词对, 即上下文和目标词. GloVe算法所做的就是使其关系明确化. 假定<span class="arithmatex">\(X_{ij}\)</span>是单词i在单词j上下文中出现的次数, 这里的<span class="arithmatex">\(i\)</span>, <span class="arithmatex">\(j\)</span>就和<span class="arithmatex">\(t\)</span>, <span class="arithmatex">\(c\)</span>的功能一样. 注意, 当我们将上下文和目标词的范围定义为出现在左右10个词以内的时候, <span class="arithmatex">\(X_{ij}\)</span>和<span class="arithmatex">\(X_{ji}\)</span>是对称的, 即<span class="arithmatex">\(X_{ij}=X_{ji}\)</span>. 这是因为如果词<span class="arithmatex">\(i\)</span>出现在<span class="arithmatex">\(j\)</span>的上下文中, 那么反过来<span class="arithmatex">\(j\)</span>也会出现在<span class="arithmatex">\(i\)</span>的上下文中. 但是如果我们将上下文定义为只出现在目标词一侧的话, 那么这种对称性就消失了. 在GloVe中, 我们采用对称的上下文, 即<span class="arithmatex">\(X_{ij}=X_{ji}\)</span>, 这些计数器构成了共现矩阵, 即这个矩阵里面的元素<span class="arithmatex">\(X_{ij}\)</span>表示的是单词<span class="arithmatex">\(i\)</span>和单词<span class="arithmatex">\(j\)</span>出现位置相近或是彼此接近的频率的计数器.</p>
+<p>🌟在GloVe模型中, 这个共现矩阵是已知的. 在模型训练之前, 我们会从一个非常庞大的语料库中统计词与词之间的共现关系, 这个过程会产生一个矩阵, 也就是共现矩阵<span class="arithmatex">\(X\)</span>. GloVe的任务是使得词向量(或者说是嵌入矩阵)能够很好的体现这个共现矩阵.🌟 通过公式可以描述为:</p>
+<div class="arithmatex">\[\text{minimize} \sum_{i=1}^{10,000} \sum_{j=1}^{10,000} f(X_{ij}) \left( \theta_i^T e_j + b_i + b'_j - \log X_{ij} \right)^2\]</div>
+<p>这个公式的目标是最小化一个误差值, 误差是由词对<span class="arithmatex">\(i\)</span>和<span class="arithmatex">\(j\)</span>的实际共现频率<span class="arithmatex">\(\log X_{ij}\)</span>和模型预测值<span class="arithmatex">\(\theta_i^T e_j+b_i+b_j'\)</span>的差距组成的.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/4e3c06ef5d59815da01c40a227f227bc.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4e3c06ef5d59815da01c40a227f227bc.png" width="500" /></a></p>
+</figure>
+<p>附加一些细节, 如果<span class="arithmatex">\(X_{ij}\)</span>等于0的话, 那么<span class="arithmatex">\(\log 0\)</span>是未定义的, 是负无穷大的, 解决方法是在前面添加一个额外的加权项<span class="arithmatex">\(f(X_{ij})\)</span>, 同时有一个约定, <span class="arithmatex">\(0\log 0=0\)</span>. 对于<span class="arithmatex">\(X_{ij=0}\)</span>, 模型直接跳过不进行计算, 这就意味着, 优化公式实际上只关注至少出现过一次的词对. 此外, 权重函数的设计也有几个启发性原则. 对于this, is, of, a这样的高配词非常常见, 它们之间的共现次数会远高于其他词对, 权重函数对于这类情况会进行适当限制, 同时不给不常用的词, 如durion太小的权值.</p>
 <div class="footnote">
 <hr />
 <ol>
