@@ -2277,17 +2277,21 @@
 <p>需要提一嘴的是, 在实际中分级分类器不会是一棵完美平衡的分类树或者说一棵左边和右边分支的词数都相同的对称树. 实际上, 分级分类器会被构造成常用词在顶部, 然而不常用的词像是durian会在树的更深处(如上图编号2所示), 因为更常见的词使用会更频繁, 所以你可能只需要少量检索就可以获得常用单词像是the和of, 更少见的词durian适合在较深的地方.</p>
 <p>由于这个方法比较复杂, 所以不做过多介绍. 下面会讲到负采样, 会更加简单一点.</p>
 <h6 id="_12">负采样<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h6>
+<p>在Skip-Gram中, 学习问题就是给定一对单词, 比如orange和juice, 我们需要去预测这是否是一对上下文词-目标词. 在这个例子中, orange和juice是正样本, 那么orange和king就是负样本. 我们要做的是, 先随机抽取一个上下文词, 然后在一定词距比如说正负10个词距内选择一个目标词, 这就是生成这个表的第一行, 记为orange-juice-1, 然后为了生成一个负样本, 你将用相同的上下文词, 再在字典中随机选择一个词, 比如king, 记为orange-king-0, 继续, 生成orange-book-0, orange-the-0, orange-of-0(注意, 即使of出现在orange前面, 但是编号为3的位置应该是juice, 所以还是0), 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png" width="500" /></a></p>
+</figure>
 <h6 id="_13">上下文单词采样<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h6>
 <p>那么, 如何对上下文单词<span class="arithmatex">\(c\)</span>进行采样呢, 一旦你对上下文<span class="arithmatex">\(c\)</span>进行采样, 那么目标词<span class="arithmatex">\(t\)</span>就会在上下文<span class="arithmatex">\(c\)</span>的正负10个词距内采样. 一种选择是你可以就对语料库均匀随机采样, 如果这么做, 会发现有一些词, 像是the, of, a, and, to诸如此类出现得相当频繁的词. 你可能不会想要训练这些出现得很频繁得词, 因为这会导致你花大部分的力气来更新这些频繁出现的单词的词向量<span class="arithmatex">\(e_c\)</span>, 同时, 花更少的时间来更新像durian这样词的词向量, <span class="arithmatex">\(e_{durian}\)</span>. 实际上词<span class="arithmatex">\(p(c)\)</span>的分布并不是单纯的均匀随机采样得到的, 而是使用了不同的分级来平衡常见的词和不常见的词.</p>
 <h5 id="cbow">CBOW<a class="headerlink" href="#cbow" title="Permanent link">&para;</a></h5>
 <p>于Skip-Gram刚好相反, CBOW(连续词袋模型, Continuous Bag-Of-Words Model)是获得中间词两边的上下文, 然后用周围的词去预测中间的词. CBOW对于小型数据库比较合适, 而Skip-Gram在大型语料库中表现较好.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/c0f1d855a804b0c9160c7347e28a9bac.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c0f1d855a804b0c9160c7347e28a9bac.jpg" width="300" /></a>
+<p><a class="glightbox" href="https://img.ricolxwz.io/c0f1d855a804b0c9160c7347e28a9bac.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c0f1d855a804b0c9160c7347e28a9bac.jpg" width="200" /></a>
   </p>
 <figcaption>Skip-Gram模型</figcaption>
 </figure>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/b64e1c1dbc76bc2c893d6ac0c98ff2f4.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b64e1c1dbc76bc2c893d6ac0c98ff2f4.jpg" width="300" /></a>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b64e1c1dbc76bc2c893d6ac0c98ff2f4.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b64e1c1dbc76bc2c893d6ac0c98ff2f4.jpg" width="200" /></a>
   </p>
 <figcaption>CBOW模型</figcaption>
 </figure>
