@@ -177,6 +177,8 @@ $$\mathbf{e}_{\text{king}} - \mathbf{e}_{\text{queen}} =
 
 ### 学习嵌入矩阵
 
+**首先, 注意下, 下面的小节对于上下文词和目标词的表述可能会有一些输出, 有些地方强调的上下文词是orange是因为它是神经网络的输入, 而juice, glass, my这样的词是输出, 所以叫做目标词. 有些地方强调目标词应该是orange, 而juice, glass, my这类的才是上下文词. 两种理解都可以, 都不错, 但是一般我们用的是后者.**
+
 在本小节中, 要学习一些具体的算法来学习词嵌入. 在深度学习应用于学习词嵌入的历史上, 人们一开始使用的算法比较复杂, 但是随着时间的推移, 研究者们不断发现他们能用更加简单的算法来实现一样好的效果, 特别是在数据集比较大的情况下. 但是有一件事情就是, 现在很多最流行的算法都非常简单, 如果我们一开始就介绍这种简单的算法, 可能会觉得有点摸不着头发, 稍微从简单一点的算法开始, 可以更容易对算法的运作方式有一个更加直观的了解, 之后我们会对算法进行简化, 使得我们能够明白即使一些简单的算法也能得到非常好的效果.
 
 假如你在构建一个语言模型, 并且用神经网络来实现这个模型. 在训练过程中, 你可能想要你的神经网络能够做到比如输入"I want a glass of orange __", 然后预测这句话的下一个词. 在每个单词下面, 我们都写上了它们在词汇表中对应的序号. 从第一个词"I"开始, 建立一个one-hot向量表示这个单词, 用为经过初始化的$E$乘以这个$O_{4343}$, 得到嵌入向量$e_{4343}$, 然后对于其他的词都做同样的操作... 于是现在你有6个300维的向量, 把他们全部放到神经网络里面, 经过神经网络之后再通过softmax层, 这个softmax产生的输出代表10000个单词作为下一个词的可能性, 然后根据真实的下一个词计算误差反向传播, 更新嵌入矩阵$E$.
@@ -206,8 +208,6 @@ $$\mathbf{e}_{\text{king}} - \mathbf{e}_{\text{queen}} =
 上小节中我们已经学习了如何使用一个神经网络模型来得到更好的词嵌入, 以及探讨了如何选择目标词的上下文以简化学习, Word2Vec的思想就来源于此.
 
 ##### Skip-Gram
-
-首先, 注意下, 这边对于上下文词和目标词的表述可能会有一些输出, 这里强调的上下文词是orange是因为它是神经网络的输入, 而juice, glass, my这样的词是输出, 所以叫做目标词. 实际上, 目标词应该是orange, 而juice, glass, my这类的才是上下文词. 两种理解都可以, 都不错, 但是一般我们用的是后者.
 
 假设在训练集中给定了这样的一个句子: "I want a glass of orange juice to go along with my careal.", 在Skip-Gram模型中, 我们要做的是抽取上下文和目标词配对, 来构造一个监督学习问题. 上下文不一定总是在目标词之间离得最近的四个单词, 或者最近的$n$个单词. 我们要做的是随机选择一个词作为上下文词, 比如选择orange, 然后在一定词距内随机选择另一个词作为目标词, 比如正好选到了juice, 或者是glass, 又或者是my.
 
@@ -297,9 +297,16 @@ $$p(w_i) = \frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^{10000} f(w_j)^{\frac{3}{4}}}$
   <figcaption>CBOW模型</figcaption>
 </figure>
 
+#### GloVe[^7]
+
+GloVe, global vectors for word representation, 这个词嵌入算法在NLP社区有着一定的势头, 这个算法不如Word2Vec或者是Skip-Gram模型用得多, 但是也有人热衷于它, 可能是因为它比较简便.
+
+在之前, 我们曾通过挑选语料库中位置相近的两个词, 列举出词对, 即上下文和目标词. GloVe算法所做的就是使其关系明确化. 假定$X_{ij}$是单词i和单词j上下文中出现的次数.
+
 [^1]: 深度学习笔记. (不详). 取读于 2024年12月10日, 从 http://www.ai-start.com/dl2017/html/lesson5-week2.html#header-n169
 [^2]: Maaten, L. van der, & Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9(86), 2579–2605.
 [^3]: Song, X., Salcianu, A., Song, Y., Dopson, D., & Zhou, D. (2021). Fast WordPiece tokenization (No. arXiv:2012.15524). arXiv. https://doi.org/10.48550/arXiv.2012.15524
 [^4]: Sennrich, R., Haddow, B., & Birch, A. (2016). Neural machine translation of rare words with subword units (No. arXiv:1508.07909). arXiv. https://doi.org/10.48550/arXiv.1508.07909
 [^5]: Koch, G. R. (2015). Siamese neural networks for one-shot image recognition. https://www.semanticscholar.org/paper/Siamese-Neural-Networks-for-One-Shot-Image-Koch/f216444d4f2959b4520c61d20003fa30a199670a
 [^6]: Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space (No. arXiv:1301.3781). arXiv. https://doi.org/10.48550/arXiv.1301.3781
+[^7]: Pennington, J., Socher, R., & Manning, C. (2014). GloVe: Global vectors for word representation. 收入 A. Moschitti, B. Pang, & W. Daelemans (编), Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP) (页 1532–1543). Association for Computational Linguistics. https://doi.org/10.3115/v1/D14-1162
