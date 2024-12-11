@@ -2268,7 +2268,7 @@
 <p>我们将目标词的真实值记为<span class="arithmatex">\(y\)</span>, 它也是一个One-Hot向量, 如果目标词是juice, 那么<span class="arithmatex">\(y\)</span>的第4834个元素就是1, 其余都是0. 所以损失函数可以表示为:</p>
 <div class="arithmatex">\[L(\hat{y}, y) = -\sum_{i=1}^{10000} y_i \log \hat{y}_i\]</div>
 <p>如果优化这个损失函数, 你就会得到一个很好的嵌入向量集, 这个就叫做Skip-gram模型, 它把一个像orange这样的词作为输入, 并预测这个词从左数或者右数的某个词是啥.</p>
-<p>实际上使用这个算法的时候会遇到一些问题, 首要的问题是计算速度. 尤其是在softmax模型中, 要计算softmax的结果, 需要对词汇表中所有10000个单词做一次相似度检测, 即<span class="arithmatex">\(\sum_{j=1}^{10000} e^{\theta_j^T e_c}\)</span>, 可能10000个词的情况还不会太差, 如果你用了100000或者1000000的词表, 那么这个分母求和的操作是相当慢的.</p>
+<p>🌟实际上使用这个算法的时候会遇到一些问题, 首要的问题是计算速度. 尤其是在softmax模型中, 要计算softmax的结果, 需要对词汇表中所有10000个单词做一次相似度检测, 即<span class="arithmatex">\(\sum_{j=1}^{10000} e^{\theta_j^T e_c}\)</span>, 可能10000个词的情况还不会太差, 如果你用了100000或者1000000的词表, 那么这个分母求和的操作是相当慢的.🌟</p>
 <h6 id="_11">分级分类器<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h6>
 <p>这里有一些解决方案, 如分级(hierarchical)的softmax分类和负采样. 这里先来讲分级分类器. 它通过构造一棵分类树, 逐步缩小目标词的范围, 而不是一次性计算整个词汇表中的词和<span class="arithmatex">\(c\)</span>的相似度. 想象如果你有一个分类器(如下图编号1所示), 它告诉你目标词是在词汇表的前5000还是后5000个词中, 如果这个二分类器告诉你这个词在前5000个词中, 那么往左走, 然后第二个分类器会告诉你在词汇表的前2500个词还是后2500个词中, 依此类推, 直到最终你找到一个词准确所在的分类器. 注意, 这棵树的每个内部节点都会有一个参数向量<span class="arithmatex">\(\theta_n\)</span>, 表示该节点的分类器, 在该节点, 判断应该往左走还是往右走的方法是计算该目标词属于左子树的概率<span class="arithmatex">\(p(左子树|n_root)=\sigma(\theta_{root}^Te_c)\)</span>, 如果概率<span class="arithmatex">\(p(左子树|n_{root})&gt;0.5\)</span>, 选择左子树, 否则选择右子树. 这样的计算成本和词汇表大小的对数成正比, 而不是词汇表大小的线性函数.</p>
 <figure>
@@ -2277,10 +2277,24 @@
 <p>需要提一嘴的是, 在实际中分级分类器不会是一棵完美平衡的分类树或者说一棵左边和右边分支的词数都相同的对称树. 实际上, 分级分类器会被构造成常用词在顶部, 然而不常用的词像是durian会在树的更深处(如上图编号2所示), 因为更常见的词使用会更频繁, 所以你可能只需要少量检索就可以获得常用单词像是the和of, 更少见的词durian适合在较深的地方.</p>
 <p>由于这个方法比较复杂, 所以不做过多介绍. 下面会讲到负采样, 会更加简单一点.</p>
 <h6 id="_12">负采样<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h6>
-<p>在Skip-Gram中, 学习问题就是给定一对单词, 比如orange和juice, 我们需要去预测这是否是一对上下文词-目标词. 在这个例子中, orange和juice是正样本, 那么orange和king就是负样本. 我们要做的是, 先随机抽取一个上下文词, 然后在一定词距比如说正负10个词距内选择一个目标词, 这就是生成这个表的第一行, 记为orange-juice-1, 然后为了生成一个负样本, 你将用相同的上下文词, 再在字典中随机选择一个词, 比如king, 记为orange-king-0, 继续, 生成orange-book-0, orange-the-0, orange-of-0(注意, 即使of出现在orange前面, 但是编号为3的位置应该是juice, 所以还是0), 如下图所示.</p>
+<p>在Skip-Gram中, 学习问题就是给定一对单词, 比如orange和juice, 我们需要去预测这是否是一对上下文词-目标词. 在这个例子中, orange和juice是正样本, 那么orange和king就是负样本. 我们要做的是, 先随机抽取一个上下文词, 然后在一定词距比如说正负10个词距内选择一个目标词, 这就是生成这个表的第一行, 记为orange-juice-1, 然后为了生成一个负样本, 你将用相同的上下文词, 再在字典中随机选择一个词, 比如king, 记为orange-king-0, 继续, 生成orange-book-0, orange-the-0, orange-of-0(注意, 即使of出现在orange前面, 但是编号为3的位置应该是juice, 所以还是0), 总共负采样<span class="arithmatex">\(K\)</span>次, 如下图所示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png" width="500" /></a></p>
 </figure>
+<p>接下来, 我们要构造一个稍微不一样的学习问题, 其中输入为<span class="arithmatex">\(x\)</span>(上图编号为7), 要去预测标签<span class="arithmatex">\(y\)</span>(上图编号为8). 这个算法就是要分辨这两种不同的采样方式. 即原来的任务1是给定上下文词, 预测目标词; 任务2(现在的新任务)是给定上下文词和目标词, 判断是正采样还是负采样, 这就避免了对整个词汇表进行softmax预测, 将原本的预测目标词的问题转化为一个二分类问题的形式. 也就是说, 采用了负采样的skip-gram模型, 会直接采用任务2的形式, 而不会执行任务1.</p>
+<p>如何选取<span class="arithmatex">\(K\)</span>? 原文作者推荐如果小数据集的话, <span class="arithmatex">\(K\)</span>从5到20比较好, 如果数据集比较大, <span class="arithmatex">\(K\)</span>就小一点, 对于更大的数据集<span class="arithmatex">\(K\)</span>就等于2到5.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/1fe9baf0e00324f77d80153af58395b1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1fe9baf0e00324f77d80153af58395b1.png" width="500" /></a></p>
+</figure>
+<p>那么这个任务2怎么表示呢? 上图中的公式是任务1中使用的softmax函数. 那么在任务2中, 输入是<span class="arithmatex">\(x\)</span>(编号2), 输出是<span class="arithmatex">\(y\)</span>(编号3), 仍然使用<span class="arithmatex">\(c\)</span>表示上下文词, <span class="arithmatex">\(t\)</span>表示<em>可能</em>的目标词, 再使用<span class="arithmatex">\(y\)</span>表示0和1, 表示是正采样还是负采样. 我们要做的是定义一个逻辑回归模型, 给定输入的<span class="arithmatex">\(c, t\)</span>, 给出<span class="arithmatex">\(y=1\)</span>的概率, 即:</p>
+<div class="arithmatex">\[p(y=1|c, t)=\sigma(\theta_t^T e_c)\]</div>
+<p>如果输入词是orange, 它的one-hot向量和嵌入向量相乘得到词向量, 我们就得到了10000个可能的逻辑回归分类问题, 但是并不是每次迭代都进行10000次逻辑判断, 而是只进行5次逻辑判断(<span class="arithmatex">\(K=4\)</span>), 这就极大降低了计算量和参数更新的成本.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/a16f699705c14f2d8950b92c9745694d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/a16f699705c14f2d8950b92c9745694d.png" width="500" /></a></p>
+</figure>
+<p>这个算法还有一个重要的细节是如何选取负样本, 一个办法是对上图中中间的这些词进行采样, 可以根据词语出现的频率进行采样, 但是这会导致在like, the, of, and出现的频率较高, 也可以根据词汇表进行均匀采样, 即每个单词选中的概率都是<span class="arithmatex">\(1/10000\)</span>, 但是这对于英文单词没有代表性. 原文作者等人根据经验, 发现如下的采样效果较好, 它位于这两个极端采样的方法之间:</p>
+<div class="arithmatex">\[p(w_i) = \frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^{10000} f(w_j)^{\frac{3}{4}}}\]</div>
+<p>其中, <span class="arithmatex">\(f(w_i)\)</span>是在语料库中某个单词的词频.</p>
 <h6 id="_13">上下文单词采样<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h6>
 <p>那么, 如何对上下文单词<span class="arithmatex">\(c\)</span>进行采样呢, 一旦你对上下文<span class="arithmatex">\(c\)</span>进行采样, 那么目标词<span class="arithmatex">\(t\)</span>就会在上下文<span class="arithmatex">\(c\)</span>的正负10个词距内采样. 一种选择是你可以就对语料库均匀随机采样, 如果这么做, 会发现有一些词, 像是the, of, a, and, to诸如此类出现得相当频繁的词. 你可能不会想要训练这些出现得很频繁得词, 因为这会导致你花大部分的力气来更新这些频繁出现的单词的词向量<span class="arithmatex">\(e_c\)</span>, 同时, 花更少的时间来更新像durian这样词的词向量, <span class="arithmatex">\(e_{durian}\)</span>. 实际上词<span class="arithmatex">\(p(c)\)</span>的分布并不是单纯的均匀随机采样得到的, 而是使用了不同的分级来平衡常见的词和不常见的词.</p>
 <h5 id="cbow">CBOW<a class="headerlink" href="#cbow" title="Permanent link">&para;</a></h5>
