@@ -177,7 +177,18 @@ $$\mathbf{e}_{\text{king}} - \mathbf{e}_{\text{queen}} =
 
 ### 学习嵌入矩阵
 
-**首先, 注意下, 下面的小节对于上下文词和目标词的表述可能会有一些输出, 有些地方强调的上下文词是orange是因为它是神经网络的输入, 而juice, glass, my这样的词是输出, 所以叫做目标词. 有些地方强调目标词应该是orange, 而juice, glass, my这类的才是上下文词. 两种理解都可以, 都不错, 但是一般我们用的是后者.**
+???+ info "上下文词和目标次的表述"
+
+    首先, 注意下, 下面的小节对于上下文词和目标词的表述可能会有一些输出, 有些地方强调的上下文词是orange是因为它是神经网络的输入, 而juice, glass, my这样的词是输出, 所以叫做目标词. 有些地方强调目标词应该是orange, 而juice, glass, my这类的才是上下文词. 两种理解都可以, 都不错, 但是一般我们用的是后者.
+
+???+ question "Word2Vec和GloVe似乎都是有两个嵌入矩阵的?"
+
+    一个Context矩阵, 一个Target矩阵, 然后$\theta_t$对应的是单词$t$的Context矩阵, $e_t$对应的是单词$t$的Target矩阵. 在训练的过程中, 两个嵌入矩阵都会更新参数[^8]. 那么最终选择哪个嵌入矩阵来表示词呢? 可选方案有:
+
+    - 仅使用目标词嵌入: 比较常见
+    - 仅使用上下文词嵌入: 少见
+    - 取平均值: 对于每个词, 计算平均向量$v_t=\frac{1}{2}(e_t+\theta_t)$, 好像用于GloVe比较多, 因为由于GloVe在选择窗口时候的对称性, 所以目标词嵌入矩阵和上下文词嵌入矩阵其实是差不多的. 如果对于Word2Vec里面的两个模型, 就不能直接取平均, 因为目标词嵌入矩阵和上下文词嵌入矩阵的功能是不一样的
+    - 拼接: 保留信息, 但是维度翻倍
 
 在本小节中, 要学习一些具体的算法来学习词嵌入. 在深度学习应用于学习词嵌入的历史上, 人们一开始使用的算法比较复杂, 但是随着时间的推移, 研究者们不断发现他们能用更加简单的算法来实现一样好的效果, 特别是在数据集比较大的情况下. 但是有一件事情就是, 现在很多最流行的算法都非常简单, 如果我们一开始就介绍这种简单的算法, 可能会觉得有点摸不着头发, 稍微从简单一点的算法开始, 可以更容易对算法的运作方式有一个更加直观的了解, 之后我们会对算法进行简化, 使得我们能够明白即使一些简单的算法也能得到非常好的效果.
 
@@ -315,6 +326,8 @@ $$\text{minimize} \sum_{i=1}^{10,000} \sum_{j=1}^{10,000} f(X_{ij}) \left( \thet
 
 附加一些细节, 如果$X_{ij}$等于0的话, 那么$\log 0$是未定义的, 是负无穷大的, 解决方法是在前面添加一个额外的加权项$f(X_{ij})$, 同时有一个约定, $0\log 0=0$. 对于$X_{ij=0}$, 模型直接跳过不进行计算, 这就意味着, 优化公式实际上只关注至少出现过一次的词对. 此外, 权重函数的设计也有几个启发性原则. 对于this, is, of, a这样的高配词非常常见, 它们之间的共现次数会远高于其他词对, 权重函数对于这类情况会进行适当限制, 同时不给不常用的词, 如durion太小的权值.
 
+由于上述对称性, 目标嵌入矩阵和上下文嵌入矩阵是对称的, 所以对于一个词$w$的词向量, 那么它最终的词向量可以通过对于两个嵌入矩阵所对应位置的词向量取平均得到, 即$e_w^{(final)}=\frac{e_w+\theta_w}{2}$. 不像之前的模型, $theta$和$e$的功能不一样, 因此那里不能取平均, 通常拿$e$作为最终的嵌入矩阵.
+
 [^1]: 深度学习笔记. (不详). 取读于 2024年12月10日, 从 http://www.ai-start.com/dl2017/html/lesson5-week2.html#header-n169
 [^2]: Maaten, L. van der, & Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9(86), 2579–2605.
 [^3]: Song, X., Salcianu, A., Song, Y., Dopson, D., & Zhou, D. (2021). Fast WordPiece tokenization (No. arXiv:2012.15524). arXiv. https://doi.org/10.48550/arXiv.2012.15524
@@ -322,3 +335,4 @@ $$\text{minimize} \sum_{i=1}^{10,000} \sum_{j=1}^{10,000} f(X_{ij}) \left( \thet
 [^5]: Koch, G. R. (2015). Siamese neural networks for one-shot image recognition. https://www.semanticscholar.org/paper/Siamese-Neural-Networks-for-One-Shot-Image-Koch/f216444d4f2959b4520c61d20003fa30a199670a
 [^6]: Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space (No. arXiv:1301.3781). arXiv. https://doi.org/10.48550/arXiv.1301.3781
 [^7]: Pennington, J., Socher, R., & Manning, C. (2014). GloVe: Global vectors for word representation. 收入 A. Moschitti, B. Pang, & W. Daelemans (编), Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP) (页 1532–1543). Association for Computational Linguistics. https://doi.org/10.3115/v1/D14-1162
+[^8]: BoCong-Deng. (2020, 十月 28). Embedding和Word2vec的理解. Csdn. https://blog.csdn.net/DBC_121/article/details/109319937

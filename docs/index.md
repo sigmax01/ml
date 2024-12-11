@@ -40,7 +40,7 @@ title: 开始
             - [x] [NiN](/algorithm/neural-network/cnn/nin)
             - [x] [GoogLeNet](/algorithm/neural-network/cnn/googlenet)
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
-        - [ ] [词嵌入](/algorithm/neural-network/word-embedding)
+        - [x] [词嵌入](/algorithm/neural-network/word-embedding)
         - [x] [Transformer](/algorithm/neural-network/transformer)
             - [x] [BERT](/algorithm/neural-network/transformer/bert)
             - [ ] [ViT](/algorithm/neural-network/transformer/vit)
