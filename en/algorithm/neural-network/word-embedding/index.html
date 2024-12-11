@@ -1540,6 +1540,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#glove" class="md-nav__link">
+    <span class="md-ellipsis">
+      GloVe
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2068,6 +2077,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#glove" class="md-nav__link">
+    <span class="md-ellipsis">
+      GloVe
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2235,6 +2253,7 @@
 <p>假设这个嵌入矩阵叫做<span class="arithmatex">\(E\)</span>. 如果用<span class="arithmatex">\(E\)</span>去乘右边的<span class="arithmatex">\(O_{6257}\)</span>, 那么就会得到一个<span class="arithmatex">\(300\)</span>维的向量, 产生的矩阵的形状是<span class="arithmatex">\(300\times 1\)</span>的, 也就是一个列向量. 这个列向量的第一个元素(图中编号6)对应的就是嵌入矩阵中orange列的第一个元素(图中编号5), 以此类推, <strong>得到的列向量与orange列构成的向量是相等的. 所以说每个单词的词向量其实就存储在嵌入矩阵的对应列中</strong>.</p>
 <p>在下个小节中会随机初始化矩阵<span class="arithmatex">\(E\)</span>, 然后使用梯度下降法来学习这<span class="arithmatex">\(300\times 10000\)</span>的矩阵的各个参数. <span class="arithmatex">\(E\)</span>乘以one-hot向量就会得到它的词向量. 在我们手动计算这个词向量的时候, 是很方便的. 在实际中, 由于所有词的one-hot编码会组成一个非常大又非常稀疏的矩阵, 嵌入矩阵和这个矩阵相乘的计算效率非常低下. 由于刚才我们提到“某个单词的词向量其实就是嵌入矩阵中的对应列”, 所以在实际中会使用一个专门的函数来单独查找嵌入矩阵的对应列, 而不是用矩阵乘法去取出那个列.</p>
 <h3 id="_10">学习嵌入矩阵<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><strong>首先, 注意下, 下面的小节对于上下文词和目标词的表述可能会有一些输出, 有些地方强调的上下文词是orange是因为它是神经网络的输入, 而juice, glass, my这样的词是输出, 所以叫做目标词. 有些地方强调目标词应该是orange, 而juice, glass, my这类的才是上下文词. 两种理解都可以, 都不错, 但是一般我们用的是后者.</strong></p>
 <p>在本小节中, 要学习一些具体的算法来学习词嵌入. 在深度学习应用于学习词嵌入的历史上, 人们一开始使用的算法比较复杂, 但是随着时间的推移, 研究者们不断发现他们能用更加简单的算法来实现一样好的效果, 特别是在数据集比较大的情况下. 但是有一件事情就是, 现在很多最流行的算法都非常简单, 如果我们一开始就介绍这种简单的算法, 可能会觉得有点摸不着头发, 稍微从简单一点的算法开始, 可以更容易对算法的运作方式有一个更加直观的了解, 之后我们会对算法进行简化, 使得我们能够明白即使一些简单的算法也能得到非常好的效果.</p>
 <p>假如你在构建一个语言模型, 并且用神经网络来实现这个模型. 在训练过程中, 你可能想要你的神经网络能够做到比如输入"I want a glass of orange __", 然后预测这句话的下一个词. 在每个单词下面, 我们都写上了它们在词汇表中对应的序号. 从第一个词"I"开始, 建立一个one-hot向量表示这个单词, 用为经过初始化的<span class="arithmatex">\(E\)</span>乘以这个<span class="arithmatex">\(O_{4343}\)</span>, 得到嵌入向量<span class="arithmatex">\(e_{4343}\)</span>, 然后对于其他的词都做同样的操作... 于是现在你有6个300维的向量, 把他们全部放到神经网络里面, 经过神经网络之后再通过softmax层, 这个softmax产生的输出代表10000个单词作为下一个词的可能性, 然后根据真实的下一个词计算误差反向传播, 更新嵌入矩阵<span class="arithmatex">\(E\)</span>.</p>
 <figure>
@@ -2253,7 +2272,6 @@
 <h4 id="word2vec">Word2Vec<sup id="fnref2:6"><a class="footnote-ref" href="#fn:6">6</a></sup><a class="headerlink" href="#word2vec" title="Permanent link">&para;</a></h4>
 <p>上小节中我们已经学习了如何使用一个神经网络模型来得到更好的词嵌入, 以及探讨了如何选择目标词的上下文以简化学习, Word2Vec的思想就来源于此.</p>
 <h5 id="skip-gram">Skip-Gram<a class="headerlink" href="#skip-gram" title="Permanent link">&para;</a></h5>
-<p>首先, 注意下, 这边对于上下文词和目标词的表述可能会有一些输出, 这里强调的上下文词是orange是因为它是神经网络的输入, 而juice, glass, my这样的词是输出, 所以叫做目标词. 实际上, 目标词应该是orange, 而juice, glass, my这类的才是上下文词. 两种理解都可以, 都不错, 但是一般我们用的是后者.</p>
 <p>假设在训练集中给定了这样的一个句子: "I want a glass of orange juice to go along with my careal.", 在Skip-Gram模型中, 我们要做的是抽取上下文和目标词配对, 来构造一个监督学习问题. 上下文不一定总是在目标词之间离得最近的四个单词, 或者最近的<span class="arithmatex">\(n\)</span>个单词. 我们要做的是随机选择一个词作为上下文词, 比如选择orange, 然后在一定词距内随机选择另一个词作为目标词, 比如正好选到了juice, 或者是glass, 又或者是my.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/4ad603bef5dddd0461c51d8145db5ae4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/4ad603bef5dddd0461c51d8145db5ae4.png" width="500" /></a></p>
@@ -2309,6 +2327,9 @@
   </p>
 <figcaption>CBOW模型</figcaption>
 </figure>
+<h4 id="glove">GloVe<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup><a class="headerlink" href="#glove" title="Permanent link">&para;</a></h4>
+<p>GloVe, global vectors for word representation, 这个词嵌入算法在NLP社区有着一定的势头, 这个算法不如Word2Vec或者是Skip-Gram模型用得多, 但是也有人热衷于它, 可能是因为它比较简便.</p>
+<p>在之前, 我们曾通过挑选语料库中位置相近的两个词, 列举出词对, 即上下文和目标词. GloVe算法所做的就是使其关系明确化. 假定<span class="arithmatex">\(X_{ij}\)</span>是单词i和单词j上下文中出现的次数.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -2329,6 +2350,9 @@
 </li>
 <li id="fn:6">
 <p>Mikolov, T., Chen, K., Corrado, G., &amp; Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space (No. arXiv:1301.3781). arXiv. <a href="https://doi.org/10.48550/arXiv.1301.3781">https://doi.org/10.48550/arXiv.1301.3781</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Pennington, J., Socher, R., &amp; Manning, C. (2014). GloVe: Global vectors for word representation. 收入 A. Moschitti, B. Pang, &amp; W. Daelemans (编), Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP) (页 1532–1543). Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
