@@ -249,7 +249,11 @@ $$L(\hat{y}, y) = -\sum_{i=1}^{10000} y_i \log \hat{y}_i$$
 
 ###### 负采样
 
+在Skip-Gram中, 学习问题就是给定一对单词, 比如orange和juice, 我们需要去预测这是否是一对上下文词-目标词. 在这个例子中, orange和juice是正样本, 那么orange和king就是负样本. 我们要做的是, 先随机抽取一个上下文词, 然后在一定词距比如说正负10个词距内选择一个目标词, 这就是生成这个表的第一行, 记为orange-juice-1, 然后为了生成一个负样本, 你将用相同的上下文词, 再在字典中随机选择一个词, 比如king, 记为orange-king-0, 继续, 生成orange-book-0, orange-the-0, orange-of-0(注意, 即使of出现在orange前面, 但是编号为3的位置应该是juice, 所以还是0), 如下图所示.
 
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png){ loading=lazy width='500' }
+</figure>
 
 ###### 上下文单词采样
 
@@ -260,12 +264,12 @@ $$L(\hat{y}, y) = -\sum_{i=1}^{10000} y_i \log \hat{y}_i$$
 于Skip-Gram刚好相反, CBOW(连续词袋模型, Continuous Bag-Of-Words Model)是获得中间词两边的上下文, 然后用周围的词去预测中间的词. CBOW对于小型数据库比较合适, 而Skip-Gram在大型语料库中表现较好.
 
 <figure markdown='1'>
-  ![](https://img.ricolxwz.io/c0f1d855a804b0c9160c7347e28a9bac.jpg){ loading=lazy width='300' }
+  ![](https://img.ricolxwz.io/c0f1d855a804b0c9160c7347e28a9bac.jpg){ loading=lazy width='200' }
   <figcaption>Skip-Gram模型</figcaption>
 </figure>
 
 <figure markdown='1'>
-  ![](https://img.ricolxwz.io/b64e1c1dbc76bc2c893d6ac0c98ff2f4.jpg){ loading=lazy width='300' }
+  ![](https://img.ricolxwz.io/b64e1c1dbc76bc2c893d6ac0c98ff2f4.jpg){ loading=lazy width='200' }
   <figcaption>CBOW模型</figcaption>
 </figure>
 
