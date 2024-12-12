@@ -1402,6 +1402,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    GPT
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1411,6 +1422,43 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      摘要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      背景
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1675,6 +1723,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      摘要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      背景
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1705,7 +1779,10 @@
 
 
 <h1 id="gpt">GPT<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#gpt" title="Permanent link">&para;</a></h1>
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>NLP包括很多任务, 如<a href="https://en.wikipedia.org/wiki/Textual_entailment," title="判断一个文本片段是否能够逻辑上推导出另一个文本片段, &lt;br&gt;可用于信息检索, 问答系统, 自动摘要等任务">文本蕴含</a>, <a href="https://en.wikipedia.org/wiki/Question_answering" title="针对用户提出的问题, 系统能够理解问题并给出准确的答案, &lt;br&gt;可用于搜索引擎, 智能客服, 知识库问答等任务">问答系统</a>, <a href="https://en.wikipedia.org/wiki/Semantic_similarity" title="评估两个文本在语义上的相似度, &lt;br&gt; 可用于信息检索, 文本聚类, 抄袭检测等任务">语义相似度评估</a>, <a href="https://en.wikipedia.org/wiki/Document_classification" title="将文档归类到预定义的类别中 &lt;br&gt;可用于垃圾邮件过滤, 新闻分类, 情感分析等任务">文档分类</a>. 虽然大型未标注的语料库非常充足, 但是用于特定任务的已标注的文本确非常少, 导致<a href="/dicts/discriminative-and-generative-model">判别式模型</a>很难在这些NLP任务中取得很好的性能. 作者展示了一种生成式预训练模型, Generative Pre-trained Model, 它通过在大量未标注的语料上训练, 学习通用的语言表示, 然后, 针对特定任务通过少量标注数据进行微调, 可以很好的完成任务. 这种预训练模型在性能上甚至优于那些专门为特定任务而设计的判别式模型, 在12项任务中的9项都打到了SOTA的表现. 在Stories Cloze Test上获得了8.9%的绝对提升, 在RACE上为5.7%, 在MultiNLI上为1.5%.</p>
+<h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>从raw文本中直接学习的能力对减轻NLP对监督学习依赖至关重要. 许多深度学习的方法需要大量的手工标注的数据, 导致它们在很多领域应用的潜力受到限制. 在这种情况下, 对于未标记文本中的语言信息进行建模, 相比于收集更多的高质量的标注, 不失为一种可行的方案. 而且, 即使在有足够多的带标注的数据的情况下, 以无监督方式学习良好的表示也能够显著地提高性能. 迄今为止, 最令人信服的证据是, <a href="/algorithm/neural-network/word-embedding/#transfer-learning">词嵌入预训练</a>的广泛应用.</p>
 <div class="footnote">
 <hr />
 <ol>
