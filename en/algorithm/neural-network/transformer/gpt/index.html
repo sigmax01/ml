@@ -2006,7 +2006,7 @@
 <p>与我们最相似的研究使用语言模型作为优化目标对神经网络进行预训练, 然后对目标任务进行监督学习微调. Dai等人<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>和Howard, Ruder<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>的工作都采用了上述的方法来改进文本分类任务. 但是, 他们使用的是LSTM模型(因为那个时候Transformer还没有出来). 与LSTM不同, 作者选择了Transformer, 它能捕获全局注意力而且能够使用GPU进行密集并行计算. 而且, 作者不仅仅在文本分类任务上取得了不错的结果, 还在其他的下游任务中展现出了良好的性能, 如自然语言推理, 同义句检测和故事补全, 具有很好的泛化能力.</p>
 <p>还有一些其他的方法使用了从预训练的语言模型或者机器翻译模型中提取的隐藏层表示作为辅助特征, 并在目标任务上训练一个监督学习模型. 简单来说, 这些方法将预训练模型生成的特征用作输入, 进行监督学习. 但是, 这种方法需要在每个目标任务上引入大量新的参数, 导致模型的复杂性大大增加. 与之相比, 作者的方法在进行任务迁移的时候只需要对模型架构进行极小的修改, 不需要为每个任务训练大量新的参数, 减少计算和存储开销.</p>
 <h3 id="_7">辅助训练目标<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>辅助训练目标(Auxiliary Training Objectives)指在监督学习模型的主要优化目标之外, 加一些额外的无监督优化目标, 它是一种实现半监督学习的另一种形式(这种就没有two-stages, 相当于是结合了有监督学习和无监督学习的优化目标, 同时优化它俩的损失函数). 如Rei等人在目标任务训练过程中, 添加了一个辅助的语言建模目标, 这意味着在微调阶段, 模型不仅优化目标任务的损失函数, 还同时优化语言建模的损失函数. Collobert和Weston在训练模型的时候, 不仅仅专注于主要任务(语义角色标注), 还同时优化了词性标注, 分块, NER, 语言建模的损失函数. 作者的研究也引入了辅助优化目标, 作者强调, 虽然它们也使用了辅助目标, 但是, two-stages的方案(即无监督预训练+有监督微调)已经足够强大, 使得这种形式的半监督学习的必要性相对较低.</p>
+<p>辅助训练目标(Auxiliary Training Objectives)指在监督学习模型的主要优化目标之外, 加一些额外的无监督优化目标, 它是一种实现半监督学习的另一种形式(这种就没有two-stages, 相当于是结合了有监督学习和无监督学习的优化目标, 同时优化它俩的损失函数). 如Rei等人<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>在目标任务训练过程中, 添加了一个辅助的语言建模目标, 这意味着在微调阶段, 模型不仅优化目标任务的损失函数, 还同时优化语言建模的损失函数. Collobert和Weston<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>在训练模型的时候, 不仅仅专注于主要任务(语义角色标注), 还同时优化了词性标注, 分块, NER, 语言建模的损失函数. 作者的研究也引入了辅助优化目标, 作者强调, 虽然它们也使用了辅助目标, 但是, two-stages的方案(即无监督预训练+有监督微调)已经足够强大, 使得这种形式的半监督学习的必要性相对较低.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -2018,6 +2018,12 @@
 </li>
 <li id="fn:3">
 <p>Howard, J., &amp; Ruder, S. (2018). Universal language model fine-tuning for text classification (No. arXiv:1801.06146). arXiv. <a href="https://doi.org/10.48550/arXiv.1801.06146">https://doi.org/10.48550/arXiv.1801.06146</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Collobert, R., &amp; Weston, J. (2008). A unified architecture for natural language processing: Deep neural networks with multitask learning. Proceedings of the 25th International Conference on Machine Learning, 160–167. <a href="https://doi.org/10.1145/1390156.1390177">https://doi.org/10.1145/1390156.1390177</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>Rei, M. (2017). Semi-supervised multitask learning for sequence labeling (No. arXiv:1704.07156). arXiv. <a href="https://doi.org/10.48550/arXiv.1704.07156">https://doi.org/10.48550/arXiv.1704.07156</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
