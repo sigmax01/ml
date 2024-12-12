@@ -1448,11 +1448,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#intro" class="md-nav__link">
     <span class="md-ellipsis">
       背景
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      动机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      方案
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1739,11 +1763,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#intro" class="md-nav__link">
     <span class="md-ellipsis">
       背景
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      动机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      方案
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1781,8 +1829,61 @@
 <h1 id="gpt">GPT<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#gpt" title="Permanent link">&para;</a></h1>
 <h2 id="_1">摘要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>NLP包括很多任务, 如<a href="https://en.wikipedia.org/wiki/Textual_entailment," title="判断一个文本片段是否能够逻辑上推导出另一个文本片段, &lt;br&gt;可用于信息检索, 问答系统, 自动摘要等任务">文本蕴含</a>, <a href="https://en.wikipedia.org/wiki/Question_answering" title="针对用户提出的问题, 系统能够理解问题并给出准确的答案, &lt;br&gt;可用于搜索引擎, 智能客服, 知识库问答等任务">问答系统</a>, <a href="https://en.wikipedia.org/wiki/Semantic_similarity" title="评估两个文本在语义上的相似度, &lt;br&gt; 可用于信息检索, 文本聚类, 抄袭检测等任务">语义相似度评估</a>, <a href="https://en.wikipedia.org/wiki/Document_classification" title="将文档归类到预定义的类别中 &lt;br&gt;可用于垃圾邮件过滤, 新闻分类, 情感分析等任务">文档分类</a>. 虽然大型未标注的语料库非常充足, 但是用于特定任务的已标注的文本确非常少, 导致<a href="/dicts/discriminative-and-generative-model">判别式模型</a>很难在这些NLP任务中取得很好的性能. 作者展示了一种生成式预训练模型, Generative Pre-trained Model, 它通过在大量未标注的语料上训练, 学习通用的语言表示, 然后, 针对特定任务通过少量标注数据进行微调, 可以很好的完成任务. 这种预训练模型在性能上甚至优于那些专门为特定任务而设计的判别式模型, 在12项任务中的9项都打到了SOTA的表现. 在Stories Cloze Test上获得了8.9%的绝对提升, 在RACE上为5.7%, 在MultiNLI上为1.5%.</p>
-<h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="intro">背景<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
+<h3 id="_2">动机<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>从raw文本中直接学习的能力对减轻NLP对监督学习依赖至关重要. 许多深度学习的方法需要大量的手工标注的数据, 导致它们在很多领域应用的潜力受到限制. 在这种情况下, 对于未标记文本中的语言信息进行建模, 相比于收集更多的高质量的标注, 不失为一种可行的方案. 而且, 即使在有足够多的带标注的数据的情况下, 以无监督方式学习良好的表示也能够显著地提高性能. 迄今为止, 最令人信服的证据是, <a href="/algorithm/neural-network/word-embedding/#transfer-learning">词嵌入预训练</a>的广泛应用.</p>
+<details class="note" open="open">
+<summary>优化目标和NLP任务的区别</summary>
+<p>优化目标(Optimization Objective)是训练模型的一种<strong>手段和策略</strong>, 侧重于如何从数据中提取有效的信息. NLP任务是现实中需要解决的具体问题, 是<strong>最终需求</strong>, 评估模型在这些问题上的表现. 优化目标的典型例子有语言建模(Language Modeling), 预测下一个单词或者填补句中的空白, 如BERT中的MLM; 对比学习(Contrastive Learning), 最小化正样本之间的相似性, 最小化负样本之间的相似性等等... NLP任务的典型例子是文本分类, 机器翻译, 问答系统, 文本生成等等...</p>
+<table>
+<thead>
+<tr>
+<th><strong>维度</strong></th>
+<th><strong>优化目标</strong></th>
+<th><strong>NLP任务</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>定义</strong></td>
+<td>指导模型训练的数学目标</td>
+<td>解决实际语言处理问题的具体功能</td>
+</tr>
+<tr>
+<td><strong>阶段</strong></td>
+<td>用于模型训练</td>
+<td>用于模型评估或实际应用</td>
+</tr>
+<tr>
+<td><strong>范围</strong></td>
+<td>通常通用，适用于多个任务</td>
+<td>具体、与应用场景相关</td>
+</tr>
+<tr>
+<td><strong>目标对象</strong></td>
+<td>优化模型参数，学习表示</td>
+<td>评估模型是否能够完成特定任务</td>
+</tr>
+<tr>
+<td><strong>举例</strong></td>
+<td>语言建模、对比学习目标</td>
+<td>文本分类、机器翻译、问答系统</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>从未标注数据中提取超越词级别的信息(即词嵌入获得的信息)是具有挑战性的, 主要有两个原因:</p>
+<ol>
+<li><strong>不清楚哪种优化目标最能有效地学习适用于迁移的文本表示, 因为不同的下游任务(如情感分析, 文本蕴含, 机器翻译等)对文本表示的需求不同.</strong> 近期的研究探索了多种优化目标, 比如语言建模(预测下一个词或者MLM), 机器翻译, 篇章连贯性等等, 每种方法都在不同的任务上优于其他方法, 如语言建模可能对生成任务表现良好, 篇章连贯性可能对需要理解文本逻辑关系的任务(如文本蕴含)更有优势, 机器翻译可能在多语言任务中更加有效.</li>
+<li><strong>到目前为止还没有在最有效的迁移这些学习到的表示到目标任务的方法上达成一致.</strong> 现有方法通常包括:<ol>
+<li>针对特定任务调整模型架构. 如为分类任务添加分类头, 为序列标注任务添加序列解码模块, 这些调整需要针对不同任务进行设计, 缺乏通用性.</li>
+<li>使用复杂的训练策略. 如微调, 调整预训练模型参数, 使其适应目标任务; 冻结部分参数, 仅调整模型的一部分, 减少计算开销; 逐层解锁, 从浅层到深层逐步调整参数, 这些学习策略的设计和选择通常需要大量实验和经验, 增加了开发的复杂性.</li>
+<li>添加辅助学习目标: 除了主任务的目标函数外, 引入额外的优化目标来辅助模型训练, 如在情感分析任务中, 同时训练模型识别文本中的关键情感用语; 使用对比学习目标增强嵌入的语义一致性.</li>
+</ol>
+</li>
+</ol>
+<p>这些不确定性使得开发有效的<a href="https://zh.wikipedia.org/zh-hans/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0">半监督学习</a>方法变得困难.</p>
+<h3 id="_3">方案<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <div class="footnote">
 <hr />
 <ol>

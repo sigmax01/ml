@@ -2335,12 +2335,16 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1128fac230e745b4f267079c02ff6cf1.png" width="500" /></a></p>
 </figure>
-<p>接下来, 我们要构造一个稍微不一样的学习问题, 其中输入为<span class="arithmatex">\(x\)</span>(上图编号为7), 要去预测标签<span class="arithmatex">\(y\)</span>(上图编号为8). 这个算法就是要分辨这两种不同的采样方式. 即原来的任务1是给定上下文词, 预测目标词; 任务2(现在的新任务)是给定上下文词和目标词, 判断是正采样还是负采样, 这就避免了对整个词汇表进行softmax预测, 将原本的预测目标词的问题转化为一个二分类问题的形式. 也就是说, 采用了负采样的skip-gram模型, 会直接采用任务2的形式, 而不会执行任务1.</p>
+<details class="note" open="open">
+<summary>优化目标和任务的区别</summary>
+<p>请见<a href="/algorithm/neural-network/transformer/gpt/#intro">这里</a>.</p>
+</details>
+<p>接下来, 我们要构造一个稍微不一样的优化目标, 其中输入为<span class="arithmatex">\(x\)</span>(上图编号为7), 要去预测标签<span class="arithmatex">\(y\)</span>(上图编号为8). 这个算法就是要分辨这两种不同的采样方式. 即原来的优化目标1是给定上下文词, 预测目标词; 优化目标2(现在的新优化目标)是给定上下文词和目标词, 判断是正采样还是负采样, 这就避免了对整个词汇表进行softmax预测, 将原本的预测目标词的问题转化为一个二分类问题的形式. 也就是说, 采用了负采样的skip-gram模型, 会直接采用优化目标2的形式, 而不会执行优化目标1.</p>
 <p>如何选取<span class="arithmatex">\(K\)</span>? 原文作者推荐如果小数据集的话, <span class="arithmatex">\(K\)</span>从5到20比较好, 如果数据集比较大, <span class="arithmatex">\(K\)</span>就小一点, 对于更大的数据集<span class="arithmatex">\(K\)</span>就等于2到5.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1fe9baf0e00324f77d80153af58395b1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1fe9baf0e00324f77d80153af58395b1.png" width="500" /></a></p>
 </figure>
-<p>那么这个任务2怎么表示呢? 上图中的公式是任务1中使用的softmax函数. 那么在任务2中, 输入是<span class="arithmatex">\(x\)</span>(编号2), 输出是<span class="arithmatex">\(y\)</span>(编号3), 仍然使用<span class="arithmatex">\(c\)</span>表示上下文词, <span class="arithmatex">\(t\)</span>表示<em>可能</em>的目标词, 再使用<span class="arithmatex">\(y\)</span>表示0和1, 表示是正采样还是负采样. 我们要做的是定义一个逻辑回归模型, 给定输入的<span class="arithmatex">\(c, t\)</span>, 给出<span class="arithmatex">\(y=1\)</span>的概率, 即:</p>
+<p>那么这个优化目标2怎么表示呢? 上图中的公式是优化目标1中使用的softmax函数. 那么在优化目标2中, 输入是<span class="arithmatex">\(x\)</span>(编号2), 输出是<span class="arithmatex">\(y\)</span>(编号3), 仍然使用<span class="arithmatex">\(c\)</span>表示上下文词, <span class="arithmatex">\(t\)</span>表示<em>可能</em>的目标词, 再使用<span class="arithmatex">\(y\)</span>表示0和1, 表示是正采样还是负采样. 我们要做的是定义一个逻辑回归模型, 给定输入的<span class="arithmatex">\(c, t\)</span>, 给出<span class="arithmatex">\(y=1\)</span>的概率, 即:</p>
 <div class="arithmatex">\[p(y=1|c, t)=\sigma(\theta_t^T e_c)\]</div>
 <p>如果输入词是orange, 它的one-hot向量和嵌入向量相乘得到词向量, 我们就得到了10000个可能的逻辑回归分类问题, 但是并不是每次迭代都进行10000次逻辑判断, 而是只进行5次逻辑判断(<span class="arithmatex">\(K=4\)</span>), 这就极大降低了计算量和参数更新的成本.</p>
 <figure>
@@ -2366,7 +2370,7 @@
 <h4 id="glove">GloVe<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup><a class="headerlink" href="#glove" title="Permanent link">&para;</a></h4>
 <p>GloVe, global vectors for word representation, 这个词嵌入算法在NLP社区有着一定的势头, 这个算法不如Word2Vec或者是Skip-Gram模型用得多, 但是也有人热衷于它, 可能是因为它比较简便.</p>
 <p>在之前, 我们曾通过挑选语料库中位置相近的两个词, 列举出词对, 即上下文和目标词. GloVe算法所做的就是使其关系明确化. 假定<span class="arithmatex">\(X_{ij}\)</span>是单词i在单词j上下文中出现的次数, 这里的<span class="arithmatex">\(i\)</span>, <span class="arithmatex">\(j\)</span>就和<span class="arithmatex">\(t\)</span>, <span class="arithmatex">\(c\)</span>的功能一样. 注意, 当我们将上下文和目标词的范围定义为出现在左右10个词以内的时候, <span class="arithmatex">\(X_{ij}\)</span>和<span class="arithmatex">\(X_{ji}\)</span>是对称的, 即<span class="arithmatex">\(X_{ij}=X_{ji}\)</span>. 这是因为如果词<span class="arithmatex">\(i\)</span>出现在<span class="arithmatex">\(j\)</span>的上下文中, 那么反过来<span class="arithmatex">\(j\)</span>也会出现在<span class="arithmatex">\(i\)</span>的上下文中. 但是如果我们将上下文定义为只出现在目标词一侧的话, 那么这种对称性就消失了. 在GloVe中, 我们采用对称的上下文, 即<span class="arithmatex">\(X_{ij}=X_{ji}\)</span>, 这些计数器构成了共现矩阵, 即这个矩阵里面的元素<span class="arithmatex">\(X_{ij}\)</span>表示的是单词<span class="arithmatex">\(i\)</span>和单词<span class="arithmatex">\(j\)</span>出现位置相近或是彼此接近的频率的计数器.</p>
-<p>🌟在GloVe模型中, 这个共现矩阵是已知的. 在模型训练之前, 我们会从一个非常庞大的语料库中统计词与词之间的共现关系, 这个过程会产生一个矩阵, 也就是共现矩阵<span class="arithmatex">\(X\)</span>. GloVe的任务是使得词向量(或者说是嵌入矩阵)能够很好的体现这个共现矩阵.🌟 通过公式可以描述为:</p>
+<p>🌟在GloVe模型中, 这个共现矩阵是已知的. 在模型训练之前, 我们会从一个非常庞大的语料库中统计词与词之间的共现关系, 这个过程会产生一个矩阵, 也就是共现矩阵<span class="arithmatex">\(X\)</span>. GloVe的优化目标是使得词向量(或者说是嵌入矩阵)能够很好的体现这个共现矩阵.🌟 通过公式可以描述为:</p>
 <div class="arithmatex">\[\text{minimize} \sum_{i=1}^{10,000} \sum_{j=1}^{10,000} f(X_{ij}) \left( \theta_i^T e_j + b_i + b'_j - \log X_{ij} \right)^2\]</div>
 <p>这个公式的目标是最小化一个误差值, 误差是由词对<span class="arithmatex">\(i\)</span>和<span class="arithmatex">\(j\)</span>的实际共现频率<span class="arithmatex">\(\log X_{ij}\)</span>和模型预测值<span class="arithmatex">\(\theta_i^T e_j+b_i+b_j'\)</span>的差距组成的.</p>
 <figure>
