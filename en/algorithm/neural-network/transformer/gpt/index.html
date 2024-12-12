@@ -1489,6 +1489,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      相关工作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="相关工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NLP领域的半监督学习
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督预训练
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      辅助训练目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1813,6 +1855,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      相关工作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="相关工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NLP领域的半监督学习
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督预训练
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      辅助训练目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1910,11 +1994,30 @@
 <summary>什么是zero-shot</summary>
 <p>zero-shot(零样本学习)是机器学习和NLP中的一种技术或者学习范式. 指的是模型在没有见过任何目标任务或者目标类别的训练样本情况下, 能够直接对新任务或者新类别进行预测.</p>
 </details>
+<h2 id="_5">相关工作<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="nlp">NLP领域的半监督学习<a class="headerlink" href="#nlp" title="Permanent link">&para;</a></h3>
+<p>他们的工作主要属于NLP的半监督学习范畴. 该范式在序列标注(如NER)或者文本分类等任务中得到了广泛引用. 较早的半监督学习方法利用未标注的数据来计算词汇级别或者短语级别的统计信息, 如词频或者共现信息, 然后, 使用这些统计信息喂给监督学习模型. 近年来, 研究人员提出了利用词嵌入的方法, 这些嵌入是在未标注的语料上训练的, 它将短语隐射到一个密集的向量空间, 将词汇的语义转化为向量表达. 然而, 这些方法主要关注传递词汇级别的信息, 而作者的工作是理解更加复杂/高层次的语义信息. 最近的工作调查了从未标注数据中学习利用超越词汇层次的语义信息, 基于句子级别, 段落级别的嵌入的模型, 可以使用未标记语料库进行训练, 从而将文本编码为适合各种目标任务的向量表示.</p>
+<h3 id="_6">无监督预训练<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>无监督预训练是半监督学习的一种特例, 其目的是去找到一个好的初始化点而不是修改监督学习的优化目标.</strong> 早期的工作主要集中在图像分类和回归任务中, 探讨无监督预训练是否能提高模型在这些任务上的表现. 后续的研究对无监督预训练进行了更加详细的分析和验证, 发现, 无监督预训练不仅仅是为了找到一个好的初始点, 它还充当了一种正则化机制, 帮助模型避免过拟合. 在最近的工作中, 无监督预训练方法已经被广泛地应用于不同的深度学习任务中, 尤其是在图像分类, 语音识别, 机器翻译等任务中都得到了较好的效果.</p>
+<details class="note" open="open">
+<summary>对于第一句话的个人理解</summary>
+<p>🐝无监督学习(预训练阶段)的优化目标和监督学习(微调阶段)的优化目标通常是不同的, 无监督学习阶段的优化目标是语言模型(预测下一个词或者MLM), 而监督学习阶段的优化目标通常和无监督学习阶段的优化目标不同, 这个时候的目标是直接优化与具体任务相关的目标函数(如分类的交叉熵损失, 回归的均方误差等). 无监督学习的优化目标和监督学习的优化目标<strong>通常不同</strong>.</p>
+</details>
+<p>与我们最相似的研究使用语言模型作为优化目标对神经网络进行预训练, 然后对目标任务进行监督学习微调. Dai等人<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>和Howard, Ruder<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>的工作都采用了上述的方法来改进文本分类任务. 但是, 他们使用的是LSTM模型(因为那个时候Transformer还没有出来). 与LSTM不同, 作者选择了Transformer, 它能捕获全局注意力而且能够使用GPU进行密集并行计算. 而且, 作者不仅仅在文本分类任务上取得了不错的结果, 还在其他的下游任务中展现出了良好的性能, 如自然语言推理, 同义句检测和故事补全, 具有很好的泛化能力.</p>
+<p>还有一些其他的方法使用了从预训练的语言模型或者机器翻译模型中提取的隐藏层表示作为辅助特征, 并在目标任务上训练一个监督学习模型. 简单来说, 这些方法将预训练模型生成的特征用作输入, 进行监督学习. 但是, 这种方法需要在每个目标任务上引入大量新的参数, 导致模型的复杂性大大增加. 与之相比, 作者的方法在进行任务迁移的时候只需要对模型架构进行极小的修改, 不需要为每个任务训练大量新的参数, 减少计算和存储开销.</p>
+<h3 id="_7">辅助训练目标<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>辅助训练目标(Auxiliary Training Objectives)指在监督学习模型的主要优化目标之外, 加一些额外的无监督优化目标, 它是一种实现半监督学习的另一种形式(这种就没有two-stages, 相当于是结合了有监督学习和无监督学习的优化目标, 同时优化它俩的损失函数). 如Rei等人在目标任务训练过程中, 添加了一个辅助的语言建模目标, 这意味着在微调阶段, 模型不仅优化目标任务的损失函数, 还同时优化语言建模的损失函数. Collobert和Weston在训练模型的时候, 不仅仅专注于主要任务(语义角色标注), 还同时优化了词性标注, 分块, NER, 语言建模的损失函数. 作者的研究也引入了辅助优化目标, 作者强调, 虽然它们也使用了辅助目标, 但是, two-stages的方案(即无监督预训练+有监督微调)已经足够强大, 使得这种形式的半监督学习的必要性相对较低.</p>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
 <p>Radford, A. (2018). Improving language understanding by generative pre-training. <a href="https://www.mikecaptain.com/resources/pdf/GPT-1.pdf">https://www.mikecaptain.com/resources/pdf/GPT-1.pdf</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Dai, A. M., &amp; Le, Q. V. (2015). Semi-supervised sequence learning (No. arXiv:1511.01432). arXiv. <a href="https://doi.org/10.48550/arXiv.1511.01432">https://doi.org/10.48550/arXiv.1511.01432</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Howard, J., &amp; Ruder, S. (2018). Universal language model fine-tuning for text classification (No. arXiv:1801.06146). arXiv. <a href="https://doi.org/10.48550/arXiv.1801.06146">https://doi.org/10.48550/arXiv.1801.06146</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
