@@ -204,6 +204,7 @@ nav:
           - 词嵌入: algorithm/neural-network/word-embedding.md
           - Transformer:
               - algorithm/neural-network/transformer/index.md
+              - GPT: algorithm/neural-network/transformer/gpt.md
               - BERT: algorithm/neural-network/transformer/bert.md
               - ViT: algorithm/neural-network/transformer/vit.md
       - 聚类: algorithm/clustering.md
