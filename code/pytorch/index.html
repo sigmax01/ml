@@ -1729,6 +1729,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tensors
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1804,7 +1813,10 @@
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>100%|██████████| 5.15k/5.15k [00:00&lt;00:00, 18.9MB/s]
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>Extracting drive/MyDrive/Data/FashionMNIST/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to drive/MyDrive/Data/FashionMNIST/FashionMNIST/raw
 </code></pre></div>
+<details class="note">
+<summary><code>root</code>, <code>download</code>, <code>transform</code>是啥</summary>
 <p>其中, <code>root</code>指定数据集下载和保存的根目录路径, 例如, 设置<code>root="data"</code>, 数据集会被下载到当前工作目录下的<code>data</code>文件夹中. 当<code>download=True</code>的时候, 如果指定的<code>root</code>目录下没有数据集, 就会自动从网上下载, 如果已经下载过, 就不会再次下载. <code>transform</code>和<code>target_transform</code>是可选参数, 用于对样本和标签进行转换, 如<code>ToTensor()</code>会将PIL图像或NumPy数组转换为张量, 除了<code>ToTensor()</code>, 还可以进行其他转换操作, 如标准化, 裁剪, 调整大小等.</p>
+</details>
 <p>我们将<code>Dataset</code>作为参数传递给<code>Datalocader</code>. 这将包装数据集, 并提供对数据集的迭代访问. 在训练模型时, 我们通常会使用<code>Dataloader</code>, 因为它支持自动批量处理, 采样, 洗牌多进程数据加载.</p>
 <div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
@@ -1818,7 +1830,10 @@
 <div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Shape of X [N, C, H, W]: torch.Size([64, 1, 28, 28])
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Shape of y: torch.Size([64]) torch.int64
 </code></pre></div>
+<details class="note">
+<summary><code>test_dataloader</code>是啥</summary>
 <p><code>test_dataloader</code>是一个可迭代对象. 里面包含了整个测试数据集, 并将其分成了很多批次. 每次迭代<code>test_dataloader</code>的时候, 它会返回一个批次的数据, 直到遍历完整个数据集. 所以上面的<code>X</code>对应的是第一批数据, <code>N</code>表示的是批次大小, <code>C</code>表示的是通道数, <code>H</code>表示的是图像高度, <code>W</code>表示的是图像宽度.</p>
+</details>
 <h3 id="_3">创建模型<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>在PyTorch中创建模型的方法是写一个继承<code>nn.Module</code>的类. 在<code>__init__</code>函数中定义网络的层. 然后在<code>forward</code>函数中定义数据如何流经这些层. 为了加速我们的神经网络, 最好把操作转移到GPU或者MPS上面.</p>
 <details class="tip">
@@ -2069,6 +2084,8 @@
 </code></pre></div>
 <div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Predicted: &quot;Ankle boot&quot;, Actual: &quot;Ankle boot&quot;
 </code></pre></div>
+<h2 id="tensors">Tensors<a class="headerlink" href="#tensors" title="Permanent link">&para;</a></h2>
+<p>Tensor是一种和数组和矩阵很像的数据结构, 在PyTorch里面, 使用tensor编码模型的输入和输出, 包括模型的参数. tensor和numpy的nd数组很像, 只是tensor可以跑在GPU和其他硬件加速器上. 实际上, numpy的数组和tensor可以共用一块内存, 而不用复制数据. Tensor也对自动微分进行了优化.</p>
 
 
 
@@ -2091,7 +2108,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月13日</span>
   </span>
 
     
