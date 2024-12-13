@@ -1934,7 +1934,7 @@
 <li><a href="https://ai.com">GPT</a> (the Generative Pretrained Transformer)</li>
 <li><a href="https://github.com/google-research/bert">BERT</a> (Bidirectional Encoder Representations from Transformers)</li>
 </ul>
-<p>通过将Transformer结构和无监督学习相结合, 我们不再需要对每一个任务都从头开始训练模型, 并且几乎在所有NLP任务上都远远超过先前的最强基准. </p>
+<p>通过将Transformer结构和无监督学习相结合, 我们不再需要对每一个任务都从头开始训练模型, 并且几乎在所有NLP任务上都远远超过先前的最强基准.</p>
 <p>GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的模型, 其中比较有名的有:</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/aeac87fbc55d405f507b73b96ac912e4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/aeac87fbc55d405f507b73b96ac912e4.png" width="600" /></a></p>
@@ -1946,16 +1946,24 @@
 <li>Encoder-Decoder模型, 例如BART, T5, 又称Seq2Seq(sequence-to-sequence)Transformer模型</li>
 </ul>
 <h3 id="rnn">RNN等模型的缺陷<a class="headerlink" href="#rnn" title="Permanent link">&para;</a></h3>
+<blockquote>
 <p>“This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+</blockquote>
 <p>RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必须全部运算完成. 如果时序比较长的话, 可能会导致前面的信息到后面就丢失掉了. 如果不想丢掉的话, 就需要做一个比较大的ht, 这会导致很高昂的内存开销.</p>
+<blockquote>
 <p>“In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+</blockquote>
 <p>一开始的时候, 这些注意力机制可能都是和RNN结合起来使用的, 而没有成为一个独立的体系.</p>
 <h3 id="cnn">CNN等模型的缺陷<a class="headerlink" href="#cnn" title="Permanent link">&para;</a></h3>
+<blockquote>
 <p>“In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12].” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+</blockquote>
 <p>使用CNN的时候, 每一次它去看的是一个比较小的窗口, 如3*3的卷积核. 如果两个像素隔的比较远的时候, 需要较多的层才能把这两个像素融合起来.</p>
 <p>但是Transformer模型通过注意力机制每一次能够看到所有的像素, 在一层中就能够看到. CNN比较好的地方是它有很多个输出通道, 每个通道可以去识别不同的模式. 所以说它提出了一个多头注意力机制, 模拟CNN的多输出通道的效果.</p>
 <h3 id="_2">端到端记忆网络<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<blockquote>
 <p>“End-to-end memory networks are based on a recurrent attention mechanism instead of sequencealigned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].” (<a href="zotero://select/library/items/AWW2Z4WB">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/K3RI73ET?page=2">pdf</a>)</p>
+</blockquote>
 <p>“端到端”指的是一种系统设计方法, 意味着从输入到输出的整个过程由一个单一的系统或者模型直接完成, 通常不需要人工干预或者多个独立的模块.</p>
 <p>端到端记忆网络是主要用于处理需要长期依赖记忆的任务. 它在功能上和LSTM类似, 但是在结构或者说工作方式上有显著不同. 前者引入了一个独立的外部记忆模块, 该模块是一个可供模型读取和写入的内存池, 模型通过注意力机制与这个外部记忆池的交互来保存和获取信息, 从而支持长期依赖. 而LSTM本身是通过门机制来管理和控制记忆的, 它的记忆是隐式的, 即记忆是通过递归传递的内部状态(cell state)来存储的, 而不是通过外部记忆池进行显式存储.</p>
 <h2 id="_3">架构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -1984,13 +1992,13 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png" width="500" /></a></p>
 </figure>
-<p>解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码器-解码器注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码器-解码器注意力层用于参考/关注编码器输入序列的编码表示. </p>
+<p>解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码器-解码器注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码器-解码器注意力层用于参考/关注编码器输入序列的编码表示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png" width="600" /></a></p>
 </figure>
 <h2 id="_4">张量<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>上面, 我们讲了Transformer的大致轮廓, 下面, 我们来看一下向量/张量在组件之间的流动. </p>
-<p>就如其他NLP模型一样, 我们最开始会使用<a href="https://aitutor.liduos.com/02-langchain/02-3.html">词嵌入算法, embedding algorithm</a>将类别数据(如单词或者符号)转换为连续的数值向量. 实际中向量一般是<span class="arithmatex">\(256\)</span>维或者<span class="arithmatex">\(512\)</span>维, 这里为了简化起见, 将每个词表示为一个<span class="arithmatex">\(4\)</span>维向量. </p>
+<p>上面, 我们讲了Transformer的大致轮廓, 下面, 我们来看一下向量/张量在组件之间的流动.</p>
+<p>就如其他NLP模型一样, 我们最开始会使用<a href="https://aitutor.liduos.com/02-langchain/02-3.html">词嵌入算法, embedding algorithm</a>将类别数据(如单词或者符号)转换为连续的数值向量. 实际中向量一般是<span class="arithmatex">\(256\)</span>维或者<span class="arithmatex">\(512\)</span>维, 这里为了简化起见, 将每个词表示为一个<span class="arithmatex">\(4\)</span>维向量.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/226c51fe49f5d580c0554d4820df362e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/226c51fe49f5d580c0554d4820df362e.png" width="600" /></a></p>
 </figure>
@@ -2005,7 +2013,7 @@
 </figure>
 <h2 id="_6">自注意力层<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>别被自注意力, self attention这么高大上的词给唬住了, 但是作者在读论文<em>Attension is All You Need</em>之前就没有听说过这个词, 下面来分析一下自注意力的机制.</p>
-<p>假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired. </p>
+<p>假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired.</p>
 <p>这个句子中的it是一个代词, 那么it指的是什么呢? 是animal还是street? 这个问题对人来说是简单的, 但是对机器来说不是那么容易, 当处理it的时候, 自注意力机制能够让it和animal关联起来. 即当处理每一个词的时候, 自注意力机制能够查找在输入序列中其他的能够让当前词编码更优的词.</p>
 <p>在RNN等模型的缺陷中, 处理每一个输入的时候, 会考虑前面传过来的隐藏状态. Transfommer使用的是自注意力机制, 把其他单词的理解融入处理当前的单词.</p>
 <figure>
@@ -2020,7 +2028,7 @@
 </figure>
 <p>上图中, 有两个嵌入向量<span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(x_2\)</span>, <span class="arithmatex">\(x_1\)</span>和<span class="arithmatex">\(W^Q\)</span>权重矩阵做乘法得到Query向量<span class="arithmatex">\(q_1\)</span>, ... 那么什么是Query, Key, Value呢? 它们本质上都是向量, 为了帮助我们更好的理解自注意力被抽象为三个名字, 往下面读, 你就会知道它们扮演什么角色.</p>
 <h3 id="计算注意力分数">计算注意力分数<a class="headerlink" href="#计算注意力分数" title="Permanent link">&para;</a></h3>
-<p>第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力. </p>
+<p>第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力.</p>
 <p>这些分数, 是通过计算Thinking对应的Query向量和其他位置每个词的Key向量的点积得到的. 如果我们计算句子中第一个位置单词的Attension Score, 那么第一个分数就是<span class="arithmatex">\(q_1\)</span>和<span class="arithmatex">\(k_1\)</span>的点积, 第二个分数就是<span class="arithmatex">\(q_1\)</span>和<span class="arithmatex">\(k_2\)</span>的点积.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/f64cbdcf1d883ede36b26067e34f4e3e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/f64cbdcf1d883ede36b26067e34f4e3e.png" width="500" /></a></p>
@@ -2033,7 +2041,7 @@
 </figure>
 <p>这些分数决定了编码当前位置的词, 即Thinking的时候, 对所有位置的词分别有多少的注意力. 很明显, 在上图的例子中, 当前位置的词Thinking对自己有最高的注意力<span class="arithmatex">\(0.88\)</span>, 但有时, 关注其他位置上的词也很有用.</p>
 <p>第五步是得到每个位置的分数后, 将每个分数和每个Value向量相乘, 这种做法背后的直觉理解是: 对于分数高的位置, 相乘后的值就越大, 我们把更多的注意力放到了它们的身上; 对于分数低的位置, 相乘后的值就越小, 这些位置的词可能相关性是不大的, 这样我们就忽略了这些位置的词.</p>
-<p>第六步是把上一步得到的向量相加, 就得到了自注意力层在这个位置即Thinking的输出. </p>
+<p>第六步是把上一步得到的向量相加, 就得到了自注意力层在这个位置即Thinking的输出.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png" width="500" /></a></p>
 </figure>
@@ -2072,7 +2080,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9a245789280ff24b8637f0ffe7f2f8a0.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9a245789280ff24b8637f0ffe7f2f8a0.png" width="500" /></a></p>
 </figure>
-<p>接下来就有点麻烦了, 因为前馈神经网络接受的是<span class="arithmatex">\(1\)</span>个矩阵(每个词的一个向量), 所以我们需要有一种方法把<span class="arithmatex">\(8\)</span>个矩阵整合为一个矩阵. 怎么才能做到呢? </p>
+<p>接下来就有点麻烦了, 因为前馈神经网络接受的是<span class="arithmatex">\(1\)</span>个矩阵(每个词的一个向量), 所以我们需要有一种方法把<span class="arithmatex">\(8\)</span>个矩阵整合为一个矩阵. 怎么才能做到呢?</p>
 <ol>
 <li>把<span class="arithmatex">\(8\)</span>个矩阵拼接起来</li>
 <li>把拼接后得到的矩阵和<span class="arithmatex">\(W^O\)</span>权重矩阵相乘, 这个<span class="arithmatex">\(W^O\)</span>是随着模型一起训练的</li>
@@ -2107,12 +2115,12 @@
 </details>
 <h2 id="_8">词嵌入<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup><a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>在真正把数据输入到第一层编码层之前, 需要对文本做一定的处理. 其中第一步是将非结构化的信息转化为结构化的信息, 这一个步骤叫做"文本表示", 主要有3种方式: 独热编码, 整数编码, 词嵌入.</p>
-<p>其中, 独热编码无法表示词语之间的联系, 而且这种过于稀疏的向量, 会导致计算和存储的效率不高. 整数编码是用一种数字来表示一个词, 如猫用1表示, 狗用2表示, 牛用3表示, 这种方法也无法表示词语之间的关系, 而且, 不利于模型的解释. </p>
-<p>词嵌入, word embedding跟独热编码和整数编码的目的一样, 不过他有更多的优点. 词嵌入并不是指某个具体的算法, 跟以上2种方式相比, 这种方式有几个明显的优势, 它可以降文本通过一个低微向量表达, 但是不像独热编码那么长. 寓意相似的词在向量空间上有比较相近; 通用性也比较强, 可以用在不同的任务中.                       </p>
+<p>其中, 独热编码无法表示词语之间的联系, 而且这种过于稀疏的向量, 会导致计算和存储的效率不高. 整数编码是用一种数字来表示一个词, 如猫用1表示, 狗用2表示, 牛用3表示, 这种方法也无法表示词语之间的关系, 而且, 不利于模型的解释.</p>
+<p>词嵌入, word embedding跟独热编码和整数编码的目的一样, 不过他有更多的优点. 词嵌入并不是指某个具体的算法, 跟以上2种方式相比, 这种方式有几个明显的优势, 它可以降文本通过一个低微向量表达, 但是不像独热编码那么长. 寓意相似的词在向量空间上有比较相近; 通用性也比较强, 可以用在不同的任务中.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/67d533bc3180e699d01468936c6acd7c.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/67d533bc3180e699d01468936c6acd7c.webp" width="500" /></a></p>
 </figure>
-<p>2种主流的词嵌入算法有Word2vec和GloVe. </p>
+<p>2种主流的词嵌入算法有Word2vec和GloVe.</p>
 <details class="note" open="open">
 <summary>论文直通</summary>
 <p>在模型中, 有三个不同的嵌入层, 它们承担了不同的任务.</p>
@@ -2166,7 +2174,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c35ed6b9a6405146557671f2819881d9.png" width="500" /></a></p>
 </figure>
 <h2 id="_10">残差连接<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题. </p>
+<p>残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题.</p>
 <p>在编码器的每一个子层周围, 都会有一个围绕它的残差连接还有一个层标准化.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/01883e4cf179997b19a95c3826c83215.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/01883e4cf179997b19a95c3826c83215.png" width="400" /></a></p>
@@ -2194,15 +2202,15 @@
 <p>编码器-解码器注意力层的原理和<a href="#多头注意力机制">多头注意力机制</a>类似, 不同之处是, 编码器-解码器注意力层使用的是前一层解码器的输出来构造Query矩阵, 而Key矩阵和Value矩阵来自于解码器的最终输出.</p>
 <h2 id="softmax">线性层和Softmax层<a class="headerlink" href="#softmax" title="Permanent link">&para;</a></h2>
 <p>解码器在每个时间步的输出是一个向量, 其中的每个元素都是浮点数, 那么我们怎么把这个向量转化为单词呢? 这就是由线性层和后面的Softmax层来实现的.</p>
-<p>线性层是一个普通的全连接神经网络, 可以把解码器输出的向量映射到一个更长的的向量, 这个向量被称为logits向量. 假设我们的模型认识<span class="arithmatex">\(10000\)</span>个唯一的英文单词, 那么logits向量的维度就是<span class="arithmatex">\(10000\)</span>, 每个数表示一个单词的分数. </p>
+<p>线性层是一个普通的全连接神经网络, 可以把解码器输出的向量映射到一个更长的的向量, 这个向量被称为logits向量. 假设我们的模型认识<span class="arithmatex">\(10000\)</span>个唯一的英文单词, 那么logits向量的维度就是<span class="arithmatex">\(10000\)</span>, 每个数表示一个单词的分数.</p>
 <p>然后, Softmax层会把这些分数转换为概率, 把所的分数转换为正数, 并且加起来等于<span class="arithmatex">\(1\)</span>. 然后选择最高概率的那个数字对应的词, 就是这个时间步的输出单词.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/97652550f350209b238757b1f9660497.png" width="500" /></a></p>
 </figure>
 <h2 id="_12">训练过程<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
-<p>在上面, 我们了解的是一个已经训练好的Transformer的前向传播过程. 下面会讲讲是怎么训练的. </p>
+<p>在上面, 我们了解的是一个已经训练好的Transformer的前向传播过程. 下面会讲讲是怎么训练的.</p>
 <p>在训练的过程中, 模型会经过上面讲的所有前向传播的步骤. 不同的是, 因为我们是在有标签的数据集上训练, 所以可以比较模型的输出和真实的标签.</p>
-<p>为了可视化, 我们假定输出词汇表只包含<span class="arithmatex">\(6\)</span>个单词: "a", "am", "i", "thanks", "student"和"&lt;eos&gt;". "&lt;eos&gt;"表示句子末尾. 注意, 这个输出词汇表是在训练之前的数据预处理阶段就构造好的. </p>
+<p>为了可视化, 我们假定输出词汇表只包含<span class="arithmatex">\(6\)</span>个单词: "a", "am", "i", "thanks", "student"和"&lt;eos&gt;". "&lt;eos&gt;"表示句子末尾. 注意, 这个输出词汇表是在训练之前的数据预处理阶段就构造好的.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/16f981983e1247ef0eec0459e97b737e.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/16f981983e1247ef0eec0459e97b737e.png" width="500" /></a></p>
 </figure>
@@ -2215,7 +2223,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/74bf8db4543d6187960ee3cea18e1703.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/74bf8db4543d6187960ee3cea18e1703.png" width="500" /></a></p>
 </figure>
-<p>由于模型的参数都是随机初始化的. 第一步模型在每个词输出的概率都是随机的. 我们可以把这个概率和正确的概率做对比, 然后使用反向传播来调整模型的权重, 使得输出的概率分布更加接近真实输出. </p>
+<p>由于模型的参数都是随机初始化的. 第一步模型在每个词输出的概率都是随机的. 我们可以把这个概率和正确的概率做对比, 然后使用反向传播来调整模型的权重, 使得输出的概率分布更加接近真实输出.</p>
 <p>那么要怎么比较两个概率分布, 我们可以借助信息论的工具, 详情见<a href="https://gk.ricolxwz.de/information-theory/what-is-information/#交叉熵">交叉熵</a>和<a href="https://gk.ricolxwz.de/information-theory/what-is-information/#KL散度">KL散度</a>.</p>
 <p>但是注意我们这是一个过度简化的例子. 现实来说, 我们会翻译一个句子, 而不是一个词. 例如, 输入是"je suis étudiant", 期望输出是"i am a student". 这意味着, 我们模型需要输出多个概率分布, 满足如下条件:</p>
 <ul>
@@ -2231,7 +2239,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/3c8ce3f741d432fcadf75c93d13a20a5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/3c8ce3f741d432fcadf75c93d13a20a5.png" width="500" /></a></p>
 </figure>
-<p>在测试时, 如果你要翻译的句子是训练集中的一部分, 那输出的结果不能说明什么. 我们希望的是模型在没见过的句子上也能给出准确地翻译. 注意, 概率分布向量中, 每个位置都会有一点概率, 即使这个位置不是输出对应的单词, 这是Softmax中一个很有用的特性, 有助于训练过程. </p>
+<p>在测试时, 如果你要翻译的句子是训练集中的一部分, 那输出的结果不能说明什么. 我们希望的是模型在没见过的句子上也能给出准确地翻译. 注意, 概率分布向量中, 每个位置都会有一点概率, 即使这个位置不是输出对应的单词, 这是Softmax中一个很有用的特性, 有助于训练过程.</p>
 <p>这种方法叫作贪心解码, greedy decoding, 在每个时间步, 模型会选择当前概率最高的单词作为输出, 这种优点是速度快, 缺点是只选择当前看起来最优的单词, 可能会错误全局更好的解决方案.</p>
 <p>还有一种方法是集束搜索, 与贪心解码不同, 集束搜索会保留多个单词. 假设bean size是<span class="arithmatex">\(2\)</span>, 这意味着模型在每一步中保留两个概率最高的单词作为候选项. 例如, 生成第一个单词的时候, 它可能会选择"I"和"a", 然后在下一个时间步中, 分别基于"I"和"a"生成后续的单词, 并继续计算这些路径的总得分, 模型会根据总和得分决定哪条路径最优. 这种方法可以避免贪心解码的局部最优解问题, 因为它在每一步都保留了多条候选路径, 允许模型在更大范围内搜索可能的最优解.</p>
 <h2 id="_14">掩码<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
@@ -2304,7 +2312,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月13日</span>
   </span>
 
     
