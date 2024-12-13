@@ -1851,6 +1851,57 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建神经网络
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建神经网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取用于训练的设备
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2630,6 +2681,180 @@
 <summary>Lambda函数的作用</summary>
 <p>在这里, 我们定义了一个将int转换为one-hot编码tensor的函数. 首先, 它会创造一个大小为10的零tensor. 然后调用了<code>scatter_</code>函数, 作用是将给定值<span class="arithmatex">\(y\)</span>索引上的值设置为1.</p>
 </details>
+<h2 id="_13">创建神经网络<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p>神经网络包括对数据进行操作的层/模块, <code>torch.nn</code>这个命名空间包含了所有需要构建神经网络的脚手架. PyTorch中所有的模块都是<code>nn.Module</code>的子类. 神经网络本身就是一个包含其他模块的模块, 这种嵌套结构使得构建复杂的架构非常简单.</p>
+<h3 id="_14">获取用于训练的设备<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>我们希望在GPU或者MPS上训练我们的模型, 可用下列代码检查加速器是否在线, 如果否, 则使用CPU.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="n">device</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>    <span class="s2">&quot;cuda&quot;</span>
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>    <span class="k">else</span> <span class="s2">&quot;mps&quot;</span>
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>    <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+<a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a><span class="p">)</span>
+<a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2"> device&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>Using cuda device
+</code></pre></div>
+<h3 id="_15">定义类<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>我们通过继承<code>nn.Module</code>的方式定义自己的神经网络. 使用<code>__init__</code>函数初始化神经网络层. 每个子类都在<code>forward</code>函数中对于输入数据定义操作.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
+<a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">linear_relu_stack</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+<a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+<a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+<a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+<a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+<a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a>        <span class="p">)</span>
+<a id="__codelineno-56-12" name="__codelineno-56-12" href="#__codelineno-56-12"></a>
+<a id="__codelineno-56-13" name="__codelineno-56-13" href="#__codelineno-56-13"></a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-56-14" name="__codelineno-56-14" href="#__codelineno-56-14"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-56-15" name="__codelineno-56-15" href="#__codelineno-56-15"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear_relu_stack</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-56-16" name="__codelineno-56-16" href="#__codelineno-56-16"></a>        <span class="k">return</span> <span class="n">logits</span>
+</code></pre></div>
+<p>我们创建了一个<code>NeuralNetwork</code>, 然后将其移动到设备.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>NeuralNetwork(
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>  (flatten): Flatten(start_dim=1, end_dim=-1)
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>  (linear_relu_stack): Sequential(
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>    (0): Linear(in_features=784, out_features=512, bias=True)
+<a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>    (1): ReLU()
+<a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>    (2): Linear(in_features=512, out_features=512, bias=True)
+<a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a>    (3): ReLU()
+<a id="__codelineno-58-8" name="__codelineno-58-8" href="#__codelineno-58-8"></a>    (4): Linear(in_features=512, out_features=10, bias=True)
+<a id="__codelineno-58-9" name="__codelineno-58-9" href="#__codelineno-58-9"></a>  )
+<a id="__codelineno-58-10" name="__codelineno-58-10" href="#__codelineno-58-10"></a>)
+</code></pre></div>
+<p>为了使用这个模型, 我们直接向它传递数据, 这将自动触发执行类内部的<code>__call__</code>函数, 这个函数会自动调用<code>forward</code>函数, 不需要手动调用<code>forward</code>函数.</p>
+<p>调用模型返回的结果是一个二维的tensor, 第一维对应的是每个样本的输出结果, 第二维对应的是每个类别的原始预测值(raw). 我们将预测结果传给softmax之后可以将第二维的输出转换为对应于每个类别的概率.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="n">pred_probab</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)(</span><span class="n">logits</span><span class="p">)</span>
+<a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="n">y_pred</span> <span class="o">=</span> <span class="n">pred_probab</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 第一维度最大的概率对应的index</span>
+<a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted class: </span><span class="si">{</span><span class="n">y_pred</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>Predicted class: tensor([7], device=&#39;cuda:0&#39;)
+</code></pre></div>
+<h3 id="_16">模型层<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>我们将之前定义的FashionMNIST模型分解一下, 并看看如果我们传入了一个随机生成的小批量3张28*28的图片看看它是怎么经过网络的.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="n">input_image</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">input_image</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>torch.Size([3, 28, 28])
+</code></pre></div>
+<ol>
+<li>
+<p><code>nn.Flatten</code></p>
+<p>我们初始化了一个<code>nn.Flatten</code>层将每个28*28的图片转换成一个连续的数组表示784个像素. 批次的数量3被保留.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="n">flatten</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="n">flat_image</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">input_image</span><span class="p">)</span>
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">flat_image</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>torch.Size([3, 784])
+</code></pre></div>
+</li>
+<li>
+<p><code>nn.Linear</code></p>
+<p>线性层对输入使用当时的权重和截距做一个线性变换.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="n">layer1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a><span class="n">hidden1</span> <span class="o">=</span> <span class="n">layer1</span><span class="p">(</span><span class="n">flat_image</span><span class="p">)</span>
+<a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">hidden1</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>torch.Size([3, 20])
+</code></pre></div>
+</li>
+<li>
+<p><code>nn.ReLU</code></p>
+<p>非线性激活函数用于创造输入和输出之间的复杂映射, 它被放在线性层之后.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Before ReLU: </span><span class="si">{</span><span class="n">hidden1</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a><span class="n">hidden1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">hidden1</span><span class="p">)</span>
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;After ReLU: </span><span class="si">{</span><span class="n">hidden1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>Before ReLU: tensor([[ 0.4158, -0.0130, -0.1144,  0.3960,  0.1476, -0.0690, -0.0269,  0.2690,
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>          0.1353,  0.1975,  0.4484,  0.0753,  0.4455,  0.5321, -0.1692,  0.4504,
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>          0.2476, -0.1787, -0.2754,  0.2462],
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a>        [ 0.2326,  0.0623, -0.2984,  0.2878,  0.2767, -0.5434, -0.5051,  0.4339,
+<a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a>          0.0302,  0.1634,  0.5649, -0.0055,  0.2025,  0.4473, -0.2333,  0.6611,
+<a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a>          0.1883, -0.1250,  0.0820,  0.2778],
+<a id="__codelineno-68-7" name="__codelineno-68-7" href="#__codelineno-68-7"></a>        [ 0.3325,  0.2654,  0.1091,  0.0651,  0.3425, -0.3880, -0.0152,  0.2298,
+<a id="__codelineno-68-8" name="__codelineno-68-8" href="#__codelineno-68-8"></a>          0.3872,  0.0342,  0.8503,  0.0937,  0.1796,  0.5007, -0.1897,  0.4030,
+<a id="__codelineno-68-9" name="__codelineno-68-9" href="#__codelineno-68-9"></a>          0.1189, -0.3237,  0.2048,  0.4343]], grad_fn=&lt;AddmmBackward0&gt;)
+<a id="__codelineno-68-10" name="__codelineno-68-10" href="#__codelineno-68-10"></a>
+<a id="__codelineno-68-11" name="__codelineno-68-11" href="#__codelineno-68-11"></a>
+<a id="__codelineno-68-12" name="__codelineno-68-12" href="#__codelineno-68-12"></a>After ReLU: tensor([[0.4158, 0.0000, 0.0000, 0.3960, 0.1476, 0.0000, 0.0000, 0.2690, 0.1353,
+<a id="__codelineno-68-13" name="__codelineno-68-13" href="#__codelineno-68-13"></a>         0.1975, 0.4484, 0.0753, 0.4455, 0.5321, 0.0000, 0.4504, 0.2476, 0.0000,
+<a id="__codelineno-68-14" name="__codelineno-68-14" href="#__codelineno-68-14"></a>         0.0000, 0.2462],
+<a id="__codelineno-68-15" name="__codelineno-68-15" href="#__codelineno-68-15"></a>        [0.2326, 0.0623, 0.0000, 0.2878, 0.2767, 0.0000, 0.0000, 0.4339, 0.0302,
+<a id="__codelineno-68-16" name="__codelineno-68-16" href="#__codelineno-68-16"></a>         0.1634, 0.5649, 0.0000, 0.2025, 0.4473, 0.0000, 0.6611, 0.1883, 0.0000,
+<a id="__codelineno-68-17" name="__codelineno-68-17" href="#__codelineno-68-17"></a>         0.0820, 0.2778],
+<a id="__codelineno-68-18" name="__codelineno-68-18" href="#__codelineno-68-18"></a>        [0.3325, 0.2654, 0.1091, 0.0651, 0.3425, 0.0000, 0.0000, 0.2298, 0.3872,
+<a id="__codelineno-68-19" name="__codelineno-68-19" href="#__codelineno-68-19"></a>         0.0342, 0.8503, 0.0937, 0.1796, 0.5007, 0.0000, 0.4030, 0.1189, 0.0000,
+<a id="__codelineno-68-20" name="__codelineno-68-20" href="#__codelineno-68-20"></a>         0.2048, 0.4343]], grad_fn=&lt;ReluBackward0&gt;)
+</code></pre></div>
+</li>
+<li>
+<p><code>nn.Sequential</code></p>
+<p><code>nn.Sequential</code>是一个有顺序的模块容器, 数据会依照它定义的顺序经过定义在容器内的模块.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="n">seq_modules</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+<a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>    <span class="n">flatten</span><span class="p">,</span>
+<a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>    <span class="n">layer1</span><span class="p">,</span>
+<a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+<a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a>    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-69-6" name="__codelineno-69-6" href="#__codelineno-69-6"></a><span class="p">)</span>
+<a id="__codelineno-69-7" name="__codelineno-69-7" href="#__codelineno-69-7"></a><span class="n">input_image</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span>
+<a id="__codelineno-69-8" name="__codelineno-69-8" href="#__codelineno-69-8"></a><span class="n">logits</span> <span class="o">=</span> <span class="n">seq_modules</span><span class="p">(</span><span class="n">input_image</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><code>nn.Softmax</code></p>
+<p>神经网络的最后一层返回的是原始数据, 应该被传入softmax层归一化到[0, 1].</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="n">softmax</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a><span class="n">pred_probab</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="_17">模型参数<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>神经网络中的许多层都是有可训练参数的. 可以通过模型的<code>parameters()</code>或者<code>named_parameters()</code>方法访问所有的参数.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model structure: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>
+<a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+<a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Layer: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> | Size: </span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2"> | Values : </span><span class="si">{</span><span class="n">param</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>Model structure: NeuralNetwork(
+<a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>  (flatten): Flatten(start_dim=1, end_dim=-1)
+<a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>  (linear_relu_stack): Sequential(
+<a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>    (0): Linear(in_features=784, out_features=512, bias=True)
+<a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a>    (1): ReLU()
+<a id="__codelineno-72-6" name="__codelineno-72-6" href="#__codelineno-72-6"></a>    (2): Linear(in_features=512, out_features=512, bias=True)
+<a id="__codelineno-72-7" name="__codelineno-72-7" href="#__codelineno-72-7"></a>    (3): ReLU()
+<a id="__codelineno-72-8" name="__codelineno-72-8" href="#__codelineno-72-8"></a>    (4): Linear(in_features=512, out_features=10, bias=True)
+<a id="__codelineno-72-9" name="__codelineno-72-9" href="#__codelineno-72-9"></a>  )
+<a id="__codelineno-72-10" name="__codelineno-72-10" href="#__codelineno-72-10"></a>)
+<a id="__codelineno-72-11" name="__codelineno-72-11" href="#__codelineno-72-11"></a>
+<a id="__codelineno-72-12" name="__codelineno-72-12" href="#__codelineno-72-12"></a>
+<a id="__codelineno-72-13" name="__codelineno-72-13" href="#__codelineno-72-13"></a>Layer: linear_relu_stack.0.weight | Size: torch.Size([512, 784]) | Values : tensor([[ 0.0273,  0.0296, -0.0084,  ..., -0.0142,  0.0093,  0.0135],
+<a id="__codelineno-72-14" name="__codelineno-72-14" href="#__codelineno-72-14"></a>        [-0.0188, -0.0354,  0.0187,  ..., -0.0106, -0.0001,  0.0115]],
+<a id="__codelineno-72-15" name="__codelineno-72-15" href="#__codelineno-72-15"></a>       device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
+<a id="__codelineno-72-16" name="__codelineno-72-16" href="#__codelineno-72-16"></a>
+<a id="__codelineno-72-17" name="__codelineno-72-17" href="#__codelineno-72-17"></a>Layer: linear_relu_stack.0.bias | Size: torch.Size([512]) | Values : tensor([-0.0155, -0.0327], device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
+<a id="__codelineno-72-18" name="__codelineno-72-18" href="#__codelineno-72-18"></a>
+<a id="__codelineno-72-19" name="__codelineno-72-19" href="#__codelineno-72-19"></a>Layer: linear_relu_stack.2.weight | Size: torch.Size([512, 512]) | Values : tensor([[ 0.0116,  0.0293, -0.0280,  ...,  0.0334, -0.0078,  0.0298],
+<a id="__codelineno-72-20" name="__codelineno-72-20" href="#__codelineno-72-20"></a>        [ 0.0095,  0.0038,  0.0009,  ..., -0.0365, -0.0011, -0.0221]],
+<a id="__codelineno-72-21" name="__codelineno-72-21" href="#__codelineno-72-21"></a>       device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
+<a id="__codelineno-72-22" name="__codelineno-72-22" href="#__codelineno-72-22"></a>
+<a id="__codelineno-72-23" name="__codelineno-72-23" href="#__codelineno-72-23"></a>Layer: linear_relu_stack.2.bias | Size: torch.Size([512]) | Values : tensor([ 0.0148, -0.0256], device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
+<a id="__codelineno-72-24" name="__codelineno-72-24" href="#__codelineno-72-24"></a>
+<a id="__codelineno-72-25" name="__codelineno-72-25" href="#__codelineno-72-25"></a>Layer: linear_relu_stack.4.weight | Size: torch.Size([10, 512]) | Values : tensor([[-0.0147, -0.0229,  0.0180,  ..., -0.0013,  0.0177,  0.0070],
+<a id="__codelineno-72-26" name="__codelineno-72-26" href="#__codelineno-72-26"></a>        [-0.0202, -0.0417, -0.0279,  ..., -0.0441,  0.0185, -0.0268]],
+<a id="__codelineno-72-27" name="__codelineno-72-27" href="#__codelineno-72-27"></a>       device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
+<a id="__codelineno-72-28" name="__codelineno-72-28" href="#__codelineno-72-28"></a>
+<a id="__codelineno-72-29" name="__codelineno-72-29" href="#__codelineno-72-29"></a>Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([ 0.0070, -0.0411], device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
+</code></pre></div>
 <div class="footnote">
 <hr />
 <ol>
