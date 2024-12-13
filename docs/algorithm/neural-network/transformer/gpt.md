@@ -73,6 +73,10 @@ NLP包括很多任务, 如[文本蕴含](https://en.wikipedia.org/wiki/Textual_e
 
 辅助训练目标(Auxiliary Training Objectives)指在监督学习模型的主要优化目标之外, 加一些额外的无监督优化目标, 它是一种实现半监督学习的另一种形式(这种就没有two-stages, 相当于是结合了有监督学习和无监督学习的优化目标, 同时优化它俩的损失函数, 是one-stage). 如Rei等人[^5]在目标任务训练过程中, 添加了一个辅助的语言建模目标, 这意味着在微调阶段, 模型不仅优化目标任务的损失函数, 还同时优化语言建模的损失函数. Collobert和Weston[^4]在训练模型的时候, 不仅仅专注于主要任务(语义角色标注), 还同时优化了词性标注, 分块, NER, 语言建模的损失函数. 作者的研究也引入了辅助优化目标, 作者强调, 虽然它们也使用了辅助目标, 但是, two-stages的方案(即无监督预训练+有监督微调)已经足够强大, 使得这种形式的半监督学习的必要性相对较低.
 
+## 框架
+
+### 无监督预训练
+
 [^1]: Radford, A. (2018). Improving language understanding by generative pre-training. https://www.mikecaptain.com/resources/pdf/GPT-1.pdf
 [^2]: Dai, A. M., & Le, Q. V. (2015). Semi-supervised sequence learning (No. arXiv:1511.01432). arXiv. https://doi.org/10.48550/arXiv.1511.01432
 [^3]: Howard, J., & Ruder, S. (2018). Universal language model fine-tuning for text classification (No. arXiv:1801.06146). arXiv. https://doi.org/10.48550/arXiv.1801.06146
