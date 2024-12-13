@@ -785,4 +785,117 @@ class CustomImageDataset(Dataset):
     ankleboot999.jpg, 9
     ```
 
+### 准备训练数据
+
+我们可以通过`Dataset`对象一个一个取出数据集的样本. 但是, 在训练模型的时候, 我们通常希望进行mini-batch GD, 在每个epoch开始之前都重新排列数据, 然后根据打乱后的顺序生成mini-batch供模型训练, 以减少过拟合, 并使用Python的多进程库`multiprocessing`来加速数据的取回.
+
+`DataLoader`就是一个能够实现上述功能的简单API.
+
+```py
+from torch.utils.data import DataLoader
+
+train_dataloader = DataLoader(training_data, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
+```
+
+### 遍历可迭代对象
+
+我们已经把数据集包装为一个可迭代对象. 下列的每一次迭代都会返回一个batch的`train_features`和`train_labels`, 每个batch的大小为64. 由于我们声明了`shuffle=True`, 所以我们遍历完所有batch之后会打乱所有的数据.
+
+```py title='输入'
+train_features, train_labels = next(iter(train_dataloader))
+print(f"Feature batch shape: {train_features.size()}")
+print(f"Labels batch shape: {train_labels.size()}")
+img = train_features[0].squeeze()
+label = train_labels[0]
+plt.imshow(img, cmap="gray")
+plt.show()
+print(f"Label: {label}")
+```
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/c0251616f9dcfd140eda0ec82b82eba5.png){ loading=lazy width='500' }
+</figure>
+
+``` title='输出'
+Feature batch shape: torch.Size([64, 1, 28, 28])
+Labels batch shape: torch.Size([64])
+Label: 5
+```
+
+## 转换
+
+数据有很大概率不是用于机器学习输入的最终状态, 所以要使用转换(transform)对数据进行一些修改使其适合训练.
+
+所有的TorchVision数据库都有两个参数, `transform`用于修改特征, `target_transform`用于修改标签, 它们接受的是包含逻辑的可调用对象. `torchvision.transforms`提供了一些经常使用的转换函数.
+
+FashionMNIST的数据特征是PIL格式的, 标签是int. 为了训练, 我们需要特征是tensor, 标签是one-hot编码的tensor, 为此, 我们可以使用`ToTensor`和`Lambda`.
+
+```py title='输入'
+import torch
+from torchvision import datasets
+from torchvision.transforms import ToTensor, Lambda
+
+ds = datasets.FashionMNIST(
+    root="data",
+    train=True,
+    download=True,
+    transform=ToTensor(),
+    target_transform=Lambda(lambda y: torch.zeros(10, dtype=torch.float).scatter_(0, torch.tensor(y), value=1))
+)
+```
+
+``` title='输出'
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+
+  0%|          | 0.00/26.4M [00:00<?, ?B/s]
+  0%|          | 65.5k/26.4M [00:00<01:14, 354kB/s]
+  1%|          | 197k/26.4M [00:00<00:36, 728kB/s]
+  2%|1         | 492k/26.4M [00:00<00:21, 1.23MB/s]
+  6%|5         | 1.57M/26.4M [00:00<00:06, 3.97MB/s]
+ 15%|#4        | 3.83M/26.4M [00:00<00:02, 7.89MB/s]
+ 31%|###1      | 8.19M/26.4M [00:00<00:01, 17.1MB/s]
+ 43%|####3     | 11.4M/26.4M [00:00<00:00, 21.1MB/s]
+ 52%|#####2    | 13.8M/26.4M [00:01<00:00, 21.9MB/s]
+ 61%|######1   | 16.2M/26.4M [00:01<00:00, 20.6MB/s]
+ 71%|#######1  | 18.8M/26.4M [00:01<00:00, 22.0MB/s]
+ 89%|########9 | 23.6M/26.4M [00:01<00:00, 29.1MB/s]
+100%|##########| 26.4M/26.4M [00:01<00:00, 17.8MB/s]
+Extracting data/FashionMNIST/raw/train-images-idx3-ubyte.gz to data/FashionMNIST/raw
+
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+
+  0%|          | 0.00/29.5k [00:00<?, ?B/s]
+100%|##########| 29.5k/29.5k [00:00<00:00, 326kB/s]
+Extracting data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+
+  0%|          | 0.00/4.42M [00:00<?, ?B/s]
+  1%|1         | 65.5k/4.42M [00:00<00:12, 361kB/s]
+  5%|5         | 229k/4.42M [00:00<00:06, 682kB/s]
+ 20%|##        | 885k/4.42M [00:00<00:01, 2.54MB/s]
+ 44%|####3     | 1.93M/4.42M [00:00<00:00, 4.11MB/s]
+100%|##########| 4.42M/4.42M [00:00<00:00, 6.09MB/s]
+Extracting data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw
+
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+
+  0%|          | 0.00/5.15k [00:00<?, ?B/s]
+100%|##########| 5.15k/5.15k [00:00<00:00, 38.0MB/s]
+Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+```
+
+??? note "`ToTensor()`的作用"
+
+    `ToTensor`将一个PIL图片或者NumPy数组转换为浮点tensor, 并且将图片的像素值归一到[0, 1].
+
+??? note "Lambda函数的作用"
+
+    在这里, 我们定义了一个将int转换为one-hot编码tensor的函数. 首先, 它会创造一个大小为10的零tensor. 然后调用了`scatter_`函数, 作用是将给定值$y$索引上的值设置为1.
+
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html
