@@ -1902,6 +1902,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      自动微分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2855,6 +2864,24 @@
 <a id="__codelineno-72-28" name="__codelineno-72-28" href="#__codelineno-72-28"></a>
 <a id="__codelineno-72-29" name="__codelineno-72-29" href="#__codelineno-72-29"></a>Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([ 0.0070, -0.0411], device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward0&gt;)
 </code></pre></div>
+<h2 id="_18">自动微分<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<p>在训练神经网络的时候, 最常使用的算法就是反向传播. 在这个算法中, 参数会根据其对于损失函数的梯度进行调整. 为了计算这些梯度, PyTorch有一个内置的微分引擎叫做<code>torch.autograd</code>. 它支持任何有向无环图(DAG)的自动梯度计算.</p>
+<p>考虑一个最简单的一个一层神经网络, 输入是<code>x</code>, 参数是<code>w</code>和<code>b</code>, 还有一个损失函数.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a><span class="n">w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">+</span><span class="n">b</span>
+<a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a><span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">binary_cross_entropy_with_logits</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+<p>这个代码可以被表示为下面的这幅DAG:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/8c22747ba6a3af69d4ed57dbf44cc8af.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8c22747ba6a3af69d4ed57dbf44cc8af.png" width="500" /></a></p>
+</figure>
+<p>在这个工作中, <code>w</code>和<code>b</code>是参数, 是我们优化的对象. 因此, 我们必须要计算损失函数对于这些变量的梯度. 为了实现这一点, 我们需要设置这些变量的<code>requires_grad</code>为<code>True</code>. 你可以在初始化tensor的时候就设置<code>requires_grad=True</code>也可以随后通过<code>x.requires_grad_(True)</code>方法设置.</p>
+<p>🌟当一个tensor的<code>requires_grad</code>被设置为<code>True</code>的时候</p>
 <div class="footnote">
 <hr />
 <ol>
