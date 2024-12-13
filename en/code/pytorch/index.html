@@ -1766,6 +1766,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#numpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      和NumPy的联系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datasets-dataloaders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Datasets &amp; DataLoaders
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Datasets & DataLoaders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载数据集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      可视化数据集
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2188,7 +2230,210 @@
 <a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>Device tensor is stored on: cpu
 </code></pre></div>
 <h3 id="tensor_2">Tensor的操作<a class="headerlink" href="#tensor_2" title="Permanent link">&para;</a></h3>
-<p>超过100种tensor的操作, 包括算术运算, 线性代数, 矩阵乘法(转置, 切片, 索引). 具体可以见<a href="https://pytorch.org/docs/stable/torch.html">这里</a>.</p>
+<p>超过100种tensor的操作, 包括算术运算, 矩阵乘法(转置, 切片, 索引). 具体可以见<a href="https://pytorch.org/docs/stable/torch.html">这里</a>.</p>
+<p>这些操作都能在GPU上运行(通常比CPU快很多), 默认情况下, tensor上创建在CPU上面的. 我们需要特别的使用<code>.to</code>函数将tensor转移到GPU上面. 但是记住, 在设备之间拷贝数据的成本是很高的.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># 如果在GPU存在的情况下, 将tensor转移到上面</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>下面列举一些常见的操作API.</p>
+<ol>
+<li>
+<p>与NumPy类似的索引和切片</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First row: </span><span class="si">{</span><span class="n">tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First column: </span><span class="si">{</span><span class="n">tensor</span><span class="p">[:,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Last column: </span><span class="si">{</span><span class="n">tensor</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="n">tensor</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>First row: tensor([1., 1., 1., 1.])
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>First column: tensor([1., 1., 1., 1.])
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>Last column: tensor([1., 1., 1., 1.])
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>tensor([[1., 0., 1., 1.],
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>        [1., 0., 1., 1.],
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>        [1., 0., 1., 1.],
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>        [1., 0., 1., 1.]])
+</code></pre></div>
+</li>
+<li>
+<p>聚合tensors</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">t1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>tensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])
+</code></pre></div>
+<details class="note">
+<summary>这里的<code>dim</code>的作用</summary>
+<p>这里的<code>dim=1</code>的指的是沿着列的方向聚合.</p>
+</details>
+</li>
+<li>
+<p>算术操作</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># @会进行矩阵乘法, 下面y1, y2, y3的最终结果是一样的</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="c1"># tensor.T返回的是tensor这个变量中保存的tensor的转置</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="n">y1</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">@</span> <span class="n">tensor</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="n">y2</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="n">y3</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand_like</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="c1"># 这个是一个随机初始化的形状和y1相同的矩阵y3</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">y3</span><span class="p">)</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="c1"># *会进行对应元素的矩阵乘法</span>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="n">z1</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">*</span> <span class="n">tensor</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="n">z2</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="n">z3</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand_like</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="n">torch</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">z3</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>标量tensor</p>
+<p>如果你想要一个只有一个元素的tensor, 例如将tensor中的元素aggregate一下然后使用<code>.item()</code>转化成Python的数值变量.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">agg</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="n">agg_item</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">agg_item</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">agg_item</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>12.0 &lt;class &#39;float&#39;&gt;
+</code></pre></div>
+</li>
+<li>
+<p>原地操作</p>
+<p>又叫做in-place operation, 指的是直接在原始数据上进行修改, 而不是创建新的副本进行工作, 在PyTorch中, 原地操作通常以下划线<code>_</code>结尾.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tensor</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="n">tensor</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>tensor([[1., 0., 1., 1.],
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>    [1., 0., 1., 1.],
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>    [1., 0., 1., 1.],
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>    [1., 0., 1., 1.]])
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>tensor([[6., 5., 6., 6.],
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>        [6., 5., 6., 6.],
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>        [6., 5., 6., 6.],
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>        [6., 5., 6., 6.]])
+</code></pre></div>
+<details class="warning">
+<summary>尽量不要使用原地操作</summary>
+<p>原地操作会改变tensor的状态, 可能会影响到其他引用该tensor的代码, 而且还可能影响自动求导.</p>
+</details>
+</li>
+</ol>
+<h3 id="numpy">和NumPy的联系<a class="headerlink" href="#numpy" title="Permanent link">&para;</a></h3>
+<p>在CPU上的tensor和NumPy的数组可以共享它们的内存空间, 改变一个的同时会改变另一个.</p>
+<ol>
+<li>
+<p>Tensor到NumPy数组</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t: </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="n">n</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>t: tensor([1., 1., 1., 1., 1.])
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>n: [1. 1. 1. 1. 1.]
+</code></pre></div>
+<p>对于tensor的修改会改变NumPy数组.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="n">t</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t: </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>t: tensor([2., 2., 2., 2., 2.])
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>n: [2. 2. 2. 2. 2.]
+</code></pre></div>
+</li>
+<li>
+<p>NumPy数组到Tensor</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div>
+<p>改变NumPy数组会反映在tensor中.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t: </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>t: tensor([2., 2., 2., 2., 2.], dtype=torch.float64)
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>n: [2. 2. 2. 2. 2.]
+</code></pre></div>
+</li>
+</ol>
+<h2 id="datasets-dataloaders">Datasets &amp; DataLoaders<a class="headerlink" href="#datasets-dataloaders" title="Permanent link">&para;</a></h2>
+<p>预处理样本的代码可能会变得非常乱并且难以维护, 我们希望数据集代码能够和模型训练代码解耦以实现更好地可读性和模块化. PyTorch提供两种预定义的类<code>torch.utils.data.DataLoader</code>和<code>torch.utils.data.Dataset</code>, 这两个类允许我们使用预定义的数据集(如CIFAR-10)和自己的数据集. <code>Dataset</code>存储的是样本和对应的标签, <code>DataLoader</code>在这个基础上把<code>Dataset</code>包装成一个可迭代对象, 以便轻松访问样本.</p>
+<p>PyTorch提供的一些预定义的数据集可以在这里找到: <a href="https://pytorch.org/vision/stable/datasets.html">图像数据集</a>, <a href="https://pytorch.org/text/stable/datasets.html">文本数据集</a>, <a href="https://pytorch.org/audio/stable/datasets.html">音频数据集</a></p>
+<h3 id="_7">加载数据集<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>下面是一个从TorchVision导入Fashion-MNIST数据集的方法. Fashion-MNIST是一个来源于Zalando公司的时尚商品图像数据集, 包含70000张28*28像素的灰度图像, 其中60000张用于训练, 10000张用于测试, 该数据集分为10个类别, 包括T桖/上衣, 裤子, 裙子, 外套, 凉鞋, 运动鞋, 包, 长袜, 衬衫和高跟鞋等.</p>
+<p>我们通过以下的参数加载FashionMNIST数据集.</p>
+<ul>
+<li><code>root</code>: 是训练集和测试集数据保存的路径</li>
+<li><code>train</code>: 声明是训练集还是测试集</li>
+<li><code>download=True</code>: 从网络下载数据集如果在<code>root</code>下没有数据集的话</li>
+<li><code>transform</code>和<code>target_transform</code>: 定义特征和标签的转换函数</li>
+</ul>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">ToTensor</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="n">training_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">FashionMNIST</span><span class="p">(</span>
+<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>    <span class="n">root</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>    <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>    <span class="n">transform</span><span class="o">=</span><span class="n">ToTensor</span><span class="p">()</span>
+<a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="p">)</span>
+<a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>
+<a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a><span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">FashionMNIST</span><span class="p">(</span>
+<a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a>    <span class="n">root</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+<a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a>    <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a>    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-44-19" name="__codelineno-44-19" href="#__codelineno-44-19"></a>    <span class="n">transform</span><span class="o">=</span><span class="n">ToTensor</span><span class="p">()</span>
+<a id="__codelineno-44-20" name="__codelineno-44-20" href="#__codelineno-44-20"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>  0%|          | 0.00/26.4M [00:00&lt;?, ?B/s]
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>  0%|          | 65.5k/26.4M [00:00&lt;01:12, 361kB/s]
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>  1%|          | 229k/26.4M [00:00&lt;00:38, 679kB/s]
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>  3%|3         | 885k/26.4M [00:00&lt;00:10, 2.45MB/s]
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>  7%|7         | 1.90M/26.4M [00:00&lt;00:05, 4.28MB/s]
+<a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a> 15%|#4        | 3.83M/26.4M [00:00&lt;00:02, 8.19MB/s]
+<a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a> 37%|###7      | 9.80M/26.4M [00:00&lt;00:00, 21.8MB/s]
+<a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a> 50%|####9     | 13.2M/26.4M [00:00&lt;00:00, 22.6MB/s]
+<a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a> 62%|######1   | 16.3M/26.4M [00:01&lt;00:00, 24.8MB/s]
+<a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a> 72%|#######2  | 19.1M/26.4M [00:01&lt;00:00, 25.6MB/s]
+<a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a> 92%|#########2| 24.4M/26.4M [00:01&lt;00:00, 33.1MB/s]
+<a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>100%|##########| 26.4M/26.4M [00:01&lt;00:00, 19.3MB/s]
+<a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a>Extracting data/FashionMNIST/raw/train-images-idx3-ubyte.gz to data/FashionMNIST/raw
+<a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a>
+<a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
+<a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+<a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a>
+<a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a>  0%|          | 0.00/29.5k [00:00&lt;?, ?B/s]
+<a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a>100%|##########| 29.5k/29.5k [00:00&lt;00:00, 325kB/s]
+<a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a>Extracting data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+<a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a>
+<a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
+<a id="__codelineno-45-26" name="__codelineno-45-26" href="#__codelineno-45-26"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+<a id="__codelineno-45-27" name="__codelineno-45-27" href="#__codelineno-45-27"></a>
+<a id="__codelineno-45-28" name="__codelineno-45-28" href="#__codelineno-45-28"></a>  0%|          | 0.00/4.42M [00:00&lt;?, ?B/s]
+<a id="__codelineno-45-29" name="__codelineno-45-29" href="#__codelineno-45-29"></a>  1%|1         | 65.5k/4.42M [00:00&lt;00:12, 359kB/s]
+<a id="__codelineno-45-30" name="__codelineno-45-30" href="#__codelineno-45-30"></a>  4%|4         | 197k/4.42M [00:00&lt;00:05, 725kB/s]
+<a id="__codelineno-45-31" name="__codelineno-45-31" href="#__codelineno-45-31"></a> 10%|#         | 459k/4.42M [00:00&lt;00:03, 1.17MB/s]
+<a id="__codelineno-45-32" name="__codelineno-45-32" href="#__codelineno-45-32"></a> 38%|###7      | 1.67M/4.42M [00:00&lt;00:00, 4.28MB/s]
+<a id="__codelineno-45-33" name="__codelineno-45-33" href="#__codelineno-45-33"></a> 83%|########2 | 3.67M/4.42M [00:00&lt;00:00, 7.57MB/s]
+<a id="__codelineno-45-34" name="__codelineno-45-34" href="#__codelineno-45-34"></a>100%|##########| 4.42M/4.42M [00:00&lt;00:00, 6.02MB/s]
+<a id="__codelineno-45-35" name="__codelineno-45-35" href="#__codelineno-45-35"></a>Extracting data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw
+<a id="__codelineno-45-36" name="__codelineno-45-36" href="#__codelineno-45-36"></a>
+<a id="__codelineno-45-37" name="__codelineno-45-37" href="#__codelineno-45-37"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+<a id="__codelineno-45-38" name="__codelineno-45-38" href="#__codelineno-45-38"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+<a id="__codelineno-45-39" name="__codelineno-45-39" href="#__codelineno-45-39"></a>
+<a id="__codelineno-45-40" name="__codelineno-45-40" href="#__codelineno-45-40"></a>  0%|          | 0.00/5.15k [00:00&lt;?, ?B/s]
+<a id="__codelineno-45-41" name="__codelineno-45-41" href="#__codelineno-45-41"></a>100%|##########| 5.15k/5.15k [00:00&lt;00:00, 38.2MB/s]
+<a id="__codelineno-45-42" name="__codelineno-45-42" href="#__codelineno-45-42"></a>Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+</code></pre></div>
+<h3 id="_8">可视化数据集<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 
 
 
