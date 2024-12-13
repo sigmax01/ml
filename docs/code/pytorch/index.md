@@ -461,4 +461,248 @@ Device tensor is stored on: cpu
 
 ### Tensor的操作
 
-超过100种tensor的操作, 包括算术运算, 线性代数, 矩阵乘法(转置, 切片, 索引). 具体可以见[这里](https://pytorch.org/docs/stable/torch.html).
+超过100种tensor的操作, 包括算术运算, 矩阵乘法(转置, 切片, 索引). 具体可以见[这里](https://pytorch.org/docs/stable/torch.html).
+
+这些操作都能在GPU上运行(通常比CPU快很多), 默认情况下, tensor上创建在CPU上面的. 我们需要特别的使用`.to`函数将tensor转移到GPU上面. 但是记住, 在设备之间拷贝数据的成本是很高的.
+
+```py
+# 如果在GPU存在的情况下, 将tensor转移到上面
+if torch.cuda.is_available():
+    tensor = tensor.to("cuda")
+```
+
+下面列举一些常见的操作API.
+
+1. 与NumPy类似的索引和切片
+
+    ```py title='输入'
+    tensor = torch.ones(4, 4)
+    print(f"First row: {tensor[0]}")
+    print(f"First column: {tensor[:, 0]}")
+    print(f"Last column: {tensor[..., -1]}")
+    tensor[:,1] = 0
+    print(tensor)
+    ```
+
+    ``` title='输出'
+    First row: tensor([1., 1., 1., 1.])
+    First column: tensor([1., 1., 1., 1.])
+    Last column: tensor([1., 1., 1., 1.])
+    tensor([[1., 0., 1., 1.],
+            [1., 0., 1., 1.],
+            [1., 0., 1., 1.],
+            [1., 0., 1., 1.]])
+    ```
+
+2. 聚合tensors
+
+    ```py title='输入'
+    t1 = torch.cat([tensor, tensor, tensor], dim=1)
+    print(t1)
+    ```
+
+    ``` title='输出'
+    tensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+            [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+            [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+            [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])
+    ```
+
+    ??? note "这里的`dim`的作用"
+
+        这里的`dim=1`的指的是沿着列的方向聚合.
+
+3. 算术操作
+
+    ```py title='输入'
+    # @会进行矩阵乘法, 下面y1, y2, y3的最终结果是一样的
+    # tensor.T返回的是tensor这个变量中保存的tensor的转置
+    y1 = tensor @ tensor.T
+    y2 = tensor.matmul(tensor.T)
+    y3 = torch.rand_like(y1) # 这个是一个随机初始化的形状和y1相同的矩阵y3
+    torch.matmul(tensor, tensor.T, out=y3)
+
+    # *会进行对应元素的矩阵乘法
+    z1 = tensor * tensor
+    z2 = tensor.mul(tensor)
+    z3 = torch.rand_like(tensor)
+    torch.mul(tensor, tensor, out=z3)
+    ```
+
+4. 标量tensor
+
+    如果你想要一个只有一个元素的tensor, 例如将tensor中的元素aggregate一下然后使用`.item()`转化成Python的数值变量.
+
+    ```py title='输入'
+    agg = tensor.sum()
+    agg_item = agg.item()
+    print(agg_item, type(agg_item))
+    ```
+
+    ``` title='输出'
+    12.0 <class 'float'>
+    ```
+
+5. 原地操作
+
+    又叫做in-place operation, 指的是直接在原始数据上进行修改, 而不是创建新的副本进行工作, 在PyTorch中, 原地操作通常以下划线`_`结尾.
+
+    ```py title='输入'
+    print(f"{tensor} \n")
+    tensor.add_(5)
+    print(tensor)
+    ```
+
+    ``` title='输出'
+    tensor([[1., 0., 1., 1.],
+        [1., 0., 1., 1.],
+        [1., 0., 1., 1.],
+        [1., 0., 1., 1.]])
+
+    tensor([[6., 5., 6., 6.],
+            [6., 5., 6., 6.],
+            [6., 5., 6., 6.],
+            [6., 5., 6., 6.]])
+    ```
+
+    ??? warning "尽量不要使用原地操作"
+
+        原地操作会改变tensor的状态, 可能会影响到其他引用该tensor的代码, 而且还可能影响自动求导.
+
+### 和NumPy的联系
+
+在CPU上的tensor和NumPy的数组可以共享它们的内存空间, 改变一个的同时会改变另一个.
+
+1. Tensor到NumPy数组
+
+    ```py title='输入'
+    t = torch.ones(5)
+    print(f"t: {t}")
+    n = t.numpy()
+    print(f"n: {n}")
+    ```
+
+    ``` title='输出'
+    t: tensor([1., 1., 1., 1., 1.])
+    n: [1. 1. 1. 1. 1.]
+    ```
+
+    对于tensor的修改会改变NumPy数组.
+
+    ```py title='输入'
+    t.add_(1)
+    print(f"t: {t}")
+    print(f"n: {n}")
+    ```
+
+    ``` title='输出'
+    t: tensor([2., 2., 2., 2., 2.])
+    n: [2. 2. 2. 2. 2.]
+    ```
+
+2. NumPy数组到Tensor
+
+    ```py title='输入'
+    n = np.ones(5)
+    t = torch.from_numpy(n)
+    ```
+
+    改变NumPy数组会反映在tensor中.
+
+    ```py title='输入'
+    np.add(n, 1, out=n)
+    print(f"t: {t}")
+    print(f"n: {n}")
+    ```
+
+    ``` title='输出'
+    t: tensor([2., 2., 2., 2., 2.], dtype=torch.float64)
+    n: [2. 2. 2. 2. 2.]
+    ```
+
+## Datasets & DataLoaders
+
+预处理样本的代码可能会变得非常乱并且难以维护, 我们希望数据集代码能够和模型训练代码解耦以实现更好地可读性和模块化. PyTorch提供两种预定义的类`torch.utils.data.DataLoader`和`torch.utils.data.Dataset`, 这两个类允许我们使用预定义的数据集(如CIFAR-10)和自己的数据集. `Dataset`存储的是样本和对应的标签, `DataLoader`在这个基础上把`Dataset`包装成一个可迭代对象, 以便轻松访问样本.
+
+PyTorch提供的一些预定义的数据集可以在这里找到: [图像数据集](https://pytorch.org/vision/stable/datasets.html), [文本数据集](https://pytorch.org/text/stable/datasets.html), [音频数据集](https://pytorch.org/audio/stable/datasets.html)
+
+### 加载数据集
+
+下面是一个从TorchVision导入Fashion-MNIST数据集的方法. Fashion-MNIST是一个来源于Zalando公司的时尚商品图像数据集, 包含70000张28*28像素的灰度图像, 其中60000张用于训练, 10000张用于测试, 该数据集分为10个类别, 包括T桖/上衣, 裤子, 裙子, 外套, 凉鞋, 运动鞋, 包, 长袜, 衬衫和高跟鞋等.
+
+我们通过以下的参数加载FashionMNIST数据集.
+
+- `root`: 是训练集和测试集数据保存的路径
+- `train`: 声明是训练集还是测试集
+- `download=True`: 从网络下载数据集如果在`root`下没有数据集的话
+- `transform`和`target_transform`: 定义特征和标签的转换函数
+
+```py title='输入'
+import torch
+from torch.utils.data import Dataset
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+import matplotlib.pyplot as plt
+
+
+training_data = datasets.FashionMNIST(
+    root="data",
+    train=True,
+    download=True,
+    transform=ToTensor()
+)
+
+test_data = datasets.FashionMNIST(
+    root="data",
+    train=False,
+    download=True,
+    transform=ToTensor()
+)
+```
+
+``` title='输出'
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+
+  0%|          | 0.00/26.4M [00:00<?, ?B/s]
+  0%|          | 65.5k/26.4M [00:00<01:12, 361kB/s]
+  1%|          | 229k/26.4M [00:00<00:38, 679kB/s]
+  3%|3         | 885k/26.4M [00:00<00:10, 2.45MB/s]
+  7%|7         | 1.90M/26.4M [00:00<00:05, 4.28MB/s]
+ 15%|#4        | 3.83M/26.4M [00:00<00:02, 8.19MB/s]
+ 37%|###7      | 9.80M/26.4M [00:00<00:00, 21.8MB/s]
+ 50%|####9     | 13.2M/26.4M [00:00<00:00, 22.6MB/s]
+ 62%|######1   | 16.3M/26.4M [00:01<00:00, 24.8MB/s]
+ 72%|#######2  | 19.1M/26.4M [00:01<00:00, 25.6MB/s]
+ 92%|#########2| 24.4M/26.4M [00:01<00:00, 33.1MB/s]
+100%|##########| 26.4M/26.4M [00:01<00:00, 19.3MB/s]
+Extracting data/FashionMNIST/raw/train-images-idx3-ubyte.gz to data/FashionMNIST/raw
+
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+
+  0%|          | 0.00/29.5k [00:00<?, ?B/s]
+100%|##########| 29.5k/29.5k [00:00<00:00, 325kB/s]
+Extracting data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+
+  0%|          | 0.00/4.42M [00:00<?, ?B/s]
+  1%|1         | 65.5k/4.42M [00:00<00:12, 359kB/s]
+  4%|4         | 197k/4.42M [00:00<00:05, 725kB/s]
+ 10%|#         | 459k/4.42M [00:00<00:03, 1.17MB/s]
+ 38%|###7      | 1.67M/4.42M [00:00<00:00, 4.28MB/s]
+ 83%|########2 | 3.67M/4.42M [00:00<00:00, 7.57MB/s]
+100%|##########| 4.42M/4.42M [00:00<00:00, 6.02MB/s]
+Extracting data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw
+
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+
+  0%|          | 0.00/5.15k [00:00<?, ?B/s]
+100%|##########| 5.15k/5.15k [00:00<00:00, 38.2MB/s]
+Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+```
+
+### 可视化数据集
