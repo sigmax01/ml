@@ -1518,9 +1518,51 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#auxiliary-training-objectives" class="md-nav__link">
     <span class="md-ellipsis">
       辅助训练目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      框架
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督预训练
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      监督微调
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      任务相关输入转换
     </span>
   </a>
   
@@ -1884,9 +1926,51 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#auxiliary-training-objectives" class="md-nav__link">
     <span class="md-ellipsis">
       辅助训练目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      框架
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督预训练
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      监督微调
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      任务相关输入转换
     </span>
   </a>
   
@@ -1958,12 +2042,12 @@
 </tr>
 <tr>
 <td><strong>范围</strong></td>
-<td>通常通用，适用于多个任务</td>
+<td>通常通用, 适用于多个任务</td>
 <td>具体、与应用场景相关</td>
 </tr>
 <tr>
 <td><strong>目标对象</strong></td>
-<td>优化模型参数，学习表示</td>
+<td>优化模型参数, 学习表示</td>
 <td>评估模型是否能够完成特定任务</td>
 </tr>
 <tr>
@@ -2005,8 +2089,65 @@
 </details>
 <p>与我们最相似的研究使用语言模型作为优化目标对神经网络进行预训练, 然后对目标任务进行监督学习微调. Dai等人<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>和Howard, Ruder<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>的工作都采用了上述的方法来改进文本分类任务. 但是, 他们使用的是LSTM模型(因为那个时候Transformer还没有出来). 与LSTM不同, 作者选择了Transformer, 它能捕获全局注意力而且能够使用GPU进行密集并行计算. 而且, 作者不仅仅在文本分类任务上取得了不错的结果, 还在其他的下游任务中展现出了良好的性能, 如自然语言推理, 同义句检测和故事补全, 具有很好的泛化能力.</p>
 <p>还有一些其他的方法使用了从预训练的语言模型或者机器翻译模型中提取的隐藏层表示作为辅助特征, 并在目标任务上训练一个监督学习模型. 简单来说, 这些方法将预训练模型生成的特征用作输入, 进行监督学习. 但是, 这种方法需要在每个目标任务上引入大量新的参数, 导致模型的复杂性大大增加. 与之相比, 作者的方法在进行任务迁移的时候只需要对模型架构进行极小的修改, 不需要为每个任务训练大量新的参数, 减少计算和存储开销.</p>
-<h3 id="_7">辅助训练目标<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="auxiliary-training-objectives">辅助训练目标<a class="headerlink" href="#auxiliary-training-objectives" title="Permanent link">&para;</a></h3>
 <p>辅助训练目标(Auxiliary Training Objectives)指在监督学习模型的主要优化目标之外, 加一些额外的无监督优化目标, 它是一种实现半监督学习的另一种形式(这种就没有two-stages, 相当于是结合了有监督学习和无监督学习的优化目标, 同时优化它俩的损失函数, 是one-stage). 如Rei等人<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>在目标任务训练过程中, 添加了一个辅助的语言建模目标, 这意味着在微调阶段, 模型不仅优化目标任务的损失函数, 还同时优化语言建模的损失函数. Collobert和Weston<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>在训练模型的时候, 不仅仅专注于主要任务(语义角色标注), 还同时优化了词性标注, 分块, NER, 语言建模的损失函数. 作者的研究也引入了辅助优化目标, 作者强调, 虽然它们也使用了辅助目标, 但是, two-stages的方案(即无监督预训练+有监督微调)已经足够强大, 使得这种形式的半监督学习的必要性相对较低.</p>
+<h2 id="_7">框架<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">无监督预训练<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>给定一个未标注的语料<span class="arithmatex">\(\mathcal{U}=\{u_1, ..., u_n\}\)</span>. 使用一个标准的语言建模优化目标去最大化以下似然.</p>
+<div class="arithmatex">\[L_1(\mathcal{U}) = \sum_i \log P(u_i \mid u_{i-k}, \dots, u_{i-1} ; \Theta)\]</div>
+<details class="question" open="open">
+<summary>从该公式看GPT是生成式还是判别式模型</summary>
+<p>该公式<span class="arithmatex">\(L_1(\mathcal{U}) = \sum_i \log P(u_i \mid u_{i-k}, \dots, u_{i-1} ; \Theta)\)</span>描述了GPT在训练过程中对序列中每个词语(或子词、标记)的条件概率进行建模, 即在给定前面若干个词的情况下, 计算下一个词出现的概率. 通过对整个序列中所有词的条件概率进行连乘(或对数连加), GPT实际上在隐式地建模整个序列的联合概率分布</p>
+<div class="arithmatex">\[P(u_1, u_2, \dots, u_T) = \prod_{i} P(u_i \mid u_{i-k}, \dots, u_{i-1}; \Theta)\]</div>
+<p>与判别式模型相比, 判别式模型通常关心的是给定输入后某一特定标签或类别的条件概率(如<span class="arithmatex">\(P(\text{label}\mid \text{input})\)</span>), 而不直接对输入本身的联合分布建模. 相反, 生成式模型则试图对数据的概率分布进行刻画, 能够基于此概率分布"生成"新的样本. GPT在训练时的优化目标与最终实现的功能本质上符合生成式模型的特点: 它通过对序列的统计规律进行学习, 从而能够在给定前文条件下, 自然地生成后续的词语序列.</p>
+<p>因此, 从上述公式及GPT的训练目标来看, GPT是生成式模型. 关于生成式和判别式模型, 请见<a href="/dicts/discriminative-and-generative-model">这里</a>.</p>
+</details>
+<p>其中, <span class="arithmatex">\(k\)</span>是窗口的大小, 条件概率<span class="arithmatex">\(P\)</span>由一个参数为<span class="arithmatex">\(\theta\)</span>的神经网络进行建模, 这个神经网络使用SGD进行训练. 在本文的实验中, 作者使用的是一个多层的Transformer解码器, 这个模型利用了多头注意力机制, 然后接入一个position-wise的前馈神经网络(每一个transformer块内都会有这个FNN).</p>
+<details class="note" open="open">
+<summary>什么是position-wise的FNN</summary>
+<p>在position-wise的情况下, 每个序列位置的词向量都是单独处理的, 本质上是, 每个位置的输入特征<span class="arithmatex">\(x_i\)</span>会被单独送入一个共享的FNN, 这里的共享指的是不同输入之间使用的是一个权重<span class="arithmatex">\(W_1, W_2\)</span>, 每个位置的计算是独立的, 假设输入词向量<span class="arithmatex">\(x_i\)</span>的维度是<span class="arithmatex">\(d\)</span>, 那么这个FNN的输入层神经元数量就有<span class="arithmatex">\(d\)</span>个. 如果是非point-wise, 那么输入层神经元的数量就有<span class="arithmatex">\(nd\)</span>个, <span class="arithmatex">\(n\)</span>为输入词向量的数量.</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>输入神经元数量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>position-wise</td>
+<td><span class="arithmatex">\(d\)</span></td>
+<td>每个位置独立处理, FNN 对每个位置共享权重, 但不跨位置交互</td>
+</tr>
+<tr>
+<td>非position-wise</td>
+<td><span class="arithmatex">\(n \cdot d\)</span></td>
+<td>整个序列作为整体处理, 允许跨位置的特征交互</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>无监督预训练的架构可以表示为:</p>
+<div class="arithmatex">\[\begin{align*}
+h_0 &amp;= UW_e + W_p \\
+h_l &amp;= \text{transformer\_block}(h_{l-1}), \, \forall l \in [1, n] \\
+P(u) &amp;= \text{softmax}(h_n W_e^T)
+\end{align*}\]</div>
+<p>其中, <span class="arithmatex">\(U=\{u_{-k}, ..., u_{-1}\}\)</span>是token的上下文one-hot编码, <span class="arithmatex">\(W_e\)</span>是词嵌入矩阵, <span class="arithmatex">\(W_p\)</span>是位置编码. <span class="arithmatex">\(h_{l-1}\)</span>的输出作为<span class="arithmatex">\(l\)</span>层的transformer块的输入, <span class="arithmatex">\(\forall l\in [1, n]\)</span>表示总共有<span class="arithmatex">\(n\)</span>层transformer块. <span class="arithmatex">\(h_n\)</span>表示的是最后一层transformer块的输出, <span class="arithmatex">\(W_e^T\)</span>是词嵌入矩阵的转置, 作用是将模型的输出映射回词汇表空间. Softmax将输出转换为每个词的概率分布.</p>
+<h3 id="_9">监督微调<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>使用语言建模作为优化目标进行无监督预训练后. 我们将这些参数用于初始化监督微调目标任务. 假设有一个标注数据集<span class="arithmatex">\(\mathcal{C}\)</span>, 其中的每一个instance都由一组输入标记<span class="arithmatex">\(x^1, ..., x^m\)</span>和一个标签<span class="arithmatex">\(y\)</span>组成. 这些输入会输入预训练的模型, 获得最后一个transformer块的激活值<span class="arithmatex">\(h_l^m\)</span>, 然后通过一个线性输出层(这个线性输出层在预训练的时候是没有的)预测标签<span class="arithmatex">\(y\)</span>, 用公式表示为:</p>
+<div class="arithmatex">\[P(y|x^1, \dots, x^m) = \text{softmax}(h_l^m W_y)\]</div>
+<p>以下的公式代表的是监督微调阶段的优化目标:</p>
+<div class="arithmatex">\[L_2(\mathcal{C}) = \sum_{(x, y)} \log P(y|x^1, \dots, x^m)\]</div>
+<p>作者还提到, 除了优化目标<span class="arithmatex">\(L_2(\mathcal{C})\)</span>, 还加入了语言建模作为<a href="#auxiliary-training-objectives">辅助训练目标</a><span class="arithmatex">\(L_1(\mathcal{C})\)</span>, 这个辅助目标可以帮助模型提高泛化能力, 加速收敛. 所以, 在微调过程中, 最终的目标函数<span class="arithmatex">\(L_3(\mathcal{C})\)</span>是监督目标<span class="arithmatex">\(L_2(\mathcal{C})\)</span>和辅助训练目标<span class="arithmatex">\(L_1(\mathcal{C})\)</span>的加权和, 主优化目标的权重为<span class="arithmatex">\(\lambda\)</span>, 所以, 最终的目标函数为:</p>
+<div class="arithmatex">\[L_3(\mathcal{C}) = L_2(\mathcal{C}) + \lambda \cdot L_1(\mathcal{C})\]</div>
+<p>总之而言, 在微调阶段, 我们只需要额外的参数<span class="arithmatex">\(W_y\)</span>和分隔符标记的嵌入(在下一个小节描述).</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/5eca022ccaa6870205ee7ffd3fe0226f.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/5eca022ccaa6870205ee7ffd3fe0226f.png" width="500" /></a></p>
+<figcaption>Transformer的结构(左); 对于不同的下游任务微调阶段输入的转换, 使用Traversal-style Approaches将结构化的输入转化为单一的, 连续的token序列(右)</figcaption>
+</figure>
+<h3 id="_10">任务相关输入转换<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <div class="footnote">
 <hr />
 <ol>
@@ -2049,7 +2190,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月13日</span>
   </span>
 
     
