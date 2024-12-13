@@ -898,4 +898,227 @@ Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/
 
     在这里, 我们定义了一个将int转换为one-hot编码tensor的函数. 首先, 它会创造一个大小为10的零tensor. 然后调用了`scatter_`函数, 作用是将给定值$y$索引上的值设置为1.
 
+## 创建神经网络
+
+神经网络包括对数据进行操作的层/模块, `torch.nn`这个命名空间包含了所有需要构建神经网络的脚手架. PyTorch中所有的模块都是`nn.Module`的子类. 神经网络本身就是一个包含其他模块的模块, 这种嵌套结构使得构建复杂的架构非常简单.
+
+### 获取用于训练的设备
+
+我们希望在GPU或者MPS上训练我们的模型, 可用下列代码检查加速器是否在线, 如果否, 则使用CPU.
+
+```py title='输入'
+device = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+print(f"Using {device} device")
+```
+
+``` title='输出'
+Using cuda device
+```
+
+### 定义类
+
+我们通过继承`nn.Module`的方式定义自己的神经网络. 使用`__init__`函数初始化神经网络层. 每个子类都在`forward`函数中对于输入数据定义操作.
+
+```py
+class NeuralNetwork(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.linear_relu_stack = nn.Sequential(
+            nn.Linear(28*28, 512),
+            nn.ReLU(),
+            nn.Linear(512, 512),
+            nn.ReLU(),
+            nn.Linear(512, 10),
+        )
+
+    def forward(self, x):
+        x = self.flatten(x)
+        logits = self.linear_relu_stack(x)
+        return logits
+```
+
+我们创建了一个`NeuralNetwork`, 然后将其移动到设备.
+
+```py title='输入'
+model = NeuralNetwork().to(device)
+print(model)
+```
+
+``` title='输出'
+NeuralNetwork(
+  (flatten): Flatten(start_dim=1, end_dim=-1)
+  (linear_relu_stack): Sequential(
+    (0): Linear(in_features=784, out_features=512, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=512, out_features=512, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+```
+
+为了使用这个模型, 我们直接向它传递数据, 这将自动触发执行类内部的`__call__`函数, 这个函数会自动调用`forward`函数, 不需要手动调用`forward`函数.
+
+调用模型返回的结果是一个二维的tensor, 第一维对应的是每个样本的输出结果, 第二维对应的是每个类别的原始预测值(raw). 我们将预测结果传给softmax之后可以将第二维的输出转换为对应于每个类别的概率.
+
+```py title='输入'
+X = torch.rand(1, 28, 28, device=device)
+logits = model(X)
+pred_probab = nn.Softmax(dim=1)(logits)
+y_pred = pred_probab.argmax(1) # 第一维度最大的概率对应的index
+print(f"Predicted class: {y_pred}")
+```
+
+``` title='输出'
+Predicted class: tensor([7], device='cuda:0')
+```
+
+### 模型层
+
+我们将之前定义的FashionMNIST模型分解一下, 并看看如果我们传入了一个随机生成的小批量3张28*28的图片看看它是怎么经过网络的.
+
+```py title='输入'
+input_image = torch.rand(3,28,28)
+print(input_image.size())
+```
+
+``` title='输出'
+torch.Size([3, 28, 28])
+```
+
+1. `nn.Flatten`
+
+    我们初始化了一个`nn.Flatten`层将每个28*28的图片转换成一个连续的数组表示784个像素. 批次的数量3被保留.
+
+    ```py title='输入'
+    flatten = nn.Flatten()
+    flat_image = flatten(input_image)
+    print(flat_image.size())
+    ```
+
+    ``` title='输出'
+    torch.Size([3, 784])
+    ```
+
+2.  `nn.Linear`
+
+    线性层对输入使用当时的权重和截距做一个线性变换.
+
+    ```py title='输入'
+    layer1 = nn.Linear(in_features=28*28, out_features=20)
+    hidden1 = layer1(flat_image)
+    print(hidden1.size())
+    ```
+
+    ``` title='输出'
+    torch.Size([3, 20])
+    ```
+
+3.  `nn.ReLU`
+
+    非线性激活函数用于创造输入和输出之间的复杂映射, 它被放在线性层之后.
+
+    ```py title='输入'
+    print(f"Before ReLU: {hidden1}\n\n")
+    hidden1 = nn.ReLU()(hidden1)
+    print(f"After ReLU: {hidden1}")
+    ```
+
+    ``` title='输出'
+    Before ReLU: tensor([[ 0.4158, -0.0130, -0.1144,  0.3960,  0.1476, -0.0690, -0.0269,  0.2690,
+              0.1353,  0.1975,  0.4484,  0.0753,  0.4455,  0.5321, -0.1692,  0.4504,
+              0.2476, -0.1787, -0.2754,  0.2462],
+            [ 0.2326,  0.0623, -0.2984,  0.2878,  0.2767, -0.5434, -0.5051,  0.4339,
+              0.0302,  0.1634,  0.5649, -0.0055,  0.2025,  0.4473, -0.2333,  0.6611,
+              0.1883, -0.1250,  0.0820,  0.2778],
+            [ 0.3325,  0.2654,  0.1091,  0.0651,  0.3425, -0.3880, -0.0152,  0.2298,
+              0.3872,  0.0342,  0.8503,  0.0937,  0.1796,  0.5007, -0.1897,  0.4030,
+              0.1189, -0.3237,  0.2048,  0.4343]], grad_fn=<AddmmBackward0>)
+
+
+    After ReLU: tensor([[0.4158, 0.0000, 0.0000, 0.3960, 0.1476, 0.0000, 0.0000, 0.2690, 0.1353,
+             0.1975, 0.4484, 0.0753, 0.4455, 0.5321, 0.0000, 0.4504, 0.2476, 0.0000,
+             0.0000, 0.2462],
+            [0.2326, 0.0623, 0.0000, 0.2878, 0.2767, 0.0000, 0.0000, 0.4339, 0.0302,
+             0.1634, 0.5649, 0.0000, 0.2025, 0.4473, 0.0000, 0.6611, 0.1883, 0.0000,
+             0.0820, 0.2778],
+            [0.3325, 0.2654, 0.1091, 0.0651, 0.3425, 0.0000, 0.0000, 0.2298, 0.3872,
+             0.0342, 0.8503, 0.0937, 0.1796, 0.5007, 0.0000, 0.4030, 0.1189, 0.0000,
+             0.2048, 0.4343]], grad_fn=<ReluBackward0>)
+    ```
+
+4. `nn.Sequential`
+
+    `nn.Sequential`是一个有顺序的模块容器, 数据会依照它定义的顺序经过定义在容器内的模块.
+
+    ```py
+    seq_modules = nn.Sequential(
+        flatten,
+        layer1,
+        nn.ReLU(),
+        nn.Linear(20, 10)
+    )
+    input_image = torch.rand(3,28,28)
+    logits = seq_modules(input_image)
+    ```
+
+5. `nn.Softmax`
+
+    神经网络的最后一层返回的是原始数据, 应该被传入softmax层归一化到[0, 1].
+
+    ```py
+    softmax = nn.Softmax(dim=1)
+    pred_probab = softmax(logits)
+    ```
+
+### 模型参数
+
+神经网络中的许多层都是有可训练参数的. 可以通过模型的`parameters()`或者`named_parameters()`方法访问所有的参数.
+
+```py title='输入'
+print(f"Model structure: {model}\n\n")
+
+for name, param in model.named_parameters():
+    print(f"Layer: {name} | Size: {param.size()} | Values : {param[:2]} \n")
+```
+
+``` title='输出'
+Model structure: NeuralNetwork(
+  (flatten): Flatten(start_dim=1, end_dim=-1)
+  (linear_relu_stack): Sequential(
+    (0): Linear(in_features=784, out_features=512, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=512, out_features=512, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+
+
+Layer: linear_relu_stack.0.weight | Size: torch.Size([512, 784]) | Values : tensor([[ 0.0273,  0.0296, -0.0084,  ..., -0.0142,  0.0093,  0.0135],
+        [-0.0188, -0.0354,  0.0187,  ..., -0.0106, -0.0001,  0.0115]],
+       device='cuda:0', grad_fn=<SliceBackward0>)
+
+Layer: linear_relu_stack.0.bias | Size: torch.Size([512]) | Values : tensor([-0.0155, -0.0327], device='cuda:0', grad_fn=<SliceBackward0>)
+
+Layer: linear_relu_stack.2.weight | Size: torch.Size([512, 512]) | Values : tensor([[ 0.0116,  0.0293, -0.0280,  ...,  0.0334, -0.0078,  0.0298],
+        [ 0.0095,  0.0038,  0.0009,  ..., -0.0365, -0.0011, -0.0221]],
+       device='cuda:0', grad_fn=<SliceBackward0>)
+
+Layer: linear_relu_stack.2.bias | Size: torch.Size([512]) | Values : tensor([ 0.0148, -0.0256], device='cuda:0', grad_fn=<SliceBackward0>)
+
+Layer: linear_relu_stack.4.weight | Size: torch.Size([10, 512]) | Values : tensor([[-0.0147, -0.0229,  0.0180,  ..., -0.0013,  0.0177,  0.0070],
+        [-0.0202, -0.0417, -0.0279,  ..., -0.0441,  0.0185, -0.0268]],
+       device='cuda:0', grad_fn=<SliceBackward0>)
+
+Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([ 0.0070, -0.0411], device='cuda:0', grad_fn=<SliceBackward0>)
+```
+
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html
