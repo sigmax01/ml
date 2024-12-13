@@ -1819,8 +1819,35 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      准备训练数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      遍历可迭代对象
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      转换
+    </span>
+  </a>
   
 </li>
       
@@ -2509,6 +2536,99 @@
 <a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>......
 <a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>ankleboot999.jpg, 9
 </code></pre></div>
+</details>
+<h3 id="_10">准备训练数据<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>我们可以通过<code>Dataset</code>对象一个一个取出数据集的样本. 但是, 在训练模型的时候, 我们通常希望进行mini-batch GD, 在每个epoch开始之前都重新排列数据, 然后根据打乱后的顺序生成mini-batch供模型训练, 以减少过拟合, 并使用Python的多进程库<code>multiprocessing</code>来加速数据的取回.</p>
+<p><code>DataLoader</code>就是一个能够实现上述功能的简单API.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="_11">遍历可迭代对象<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>我们已经把数据集包装为一个可迭代对象. 下列的每一次迭代都会返回一个batch的<code>train_features</code>和<code>train_labels</code>, 每个batch的大小为64. 由于我们声明了<code>shuffle=True</code>, 所以我们遍历完所有batch之后会打乱所有的数据.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">))</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature batch shape: </span><span class="si">{</span><span class="n">train_features</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Labels batch shape: </span><span class="si">{</span><span class="n">train_labels</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="n">img</span> <span class="o">=</span> <span class="n">train_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="n">label</span> <span class="o">=</span> <span class="n">train_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Label: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/c0251616f9dcfd140eda0ec82b82eba5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c0251616f9dcfd140eda0ec82b82eba5.png" width="500" /></a></p>
+</figure>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>Feature batch shape: torch.Size([64, 1, 28, 28])
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>Labels batch shape: torch.Size([64])
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>Label: 5
+</code></pre></div>
+<h2 id="_12">转换<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>数据有很大概率不是用于机器学习输入的最终状态, 所以要使用转换(transform)对数据进行一些修改使其适合训练.</p>
+<p>所有的TorchVision数据库都有两个参数, <code>transform</code>用于修改特征, <code>target_transform</code>用于修改标签, 它们接受的是包含逻辑的可调用对象. <code>torchvision.transforms</code>提供了一些经常使用的转换函数.</p>
+<p>FashionMNIST的数据特征是PIL格式的, 标签是int. 为了训练, 我们需要特征是tensor, 标签是one-hot编码的tensor, 为此, 我们可以使用<code>ToTensor</code>和<code>Lambda</code>.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">ToTensor</span><span class="p">,</span> <span class="n">Lambda</span>
+<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>
+<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a><span class="n">ds</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">FashionMNIST</span><span class="p">(</span>
+<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>    <span class="n">root</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>    <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>    <span class="n">transform</span><span class="o">=</span><span class="n">ToTensor</span><span class="p">(),</span>
+<a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>    <span class="n">target_transform</span><span class="o">=</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>  0%|          | 0.00/26.4M [00:00&lt;?, ?B/s]
+<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>  0%|          | 65.5k/26.4M [00:00&lt;01:14, 354kB/s]
+<a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>  1%|          | 197k/26.4M [00:00&lt;00:36, 728kB/s]
+<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a>  2%|1         | 492k/26.4M [00:00&lt;00:21, 1.23MB/s]
+<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>  6%|5         | 1.57M/26.4M [00:00&lt;00:06, 3.97MB/s]
+<a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a> 15%|#4        | 3.83M/26.4M [00:00&lt;00:02, 7.89MB/s]
+<a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a> 31%|###1      | 8.19M/26.4M [00:00&lt;00:01, 17.1MB/s]
+<a id="__codelineno-53-11" name="__codelineno-53-11" href="#__codelineno-53-11"></a> 43%|####3     | 11.4M/26.4M [00:00&lt;00:00, 21.1MB/s]
+<a id="__codelineno-53-12" name="__codelineno-53-12" href="#__codelineno-53-12"></a> 52%|#####2    | 13.8M/26.4M [00:01&lt;00:00, 21.9MB/s]
+<a id="__codelineno-53-13" name="__codelineno-53-13" href="#__codelineno-53-13"></a> 61%|######1   | 16.2M/26.4M [00:01&lt;00:00, 20.6MB/s]
+<a id="__codelineno-53-14" name="__codelineno-53-14" href="#__codelineno-53-14"></a> 71%|#######1  | 18.8M/26.4M [00:01&lt;00:00, 22.0MB/s]
+<a id="__codelineno-53-15" name="__codelineno-53-15" href="#__codelineno-53-15"></a> 89%|########9 | 23.6M/26.4M [00:01&lt;00:00, 29.1MB/s]
+<a id="__codelineno-53-16" name="__codelineno-53-16" href="#__codelineno-53-16"></a>100%|##########| 26.4M/26.4M [00:01&lt;00:00, 17.8MB/s]
+<a id="__codelineno-53-17" name="__codelineno-53-17" href="#__codelineno-53-17"></a>Extracting data/FashionMNIST/raw/train-images-idx3-ubyte.gz to data/FashionMNIST/raw
+<a id="__codelineno-53-18" name="__codelineno-53-18" href="#__codelineno-53-18"></a>
+<a id="__codelineno-53-19" name="__codelineno-53-19" href="#__codelineno-53-19"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
+<a id="__codelineno-53-20" name="__codelineno-53-20" href="#__codelineno-53-20"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
+<a id="__codelineno-53-21" name="__codelineno-53-21" href="#__codelineno-53-21"></a>
+<a id="__codelineno-53-22" name="__codelineno-53-22" href="#__codelineno-53-22"></a>  0%|          | 0.00/29.5k [00:00&lt;?, ?B/s]
+<a id="__codelineno-53-23" name="__codelineno-53-23" href="#__codelineno-53-23"></a>100%|##########| 29.5k/29.5k [00:00&lt;00:00, 326kB/s]
+<a id="__codelineno-53-24" name="__codelineno-53-24" href="#__codelineno-53-24"></a>Extracting data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+<a id="__codelineno-53-25" name="__codelineno-53-25" href="#__codelineno-53-25"></a>
+<a id="__codelineno-53-26" name="__codelineno-53-26" href="#__codelineno-53-26"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
+<a id="__codelineno-53-27" name="__codelineno-53-27" href="#__codelineno-53-27"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+<a id="__codelineno-53-28" name="__codelineno-53-28" href="#__codelineno-53-28"></a>
+<a id="__codelineno-53-29" name="__codelineno-53-29" href="#__codelineno-53-29"></a>  0%|          | 0.00/4.42M [00:00&lt;?, ?B/s]
+<a id="__codelineno-53-30" name="__codelineno-53-30" href="#__codelineno-53-30"></a>  1%|1         | 65.5k/4.42M [00:00&lt;00:12, 361kB/s]
+<a id="__codelineno-53-31" name="__codelineno-53-31" href="#__codelineno-53-31"></a>  5%|5         | 229k/4.42M [00:00&lt;00:06, 682kB/s]
+<a id="__codelineno-53-32" name="__codelineno-53-32" href="#__codelineno-53-32"></a> 20%|##        | 885k/4.42M [00:00&lt;00:01, 2.54MB/s]
+<a id="__codelineno-53-33" name="__codelineno-53-33" href="#__codelineno-53-33"></a> 44%|####3     | 1.93M/4.42M [00:00&lt;00:00, 4.11MB/s]
+<a id="__codelineno-53-34" name="__codelineno-53-34" href="#__codelineno-53-34"></a>100%|##########| 4.42M/4.42M [00:00&lt;00:00, 6.09MB/s]
+<a id="__codelineno-53-35" name="__codelineno-53-35" href="#__codelineno-53-35"></a>Extracting data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw
+<a id="__codelineno-53-36" name="__codelineno-53-36" href="#__codelineno-53-36"></a>
+<a id="__codelineno-53-37" name="__codelineno-53-37" href="#__codelineno-53-37"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+<a id="__codelineno-53-38" name="__codelineno-53-38" href="#__codelineno-53-38"></a>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+<a id="__codelineno-53-39" name="__codelineno-53-39" href="#__codelineno-53-39"></a>
+<a id="__codelineno-53-40" name="__codelineno-53-40" href="#__codelineno-53-40"></a>  0%|          | 0.00/5.15k [00:00&lt;?, ?B/s]
+<a id="__codelineno-53-41" name="__codelineno-53-41" href="#__codelineno-53-41"></a>100%|##########| 5.15k/5.15k [00:00&lt;00:00, 38.0MB/s]
+<a id="__codelineno-53-42" name="__codelineno-53-42" href="#__codelineno-53-42"></a>Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw
+</code></pre></div>
+<details class="note">
+<summary><code>ToTensor()</code>的作用</summary>
+<p><code>ToTensor</code>将一个PIL图片或者NumPy数组转换为浮点tensor, 并且将图片的像素值归一到[0, 1].</p>
+</details>
+<details class="note">
+<summary>Lambda函数的作用</summary>
+<p>在这里, 我们定义了一个将int转换为one-hot编码tensor的函数. 首先, 它会创造一个大小为10的零tensor. 然后调用了<code>scatter_</code>函数, 作用是将给定值<span class="arithmatex">\(y\)</span>索引上的值设置为1.</p>
 </details>
 <div class="footnote">
 <hr />
