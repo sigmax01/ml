@@ -1736,6 +1736,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Tensors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      初始化Tensor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tensor_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tensor的属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tensor_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tensor的操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2086,6 +2119,76 @@
 </code></pre></div>
 <h2 id="tensors">Tensors<a class="headerlink" href="#tensors" title="Permanent link">&para;</a></h2>
 <p>Tensor是一种和数组和矩阵很像的数据结构, 在PyTorch里面, 使用tensor编码模型的输入和输出, 包括模型的参数. tensor和numpy的nd数组很像, 只是tensor可以跑在GPU和其他硬件加速器上. 实际上, numpy的数组和tensor可以共用一块内存, 而不用复制数据. Tensor也对自动微分进行了优化.</p>
+<h3 id="tensor">初始化Tensor<a class="headerlink" href="#tensor" title="Permanent link">&para;</a></h3>
+<p>可以通用多种方式初始化tensor.</p>
+<ol>
+<li>
+<p>直接从数据初始化, 会自动推断数据类型</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>从NumPy数组初始化</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">np_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">x_np</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np_array</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>从另一个tensor初始化, 会保留另一个tensor的属性(形状, 类型), 除非特别覆盖</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">x_ones</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span> <span class="c1"># 保留x_data的形状和数据类型</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ones Tensor: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">x_ones</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">x_rand</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand_like</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="c1"># 保留x_data的形状, 但是数据类型是float</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random Tensor: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">x_rand</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Ones Tensor:
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a> tensor([[1, 1],
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>        [1, 1]])
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>Random Tensor:
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a> tensor([[0.7053, 0.3019],
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>        [0.6510, 0.0095]])
+</code></pre></div>
+</li>
+<li>
+<p>填充随机或者常量</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,)</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">rand_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="n">ones_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="n">zeros_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random Tensor: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">rand_tensor</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ones Tensor: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">ones_tensor</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Zeros Tensor: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">zeros_tensor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Random Tensor:
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a> tensor([[0.0596, 0.0417, 0.1678],
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>        [0.9480, 0.0777, 0.4989]])
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>Ones Tensor:
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a> tensor([[1., 1., 1.],
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>        [1., 1., 1.]])
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>Zeros Tensor:
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a> tensor([[0., 0., 0.],
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>        [0., 0., 0.]])
+</code></pre></div>
+</li>
+</ol>
+<h3 id="tensor_1">Tensor的属性<a class="headerlink" href="#tensor_1" title="Permanent link">&para;</a></h3>
+<p>Tensor属性主要描述了它们的形状, 数据类型, 以及它们存储的设备.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of tensor: </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Datatype of tensor: </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Device tensor is stored on: </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Shape of tensor: torch.Size([3, 4])
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>Datatype of tensor: torch.float32
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>Device tensor is stored on: cpu
+</code></pre></div>
+<h3 id="tensor_2">Tensor的操作<a class="headerlink" href="#tensor_2" title="Permanent link">&para;</a></h3>
+<p>超过100种tensor的操作, 包括算术运算, 线性代数, 矩阵乘法(转置, 切片, 索引). 具体可以见<a href="https://pytorch.org/docs/stable/torch.html">这里</a>.</p>
 
 
 
