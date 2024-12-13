@@ -2,6 +2,8 @@
 title: PyTorch
 ---
 
+# PyTorch[^1]
+
 ## 快速开始
 
 这节会介绍几个在机器学习中比较常用的API.
@@ -373,6 +375,10 @@ with torch.no_grad():
 Predicted: "Ankle boot", Actual: "Ankle boot"
 ```
 
+???+ note "`test_data[0][0]`的含义"
+
+    `training_data`或者是`test_data`是我们的数据集, 其中第一个index表示的是第几个样本, 第二个index表示当前这个样本的特征还是标签. 如`test[0][0]`表示的是第一张照片的特征矩阵.
+
 ## Tensors
 
 Tensor是一种和数组和矩阵很像的数据结构, 在PyTorch里面, 使用tensor编码模型的输入和输出, 包括模型的参数. tensor和numpy的nd数组很像, 只是tensor可以跑在GPU和其他硬件加速器上. 实际上, numpy的数组和tensor可以共用一块内存, 而不用复制数据. Tensor也对自动微分进行了优化.
@@ -706,3 +712,77 @@ Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/
 ```
 
 ### 可视化数据集
+
+我们可以对`Datasets`对象进行索引, 如`training_data[index]`, 这返回的是数据集的第`index`个样本(包括特征和标签, 分别是返回的元祖的第一个元素和第二个元素). 使用matplotlib可以对一些样本进行可视化操作.
+
+```py title='输入'
+labels_map = {
+    0: "T-Shirt",
+    1: "Trouser",
+    2: "Pullover",
+    3: "Dress",
+    4: "Coat",
+    5: "Sandal",
+    6: "Shirt",
+    7: "Sneaker",
+    8: "Bag",
+    9: "Ankle Boot",
+}
+figure = plt.figure(figsize=(8, 8))
+cols, rows = 3, 3
+for i in range(1, cols * rows + 1):
+    sample_idx = torch.randint(len(training_data), size=(1,)).item() # 这里的training_data是一个含有60000个元素的对象, 可以像访问列表一样访问它, 随机从里面选择一个样本, 然后使用.item()将标量tensor转化为Python数值
+    img, label = training_data[sample_idx] # 后者返回的是一个元祖, 第一个元素是特征, 第二个元素是标签
+    figure.add_subplot(rows, cols, i)
+    plt.title(labels_map[label])
+    plt.axis("off")
+    plt.imshow(img.squeeze(), cmap="gray")
+plt.show()
+```
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/085abdcf90f7eb7f63be72b28979026e.png){ loading=lazy width='500' }
+</figure>
+
+### 创建自定义数据集
+
+一个自定义的数据集必须实现以下三个函数, `__init__`, `__len__`和`__getitem__`. 下面有一个例子, 其中, 图片存储在目录`img_dir`中, 它们的标签存储在一个分开的CSV文件`annotations_file`中.
+
+```py
+import os
+import pandas as pd
+from torchvision.io import read_image
+
+class CustomImageDataset(Dataset):
+    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
+        self.img_labels = pd.read_csv(annotations_file)
+        self.img_dir = img_dir
+        self.transform = transform
+        self.target_transform = target_transform
+
+    def __len__(self):
+        return len(self.img_labels)
+
+    def __getitem__(self, idx):
+        img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0]) # 从img_labels中提取第idx行的第一列内容, 然后和img_dir拼接成完整的路径
+        image = read_image(img_path)
+        label = self.img_labels.iloc[idx, 1]
+        if self.transform:
+            image = self.transform(image)
+        if self.target_transform:
+            label = self.target_transform(label)
+        return image, label
+```
+
+??? note "`annotations_file`文件样子"
+
+    这个csv文件长得像这样:
+
+    ```csv
+    tshirt1.jpg, 0
+    tshirt2.jpg, 0
+    ......
+    ankleboot999.jpg, 9
+    ```
+
+[^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html
