@@ -12,7 +12,7 @@ comments: true
 - [GPT](https://ai.com) (the Generative Pretrained Transformer)
 - [BERT](https://github.com/google-research/bert) (Bidirectional Encoder Representations from Transformers)
 
-通过将Transformer结构和无监督学习相结合, 我们不再需要对每一个任务都从头开始训练模型, 并且几乎在所有NLP任务上都远远超过先前的最强基准. 
+通过将Transformer结构和无监督学习相结合, 我们不再需要对每一个任务都从头开始训练模型, 并且几乎在所有NLP任务上都远远超过先前的最强基准.
 
 GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的模型, 其中比较有名的有:
 
@@ -28,17 +28,17 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 
 ### RNN等模型的缺陷
 
-“This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+> “This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
 
 RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必须全部运算完成. 如果时序比较长的话, 可能会导致前面的信息到后面就丢失掉了. 如果不想丢掉的话, 就需要做一个比较大的ht, 这会导致很高昂的内存开销.
 
-“In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+> “In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
 
 一开始的时候, 这些注意力机制可能都是和RNN结合起来使用的, 而没有成为一个独立的体系.
 
 ### CNN等模型的缺陷
 
-“In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+> “In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
 
 使用CNN的时候, 每一次它去看的是一个比较小的窗口, 如3\*3的卷积核. 如果两个像素隔的比较远的时候, 需要较多的层才能把这两个像素融合起来.
 
@@ -46,7 +46,7 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 ### 端到端记忆网络
 
-“End-to-end memory networks are based on a recurrent attention mechanism instead of sequencealigned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+> “End-to-end memory networks are based on a recurrent attention mechanism instead of sequencealigned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
 
 “端到端”指的是一种系统设计方法, 意味着从输入到输出的整个过程由一个单一的系统或者模型直接完成, 通常不需要人工干预或者多个独立的模块.
 
@@ -86,7 +86,7 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 ![](https://img.ricolxwz.io/1da193b987cd1d6838e4665b4c19d548.png){ loading=lazy width='500' }
 </figure>
 
-解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码器-解码器注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码器-解码器注意力层用于参考/关注编码器输入序列的编码表示. 
+解码器也会有这两层, 除了这两层之外, 还有一个夹在中间的编码器-解码器注意力层. 自注意力层用于关注解码器已经生成的部分的重要信息和上下文关系, 编码器-解码器注意力层用于参考/关注编码器输入序列的编码表示.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/1dcad850e25c516fee17a32ed76452e1.png){ loading=lazy width='600' }
@@ -94,9 +94,9 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 ## 张量
 
-上面, 我们讲了Transformer的大致轮廓, 下面, 我们来看一下向量/张量在组件之间的流动. 
+上面, 我们讲了Transformer的大致轮廓, 下面, 我们来看一下向量/张量在组件之间的流动.
 
-就如其他NLP模型一样, 我们最开始会使用[词嵌入算法, embedding algorithm](https://aitutor.liduos.com/02-langchain/02-3.html)将类别数据(如单词或者符号)转换为连续的数值向量. 实际中向量一般是$256$维或者$512$维, 这里为了简化起见, 将每个词表示为一个$4$维向量. 
+就如其他NLP模型一样, 我们最开始会使用[词嵌入算法, embedding algorithm](https://aitutor.liduos.com/02-langchain/02-3.html)将类别数据(如单词或者符号)转换为连续的数值向量. 实际中向量一般是$256$维或者$512$维, 这里为了简化起见, 将每个词表示为一个$4$维向量.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/226c51fe49f5d580c0554d4820df362e.png){ loading=lazy width='600' }
@@ -120,7 +120,7 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 别被自注意力, self attention这么高大上的词给唬住了, 但是作者在读论文*Attension is All You Need*之前就没有听说过这个词, 下面来分析一下自注意力的机制.
 
-假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired. 
+假设我们需要翻译的句子是: The animal didn't cross the street because it was too tired.
 
 这个句子中的it是一个代词, 那么it指的是什么呢? 是animal还是street? 这个问题对人来说是简单的, 但是对机器来说不是那么容易, 当处理it的时候, 自注意力机制能够让it和animal关联起来. 即当处理每一个词的时候, 自注意力机制能够查找在输入序列中其他的能够让当前词编码更优的词.
 
@@ -146,7 +146,7 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 ### 计算注意力分数 {#计算注意力分数}
 
-第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力. 
+第二步是计算注意力分数, Attention Score. 假设我们现在计算第一个词Thinking的注意力分数, 即需要根据Thinking这个词, 对于句子中的其他位置的每个词放置多少的注意力.
 
 这些分数, 是通过计算Thinking对应的Query向量和其他位置每个词的Key向量的点积得到的. 如果我们计算句子中第一个位置单词的Attension Score, 那么第一个分数就是$q_1$和$k_1$的点积, 第二个分数就是$q_1$和$k_2$的点积.
 
@@ -167,7 +167,7 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 第五步是得到每个位置的分数后, 将每个分数和每个Value向量相乘, 这种做法背后的直觉理解是: 对于分数高的位置, 相乘后的值就越大, 我们把更多的注意力放到了它们的身上; 对于分数低的位置, 相乘后的值就越小, 这些位置的词可能相关性是不大的, 这样我们就忽略了这些位置的词.
 
-第六步是把上一步得到的向量相加, 就得到了自注意力层在这个位置即Thinking的输出. 
+第六步是把上一步得到的向量相加, 就得到了自注意力层在这个位置即Thinking的输出.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/087b831f622f83e4529c1bbf646530f0.png){ loading=lazy width='500' }
@@ -218,7 +218,7 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 ![](https://img.ricolxwz.io/9a245789280ff24b8637f0ffe7f2f8a0.png){ loading=lazy width='500' }
 </figure>
 
-接下来就有点麻烦了, 因为前馈神经网络接受的是$1$个矩阵(每个词的一个向量), 所以我们需要有一种方法把$8$个矩阵整合为一个矩阵. 怎么才能做到呢? 
+接下来就有点麻烦了, 因为前馈神经网络接受的是$1$个矩阵(每个词的一个向量), 所以我们需要有一种方法把$8$个矩阵整合为一个矩阵. 怎么才能做到呢?
 
 1. 把$8$个矩阵拼接起来
 2. 把拼接后得到的矩阵和$W^O$权重矩阵相乘, 这个$W^O$是随着模型一起训练的
@@ -262,26 +262,26 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 在真正把数据输入到第一层编码层之前, 需要对文本做一定的处理. 其中第一步是将非结构化的信息转化为结构化的信息, 这一个步骤叫做"文本表示", 主要有3种方式: 独热编码, 整数编码, 词嵌入.
 
- 其中, 独热编码无法表示词语之间的联系, 而且这种过于稀疏的向量, 会导致计算和存储的效率不高. 整数编码是用一种数字来表示一个词, 如猫用1表示, 狗用2表示, 牛用3表示, 这种方法也无法表示词语之间的关系, 而且, 不利于模型的解释. 
+ 其中, 独热编码无法表示词语之间的联系, 而且这种过于稀疏的向量, 会导致计算和存储的效率不高. 整数编码是用一种数字来表示一个词, 如猫用1表示, 狗用2表示, 牛用3表示, 这种方法也无法表示词语之间的关系, 而且, 不利于模型的解释.
 
-词嵌入, word embedding跟独热编码和整数编码的目的一样, 不过他有更多的优点. 词嵌入并不是指某个具体的算法, 跟以上2种方式相比, 这种方式有几个明显的优势, 它可以降文本通过一个低微向量表达, 但是不像独热编码那么长. 寓意相似的词在向量空间上有比较相近; 通用性也比较强, 可以用在不同的任务中.                       
+词嵌入, word embedding跟独热编码和整数编码的目的一样, 不过他有更多的优点. 词嵌入并不是指某个具体的算法, 跟以上2种方式相比, 这种方式有几个明显的优势, 它可以降文本通过一个低微向量表达, 但是不像独热编码那么长. 寓意相似的词在向量空间上有比较相近; 通用性也比较强, 可以用在不同的任务中.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/67d533bc3180e699d01468936c6acd7c.webp){ loading=lazy width='500' }
 </figure>
 
-2种主流的词嵌入算法有Word2vec和GloVe. 
+2种主流的词嵌入算法有Word2vec和GloVe.
 
 ???+ note "论文直通"
 
     在模型中, 有三个不同的嵌入层, 它们承担了不同的任务.
 
     - **Encoder输入嵌入:** 为源序列生成连续向量表示
-        
+
     - **Decoder输入嵌入:** 为目标序列生成连续向量表示
-        
+
     - **Softmax前线性变换:** 将解码器输出的向量从dmodel映射到词汇表大小, 用于计算生成词的概率分布
-        
+
 
     > “In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
 
@@ -336,7 +336,7 @@ CBOW的模型通常包括以下的步骤:
 
 ## 残差连接
 
-残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题. 
+残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题.
 
 在编码器的每一个子层周围, 都会有一个围绕它的残差连接还有一个层标准化.
 
@@ -382,7 +382,7 @@ CBOW的模型通常包括以下的步骤:
 
 解码器在每个时间步的输出是一个向量, 其中的每个元素都是浮点数, 那么我们怎么把这个向量转化为单词呢? 这就是由线性层和后面的Softmax层来实现的.
 
-线性层是一个普通的全连接神经网络, 可以把解码器输出的向量映射到一个更长的的向量, 这个向量被称为logits向量. 假设我们的模型认识$10000$个唯一的英文单词, 那么logits向量的维度就是$10000$, 每个数表示一个单词的分数. 
+线性层是一个普通的全连接神经网络, 可以把解码器输出的向量映射到一个更长的的向量, 这个向量被称为logits向量. 假设我们的模型认识$10000$个唯一的英文单词, 那么logits向量的维度就是$10000$, 每个数表示一个单词的分数.
 
 然后, Softmax层会把这些分数转换为概率, 把所的分数转换为正数, 并且加起来等于$1$. 然后选择最高概率的那个数字对应的词, 就是这个时间步的输出单词.
 
@@ -392,11 +392,11 @@ CBOW的模型通常包括以下的步骤:
 
 ## 训练过程
 
-在上面, 我们了解的是一个已经训练好的Transformer的前向传播过程. 下面会讲讲是怎么训练的. 
+在上面, 我们了解的是一个已经训练好的Transformer的前向传播过程. 下面会讲讲是怎么训练的.
 
 在训练的过程中, 模型会经过上面讲的所有前向传播的步骤. 不同的是, 因为我们是在有标签的数据集上训练, 所以可以比较模型的输出和真实的标签.
 
-为了可视化, 我们假定输出词汇表只包含$6$个单词: "a", "am", "i", "thanks", "student"和"<eos\>". "<eos\>"表示句子末尾. 注意, 这个输出词汇表是在训练之前的数据预处理阶段就构造好的. 
+为了可视化, 我们假定输出词汇表只包含$6$个单词: "a", "am", "i", "thanks", "student"和"<eos\>". "<eos\>"表示句子末尾. 注意, 这个输出词汇表是在训练之前的数据预处理阶段就构造好的.
 
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/16f981983e1247ef0eec0459e97b737e.png){ loading=lazy width='500' }
@@ -416,7 +416,7 @@ CBOW的模型通常包括以下的步骤:
 ![](https://img.ricolxwz.io/74bf8db4543d6187960ee3cea18e1703.png){ loading=lazy width='500' }
 </figure>
 
-由于模型的参数都是随机初始化的. 第一步模型在每个词输出的概率都是随机的. 我们可以把这个概率和正确的概率做对比, 然后使用反向传播来调整模型的权重, 使得输出的概率分布更加接近真实输出. 
+由于模型的参数都是随机初始化的. 第一步模型在每个词输出的概率都是随机的. 我们可以把这个概率和正确的概率做对比, 然后使用反向传播来调整模型的权重, 使得输出的概率分布更加接近真实输出.
 
 那么要怎么比较两个概率分布, 我们可以借助信息论的工具, 详情见[交叉熵](https://gk.ricolxwz.de/information-theory/what-is-information/#交叉熵)和[KL散度](https://gk.ricolxwz.de/information-theory/what-is-information/#KL散度).
 
@@ -437,7 +437,7 @@ CBOW的模型通常包括以下的步骤:
 ![](https://img.ricolxwz.io/3c8ce3f741d432fcadf75c93d13a20a5.png){ loading=lazy width='500' }
 </figure>
 
-在测试时, 如果你要翻译的句子是训练集中的一部分, 那输出的结果不能说明什么. 我们希望的是模型在没见过的句子上也能给出准确地翻译. 注意, 概率分布向量中, 每个位置都会有一点概率, 即使这个位置不是输出对应的单词, 这是Softmax中一个很有用的特性, 有助于训练过程. 
+在测试时, 如果你要翻译的句子是训练集中的一部分, 那输出的结果不能说明什么. 我们希望的是模型在没见过的句子上也能给出准确地翻译. 注意, 概率分布向量中, 每个位置都会有一点概率, 即使这个位置不是输出对应的单词, 这是Softmax中一个很有用的特性, 有助于训练过程.
 
 这种方法叫作贪心解码, greedy decoding, 在每个时间步, 模型会选择当前概率最高的单词作为输出, 这种优点是速度快, 缺点是只选择当前看起来最优的单词, 可能会错误全局更好的解决方案.
 
@@ -448,7 +448,7 @@ CBOW的模型通常包括以下的步骤:
 为什么需要掩码呢? 这个可以从两个方面来说, 训练阶段和推理阶段.
 
 - **训练阶段:** 在训练的时候, decoder输入的是完整的目标序列(包括未来词), 而不是逐步生成的部分序列. 目标序列被送入自注意力层之后, 如果不加mask, 模型在计算第t个词的注意力的时候, 会看到整个目标序列(包括t+1, t+2, …), 导致模型可以利用未来的词生成当前的词, 这种信息泄露会导致训练过程中模型无法学习到正确的因果关系, 从而在推理阶段表现不加
-    
+
 - **推理阶段:** 在推理的过程中, decoder的输入是逐步生成的序列, 在t时刻, decoder的输入是从第1到第t-1时刻生成的词, 理论上, 此时未来的词(第t+1, t+2, …)根本不存在, 似乎不需要mask. 但是由于自注意力机制的实现是对于整个序列(包括还未填充的位置)计算注意力分布, 如果不加mask, decoder的自注意力层仍会尝试对后续未生成的位置(这些位置可能被初始化为零向量或者其他占位符)来计算注意力分布, 即使这些未生成(未填充)的位置没有真实的信息, 注意力分布的结果可能会受到干扰
 
 具体的做法是将后面的值替换成一个非常大的负数. 注意, 不能替换为0, 不然的话经过softmax之后其他地方的值会受到影响(变小). 负数经过softmax之后就会变成0.
@@ -456,9 +456,9 @@ CBOW的模型通常包括以下的步骤:
 ## 归一化
 
 - **批归一化(BatchNorm):** 是对每个batch内的样本的每个特征进行归一化, 具体来说, 它会计算整个batch中的每个特征的均值和方差, 然后基于这些统计量对所有的样本进行归一化. 因此, BN的计算是跨样本的, 即竖着计算. 注意, 学习和预测时候的BN是不一样的, 学习的时候是这个batch里面的特征取均值和方差; 预测的时候是整个样本集的特征取均值和方差
-    
+
 - **层归一化(LayerNorm):** 是对每个样本的所有特征进行归一化. 它计算每个样本的所有特征的均值和方差, 因此是横着归一化的
-    
+
 所以, BN抹平了不同特征之间的大小关系, 而保留了不同样本之间的大小关系. 这样, 如果具体任务依赖于不同样本之间的联系, BN更有效, 尤其是在CV领域, 不同图片样本之间的大小关系得以保留. LN抹平了不同样本之间的大小关系, 而保留了不同特征之间的大小关系. 所以, LN更加适合NLP任务, 一个样本实际上就是不同的词向量, 通过LN可以保留特征之间的关系.
 
 对于NLP来说, 归一化是三维的, 因为每一个序列样本由多个单词组成. 它的坐标分别为batch(表示某一个样本也就是某个序列), seq(表示某个序列中的单词), feature(表示这个单词的词向量).
