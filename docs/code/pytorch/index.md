@@ -1146,6 +1146,6 @@ loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)
 
 在这个工作中, `w`和`b`是参数, 是我们优化的对象. 因此, 我们必须要计算损失函数对于这些变量的梯度. 为了实现这一点, 我们需要设置这些变量的`requires_grad`为`True`. 你可以在初始化tensor的时候就设置`requires_grad=True`也可以随后通过`x.requires_grad_(True)`方法设置.
 
-🌟当一个tensor的`requires_grad`被设置为`True`的时候
+🌟自动微分通常通过构建计算图来实现, 计算图是一个DAG, 节点表示基本操作或者函数, 边表示数据流.
 
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html
