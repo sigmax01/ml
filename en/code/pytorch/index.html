@@ -2881,7 +2881,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/8c22747ba6a3af69d4ed57dbf44cc8af.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/8c22747ba6a3af69d4ed57dbf44cc8af.png" width="500" /></a></p>
 </figure>
 <p>在这个工作中, <code>w</code>和<code>b</code>是参数, 是我们优化的对象. 因此, 我们必须要计算损失函数对于这些变量的梯度. 为了实现这一点, 我们需要设置这些变量的<code>requires_grad</code>为<code>True</code>. 你可以在初始化tensor的时候就设置<code>requires_grad=True</code>也可以随后通过<code>x.requires_grad_(True)</code>方法设置.</p>
-<p>🌟当一个tensor的<code>requires_grad</code>被设置为<code>True</code>的时候</p>
+<p>🌟自动微分通常通过构建计算图来实现, 计算图是一个DAG, 节点表示基本操作或者函数, 边表示数据流.</p>
 <div class="footnote">
 <hr />
 <ol>
