@@ -376,3 +376,89 @@ Predicted: "Ankle boot", Actual: "Ankle boot"
 ## Tensors
 
 Tensor是一种和数组和矩阵很像的数据结构, 在PyTorch里面, 使用tensor编码模型的输入和输出, 包括模型的参数. tensor和numpy的nd数组很像, 只是tensor可以跑在GPU和其他硬件加速器上. 实际上, numpy的数组和tensor可以共用一块内存, 而不用复制数据. Tensor也对自动微分进行了优化.
+
+### 初始化Tensor
+
+可以通用多种方式初始化tensor.
+
+1. 直接从数据初始化, 会自动推断数据类型
+
+    ```py
+    data = [[1, 2], [3, 4]]
+    x_data = torch.tensor(data)
+    ```
+
+2. 从NumPy数组初始化
+
+    ```py
+    np_array = np.array(data)
+    x_np = torch.from_numpy(np_array)
+    ```
+
+3. 从另一个tensor初始化, 会保留另一个tensor的属性(形状, 类型), 除非特别覆盖
+
+    ```py title='输入'
+    x_ones = torch.ones_like(x_data) # 保留x_data的形状和数据类型
+    print(f"Ones Tensor: \n {x_ones} \n")
+    x_rand = torch.rand_like(x_data, dtype=torch.float) # 保留x_data的形状, 但是数据类型是float
+    print(f"Random Tensor: \n {x_rand} \n")
+    ```
+
+    ``` title='输出'
+    Ones Tensor:
+     tensor([[1, 1],
+            [1, 1]])
+
+    Random Tensor:
+     tensor([[0.7053, 0.3019],
+            [0.6510, 0.0095]])
+    ```
+
+4. 填充随机或者常量
+
+    ```py title='输入'
+    shape = (2,3,)
+    rand_tensor = torch.rand(shape)
+    ones_tensor = torch.ones(shape)
+    zeros_tensor = torch.zeros(shape)
+
+    print(f"Random Tensor: \n {rand_tensor} \n")
+    print(f"Ones Tensor: \n {ones_tensor} \n")
+    print(f"Zeros Tensor: \n {zeros_tensor}")
+    ```
+
+    ``` title='输出'
+    Random Tensor:
+     tensor([[0.0596, 0.0417, 0.1678],
+            [0.9480, 0.0777, 0.4989]])
+
+    Ones Tensor:
+     tensor([[1., 1., 1.],
+            [1., 1., 1.]])
+
+    Zeros Tensor:
+     tensor([[0., 0., 0.],
+            [0., 0., 0.]])
+    ```
+
+### Tensor的属性
+
+Tensor属性主要描述了它们的形状, 数据类型, 以及它们存储的设备.
+
+```py title='输入'
+tensor = torch.rand(3,4)
+
+print(f"Shape of tensor: {tensor.shape}")
+print(f"Datatype of tensor: {tensor.dtype}")
+print(f"Device tensor is stored on: {tensor.device}")
+```
+
+``` title='输出'
+Shape of tensor: torch.Size([3, 4])
+Datatype of tensor: torch.float32
+Device tensor is stored on: cpu
+```
+
+### Tensor的操作
+
+超过100种tensor的操作, 包括算术运算, 线性代数, 矩阵乘法(转置, 切片, 索引). 具体可以见[这里](https://pytorch.org/docs/stable/torch.html).
