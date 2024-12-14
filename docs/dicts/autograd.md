@@ -55,14 +55,14 @@ comments: false
 
 ### Jacobian矩阵
 
-Jacobian矩阵定义为一个由多个函数的多个偏导数组成的矩阵. 其中的第$(i, j)$个元素的含义是第$i$个函数对第$j$个变量的偏导数.
+Jacobian矩阵定义为一个由多个函数的多个偏导数组成的矩阵. 假设有一个从$\mathbb{R}^n$到$\mathbb{R}^m$的函数$\mathbf{f}$, 其中的第$(i, j)$个元素的含义是第$i$个函数对第$j$个变量的偏导数.
 
 $$\mathbf{J} =
 \begin{bmatrix}
-\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\
-\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_n} \\
+\frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & \cdots & \frac{\partial y_1}{\partial x_n} \\
+\frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & \cdots & \frac{\partial y_2}{\partial x_n} \\
 \vdots & \vdots & \ddots & \vdots \\
-\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \cdots & \frac{\partial f_m}{\partial x_n}
+\frac{\partial y_m}{\partial x_1} & \frac{\partial y_m}{\partial x_2} & \cdots & \frac{\partial y_m}{\partial x_n}
 \end{bmatrix}$$
 
 前向模式和反向模式一次分别能计算Jacobian矩阵的一列和一行, 如图所示.
