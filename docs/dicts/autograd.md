@@ -30,8 +30,25 @@ comments: false
 
 <figure markdown='1'>
   ![](https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png){ loading=lazy width='500' }
-  <figcaption>正向模式例子. 定义输出函数为$y=f(x1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$</figcaption>
+  <figcaption>正向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$</figcaption>
 </figure>
+
+### 反向模式
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/da7f074ddd48d72e35c1ed7c7f06ebd2.png){ loading=lazy width='500' }
+  <figcaption>反向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$和偏导数$\frac{\partial y}{\partial x_2}$</figcaption>
+</figure>
+
+上述过程其实和反向传播算法是吻合的, BP算法也是正向传播求出所有神经元的权重, 然后通过反向模式求出损失函数对应于每一个神经元的权重的偏导数. 由于只有一个标量的输出, 所以大多数的中间偏导数都能被重复利用而不用对于每个神经元的权重都重复计算一次, 所以反向模式特别适合标量输出, 输入维度较大的场景; 而正向模式特别适合输入维度较小, 输出维度较大的场景.
+
+---
+
+对于链式法则$\frac{d v_{i+1}}{d v_{i-1}}=\frac{d v_{i+1}}{d v_i}\cdot \frac{d v_i}{d v_{i-1}}$来说:
+
+- 前向模式中$\frac{d v_i}{d v_{i-1}}$是已知数, 需要求导的是$\frac{d v_{i+1}}{d v_i}$
+- 反向模式中$\frac{d v_{i+1}}{d v_i}$是已知数, 需要求导的是$\frac{d v_i}{d v_{i-1}}$
 
 [^1]: Deep_Thoughts (导演). (2021, 十一月 15). 13、详细推导自动微分Forward与Reverse模式 [Video recording]. https://www.bilibili.com/video/BV1PF411h7Ew/?spm_id_from=888.80997.embed_other.whitelist&t=5&bvid=BV1PF411h7Ew&vd_source=f86bed5e9ae170543d583b3f354fcaa9
 [^2]: Baydin, A. G., Pearlmutter, B. A., Radul, A. A., & Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey (No. arXiv:1502.05767). arXiv. https://doi.org/10.48550/arXiv.1502.05767
+[^3]: Zomi酱. (2019, 九月 6). [DL]自动微分—向前模式和反向模式 [知乎专栏文章]. https://zhuanlan.zhihu.com/p/81507449
