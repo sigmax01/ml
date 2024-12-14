@@ -1123,6 +1123,6 @@ Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([ 0.0
 
 ## 自动微分
 
-请见[这里](/dicts/autograd).
+前置知识请见[这里](/dicts/autograd).
 
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html
