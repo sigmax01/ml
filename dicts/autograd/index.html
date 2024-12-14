@@ -1697,6 +1697,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向模式
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1757,8 +1766,21 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png" width="500" /></a>
   </p>
-<figcaption>正向模式例子. 定义输出函数为$y=f(x1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$</figcaption>
+<figcaption>正向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$</figcaption>
 </figure>
+<h3 id="_5">反向模式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/da7f074ddd48d72e35c1ed7c7f06ebd2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/da7f074ddd48d72e35c1ed7c7f06ebd2.png" width="500" /></a>
+  </p>
+<figcaption>反向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$和偏导数$\frac{\partial y}{\partial x_2}$</figcaption>
+</figure>
+<p>上述过程其实和反向传播算法是吻合的, BP算法也是正向传播求出所有神经元的权重, 然后通过反向模式求出损失函数对应于每一个神经元的权重的偏导数. 由于只有一个标量的输出, 所以大多数的中间偏导数都能被重复利用而不用对于每个神经元的权重都重复计算一次, 所以反向模式特别适合标量输出, 输入维度较大的场景; 而正向模式特别适合输入维度较小, 输出维度较大的场景.</p>
+<hr />
+<p>对于链式法则<span class="arithmatex">\(\frac{d v_{i+1}}{d v_{i-1}}=\frac{d v_{i+1}}{d v_i}\cdot \frac{d v_i}{d v_{i-1}}\)</span>来说:</p>
+<ul>
+<li>前向模式中<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span></li>
+<li>反向模式中<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span></li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>
@@ -1767,6 +1789,9 @@
 </li>
 <li id="fn:2">
 <p>Baydin, A. G., Pearlmutter, B. A., Radul, A. A., &amp; Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey (No. arXiv:1502.05767). arXiv. <a href="https://doi.org/10.48550/arXiv.1502.05767">https://doi.org/10.48550/arXiv.1502.05767</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Zomi酱. (2019, 九月 6). [DL]自动微分—向前模式和反向模式 [知乎专栏文章]. <a href="https://zhuanlan.zhihu.com/p/81507449">https://zhuanlan.zhihu.com/p/81507449</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
