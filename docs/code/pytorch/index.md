@@ -1123,29 +1123,6 @@ Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([ 0.0
 
 ## 自动微分
 
-在训练神经网络的时候, 最常使用的算法就是反向传播. 在这个算法中, 参数会根据其对于损失函数的梯度进行调整. 为了计算这些梯度, PyTorch有一个内置的微分引擎叫做`torch.autograd`. 它支持任何有向无环图(DAG)的自动梯度计算.
-
-考虑一个最简单的一个一层神经网络, 输入是`x`, 参数是`w`和`b`, 还有一个损失函数.
-
-```py
-import torch
-
-x = torch.ones(5)
-y = torch.zeros(3)
-w = torch.randn(5, 3, requires_grad=True)
-b = torch.randn(3, requires_grad=True)
-z = torch.matmul(x, w)+b
-loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)
-```
-
-这个代码可以被表示为下面的这幅DAG:
-
-<figure markdown='1'>
-  ![](https://img.ricolxwz.io/8c22747ba6a3af69d4ed57dbf44cc8af.png){ loading=lazy width='500' }
-</figure>
-
-在这个工作中, `w`和`b`是参数, 是我们优化的对象. 因此, 我们必须要计算损失函数对于这些变量的梯度. 为了实现这一点, 我们需要设置这些变量的`requires_grad`为`True`. 你可以在初始化tensor的时候就设置`requires_grad=True`也可以随后通过`x.requires_grad_(True)`方法设置.
-
-🌟自动微分通常通过构建计算图来实现, 计算图是一个DAG, 节点表示基本操作或者函数, 边表示数据流.
+请见[这里](/dicts/autograd).
 
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html
