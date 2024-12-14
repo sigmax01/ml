@@ -1706,6 +1706,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#jacobian" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jacobian矩阵
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1761,7 +1770,19 @@
 <li><strong>自动微分</strong>: 自动微分通过在数值计算的过程中对基本运算步骤的导数链式求导规则进行系统地分解和累积, 最终在一个具体点处高效地求得函数在该点的导数值. <strong>它侧重于对给定输入点求出相应的导数值, 而不是求出导函数的解析式</strong>. 它分为前向模式和反向模式, 上图所展示的自动微分属于前向模式, 总结起来, 前向模式是从输入开始, 往输出传播导数信息; 后向模式是从输出开始, 往输入传播导数信息</li>
 </ul>
 <h2 id="_3">自动微分<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<details class="info" open="open">
+<summary>前置提醒</summary>
+<p>我们将<span class="arithmatex">\(\frac{\partial a}{\partial b}\)</span>称为<span class="arithmatex">\(a\)</span>相对于<span class="arithmatex">\(b\)</span>的偏导数.</p>
+</details>
 <p>自动微分分为两种形式, Forward Mode和Backward Mode. 🌟用最最最浓缩的话讲就是: 链式法则需要有一个起点, 而这个起点对于正向模式来讲就是输入变量对于自身的导数是1, 对于反向模式来讲就是输出变量对于自身的导数是1. 这个导致了在使用链式法则的时候计算先后的不同. 对于一个链式求导<span class="arithmatex">\(\frac{\partial y}{\partial x}=\frac{\partial y}{\partial u}\cdot \frac{\partial u}{\partial x}\)</span>, 正向模式和反向模式都是这个公式. 但是正向模式是先计算<span class="arithmatex">\(\frac{\partial u}{\partial x}=\frac{\partial u}{\partial x}\cdot \frac{\partial x}{\partial x}=\frac{\partial u}{\partial x}\cdot 1\)</span>, 然后计算<span class="arithmatex">\(\frac{\partial y}{\partial u}\)</span>, 然而反向模式是先计算<span class="arithmatex">\(\frac{\partial y}{\partial u}=\frac{\partial y}{\partial y}\cdot\frac{\partial y}{\partial u}=1\cdot \frac{\partial y}{\partial u}\)</span>, 然后再计算<span class="arithmatex">\(\frac{\partial u}{\partial x}\)</span>. 相当于给你了一个火柴, 也就是<span class="arithmatex">\(\frac{\partial x}{\partial x}=1\)</span>或者<span class="arithmatex">\(\frac{\partial y}{\partial y}=1\)</span>, 然后启动这个过程.🌟</p>
+<details class="tip" open="open">
+<summary>另一种描述方法</summary>
+<p>对于链式法则<span class="arithmatex">\(\frac{d v_{i+1}}{d v_{i-1}}=\frac{d v_{i+1}}{d v_i}\cdot \frac{d v_i}{d v_{i-1}}\)</span>来说:</p>
+<ul>
+<li>前向模式中<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>, 缓存的是中间变量对于输入的导数</li>
+<li>反向模式中<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>, 缓存的是输出对于中间变量的导数</li>
+</ul>
+</details>
 <h3 id="_4">正向模式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png" width="500" /></a>
@@ -1774,12 +1795,25 @@
   </p>
 <figcaption>反向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$和偏导数$\frac{\partial y}{\partial x_2}$</figcaption>
 </figure>
-<p>上述过程其实和反向传播算法是吻合的, BP算法也是正向传播求出所有神经元的权重, 然后通过反向模式求出损失函数对应于每一个神经元的权重的偏导数. 由于只有一个标量的输出, 所以大多数的中间偏导数都能被重复利用而不用对于每个神经元的权重都重复计算一次, 所以反向模式特别适合标量输出, 输入维度较大的场景; 而正向模式特别适合输入维度较小, 输出维度较大的场景.</p>
-<hr />
-<p>对于链式法则<span class="arithmatex">\(\frac{d v_{i+1}}{d v_{i-1}}=\frac{d v_{i+1}}{d v_i}\cdot \frac{d v_i}{d v_{i-1}}\)</span>来说:</p>
+<p>上述过程其实和反向传播算法是吻合的, BP算法也是正向传播求出所有神经元的权重, 然后通过反向模式求出损失函数对应于每一个神经元的权重的偏导数. 由于只有一个标量的输出, 所以大多数的中间偏导数都能被重复利用(缓存输出对于中间变量的偏导数)而不用对于每个神经元的权重都重复计算一次, 所以反向模式特别适合标量输出, 输入维度较大的场景; 而正向模式特别适合输入维度较小, 输出维度较大的场景.</p>
+<h3 id="jacobian">Jacobian矩阵<a class="headerlink" href="#jacobian" title="Permanent link">&para;</a></h3>
+<p>Jacobian矩阵定义为一个由多个函数的多个偏导数组成的矩阵. 其中的第<span class="arithmatex">\((i, j)\)</span>个元素的含义是第<span class="arithmatex">\(i\)</span>个函数对第<span class="arithmatex">\(j\)</span>个变量的偏导数.</p>
+<div class="arithmatex">\[\mathbf{J} =
+\begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
+\frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_2}{\partial x_n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_m}{\partial x_1} &amp; \frac{\partial f_m}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}\]</div>
+<p>前向模式和反向模式一次分别能计算Jacobian矩阵的一列和一行, 如图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b608f936c0a583e468b44541fab6d1c3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b608f936c0a583e468b44541fab6d1c3.png" width="500" /></a>
+  </p>
+<figcaption>总共有$m$个函数, $n$个输入</figcaption>
+</figure>
 <ul>
-<li>前向模式中<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span></li>
-<li>反向模式中<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span></li>
+<li>对于前向模式, 一次程序计算能够求所有函数对于一个输入的偏导数(能够缓存的是中间变量对于输入的偏导数), 对应的就是Jacobian矩阵中的一列, 所以, 如果想用正向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(n\)</span>次</li>
+<li>对于反向模式, 一次程序计算能够求一个函数对于所有输入的偏导数(能够缓存的是输出对于中间变量的偏导数), 对应的就是Jacobian矩阵中的一行, 所以, 如果想用反向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(m\)</span>次</li>
 </ul>
 <div class="footnote">
 <hr />
@@ -1792,6 +1826,9 @@
 </li>
 <li id="fn:3">
 <p>Zomi酱. (2019, 九月 6). [DL]自动微分—向前模式和反向模式 [知乎专栏文章]. <a href="https://zhuanlan.zhihu.com/p/81507449">https://zhuanlan.zhihu.com/p/81507449</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Zomi酱. (2022, 七月 30). 【自动微分原理】AD的正反向模式 [知乎专栏文章]. Ai系统. <a href="https://zhuanlan.zhihu.com/p/518296942">https://zhuanlan.zhihu.com/p/518296942</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
