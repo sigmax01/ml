@@ -20,7 +20,18 @@ comments: false
 - **手动微分**: 一种通过手动推导和计算来求解函数导数的方法. 根据微积分中的求导法则(如链式法则, 乘法法则等), 手动推导出该函数的导数表达式. 并将这个手动推导出来的公式用计算机代码表示, 以便在给定输入值时计算出相应的导数值
 - **数值微分**: 数值微分根据离散的数据点估计函数的导数, 这意味着, 它和其他方法的主要区别就是它计算出来的是导数的近似值. 常用的方法包括前向差分算法(使用某个点以及前一个点的值来估计导数), 后向差分算法(使用某个点及后一个点的值来估计导数), 中心差分算法(综合前向和后向差分, 通常提供更高的精度).
 - **符号微分**: 符号微分需要对表达式进行符号解析和规则转换, 这可能涉及对复杂函数结构的模式匹配和简化, 将输入的函数转化为其对应的解析形式的导数表达式, 最终结果是一个以符号为基础的解析函数, 如, 使用符号微分对表达式进行求导, 可以直接得到类似$2x+3\sin(x)$这样明确的解析形式. 如果函数很复杂, 解析出来的导数表达式可能极其冗长甚至不便于使用. 它适用于需要明确解析导数公式的场合, 例如数学分析, 公式推导等. **它侧重于给出一个具体的解析导数表达式, 而不是在求出某个点的导数值**
-- **自动微分**: 自动微分通过在数值计算的过程中对基本运算步骤的导数链式求导规则进行系统地分解和累积, 最终在一个具体点处高效地求得函数在该点的导数值. **它侧重于对给定输入点求出相应的导数值, 而不是求出导函数的解析式**. 它分为前向模式和反向模式.
+- **自动微分**: 自动微分通过在数值计算的过程中对基本运算步骤的导数链式求导规则进行系统地分解和累积, 最终在一个具体点处高效地求得函数在该点的导数值. **它侧重于对给定输入点求出相应的导数值, 而不是求出导函数的解析式**. 它分为前向模式和反向模式, 上图所展示的自动微分属于前向模式, 总结起来, 前向模式是从输入开始, 往输出传播导数信息; 后向模式是从输出开始, 往输入传播导数信息
+
+## 自动微分
+
+自动微分分为两种形式, Forward Mode和Backward Mode. 🌟用最最最浓缩的话讲就是: 链式法则需要有一个起点, 而这个起点对于正向模式来讲就是输入变量对于自身的导数是1, 对于反向模式来讲就是输出变量对于自身的导数是1. 这个导致了在使用链式法则的时候计算先后的不同. 对于一个链式求导$\frac{\partial y}{\partial x}=\frac{\partial y}{\partial u}\cdot \frac{\partial u}{\partial x}$, 正向模式和反向模式都是这个公式. 但是正向模式是先计算$\frac{\partial u}{\partial x}=\frac{\partial u}{\partial x}\cdot \frac{\partial x}{\partial x}=\frac{\partial u}{\partial x}\cdot 1$, 然后计算$\frac{\partial y}{\partial u}$, 然而反向模式是先计算$\frac{\partial y}{\partial u}=\frac{\partial y}{\partial y}\cdot\frac{\partial y}{\partial u}=1\cdot \frac{\partial y}{\partial u}$, 然后再计算$\frac{\partial u}{\partial x}$. 相当于给你了一个火柴, 也就是$\frac{\partial x}{\partial x}=1$或者$\frac{\partial y}{\partial y}=1$, 然后启动这个过程.🌟
+
+### 正向模式
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png){ loading=lazy width='500' }
+  <figcaption>正向模式例子. 定义输出函数为$y=f(x1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$</figcaption>
+</figure>
 
 [^1]: Deep_Thoughts (导演). (2021, 十一月 15). 13、详细推导自动微分Forward与Reverse模式 [Video recording]. https://www.bilibili.com/video/BV1PF411h7Ew/?spm_id_from=888.80997.embed_other.whitelist&t=5&bvid=BV1PF411h7Ew&vd_source=f86bed5e9ae170543d583b3f354fcaa9
 [^2]: Baydin, A. G., Pearlmutter, B. A., Radul, A. A., & Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey (No. arXiv:1502.05767). arXiv. https://doi.org/10.48550/arXiv.1502.05767
