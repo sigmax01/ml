@@ -75,6 +75,27 @@ $$\mathbf{J} =
 - 对于前向模式, 一次程序计算能够求所有函数对于一个输入的偏导数(能够缓存的是中间变量对于输入的偏导数), 对应的就是Jacobian矩阵中的一列, 所以, 如果想用正向模式计算出所有函数对于所有输入的偏导数, 需要计算$n$次
 - 对于反向模式, 一次程序计算能够求一个函数对于所有输入的偏导数(能够缓存的是输出对于中间变量的偏导数), 对应的就是Jacobian矩阵中的一行, 所以, 如果想用反向模式计算出所有函数对于所有输入的偏导数, 需要计算$m$次
 
+存储整个Jacobian矩阵通常是不现实的, 因为它的规模可能会非常大, 消耗巨大的存储空间. 此外, 在很多实际问题中, 我们通常只需要用到Jacobian矩阵的特定操作, 而不需要完整存储整个矩阵, 这就是引入JVP和VJP的原因.
+
+#### Jacobian-向量积
+
+JVP是指用Jacobian矩阵$\mathbf{J}$左乘一个向量$\mathbf{v}$:
+
+$$
+\mathbf{Jv} =
+\begin{bmatrix}
+\frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & \cdots & \frac{\partial y_1}{\partial x_n} \\
+\frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & \cdots & \frac{\partial y_2}{\partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial y_m}{\partial x_1} & \frac{\partial y_m}{\partial x_2} & \cdots & \frac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+\begin{bmatrix}
+v_1 \\ v_2 \\ \vdots \\ v_n
+\end{bmatrix}.
+$$
+
+假设你在训练一个大型神经网络模型, 这个模型的参数非常巨大. 在训练的过程中, 你通常只能得到全局梯度方向(即对所有参数求偏导之后的结果), 但有时你希望在当前参数点$\mathbf{x}$上, 对某个特定参数方向$\mathbf{v}$(例如, 沿着某些参数子集的改变方向)来衡量函数输出或者损失函数的变化率. 换句话说, 你想知道如果沿着$v$这个方向轻微移动参数, 那么损失函数会以怎么样的斜率变化. 该方向向量$\mathbf{v}$在对应参数的位置上为非零(表示想在这部分参数方向上做灵敏度分析), 在其他参数维度上为零. 使用自动微分框架(如JAX, PyTorch)可以直接得到$\mathbf{J}\cdot \mathbf{v}$的值, 而不用先计算Jacobian矩阵, 再进行点积, 因为在高维空间中, 完整构建Jacobian矩阵会非常昂贵(内存和计算上).
+
 [^1]: Deep_Thoughts (导演). (2021, 十一月 15). 13、详细推导自动微分Forward与Reverse模式 [Video recording]. https://www.bilibili.com/video/BV1PF411h7Ew/?spm_id_from=888.80997.embed_other.whitelist&t=5&bvid=BV1PF411h7Ew&vd_source=f86bed5e9ae170543d583b3f354fcaa9
 [^2]: Baydin, A. G., Pearlmutter, B. A., Radul, A. A., & Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey (No. arXiv:1502.05767). arXiv. https://doi.org/10.48550/arXiv.1502.05767
 [^3]: Zomi酱. (2019, 九月 6). [DL]自动微分—向前模式和反向模式 [知乎专栏文章]. https://zhuanlan.zhihu.com/p/81507449
