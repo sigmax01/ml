@@ -1713,6 +1713,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Jacobian矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jacobian-向量积
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1815,6 +1830,22 @@
 <li>对于前向模式, 一次程序计算能够求所有函数对于一个输入的偏导数(能够缓存的是中间变量对于输入的偏导数), 对应的就是Jacobian矩阵中的一列, 所以, 如果想用正向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(n\)</span>次</li>
 <li>对于反向模式, 一次程序计算能够求一个函数对于所有输入的偏导数(能够缓存的是输出对于中间变量的偏导数), 对应的就是Jacobian矩阵中的一行, 所以, 如果想用反向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(m\)</span>次</li>
 </ul>
+<p>存储整个Jacobian矩阵通常是不现实的, 因为它的规模可能会非常大, 消耗巨大的存储空间. 此外, 在很多实际问题中, 我们通常只需要用到Jacobian矩阵的特定操作, 而不需要完整存储整个矩阵, 这就是引入JVP和VJP的原因.</p>
+<h4 id="jacobian-">Jacobian-向量积<a class="headerlink" href="#jacobian-" title="Permanent link">&para;</a></h4>
+<p>JVP是指用Jacobian矩阵<span class="arithmatex">\(\mathbf{J}\)</span>左乘一个向量<span class="arithmatex">\(\mathbf{v}\)</span>:</p>
+<div class="arithmatex">\[
+\mathbf{Jv} =
+\begin{bmatrix}
+\frac{\partial y_1}{\partial x_1} &amp; \frac{\partial y_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial y_1}{\partial x_n} \\
+\frac{\partial y_2}{\partial x_1} &amp; \frac{\partial y_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial y_2}{\partial x_n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial y_m}{\partial x_1} &amp; \frac{\partial y_m}{\partial x_2} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+\begin{bmatrix}
+v_1 \\ v_2 \\ \vdots \\ v_n
+\end{bmatrix}.
+\]</div>
+<p>假设你在训练一个大型神经网络模型, 这个模型的参数非常巨大. 在训练的过程中, 你通常只能得到全局梯度方向(即对所有参数求偏导之后的结果), 但有时你希望在当前参数点<span class="arithmatex">\(\mathbf{x}\)</span>上, 对某个特定参数方向<span class="arithmatex">\(\mathbf{v}\)</span>(例如, 沿着某些参数子集的改变方向)来衡量函数输出或者损失函数的变化率. 换句话说, 你想知道如果沿着<span class="arithmatex">\(v\)</span>这个方向轻微移动参数, 那么损失函数会以怎么样的斜率变化. 该方向向量<span class="arithmatex">\(\mathbf{v}\)</span>在对应参数的位置上为非零(表示想在这部分参数方向上做灵敏度分析), 在其他参数维度上为零. 使用自动微分框架(如JAX, PyTorch)可以直接得到<span class="arithmatex">\(\mathbf{J}\cdot \mathbf{v}\)</span>的值, 而不用先计算Jacobian矩阵, 再进行点积, 因为在高维空间中, 完整构建Jacobian矩阵会非常昂贵(内存和计算上).</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -1854,7 +1885,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月15日</span>
   </span>
 
     
