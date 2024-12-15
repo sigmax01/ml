@@ -65,12 +65,14 @@ $$\mathbf{J} =
 \frac{\partial y_m}{\partial x_1} & \frac{\partial y_m}{\partial x_2} & \cdots & \frac{\partial y_m}{\partial x_n}
 \end{bmatrix}$$
 
-正向模式和反向模式一次分别能计算Jacobian矩阵的一列和一行, 如图所示.
+**若设置单个种子**, 正向模式和反向模式一次分别能计算Jacobian矩阵的一列和一行, 如图所示.
 
 <figure markdown='1'>
   ![](https://img.ricolxwz.io/b608f936c0a583e468b44541fab6d1c3.png){ loading=lazy width='500' }
   <figcaption>总共有$m$个函数, $n$个输入</figcaption>
 </figure>
+
+**若设置单个种子:**
 
 - 对于正向模式, 一次程序计算能够求所有函数对于一个输入的偏导数(能够缓存的是中间变量对于输入的偏导数), 对应的就是Jacobian矩阵中的一列, 所以, 如果想用正向模式计算出所有函数对于所有输入的偏导数, 需要计算$n$次
 - 对于反向模式, 一次程序计算能够求一个函数对于所有输入的偏导数(能够缓存的是输出对于中间变量的偏导数), 对应的就是Jacobian矩阵中的一行, 所以, 如果想用反向模式计算出所有函数对于所有输入的偏导数, 需要计算$m$次
@@ -98,7 +100,7 @@ $$
 
 使用自动微分框架(如JAX, PyTorch)可以直接得到$\mathbf{J}\cdot \mathbf{v}$的值, 而不用先计算Jacobian矩阵, 再进行点积, 因为在高维空间中, 完整构建Jacobian矩阵会非常昂贵(内存和计算上), JAX计算JVP的方法是使用正向模式AD.
 
-在正向模式AD中, 你不需要逐个变量分开跑一次正向AD来合成$\mathbf{v}$的效果, 只要你一开始就为所有输入变量设置对应的导数种子的值为$\mathbf{v}$, 一次正向模式AD就能让你获得整组方向导数对输出的影响, 即$\mathbf{J}\mathbf{v}$.
+在正向模式AD中, 你不需要逐个变量分开跑一次正向AD来合成$\mathbf{v}$的效果, 只要你一开始就为所有输入变量设置对应的导数种子的值为$\mathbf{v}$, **即设置多个种子**. 一次正向模式AD就能让你获得整组方向导数对输出的影响, 即$\mathbf{J}\mathbf{v}$.
 
 ???+ note "深入理解上面这句话"
 
