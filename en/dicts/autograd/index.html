@@ -1725,6 +1725,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#-jacobian" class="md-nav__link">
+    <span class="md-ellipsis">
+      向量-Jacobian积
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1780,9 +1789,9 @@
 </figure>
 <ul>
 <li><strong>手动微分</strong>: 一种通过手动推导和计算来求解函数导数的方法. 根据微积分中的求导法则(如链式法则, 乘法法则等), 手动推导出该函数的导数表达式. 并将这个手动推导出来的公式用计算机代码表示, 以便在给定输入值时计算出相应的导数值</li>
-<li><strong>数值微分</strong>: 数值微分根据离散的数据点估计函数的导数, 这意味着, 它和其他方法的主要区别就是它计算出来的是导数的近似值. 常用的方法包括前向差分算法(使用某个点以及前一个点的值来估计导数), 后向差分算法(使用某个点及后一个点的值来估计导数), 中心差分算法(综合前向和后向差分, 通常提供更高的精度).</li>
+<li><strong>数值微分</strong>: 数值微分根据离散的数据点估计函数的导数, 这意味着, 它和其他方法的主要区别就是它计算出来的是导数的近似值. 常用的方法包括正向差分算法(使用某个点以及前一个点的值来估计导数), 后向差分算法(使用某个点及后一个点的值来估计导数), 中心差分算法(综合正向和后向差分, 通常提供更高的精度).</li>
 <li><strong>符号微分</strong>: 符号微分需要对表达式进行符号解析和规则转换, 这可能涉及对复杂函数结构的模式匹配和简化, 将输入的函数转化为其对应的解析形式的导数表达式, 最终结果是一个以符号为基础的解析函数, 如, 使用符号微分对表达式进行求导, 可以直接得到类似<span class="arithmatex">\(2x+3\sin(x)\)</span>这样明确的解析形式. 如果函数很复杂, 解析出来的导数表达式可能极其冗长甚至不便于使用. 它适用于需要明确解析导数公式的场合, 例如数学分析, 公式推导等. <strong>它侧重于给出一个具体的解析导数表达式, 而不是在求出某个点的导数值</strong></li>
-<li><strong>自动微分</strong>: 自动微分通过在数值计算的过程中对基本运算步骤的导数链式求导规则进行系统地分解和累积, 最终在一个具体点处高效地求得函数在该点的导数值. <strong>它侧重于对给定输入点求出相应的导数值, 而不是求出导函数的解析式</strong>. 它分为前向模式和反向模式, 上图所展示的自动微分属于前向模式, 总结起来, 前向模式是从输入开始, 往输出传播导数信息; 后向模式是从输出开始, 往输入传播导数信息</li>
+<li><strong>自动微分</strong>: 自动微分通过在数值计算的过程中对基本运算步骤的导数链式求导规则进行系统地分解和累积, 最终在一个具体点处高效地求得函数在该点的导数值. <strong>它侧重于对给定输入点求出相应的导数值, 而不是求出导函数的解析式</strong>. 它分为正向模式和反向模式, 上图所展示的自动微分属于正向模式, 总结起来, 正向模式是从输入开始, 往输出传播导数信息; 后向模式是从输出开始, 往输入传播导数信息</li>
 </ul>
 <h2 id="_3">自动微分<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <details class="info" open="open">
@@ -1794,7 +1803,7 @@
 <summary>另一种描述方法</summary>
 <p>对于链式法则<span class="arithmatex">\(\frac{d v_{i+1}}{d v_{i-1}}=\frac{d v_{i+1}}{d v_i}\cdot \frac{d v_i}{d v_{i-1}}\)</span>来说:</p>
 <ul>
-<li>前向模式中<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>, 缓存的是中间变量对于输入的导数</li>
+<li>正向模式中<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>, 缓存的是中间变量对于输入的导数</li>
 <li>反向模式中<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>, 缓存的是输出对于中间变量的导数</li>
 </ul>
 </details>
@@ -1820,14 +1829,14 @@
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 \frac{\partial y_m}{\partial x_1} &amp; \frac{\partial y_m}{\partial x_2} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
 \end{bmatrix}\]</div>
-<p>前向模式和反向模式一次分别能计算Jacobian矩阵的一列和一行, 如图所示.</p>
+<p>正向模式和反向模式一次分别能计算Jacobian矩阵的一列和一行, 如图所示.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b608f936c0a583e468b44541fab6d1c3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b608f936c0a583e468b44541fab6d1c3.png" width="500" /></a>
   </p>
 <figcaption>总共有$m$个函数, $n$个输入</figcaption>
 </figure>
 <ul>
-<li>对于前向模式, 一次程序计算能够求所有函数对于一个输入的偏导数(能够缓存的是中间变量对于输入的偏导数), 对应的就是Jacobian矩阵中的一列, 所以, 如果想用正向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(n\)</span>次</li>
+<li>对于正向模式, 一次程序计算能够求所有函数对于一个输入的偏导数(能够缓存的是中间变量对于输入的偏导数), 对应的就是Jacobian矩阵中的一列, 所以, 如果想用正向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(n\)</span>次</li>
 <li>对于反向模式, 一次程序计算能够求一个函数对于所有输入的偏导数(能够缓存的是输出对于中间变量的偏导数), 对应的就是Jacobian矩阵中的一行, 所以, 如果想用反向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(m\)</span>次</li>
 </ul>
 <p>存储整个Jacobian矩阵通常是不现实的, 因为它的规模可能会非常大, 消耗巨大的存储空间. 此外, 在很多实际问题中, 我们通常只需要用到Jacobian矩阵的特定操作, 而不需要完整存储整个矩阵, 这就是引入JVP和VJP的原因.</p>
@@ -1843,9 +1852,37 @@
 \end{bmatrix}
 \begin{bmatrix}
 v_1 \\ v_2 \\ \vdots \\ v_n
-\end{bmatrix}.
+\end{bmatrix}
 \]</div>
-<p>假设你在训练一个大型神经网络模型, 这个模型的参数非常巨大. 在训练的过程中, 你通常只能得到全局梯度方向(即对所有参数求偏导之后的结果), 但有时你希望在当前参数点<span class="arithmatex">\(\mathbf{x}\)</span>上, 对某个特定参数方向<span class="arithmatex">\(\mathbf{v}\)</span>(例如, 沿着某些参数子集的改变方向)来衡量函数输出或者损失函数的变化率. 换句话说, 你想知道如果沿着<span class="arithmatex">\(v\)</span>这个方向轻微移动参数, 那么损失函数会以怎么样的斜率变化. 该方向向量<span class="arithmatex">\(\mathbf{v}\)</span>在对应参数的位置上为非零(表示想在这部分参数方向上做灵敏度分析), 在其他参数维度上为零. 使用自动微分框架(如JAX, PyTorch)可以直接得到<span class="arithmatex">\(\mathbf{J}\cdot \mathbf{v}\)</span>的值, 而不用先计算Jacobian矩阵, 再进行点积, 因为在高维空间中, 完整构建Jacobian矩阵会非常昂贵(内存和计算上).</p>
+<p>假设你在训练一个大型神经网络模型, 这个模型的参数非常巨大. 在训练的过程中, 你通常只能得到全局梯度方向(即对所有参数求偏导之后的结果), 但有时你希望在当前参数<span class="arithmatex">\(\mathbf{x}\)</span>上, 对某个特定参数方向<span class="arithmatex">\(\mathbf{v}\)</span>(例如, 沿着某些参数子集的改变方向)来衡量函数输出的变化率. 换句话说, 你想知道如果沿着<span class="arithmatex">\(\mathbf{v}\)</span>这个方向轻微移动参数, 那么函数输出会以怎么样的斜率变化. 该方向向量<span class="arithmatex">\(\mathbf{v}\)</span>在对应参数的位置上为非零(表示想在这部分参数方向上做灵敏度分析), 在其他参数维度上为零.</p>
+<p>使用自动微分框架(如JAX, PyTorch)可以直接得到<span class="arithmatex">\(\mathbf{J}\cdot \mathbf{v}\)</span>的值, 而不用先计算Jacobian矩阵, 再进行点积, 因为在高维空间中, 完整构建Jacobian矩阵会非常昂贵(内存和计算上), JAX计算JVP的方法是使用正向模式AD.</p>
+<p>在正向模式AD中, 你不需要逐个变量分开跑一次正向AD来合成<span class="arithmatex">\(\mathbf{v}\)</span>的效果, 只要你一开始就为所有输入变量设置对应的导数种子的值为<span class="arithmatex">\(\mathbf{v}\)</span>, 一次正向模式AD就能让你获得整组方向导数对输出的影响, 即<span class="arithmatex">\(\mathbf{J}\mathbf{v}\)</span>.</p>
+<details class="note" open="open">
+<summary>深入理解上面这句话</summary>
+<p>Jacobian矩阵<span class="arithmatex">\(\mathbf{J}\)</span>的每一列对应“一个特定输入变量对于所有输出的偏导数组合”, 即固定输入参数求所有输出对它的偏导数, 这对应在使用正向AD时, 为这个输入变量设置其导数种子在对应的方向向量的分量为1, 其他为0. 当你有多个输入变量同时设置导数种子非零的时候, 正向AD会在一次传播中计算这些方向对于输出的综合影响.</p>
+</details>
+<h4 id="-jacobian">向量-Jacobian积<a class="headerlink" href="#-jacobian" title="Permanent link">&para;</a></h4>
+<p>VJP(Vector-Jacobian Product)是指用一个向量<span class="arithmatex">\(\mathbf{u}\)</span>右乘Jacobian矩阵<span class="arithmatex">\(\mathbf{J}\)</span>:</p>
+<div class="arithmatex">\[
+\mathbf{u}^\top \mathbf{J}
+=
+\bigl[\,u_1 \quad u_2 \quad \cdots \quad u_m\,\bigr]
+\begin{bmatrix}
+\dfrac{\partial y_1}{\partial x_1} &amp; \dfrac{\partial y_1}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial y_1}{\partial x_n} \\[6pt]
+\dfrac{\partial y_2}{\partial x_1} &amp; \dfrac{\partial y_2}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial y_2}{\partial x_n} \\[6pt]
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\[6pt]
+\dfrac{\partial y_m}{\partial x_1} &amp; \dfrac{\partial y_m}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+\]</div>
+<p>这里, <span class="arithmatex">\(\mathbf{u}\)</span>的大小和输出维度<span class="arithmatex">\(m\)</span>相同, 将其作为一个权重向量(类似于上面的方向向量)赋给输出的各个非良. 对那些在<span class="arithmatex">\(\mathbf{u}\)</span>中设置为0的输出方向, 相当于“忽略”了对应的输出对输入参数的影响. 对那些在<span class="arithmatex">\(\mathbf{u}\)</span>中为非零的输出分量, 则把该输出维度的偏导信息累积起来, 回溯到参数空间, 得到特定输出方向在输入参数中的灵敏度分布.</p>
+<hr />
+<details class="note" open="open">
+<summary>JVP和VJP的含义总结</summary>
+<ul>
+<li>JVP: 在输入方向上选择性赋0, 使得你“忽略”对无关参数的变化, 只关心指定参数子集对完整输出函数的影响</li>
+<li>VJP: 在输出方向上选择性赋0, 使得你“忽略”某些输出维度的变化, 只关心指定输出子集在传播回输入参数时产生的敏感度</li>
+</ul>
+</details>
 <div class="footnote">
 <hr />
 <ol>
