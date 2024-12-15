@@ -823,7 +823,7 @@ Labels batch shape: torch.Size([64])
 Label: 5
 ```
 
-## 转换
+### 转换
 
 数据有很大概率不是用于机器学习输入的最终状态, 所以要使用转换(transform)对数据进行一些修改使其适合训练.
 
@@ -1289,5 +1289,175 @@ tensor([[4., 2., 2., 2., 2.],
 ???+ note "之前损失函数的等价调用方法"
 
     之前我们使用的是损失函数(即一个标量, 一个函数)对于输入的梯度, 所以等价于种子向量被设置为一个标量`1`, 表示这个输出处于“选中”状态, 所以等价于`backward(torch.tensor(1.0))`.
+
+## 优化参数
+
+现在我们已经有了模型和数据, 是时候进行训练, 验证和测试了. 训练模型是一个重复的过程, 在每一次迭代中, 模型做出推测, 计算错误率, 以及对所有参数的梯度, 使用梯度下降来优化这些参数.
+
+### 超参数
+
+超参数是提供给我们控制模型优化过程的可调整参数. 不同的超参数会影响模型的训练和收敛率. 在这里, 我们定义下列的超参数:
+
+- 批次的多少
+- 批次的大小
+- 学习率
+
+```py
+learning_rate = 1e-3
+batch_size = 64
+epochs = 5
+```
+
+### 优化循环
+
+一旦我们设置了超参数, 我们可以用一个优化循环来训练和优化我们的模型, 每个优化循环叫做一个epoch. 每个epoch包含两个部分:
+
+- 训练循环: 在训练集上迭代, 尝试收敛到最佳参数
+- 验证/测试循环: 在验证/测试集上迭代, 测试模型是否有提升
+
+### 损失函数
+
+当我们输入了一些训练数据的时候, 我们的模型可能不会输出正确的预测, 损失函数用于测量输出和输入之间的相似度, 我们希望最小化这个损失函数. 常用的误差函数有对于回归任务有`nn.MSELoss`(均方误差函数), 对于分类任务有`nn.NLLLoss`(负数对数似然函数). `nn.CrossEntropyLoss`结合了`nn.LogSoftmax`和`nn.NLLLoss`, 在这里我们使用的是`nn.CrossEntropyLoss`.
+
+```py
+# 初始化损失函数
+loss_fn = nn.CrossEntropyLoss()
+```
+
+### 优化器
+
+优化是每次迭代训练调整模型参数以减少误差的过程. 优化算法定义了这个过程应该怎么进行(在这个例子中我们使用的是随机梯度下降). 所有的优化逻辑都放在`optimizer`这个对象中. PyTorch中有很多优化器, 如ADAM, RMSProp.
+
+我们通过传入模型的课训练参数和学习率初始化优化器.
+
+```py
+optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+```
+
+在训练循环内部, 优化发生在:
+
+- 调用`optimizer.zero_grad()`重置模型参数的梯度的时候, 梯度默认情况下是累积的, 可以在每个batch之后置零
+- 将训练误差反向传播的时候, `loss.backward()`, 这个会计算所有参数的梯度
+- 拿到梯度之后, 调用`optimizer.step()`调整所有参数
+
+## 保存和加载模型
+
+在这个部分我们会看如何保存和加载模型的状态.
+
+### 保存/加载模型权重
+
+PyTorch模型会将学习到的参数放在一个内部状态字典中, 叫做`state_dict`. 可以使用`torch.save`保存参数.
+
+```py title='输入'
+model = models.vgg16(weights='IMAGENET1K_V1')
+torch.save(model.state_dict(), 'model_weights.pth')
+```
+
+``` title='输出'
+Downloading: "https://download.pytorch.org/models/vgg16-397923af.pth" to /var/lib/ci-user/.cache/torch/hub/checkpoints/vgg16-397923af.pth
+
+  0%|          | 0.00/528M [00:00<?, ?B/s]
+  4%|3         | 19.2M/528M [00:00<00:02, 202MB/s]
+  7%|7         | 39.0M/528M [00:00<00:02, 205MB/s]
+ 11%|#1        | 58.8M/528M [00:00<00:02, 206MB/s]
+ 15%|#4        | 78.6M/528M [00:00<00:02, 206MB/s]
+ 19%|#8        | 98.6M/528M [00:00<00:02, 207MB/s]
+ 22%|##2       | 119M/528M [00:00<00:02, 208MB/s]
+ 26%|##6       | 139M/528M [00:00<00:01, 208MB/s]
+ 30%|###       | 159M/528M [00:00<00:01, 209MB/s]
+ 34%|###3      | 179M/528M [00:00<00:01, 210MB/s]
+ 38%|###7      | 199M/528M [00:01<00:01, 210MB/s]
+ 42%|####1     | 219M/528M [00:01<00:01, 210MB/s]
+ 45%|####5     | 239M/528M [00:01<00:01, 210MB/s]
+ 49%|####9     | 260M/528M [00:01<00:01, 210MB/s]
+ 53%|#####2    | 280M/528M [00:01<00:01, 210MB/s]
+ 57%|#####6    | 300M/528M [00:01<00:01, 210MB/s]
+ 61%|######    | 320M/528M [00:01<00:01, 210MB/s]
+ 64%|######4   | 340M/528M [00:01<00:00, 210MB/s]
+ 68%|######8   | 360M/528M [00:01<00:00, 211MB/s]
+ 72%|#######2  | 380M/528M [00:01<00:00, 211MB/s]
+ 76%|#######5  | 401M/528M [00:02<00:00, 211MB/s]
+ 80%|#######9  | 421M/528M [00:02<00:00, 211MB/s]
+ 84%|########3 | 441M/528M [00:02<00:00, 211MB/s]
+ 87%|########7 | 461M/528M [00:02<00:00, 211MB/s]
+ 91%|#########1| 481M/528M [00:02<00:00, 211MB/s]
+ 95%|#########4| 501M/528M [00:02<00:00, 211MB/s]
+ 99%|#########8| 522M/528M [00:02<00:00, 211MB/s]
+100%|##########| 528M/528M [00:02<00:00, 210MB/s]
+```
+
+为了加载模型参数, 你需要先创建一个相同模型的instance, 然后使用`load_state_dict()`加载参数.
+
+??? note "`weights_only=True`的作用"
+
+    通过设置`weights_only=True`, 限制了在反序列化(unpickling)过程中仅执行加载权重所需的函数, 这种做法有几个重要的优点. 第一个, 安全性提升, 反序列化过程可能会执行存储在序列化对象中的任意代码, 如果不加限制, 恶意构造的序列化数据可能会导致安全漏洞. 第二个, 性能优化, 在加载模型权重的时候, 通常只需要恢复权重数据, 而不需要重新构建整个模型结构或者执行其他初始化操作.
+
+```py title='输入'
+model = models.vgg16() # we do not specify ``weights``, i.e. create untrained model
+model.load_state_dict(torch.load('model_weights.pth', weights_only=True))
+model.eval() # 将模型设置为处于评估模式, 防止dropout
+```
+
+``` title='输出'
+VGG(
+  (features): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+    (14): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): ReLU(inplace=True)
+    (16): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (17): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): ReLU(inplace=True)
+    (19): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (20): ReLU(inplace=True)
+    (21): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (22): ReLU(inplace=True)
+    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (24): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (25): ReLU(inplace=True)
+    (26): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (27): ReLU(inplace=True)
+    (28): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (29): ReLU(inplace=True)
+    (30): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(7, 7))
+  (classifier): Sequential(
+    (0): Linear(in_features=25088, out_features=4096, bias=True)
+    (1): ReLU(inplace=True)
+    (2): Dropout(p=0.5, inplace=False)
+    (3): Linear(in_features=4096, out_features=4096, bias=True)
+    (4): ReLU(inplace=True)
+    (5): Dropout(p=0.5, inplace=False)
+    (6): Linear(in_features=4096, out_features=1000, bias=True)
+  )
+)
+```
+
+### 保存/加载模型
+
+从上面看出, 当我们加载模型参数的时候, 实际上我们还是需要先instantiate模型的类, 因为类定义了模型的结构. 我们可能希望一下子打包模型的参数和结构, 我们可以直接传入`model`, 而不是`model.state_dict()`.
+
+```py
+torch.save(model, 'model.pth')
+```
+
+然后, 可以通过下列方法加载模型.
+
+```py
+model = torch.load('model.pth', weights_only=False),
+```
 
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html

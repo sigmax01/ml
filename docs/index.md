@@ -49,7 +49,7 @@ title: 开始
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
   - [ ] 代码
-    - [ ] [PyTorch](/code/pytorch/)
+    - [x] [PyTorch](/code/pytorch/)
 
 ## 推荐
 
