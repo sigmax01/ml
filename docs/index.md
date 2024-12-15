@@ -39,6 +39,7 @@ title: 开始
     - [x] [强化学习](/algorithm/reinforcement-learning)
   - [ ] 代码
     - [x] [PyTorch](/code/pytorch/)
+      - [ ] [从0构建Transformer](/code/pytorch/transformer-from-scratch)
 
 ## 推荐
 
