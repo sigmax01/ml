@@ -42,7 +42,7 @@ title: 开始
         - [x] [递归神经网络](/algorithm/neural-network/rnn)
         - [x] [词嵌入](/algorithm/neural-network/word-embedding)
         - [x] [Transformer](/algorithm/neural-network/transformer)
-            - [ ] [GPT](/algorithm/neural-network/transformer/gpt)
+            - [x] [GPT](/algorithm/neural-network/transformer/gpt)
             - [x] [BERT](/algorithm/neural-network/transformer/bert)
             - [ ] [ViT](/algorithm/neural-network/transformer/vit)
     - [x] [聚类](/algorithm/clustering)
