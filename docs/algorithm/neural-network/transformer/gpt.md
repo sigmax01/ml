@@ -1,6 +1,6 @@
 ---
 title: GPT
-comments: false
+comments: true
 ---
 
 # GPT[^1]

@@ -1,6 +1,6 @@
 ---
 title: 判别式模型和生成式模型
-comments: false
+comments: true
 ---
 
 # 判别式模型和生成式模型[^1]

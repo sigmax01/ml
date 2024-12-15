@@ -1,6 +1,6 @@
 ---
 title: 自动微分
-comments: false
+comments: true
 ---
 
 ## 微分方法
