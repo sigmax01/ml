@@ -2,18 +2,7 @@
 title: 开始
 ---
 
-# 开始
-
-欢迎来到机器学习笔记项目.
-
-## 联动
-
-- [基石库](https://gk.ricolxwz.de)
-- [派森贰](https://py.ricolxwz.de)
-- [无底洞](https://cpp.ricolxwz.de)
-- [杂七杂八档案室](https://misc.ricolxwz.de)
-
-## 进度
+## 传送
 
 - [ ] 数学
     - [ ] [概率](/math/probability/)
