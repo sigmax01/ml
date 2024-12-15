@@ -1125,4 +1125,169 @@ Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([ 0.0
 
 前置知识请见[这里](/dicts/autograd).
 
+当我们训练神经网络的时候, 最长使用的就是BP算法. 在这个算法中, 网络的参数会根据输出对于它的梯度调整. 为了计算这些梯度, PyTorch有一个内置的微分引擎叫做`torch.autograd`. 它支持任何DAG的自动微分.
+
+考虑一个最简单的一层神经网络, 输入为`x`, 参数为`w`和`b`, 还有一个损失函数, 那么它在PyTorch中可以被定义为:
+
+```py title='输入'
+import torch
+
+x = torch.ones(5)  # 输入tensor
+y = torch.zeros(3)  # 预期输出
+w = torch.randn(5, 3, requires_grad=True)
+b = torch.randn(3, requires_grad=True)
+z = torch.matmul(x, w)+b
+loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)
+```
+
+### Tensor, 函数和计算图
+
+上述代码对应于这个计算图:
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/7efcb858120ecb3c0d118ce548c1fa96.png){ loading=lazy width='500' }
+</figure>
+
+在这个网络中, `w`和`b`是参数, 是我们要优化的对象, 因此, 我们需要去计算损失函数对应于这些参数的梯度. 为了实现这一点, 我们设置`requires_grad`为`True`.
+
+???+ note "另一种方法"
+
+    可以在开始的时候设置`requires_grad`为`True`, 也可以随后调用`x.requires_grad_(True)`.
+
+用于构建这个计算图的函数其实是`Function`的一个对象, 这个对象知道如何正向计算值, 也知道在反向传播的时候计算参数的微分. 每个tensor的`grad_fn`属性会指向一个用于求导的`Function`对象, 这个对象中记载了该tensor是由哪些tensor通过什么操作生成的. 在反向传播的时候, 从最终的loss开始, 第-1层的`grad_fn`的输出是第-2层`grad_fn`的输入, 一直往前回溯, 就能计算出所有参数的梯度.
+
+```py title='输入'
+print(f"Gradient function for z = {z.grad_fn}")
+print(f"Gradient function for loss = {loss.grad_fn}")
+```
+
+``` title='输出'
+Gradient function for z = <AddBackward0 object at 0x7f00bbb611b0>
+Gradient function for loss = <BinaryCrossEntropyWithLogitsBackward0 object at 0x7f00bd553e50>
+```
+
+### 计算梯度
+
+为了计算梯度, 我们可以调用`loss.backward()`函数, 这个会触发链式反应, 及从后向前逐步调用`grad_fucntion`, 然后更新对应参数的`grad`属性.
+
+```py title='输入'
+loss.backward()
+print(w.grad)
+print(b.grad)
+```
+
+``` title='输出'
+tensor([[0.3313, 0.0626, 0.2530],
+        [0.3313, 0.0626, 0.2530],
+        [0.3313, 0.0626, 0.2530],
+        [0.3313, 0.0626, 0.2530],
+        [0.3313, 0.0626, 0.2530]])
+tensor([0.3313, 0.0626, 0.2530])
+```
+
+???+ tip "只有叶子节点会存储梯度信息"
+
+    **神经网络需要训练的模型参数位于计算图的叶子节点位置(见上图), 中间tensors是在前向传播过程中由参数和输入数据通过计算得到的中间结果.** 在计算图中, 叶子节点通常是由用户直接创建并设定了`requires_grad=True`的tensor. 这些叶子节点会在反向传播后, 会自动把梯度值保存到其`grad`属性中. 对于计算图中的非叶子节点, 它们通常是由叶子节点通过某些运算得到的中间结果. 默认情况下, 这些中间tensor在反向传播的时候不会保存梯度信息. 这是因为在大多数情况下, 我们只需要对参数(叶子节点)进行梯度更新, 而不需要对中间结果存储梯度. 如果确实需要中间结果的梯度, 可以在创建这些中间节点的时候设置`retain_grad`, 这样它们在反向传播结束的时候也会保留梯度信息, 不过这种操作较为少见.
+
+???+ tip "累积梯度的实质"
+
+    累积梯度是指如果不在多次反向传播之间清零(通常使用`oprimizer.zero_grad()`或手动将`.grad`置零), 则参数的`.grad`会累积所有反向传播得到的梯度值. 举个例子:
+
+    - 第一次前向和反向传播后, 参数`W`的梯度`W.grad=g1`
+    - 如果此时不清零梯度, 再进行第二次前向和反向传播计算得到梯度`g2`, 那么`W.grad`将变成`g1+g2`
+    - 如此一来, 通过多次小批量数据的前向和反向传播, 我们可以累积梯度, 让`W.grad`存储来自多个batch的梯度和
+
+    这种累积在实际中可用于模拟更大的批量训练, 即用小批模拟大批(batch size), 减少显存占用.
+
+???+ tip "重复调用backward需要保留计算图"
+
+    一般来说, 当我们对损失tensor调用一次`backward()`后, 为了节省内存和提升性能, 计算图会被释放(清空). 这意味着如果我们想要再次对同一个图调用`backward()`, 已经不存在可用的计算图来进行第二次反向传播了. 如果确实需要对同一个图多次调用`backward()`, (比如在一些复杂计算中, 我们像重复利用同一批数据的图进行多次梯度计算), 就需要在第一次`backward()`调用的时候传入`retain_graph=True`, 这样做会使得该计算图在反向传播结束的时候依然被保留, 以便后续再次使用, 不过这样会占用较多的内存和计算资源.
+
+### 关闭梯度追踪
+
+默认情况下, 所有`requries_grad=True`的tensor都会追踪它们的梯度计算历史. 然而, 有一些情况下我们并不需要梯度. 例如, 当我们想要测试而不是训练网络的时候. 我们可以使用`torch.no_grad()`块来禁用梯度追踪.
+
+```py title='输入'
+z = torch.matmul(x, w)+b
+print(z.requires_grad)
+
+with torch.no_grad():
+    z = torch.matmul(x, w)+b
+print(z.requires_grad)
+```
+
+``` title='输出'
+True
+False
+```
+
+另一种方法是对tensor使用`detach()`函数.
+
+```py title='输入'
+z = torch.matmul(x, w)+b
+z_det = z.detach()
+print(z_det.requires_grad)
+```
+
+``` title='输出'
+False
+```
+
+### 小小总结
+
+在理论上, PyTorch的自动微分会在一张有向无环图(DAG)中记录tensor和所有操作. 在这个图中, leaves是输入tensor, root是输出tensor. 从root到leaves, 可以使用链式法则自动计算梯度. 本质上, 它用的是自动微分中的反向模式.
+
+在前向传播的时候, 自动微分会做两件事:
+
+- 执行相应的操作
+- 在DAG中更新梯度函数
+
+在反向传播的时候, 自动微分会做三件事:
+
+- 调用`.grad_fn`中的函数
+- 累积在`.grad`属性中
+- 使用链式法则, 将梯度反向传播
+
+### VJP在PyTorch中的应用
+
+首先, 请参考[这里](/dicts/autograd/#VJP).
+
+举个例子, 我们计算的不是损失函数(一个标量, 一个函数)对于输入的梯度, 而是计算20个函数对于输入的梯度. 假设输入tensor`inp`的形状是`(4, 5)`, 也就是说有20个元素, 输入维度`n=20`. 输出tensor`out`的维度是`(5, 4)`, 也就是说有20个元素, 输出维度`m=20`. Jacobian矩阵的大小为20\*20. 假设我需要的是所有输出传回输入的时候产生的灵敏度, 即我们的“种子矩阵”`u`被设置为一个大小5\*4的全一矩阵. 使用PyTorch计算VJP就是设置`backward`的第一个参数等于这个“种子矩阵”.
+
+```py title='输入'
+inp = torch.eye(4, 5, requires_grad=True)
+out = (inp+1).pow(2).t()
+out.backward(torch.ones_like(out), retain_graph=True)
+print(f"First call\n{inp.grad}")
+out.backward(torch.ones_like(out), retain_graph=True)
+print(f"\nSecond call\n{inp.grad}")
+inp.grad.zero_()
+out.backward(torch.ones_like(out), retain_graph=True)
+print(f"\nCall after zeroing gradients\n{inp.grad}")
+```
+
+``` title='输出'
+First call
+tensor([[4., 2., 2., 2., 2.],
+        [2., 4., 2., 2., 2.],
+        [2., 2., 4., 2., 2.],
+        [2., 2., 2., 4., 2.]])
+
+Second call
+tensor([[8., 4., 4., 4., 4.],
+        [4., 8., 4., 4., 4.],
+        [4., 4., 8., 4., 4.],
+        [4., 4., 4., 8., 4.]]) # 梯度累积, 梯度会累积到计算图叶子节点的.grad属性中
+
+Call after zeroing gradients
+tensor([[4., 2., 2., 2., 2.],
+        [2., 4., 2., 2., 2.],
+        [2., 2., 4., 2., 2.],
+        [2., 2., 2., 4., 2.]])
+```
+
+???+ note "之前损失函数的等价调用方法"
+
+    之前我们使用的是损失函数(即一个标量, 一个函数)对于输入的梯度, 所以等价于种子向量被设置为一个标量`1`, 表示这个输出处于“选中”状态, 所以等价于`backward(torch.tensor(1.0))`.
+
 [^1]: Learn the basics—PyTorch tutorials 2.5.0+cu124 documentation. (不详). 取读于 2024年12月13日, 从 https://pytorch.org/tutorials/beginner/basics/intro.html

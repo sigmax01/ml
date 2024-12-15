@@ -3,18 +3,12 @@ title: 自动微分
 comments: false
 ---
 
-## 参考视频[^1]
-
-<div style="position: relative; padding: 30% 45%;">
-<iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1PF411h7Ew&p=1&high_quality=1&autoplay=false&muted=false&t=5&as_wide=1" frameborder="yes" scrolling="no" allowfullscreen="true"></iframe>
-</div>
-
 ## 微分方法
 
 微分有四种方法: 手动微分, 数值微分, 符号微分和自动微分. 如图[^2]所示.
 
 <figure markdown='1'>
-  ![](https://img.ricolxwz.io/e8b99a520b4a39e9675ad00859811bf4.png){ loading=lazy width='500' }
+  ![](https://img.ricolxwz.io/e8b99a520b4a39e9675ad00859811bf4.png){ loading=lazy width='600' }
 </figure>
 
 - **手动微分**: 一种通过手动推导和计算来求解函数导数的方法. 根据微积分中的求导法则(如链式法则, 乘法法则等), 手动推导出该函数的导数表达式. 并将这个手动推导出来的公式用计算机代码表示, 以便在给定输入值时计算出相应的导数值
@@ -53,7 +47,7 @@ comments: false
 
 上述过程其实和反向传播算法是吻合的, BP算法也是正向传播求出所有神经元的权重, 然后通过反向模式求出损失函数对应于每一个神经元的权重的偏导数. 由于只有一个标量的输出, 所以大多数的中间偏导数都能被重复利用(缓存输出对于中间变量的偏导数)而不用对于每个神经元的权重都重复计算一次, 所以反向模式特别适合标量输出, 输入维度较大的场景; 而正向模式特别适合输入维度较小, 输出维度较大的场景.
 
-### Jacobian矩阵
+### Jacobian矩阵 {#Jacobian-Matrix}
 
 Jacobian矩阵定义为一个由多个函数的多个偏导数组成的矩阵. 假设有一个从$\mathbb{R}^n$到$\mathbb{R}^m$的函数$\mathbf{f}$, 其中的第$(i, j)$个元素的含义是第$i$个函数对第$j$个变量的偏导数.
 
@@ -79,7 +73,7 @@ $$\mathbf{J} =
 
 存储整个Jacobian矩阵通常是不现实的, 因为它的规模可能会非常大, 消耗巨大的存储空间. 此外, 在很多实际问题中, 我们通常只需要用到Jacobian矩阵的特定操作, 而不需要完整存储整个矩阵, 这就是引入JVP和VJP的原因.
 
-#### Jacobian-向量积
+#### Jacobian-向量积 {#JVP}
 
 JVP是指用Jacobian矩阵$\mathbf{J}$左乘一个向量$\mathbf{v}$:
 
@@ -106,7 +100,7 @@ $$
 
     Jacobian矩阵$\mathbf{J}$的每一列对应“一个特定输入变量对于所有输出的偏导数组合”, 即固定输入参数求所有输出对它的偏导数, 这对应在使用正向AD时, 为这个输入变量设置其导数种子在对应的方向向量的分量为1, 其他为0. 当你有多个输入变量同时设置导数种子非零的时候, 正向AD会在一次传播中计算这些方向对于输出的综合影响.
 
-#### 向量-Jacobian积
+#### 向量-Jacobian积 {#VJP}
 
 VJP(Vector-Jacobian Product)是指用一个向量$\mathbf{u}$右乘Jacobian矩阵$\mathbf{J}$:
 
@@ -131,7 +125,11 @@ $$
     - JVP: 在输入方向上选择性赋0, 使得你“忽略”对无关参数的变化, 只关心指定参数子集对完整输出函数的影响
     - VJP: 在输出方向上选择性赋0, 使得你“忽略”某些输出维度的变化, 只关心指定输出子集在传播回输入参数时产生的敏感度
 
+## 参考视频[^1]
 
+<div style="position: relative; padding: 30% 45%;">
+<iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1PF411h7Ew&p=1&high_quality=1&autoplay=false&muted=false&t=5&as_wide=1" frameborder="yes" scrolling="no" allowfullscreen="true"></iframe>
+</div>
 
 [^1]: Deep_Thoughts (导演). (2021, 十一月 15). 13、详细推导自动微分Forward与Reverse模式 [Video recording]. https://www.bilibili.com/video/BV1PF411h7Ew/?spm_id_from=888.80997.embed_other.whitelist&t=5&bvid=BV1PF411h7Ew&vd_source=f86bed5e9ae170543d583b3f354fcaa9
 [^2]: Baydin, A. G., Pearlmutter, B. A., Radul, A. A., & Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey (No. arXiv:1502.05767). arXiv. https://doi.org/10.48550/arXiv.1502.05767
