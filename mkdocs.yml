@@ -141,17 +141,17 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
-  - i18n:
-      enabled: !ENV [CI, false]
-      docs_structure: suffix
-      languages:
-        - locale: zh
-          default: true
-          name: 中文
-          build: true
-        - locale: en
-          name: English
-          build: true
+  # - i18n:
+  #     enabled: !ENV [CI, false]
+  #     docs_structure: suffix
+  #     languages:
+  #       - locale: zh
+  #         default: true
+  #         name: 中文
+  #         build: true
+  #       - locale: en
+  #         name: English
+  #         build: true
   - search:
       separator: '[\s\u200b\-]'
   - open-in-new-tab
@@ -165,10 +165,10 @@ plugins:
       locale: zh
       enable_creation_date: true
       enabled: !ENV [CI, false]
-  - git-committers:
-      repository: sigmax01/ml
-      branch: master
-      enabled: !ENV [CI, false]
+  # - git-committers:
+  #     repository: sigmax01/ml
+  #     branch: master
+  #     enabled: !ENV [CI, false]
 nav:
   - 开始:
       - index.md
@@ -213,7 +213,7 @@ nav:
   - 代码:
       - PyTorch:
           - code/pytorch/index.md
-          - 从0开始构建Transformer: code/pytorch/transformer-from-scratch.ipynb
+          - 从0开始构建Transformer: 'code/pytorch/transformer-from-scratch.ipynb'
   - 词典:
       - 反向传播: dicts/backpropagation.md
       - 自动微分: dicts/autograd.md
