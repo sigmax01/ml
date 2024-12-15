@@ -161,6 +161,7 @@ plugins:
   - mkdocs-jupyter:
       theme: slate
       include_source: True
+      ignore_h1_titles: True
   - git-revision-date-localized:
       locale: zh
       enable_creation_date: true
