@@ -213,3 +213,7 @@ nav:
   - 代码:
       - PyTorch:
           - code/pytorch/index.md
+  - 词典:
+      - 反向传播: dicts/backpropagation.md
+      - 自动微分: dicts/autograd.md
+      - 判别式模型和生成式模型: dicts/discriminative-and-generative-model.md
