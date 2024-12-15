@@ -222,3 +222,17 @@ summary code {
     margin-left: 0.1rem;
     margin-right: 0.1rem;
 }
+
+/* Jupyter Notebook调整样式 */
+.md-content__inner:before {
+    height: unset;
+}
+.jp-Notebook {
+    padding-top: unset !important;
+}
+#transformer-from-scratch {
+    margin-bottom: unset;
+}
+.jupyter-wrapper .jp-Cell {
+    padding: unset !important;
+}
