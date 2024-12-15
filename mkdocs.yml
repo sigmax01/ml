@@ -158,10 +158,10 @@ plugins:
   - glightbox:
       skip_classes:
         - skipbox
-  - mkdocs-jupyter:
-      theme: slate
-      include_source: True
-      ignore_h1_titles: True
+  # - mkdocs-jupyter:
+  #     theme: slate
+  #     include_source: True
+  #     ignore_h1_titles: True
   - git-revision-date-localized:
       locale: zh
       enable_creation_date: true
@@ -214,7 +214,6 @@ nav:
   - 代码:
       - PyTorch:
           - code/pytorch/index.md
-          - 从0开始构建Transformer: 'code/pytorch/transformer-from-scratch.ipynb'
   - 词典:
       - 反向传播: dicts/backpropagation.md
       - 自动微分: dicts/autograd.md

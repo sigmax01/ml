@@ -1,12 +1,4 @@
 {% extends "base.html" %}
-{% block content %}
-{% if page.nb_url %}
-    <a href="{{ page.nb_url }}" title="下载此文件" class="md-content__button md-icon">
-        {% include ".icons/material/file-download-outline.svg" %}
-    </a>
-{% endif %}
-{{ super() }}
-{% endblock content %}
 {% block extrahead %}
 <link href="example.com" rel="icon" />
 <link
