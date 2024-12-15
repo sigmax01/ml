@@ -165,10 +165,10 @@ plugins:
       locale: zh
       enable_creation_date: true
       enabled: !ENV [CI, false]
-  # - git-committers:
-  #     repository: sigmax01/ml
-  #     branch: master
-  #     enabled: !ENV [CI, false]
+  - git-committers:
+      repository: sigmax01/ml
+      branch: master
+      enabled: !ENV [CI, false]
 nav:
   - 开始:
       - index.md
