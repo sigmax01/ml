@@ -1663,15 +1663,6 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      参考视频
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
       微分方法
     </span>
   </a>
@@ -1679,7 +1670,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       自动微分
     </span>
@@ -1689,7 +1680,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       正向模式
     </span>
@@ -1698,7 +1689,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       反向模式
     </span>
@@ -1707,7 +1698,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#jacobian" class="md-nav__link">
+  <a href="#Jacobian-Matrix" class="md-nav__link">
     <span class="md-ellipsis">
       Jacobian矩阵
     </span>
@@ -1717,7 +1708,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#jacobian-" class="md-nav__link">
+  <a href="#JVP" class="md-nav__link">
     <span class="md-ellipsis">
       Jacobian-向量积
     </span>
@@ -1726,7 +1717,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#-jacobian" class="md-nav__link">
+  <a href="#VJP" class="md-nav__link">
     <span class="md-ellipsis">
       向量-Jacobian积
     </span>
@@ -1741,6 +1732,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考视频
+    </span>
+  </a>
   
 </li>
       
@@ -1777,15 +1777,10 @@
 
   <h1>自动微分</h1>
 
-<h2 id="_1">参考视频<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<div style="position: relative; padding: 30% 45%;">
-<iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1PF411h7Ew&p=1&high_quality=1&autoplay=false&muted=false&t=5&as_wide=1" frameborder="yes" scrolling="no" allowfullscreen="true"></iframe>
-</div>
-
-<h2 id="_2">微分方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_1">微分方法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>微分有四种方法: 手动微分, 数值微分, 符号微分和自动微分. 如图<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>所示.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/e8b99a520b4a39e9675ad00859811bf4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e8b99a520b4a39e9675ad00859811bf4.png" width="500" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/e8b99a520b4a39e9675ad00859811bf4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/e8b99a520b4a39e9675ad00859811bf4.png" width="600" /></a></p>
 </figure>
 <ul>
 <li><strong>手动微分</strong>: 一种通过手动推导和计算来求解函数导数的方法. 根据微积分中的求导法则(如链式法则, 乘法法则等), 手动推导出该函数的导数表达式. 并将这个手动推导出来的公式用计算机代码表示, 以便在给定输入值时计算出相应的导数值</li>
@@ -1793,7 +1788,7 @@
 <li><strong>符号微分</strong>: 符号微分需要对表达式进行符号解析和规则转换, 这可能涉及对复杂函数结构的模式匹配和简化, 将输入的函数转化为其对应的解析形式的导数表达式, 最终结果是一个以符号为基础的解析函数, 如, 使用符号微分对表达式进行求导, 可以直接得到类似<span class="arithmatex">\(2x+3\sin(x)\)</span>这样明确的解析形式. 如果函数很复杂, 解析出来的导数表达式可能极其冗长甚至不便于使用. 它适用于需要明确解析导数公式的场合, 例如数学分析, 公式推导等. <strong>它侧重于给出一个具体的解析导数表达式, 而不是在求出某个点的导数值</strong></li>
 <li><strong>自动微分</strong>: 自动微分通过在数值计算的过程中对基本运算步骤的导数链式求导规则进行系统地分解和累积, 最终在一个具体点处高效地求得函数在该点的导数值. <strong>它侧重于对给定输入点求出相应的导数值, 而不是求出导函数的解析式</strong>. 它分为正向模式和反向模式, 上图所展示的自动微分属于正向模式, 总结起来, 正向模式是从输入开始, 往输出传播导数信息; 后向模式是从输出开始, 往输入传播导数信息</li>
 </ul>
-<h2 id="_3">自动微分<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_2">自动微分<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <details class="info" open="open">
 <summary>前置提醒</summary>
 <p>我们将<span class="arithmatex">\(\frac{\partial a}{\partial b}\)</span>称为<span class="arithmatex">\(a\)</span>相对于<span class="arithmatex">\(b\)</span>的偏导数.</p>
@@ -1807,20 +1802,20 @@
 <li>反向模式中<span class="arithmatex">\(\frac{d v_{i+1}}{d v_i}\)</span>是已知数, 需要求导的是<span class="arithmatex">\(\frac{d v_i}{d v_{i-1}}\)</span>, 缓存的是输出对于中间变量的导数</li>
 </ul>
 </details>
-<h3 id="_4">正向模式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_3">正向模式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/9896183d8df1e4f92cbbb37a6961e12a.png" width="500" /></a>
   </p>
 <figcaption>正向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$</figcaption>
 </figure>
-<h3 id="_5">反向模式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_4">反向模式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/da7f074ddd48d72e35c1ed7c7f06ebd2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/da7f074ddd48d72e35c1ed7c7f06ebd2.png" width="500" /></a>
   </p>
 <figcaption>反向模式例子. 定义输出函数为$y=f(x_1, x_2)=\ln(x_1)+x_1x_2-\sin(x_2)$, 计算$(x_1, x_2)=(2, 5)$处的偏导数$\frac{\partial y}{\partial x_1}$和偏导数$\frac{\partial y}{\partial x_2}$</figcaption>
 </figure>
 <p>上述过程其实和反向传播算法是吻合的, BP算法也是正向传播求出所有神经元的权重, 然后通过反向模式求出损失函数对应于每一个神经元的权重的偏导数. 由于只有一个标量的输出, 所以大多数的中间偏导数都能被重复利用(缓存输出对于中间变量的偏导数)而不用对于每个神经元的权重都重复计算一次, 所以反向模式特别适合标量输出, 输入维度较大的场景; 而正向模式特别适合输入维度较小, 输出维度较大的场景.</p>
-<h3 id="jacobian">Jacobian矩阵<a class="headerlink" href="#jacobian" title="Permanent link">&para;</a></h3>
+<h3 id="Jacobian-Matrix">Jacobian矩阵<a class="headerlink" href="#Jacobian-Matrix" title="Permanent link">&para;</a></h3>
 <p>Jacobian矩阵定义为一个由多个函数的多个偏导数组成的矩阵. 假设有一个从<span class="arithmatex">\(\mathbb{R}^n\)</span>到<span class="arithmatex">\(\mathbb{R}^m\)</span>的函数<span class="arithmatex">\(\mathbf{f}\)</span>, 其中的第<span class="arithmatex">\((i, j)\)</span>个元素的含义是第<span class="arithmatex">\(i\)</span>个函数对第<span class="arithmatex">\(j\)</span>个变量的偏导数.</p>
 <div class="arithmatex">\[\mathbf{J} =
 \begin{bmatrix}
@@ -1841,7 +1836,7 @@
 <li>对于反向模式, 一次程序计算能够求一个函数对于所有输入的偏导数(能够缓存的是输出对于中间变量的偏导数), 对应的就是Jacobian矩阵中的一行, 所以, 如果想用反向模式计算出所有函数对于所有输入的偏导数, 需要计算<span class="arithmatex">\(m\)</span>次</li>
 </ul>
 <p>存储整个Jacobian矩阵通常是不现实的, 因为它的规模可能会非常大, 消耗巨大的存储空间. 此外, 在很多实际问题中, 我们通常只需要用到Jacobian矩阵的特定操作, 而不需要完整存储整个矩阵, 这就是引入JVP和VJP的原因.</p>
-<h4 id="jacobian-">Jacobian-向量积<a class="headerlink" href="#jacobian-" title="Permanent link">&para;</a></h4>
+<h4 id="JVP">Jacobian-向量积<a class="headerlink" href="#JVP" title="Permanent link">&para;</a></h4>
 <p>JVP是指用Jacobian矩阵<span class="arithmatex">\(\mathbf{J}\)</span>左乘一个向量<span class="arithmatex">\(\mathbf{v}\)</span>:</p>
 <div class="arithmatex">\[
 \mathbf{Jv} =
@@ -1862,7 +1857,7 @@ v_1 \\ v_2 \\ \vdots \\ v_n
 <summary>深入理解上面这句话</summary>
 <p>Jacobian矩阵<span class="arithmatex">\(\mathbf{J}\)</span>的每一列对应“一个特定输入变量对于所有输出的偏导数组合”, 即固定输入参数求所有输出对它的偏导数, 这对应在使用正向AD时, 为这个输入变量设置其导数种子在对应的方向向量的分量为1, 其他为0. 当你有多个输入变量同时设置导数种子非零的时候, 正向AD会在一次传播中计算这些方向对于输出的综合影响.</p>
 </details>
-<h4 id="-jacobian">向量-Jacobian积<a class="headerlink" href="#-jacobian" title="Permanent link">&para;</a></h4>
+<h4 id="VJP">向量-Jacobian积<a class="headerlink" href="#VJP" title="Permanent link">&para;</a></h4>
 <p>VJP(Vector-Jacobian Product)是指用一个向量<span class="arithmatex">\(\mathbf{u}\)</span>右乘Jacobian矩阵<span class="arithmatex">\(\mathbf{J}\)</span>:</p>
 <div class="arithmatex">\[
 \mathbf{u}^\top \mathbf{J}
@@ -1884,6 +1879,11 @@ v_1 \\ v_2 \\ \vdots \\ v_n
 <li>VJP: 在输出方向上选择性赋0, 使得你“忽略”某些输出维度的变化, 只关心指定输出子集在传播回输入参数时产生的敏感度</li>
 </ul>
 </details>
+<h2 id="_5">参考视频<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div style="position: relative; padding: 30% 45%;">
+<iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1PF411h7Ew&p=1&high_quality=1&autoplay=false&muted=false&t=5&as_wide=1" frameborder="yes" scrolling="no" allowfullscreen="true"></iframe>
+</div>
+
 <div class="footnote">
 <hr />
 <ol>

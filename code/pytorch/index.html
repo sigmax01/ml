@@ -1909,6 +1909,57 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="自动微分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tensor_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tensor, 函数和计算图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算梯度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      关闭梯度追踪
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      小小总结
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vjppytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      VJP在PyTorch中的应用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2866,6 +2917,132 @@
 </code></pre></div>
 <h2 id="_18">自动微分<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <p>前置知识请见<a href="/dicts/autograd">这里</a>.</p>
+<p>当我们训练神经网络的时候, 最长使用的就是BP算法. 在这个算法中, 网络的参数会根据输出对于它的梯度调整. 为了计算这些梯度, PyTorch有一个内置的微分引擎叫做<code>torch.autograd</code>. 它支持任何DAG的自动微分.</p>
+<p>考虑一个最简单的一层神经网络, 输入为<code>x</code>, 参数为<code>w</code>和<code>b</code>, 还有一个损失函数, 那么它在PyTorch中可以被定义为:</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="kn">import</span> <span class="nn">torch</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 输入tensor</span>
+<a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 预期输出</span>
+<a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a><span class="n">w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">+</span><span class="n">b</span>
+<a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a><span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">binary_cross_entropy_with_logits</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="tensor_3">Tensor, 函数和计算图<a class="headerlink" href="#tensor_3" title="Permanent link">&para;</a></h3>
+<p>上述代码对应于这个计算图:</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/7efcb858120ecb3c0d118ce548c1fa96.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/7efcb858120ecb3c0d118ce548c1fa96.png" width="500" /></a></p>
+</figure>
+<p>在这个网络中, <code>w</code>和<code>b</code>是参数, 是我们要优化的对象, 因此, 我们需要去计算损失函数对应于这些参数的梯度. 为了实现这一点, 我们设置<code>requires_grad</code>为<code>True</code>.</p>
+<details class="note" open="open">
+<summary>另一种方法</summary>
+<p>可以在开始的时候设置<code>requires_grad</code>为<code>True</code>, 也可以随后调用<code>x.requires_grad_(True)</code>.</p>
+</details>
+<p>用于构建这个计算图的函数其实是<code>Function</code>的一个对象, 这个对象知道如何正向计算值, 也知道在反向传播的时候计算参数的微分. 每个tensor的<code>grad_fn</code>属性会指向一个用于求导的<code>Function</code>对象, 这个对象中记载了该tensor是由哪些tensor通过什么操作生成的. 在反向传播的时候, 从最终的loss开始, 第-1层的<code>grad_fn</code>的输出是第-2层<code>grad_fn</code>的输入, 一直往前回溯, 就能计算出所有参数的梯度.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gradient function for z = </span><span class="si">{</span><span class="n">z</span><span class="o">.</span><span class="n">grad_fn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gradient function for loss = </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">grad_fn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>Gradient function for z = &lt;AddBackward0 object at 0x7f00bbb611b0&gt;
+<a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>Gradient function for loss = &lt;BinaryCrossEntropyWithLogitsBackward0 object at 0x7f00bd553e50&gt;
+</code></pre></div>
+<h3 id="_19">计算梯度<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>为了计算梯度, 我们可以调用<code>loss.backward()</code>函数, 这个会触发链式反应, 及从后向前逐步调用<code>grad_fucntion</code>, 然后更新对应参数的<code>grad</code>属性.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
+<a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>tensor([[0.3313, 0.0626, 0.2530],
+<a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>        [0.3313, 0.0626, 0.2530],
+<a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a>        [0.3313, 0.0626, 0.2530],
+<a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>        [0.3313, 0.0626, 0.2530],
+<a id="__codelineno-77-5" name="__codelineno-77-5" href="#__codelineno-77-5"></a>        [0.3313, 0.0626, 0.2530]])
+<a id="__codelineno-77-6" name="__codelineno-77-6" href="#__codelineno-77-6"></a>tensor([0.3313, 0.0626, 0.2530])
+</code></pre></div>
+<details class="tip" open="open">
+<summary>只有叶子节点会存储梯度信息</summary>
+<p><strong>神经网络需要训练的模型参数位于计算图的叶子节点位置(见上图), 中间tensors是在前向传播过程中由参数和输入数据通过计算得到的中间结果.</strong> 在计算图中, 叶子节点通常是由用户直接创建并设定了<code>requires_grad=True</code>的tensor. 这些叶子节点会在反向传播后, 会自动把梯度值保存到其<code>grad</code>属性中. 对于计算图中的非叶子节点, 它们通常是由叶子节点通过某些运算得到的中间结果. 默认情况下, 这些中间tensor在反向传播的时候不会保存梯度信息. 这是因为在大多数情况下, 我们只需要对参数(叶子节点)进行梯度更新, 而不需要对中间结果存储梯度. 如果确实需要中间结果的梯度, 可以在创建这些中间节点的时候设置<code>retain_grad</code>, 这样它们在反向传播结束的时候也会保留梯度信息, 不过这种操作较为少见.</p>
+</details>
+<details class="tip" open="open">
+<summary>累积梯度的实质</summary>
+<p>累积梯度是指如果不在多次反向传播之间清零(通常使用<code>oprimizer.zero_grad()</code>或手动将<code>.grad</code>置零), 则参数的<code>.grad</code>会累积所有反向传播得到的梯度值. 举个例子:</p>
+<ul>
+<li>第一次前向和反向传播后, 参数<code>W</code>的梯度<code>W.grad=g1</code></li>
+<li>如果此时不清零梯度, 再进行第二次前向和反向传播计算得到梯度<code>g2</code>, 那么<code>W.grad</code>将变成<code>g1+g2</code></li>
+<li>如此一来, 通过多次小批量数据的前向和反向传播, 我们可以累积梯度, 让<code>W.grad</code>存储来自多个batch的梯度和</li>
+</ul>
+<p>这种累积在实际中可用于模拟更大的批量训练, 即用小批模拟大批(batch size), 减少显存占用.</p>
+</details>
+<details class="tip" open="open">
+<summary>重复调用backward需要保留计算图</summary>
+<p>一般来说, 当我们对损失tensor调用一次<code>backward()</code>后, 为了节省内存和提升性能, 计算图会被释放(清空). 这意味着如果我们想要再次对同一个图调用<code>backward()</code>, 已经不存在可用的计算图来进行第二次反向传播了. 如果确实需要对同一个图多次调用<code>backward()</code>, (比如在一些复杂计算中, 我们像重复利用同一批数据的图进行多次梯度计算), 就需要在第一次<code>backward()</code>调用的时候传入<code>retain_graph=True</code>, 这样做会使得该计算图在反向传播结束的时候依然被保留, 以便后续再次使用, 不过这样会占用较多的内存和计算资源.</p>
+</details>
+<h3 id="_20">关闭梯度追踪<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>默认情况下, 所有<code>requries_grad=True</code>的tensor都会追踪它们的梯度计算历史. 然而, 有一些情况下我们并不需要梯度. 例如, 当我们想要测试而不是训练网络的时候. 我们可以使用<code>torch.no_grad()</code>块来禁用梯度追踪.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">+</span><span class="n">b</span>
+<a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+<a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>
+<a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+<a id="__codelineno-78-5" name="__codelineno-78-5" href="#__codelineno-78-5"></a>    <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">+</span><span class="n">b</span>
+<a id="__codelineno-78-6" name="__codelineno-78-6" href="#__codelineno-78-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>True
+<a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>False
+</code></pre></div>
+<p>另一种方法是对tensor使用<code>detach()</code>函数.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">+</span><span class="n">b</span>
+<a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a><span class="n">z_det</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+<a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">z_det</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>False
+</code></pre></div>
+<h3 id="_21">小小总结<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>在理论上, PyTorch的自动微分会在一张有向无环图(DAG)中记录tensor和所有操作. 在这个图中, leaves是输入tensor, root是输出tensor. 从root到leaves, 可以使用链式法则自动计算梯度. 本质上, 它用的是自动微分中的反向模式.</p>
+<p>在前向传播的时候, 自动微分会做两件事:</p>
+<ul>
+<li>执行相应的操作</li>
+<li>在DAG中更新梯度函数</li>
+</ul>
+<p>在反向传播的时候, 自动微分会做三件事:</p>
+<ul>
+<li>调用<code>.grad_fn</code>中的函数</li>
+<li>累积在<code>.grad</code>属性中</li>
+<li>使用链式法则, 将梯度反向传播</li>
+</ul>
+<h3 id="vjppytorch">VJP在PyTorch中的应用<a class="headerlink" href="#vjppytorch" title="Permanent link">&para;</a></h3>
+<p>首先, 请参考<a href="/dicts/autograd/#VJP">这里</a>.</p>
+<p>举个例子, 我们计算的不是损失函数(一个标量, 一个函数)对于输入的梯度, 而是计算20个函数对于输入的梯度. 假设输入tensor<code>inp</code>的形状是<code>(4, 5)</code>, 也就是说有20个元素, 输入维度<code>n=20</code>. 输出tensor<code>out</code>的维度是<code>(5, 4)</code>, 也就是说有20个元素, 输出维度<code>m=20</code>. Jacobian矩阵的大小为20*20. 假设我需要的是所有输出传回输入的时候产生的灵敏度, 即我们的“种子矩阵”<code>u</code>被设置为一个大小5*4的全一矩阵. 使用PyTorch计算VJP就是设置<code>backward</code>的第一个参数等于这个“种子矩阵”.</p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a><span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">inp</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+<a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a><span class="n">out</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-82-4" name="__codelineno-82-4" href="#__codelineno-82-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First call</span><span class="se">\n</span><span class="si">{</span><span class="n">inp</span><span class="o">.</span><span class="n">grad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-82-5" name="__codelineno-82-5" href="#__codelineno-82-5"></a><span class="n">out</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-82-6" name="__codelineno-82-6" href="#__codelineno-82-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Second call</span><span class="se">\n</span><span class="si">{</span><span class="n">inp</span><span class="o">.</span><span class="n">grad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-82-7" name="__codelineno-82-7" href="#__codelineno-82-7"></a><span class="n">inp</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+<a id="__codelineno-82-8" name="__codelineno-82-8" href="#__codelineno-82-8"></a><span class="n">out</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-82-9" name="__codelineno-82-9" href="#__codelineno-82-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Call after zeroing gradients</span><span class="se">\n</span><span class="si">{</span><span class="n">inp</span><span class="o">.</span><span class="n">grad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>First call
+<a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>tensor([[4., 2., 2., 2., 2.],
+<a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>        [2., 4., 2., 2., 2.],
+<a id="__codelineno-83-4" name="__codelineno-83-4" href="#__codelineno-83-4"></a>        [2., 2., 4., 2., 2.],
+<a id="__codelineno-83-5" name="__codelineno-83-5" href="#__codelineno-83-5"></a>        [2., 2., 2., 4., 2.]])
+<a id="__codelineno-83-6" name="__codelineno-83-6" href="#__codelineno-83-6"></a>
+<a id="__codelineno-83-7" name="__codelineno-83-7" href="#__codelineno-83-7"></a>Second call
+<a id="__codelineno-83-8" name="__codelineno-83-8" href="#__codelineno-83-8"></a>tensor([[8., 4., 4., 4., 4.],
+<a id="__codelineno-83-9" name="__codelineno-83-9" href="#__codelineno-83-9"></a>        [4., 8., 4., 4., 4.],
+<a id="__codelineno-83-10" name="__codelineno-83-10" href="#__codelineno-83-10"></a>        [4., 4., 8., 4., 4.],
+<a id="__codelineno-83-11" name="__codelineno-83-11" href="#__codelineno-83-11"></a>        [4., 4., 4., 8., 4.]]) # 梯度累积, 梯度会累积到计算图叶子节点的.grad属性中
+<a id="__codelineno-83-12" name="__codelineno-83-12" href="#__codelineno-83-12"></a>
+<a id="__codelineno-83-13" name="__codelineno-83-13" href="#__codelineno-83-13"></a>Call after zeroing gradients
+<a id="__codelineno-83-14" name="__codelineno-83-14" href="#__codelineno-83-14"></a>tensor([[4., 2., 2., 2., 2.],
+<a id="__codelineno-83-15" name="__codelineno-83-15" href="#__codelineno-83-15"></a>        [2., 4., 2., 2., 2.],
+<a id="__codelineno-83-16" name="__codelineno-83-16" href="#__codelineno-83-16"></a>        [2., 2., 4., 2., 2.],
+<a id="__codelineno-83-17" name="__codelineno-83-17" href="#__codelineno-83-17"></a>        [2., 2., 2., 4., 2.]])
+</code></pre></div>
+<details class="note" open="open">
+<summary>之前损失函数的等价调用方法</summary>
+<p>之前我们使用的是损失函数(即一个标量, 一个函数)对于输入的梯度, 所以等价于种子向量被设置为一个标量<code>1</code>, 表示这个输出处于“选中”状态, 所以等价于<code>backward(torch.tensor(1.0))</code>.</p>
+</details>
 <div class="footnote">
 <hr />
 <ol>
@@ -2896,7 +3073,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月15日</span>
   </span>
 
     
