@@ -110,6 +110,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1437,6 +1442,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    ViT
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1446,6 +1462,32 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      摘要
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1666,6 +1708,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      摘要
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1697,7 +1756,12 @@
 
   <h1>ViT</h1>
 
-
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>当年, Transformer已经成为了NLP的de-facto标准(当然现在也是), 它在计算机视觉上的引用可以说是寥寥无几.在视觉领域, 注意力机制要不和卷积网络结合使用, 要不是替代其中的某一些组件, 但整体结构保持不变. 作者展示了这种对于卷积的依赖关系是多余的, 纯Transformer架构就可以直接应用于图像的块序列而得到非常好的分类效果. 作者先在大量数据上得到一个预训练模型, 然后将该模型在较小规模或者中等规模的数据集(例如ImageNet, CIFAR-10等)进行有监督的微调, 与当时的SOTA相比展现了出色的结果并且需要更少的资源训练.</p>
+<details class="note" open="open">
+<summary>什么是image patches</summary>
+<p>"image patches"是指将输入的原始图像分割为一系列较小的矩形块(通常是大小相等的正方形块). 这些小块每一个都可以视为一个独立的图像片段(patch). 然后每个patch的像素会被展开为一维序列, 然后...</p>
+</details>
 
 
 
