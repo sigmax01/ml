@@ -33,7 +33,7 @@ Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在
 
 ???+ note "什么是“去噪”自监督学习任务"
 
-    其核心是MLM, 即在输入句子中随机mask掉一部分次, 然后让模型在不看到这些遮盖词原本信息的情况下, 基于上下文语义来预测被遮盖位置应填入的词汇, 这一过程可以理解为一种“去噪”任务, 输入文本相当于被“噪声”污染过的句子, 而BERT需要学会利用上下文信息将“噪声”清除, 恢复出原本的正确内容.
+    其核心是MLM, 即在输入句子中随机mask掉一部分词, 然后让模型在不看到这些遮盖词原本信息的情况下, 基于上下文语义来预测被遮盖位置应填入的词汇, 这一过程可以理解为一种“去噪”任务, 输入文本相当于被“噪声”污染过的句子, 而BERT需要学会利用上下文信息将“噪声”清除, 恢复出原本的正确内容.
 
 由于自注意力机制的全局特性, 直接将自注意力应用于图像的话, 每个像素都要关注其他的所有像素. 这所产生的复杂度是输入像素点数量的平方, 显然无法扩展到现实中的输入尺寸. 因此, 为了在图像处理领域运用Transformer, 在过去的工作中, 研究者尝试了多种不同的近似方法. Parmar等人[^9]将自注意力机制仅仅应用于每个查询像素的局部领域, 而不是全局, 这种局部的多头点积自注意力块可以完全取代卷积计算. 在不同的战线上, 由Child等人[^10]提出的Sparse Transformer将输入特征划分为多个区域或块, 然后在这些较小的块内部使用全局或者局部自注意力, 使模型在每个块内建立特征的全局关联. 同时, 在块与块之间采用某种稀疏的连接规则(如跳跃式的远程连接), 而非对所有块进行完全的全局交互, 这样, 每个块内部可以有比较密集的自注意力计算(相当于“局部全局”注意力), 而块与块之间的自注意力交互则被限制在某些特定特征上, 从而降低了整体计算量. 另一种由Weissenborn等人[^11]提出的方法还是对输入特征进行分块的, 不同的是, 他们更强调利用分层结构来减少全局交互, 而不同于Child等人提出的固定块之间的跳跃式稀疏连接. 在计算情况下, 还可以只对行维度或列维度上进行全局的块交互[^4][^12]. 许多这些特殊设计的注意力架构在计算机视觉任务中展现了具有前景的结果, 但是在硬件加速器上需要复杂的工程设计以实现高效运算.
 
@@ -58,7 +58,23 @@ Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在
 
 ### ViT
 
-对于模型的overview如上图所示. 这个标准的Transformer会收到1D的token嵌入序列. 为了处理2D的图像, 他们将图像$\mathbf{x} \in \mathbb{R}^{H \times W \times C}$首先转化为一个展平的2D patches $\mathbf{x}_p \in \mathbb{R}^{N \times (P^2 \cdot C)}$, $(H, W)$表示的是原图的分辨率, $C$表示的是通道数, $(P, P)$表示的是patch的分辨率, $N=HW/P^2$表示的是产生的patches的数量, 同时也是输入Transformer的序列长度. Transformer对于所有的层潜向量大小是固定的$D$, 所以他们使用可训练的线性变换对这些patches进一步展平到$D$维, 他们将这个线性变换的结果叫做patch嵌入.
+对于模型的overview如上图所示. 这个标准的Transformer会收到1D的token嵌入序列. 为了处理2D的图像, 他们将图像$\mathbf{x} \in \mathbb{R}^{H \times W \times C}$首先转化为一个展平的2D patches $\mathbf{x}_p \in \mathbb{R}^{N \times (P^2 \cdot C)}$, $(H, W)$表示的是原图的分辨率, $C$表示的是通道数, $(P, P)$表示的是patch的分辨率, $N=HW/P^2$表示的是产生的patches的数量, 同时也是输入Transformer的序列长度. Transformer对于所有的层潜向量大小是固定的$D$, 所以他们使用可训练的线性变换对这些patches进一步展平到$D$维, 他们将这个线性变换的结果叫做patch嵌入(如下面的第一个公式所示).
+
+$$
+\begin{aligned}
+\mathbf{z}_0 &= [\mathbf{x}_{\text{class}}; \mathbf{x}_p^1 \mathbf{E}; \mathbf{x}_p^2 \mathbf{E}; \cdots; \mathbf{x}_p^N \mathbf{E}] + \mathbf{E}_{\text{pos}},
+\quad \mathbf{E} \in \mathbb{R}^{(P^2 \cdot C) \times D}, \quad \mathbf{E}_{\text{pos}} \in \mathbb{R}^{(N+1) \times D}\\[6pt]
+\mathbf{z}'_\ell &= MSA(LN(\mathbf{z}_{\ell-1})) + \mathbf{z}_{\ell-1}, \quad \ell = 1 \dots L\\[6pt]
+\mathbf{z}_\ell &= MLP(LN(\mathbf{z}'_\ell)) + \mathbf{z}'_\ell, \quad \ell = 1 \dots L\\[6pt]
+\mathbf{y} &= LN(\mathbf{z}_L^0)
+\end{aligned}
+$$
+
+???+ note "上面公式中变量的含义"
+
+    $\mathbf{z}$的下标$\ell$表示的是第$\ell$层, $\mathbf{z}_{\ell}$表示的是第$\ell$层Transformer的输出. $\mathbf{z}$的上标表示的是该层第几个输入, 如$\mathbf{z}^{0}_{0}$表示的是第0层的第0个输入. $\mathbf{E}$表示的是那个可学习的线性变换, 用于将patch转换为$D$维的嵌入. $L$是层的总数量.
+
+和BERT的`[class]`token类似, 我们会在patches的嵌入组成的序列前面挂一个可学习的嵌入, 即$\mathbf{x}_{\text{class}}$, 来汇总整个序列的信息, 即在ViT中$\mathbf{z}^0_0=\mathbf{x}_{\text{class}}$. 经过多层的Transformer编码器之后, 这个token的状态会被更新, 最终在最后一层($L$层)的输出中, 它的含义就是整个图像的信息. 这个汇总的全局信息会被送入一个小型网络中, 又叫做“分类头”(classfication head), 这个分类头的输出维度的大小和类别数量相等. 在训练的时候, 为了让模型学到更加通用, 更加丰富的特征表示, 这个分类头由含有一个隐藏层的MLP构成, 中间可能会有非线性激活(如GELU), 这样可以对特征进行进一步的非线性映射, 分类头的输出会和真实标签比较, 计算交叉熵损失然后反向传播. 在微调的时候, 分类头通常被设置为一个单一的线性层(没有隐藏层), 因为在微调的时候, 模型已经有比较好的表示能力, 只需要一个简单的分类器, 对$\mathbf{z}^0_L$进行线性映射, 然后通过softmax输出最终的类别概率.
 
 [^1]: Wang, X., Girshick, R., Gupta, A., & He, K. (2018). Non-local neural networks (No. arXiv:1711.07971). arXiv. https://doi.org/10.48550/arXiv.1711.07971
 [^2]: Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A., & Zagoruyko, S. (2020). End-to-end object detection with transformers (No. arXiv:2005.12872). arXiv. https://doi.org/10.48550/arXiv.2005.12872
