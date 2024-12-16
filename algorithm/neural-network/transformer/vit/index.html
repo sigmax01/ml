@@ -1504,6 +1504,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="方法论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ViT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1887,6 +1902,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="方法论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ViT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1932,7 +1962,7 @@
 <p>基于注意力机制的架构, 特别是Transformer已经成为NLP领域的model of choice. 目前最主流的方法是先在大型语料库上进行预训练然后在较小的下游任务数据集上微调. 正是由于Transformer的计算效率和可扩展性, 训练庞大的前所未有的网络变得可能, 甚至有超过100B参数的. 随着模型和数据集的增长, 似乎还没有看到性能的饱和.</p>
 <p>在计算机视觉领域, 然而, 卷积架构仍然是主流. 收到Transformer在NLP领域成功的启发, 有一些工作试图将类似于CNN的架构和自注意力机制结合在一起<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>, 另一些工作试图将整个卷积层替换掉<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>. 随后的模型, 虽然在理论上是高效率的, 但是由于使用了特殊的注意力结构, 导致并没有很好的扩展到现代的硬件加速器上. 因此, 对于大尺度的图片识别, 传统的类ResNet目前还是SOTA的状态.</p>
 <p>受到Transformer在NLP领域的启发, 作者测试了在最少的可能改动下将一个标准的Transformer直接用于图片. 为了实现这一点, 他们将一张图片分为了很多的patches并且对这些patches进行编码, 得到的序列被输入到Transformer中, 这些patches和Transformer中的Token是等价的. 与GPT等模型不同的是, 在预训练阶段, 他们使用的是有监督学习, 而不是自监督学习.</p>
-<p>当我们在中等规模的数据集如ImageNet上进行训练, 且不实用高强度的正则化方法时, 这些模型的准确率比同等规模的ResNets低几个百分点. 这种令人失望的结果或许是预期的, 因为Transformer缺乏CNN所具有的一些归纳偏置, 如平移不变性, 局部特征, 因此对于数据量不足的情况下无法很好地泛化.</p>
+<p>当他们在中等规模的数据集如ImageNet上进行训练, 且不实用高强度的正则化方法时, 这些模型的准确率比同等规模的ResNets低几个百分点. 这种令人失望的结果或许是预期的, 因为Transformer缺乏CNN所具有的一些归纳偏置, 如平移不变性, 局部特征, 因此对于数据量不足的情况下无法很好地泛化.</p>
 <details class="note" open="open">
 <summary>什么是归纳偏置</summary>
 <p>归纳偏置, Inductive Biases, 或者叫做“归纳偏好”, 是学习算法自身在一个庞大的假设空间中对假设进行选择的启发或者“价值观”<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>. 如CNN通过卷积核在输入数据的局部区域内进行操作, 强调了局部特征的重要性(locality); 并且, 图片平移后识别结果应该具有不变性(translation equivariance), CNN通过卷积核在空间上滑动实现这一点. 每个神经元仅仅与局部区域内的一小部分神经元相连接, 这种稀疏连接能够大幅减少计算量并提高性能, 所以GooLeNet通过密集部件模拟稀疏网络. 这里的局部特征, 平移不变性, 稀疏网络就是归纳偏置.</p>
@@ -1959,6 +1989,8 @@
   </p>
 <figcaption>模型overview. 将图片分为固定大小的patches, 然后对它们进行线性编码, 加入位置嵌入, 将结果喂到一个标准的Transformer编码器中. 为了能够执行分类任务, 作者使用了向序列中加入"classification token"的标准方式(类似于BERT). Transformer的编码器来源于Vvaswani等人.</figcaption>
 </figure>
+<h3 id="vit">ViT<a class="headerlink" href="#vit" title="Permanent link">&para;</a></h3>
+<p>对于模型的overview如上图所示. 这个标准的Transformer会收到1D的token嵌入序列. 为了处理2D的图像, 他们将图像<span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^{H \times W \times C}\)</span>首先转化为一个展平的2D patches <span class="arithmatex">\(\mathbf{x}_p \in \mathbb{R}^{N \times (P^2 \cdot C)}\)</span>, <span class="arithmatex">\((H, W)\)</span>表示的是原图的分辨率, <span class="arithmatex">\(C\)</span>表示的是通道数, <span class="arithmatex">\((P, P)\)</span>表示的是patch的分辨率, <span class="arithmatex">\(N=HW/P^2\)</span>表示的是产生的patches的数量, 同时也是输入Transformer的序列长度. Transformer对于所有的层潜向量大小是固定的<span class="arithmatex">\(D\)</span>, 所以他们使用可训练的线性变换对这些patches进一步展平到<span class="arithmatex">\(D\)</span>维, 他们将这个线性变换的结果叫做patch嵌入.</p>
 <div class="footnote">
 <hr />
 <ol>
