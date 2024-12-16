@@ -29,11 +29,32 @@ comments: false
 
 ## 相关工作
 
-Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在很多NLP任务中成为了SOTA方法. 基于Transformer的大模型常常是在大规模语料库上训练然后在特定任务上进行微调. BERT[^7]在预训练阶段采用了一种类似“去噪”的自监督学习任务(denoising self-supervised pre-training task), 其核心是MLM, 即在输入句子中随机mask掉一部分次, 然后让模型在不看到这些遮盖词原本信息的情况下, 基于上下文语义来预测被遮盖位置应填入的词汇, 这一过程可以理解为一种“去噪”任务, 输入文本相当于被“噪声”污染过的句子, 而BERT需要学会利用上下文信息将“噪声”清除, 恢复出原本的正确内容. GPT[^8]在预训练阶段使用的是语言建模的优化目标.
+Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在很多NLP任务中成为了SOTA方法. 基于Transformer的大模型常常是在大规模语料库上训练然后在特定任务上进行微调. BERT[^7]在预训练阶段采用了一种类似“去噪”的自监督学习任务(denoising self-supervised pre-training task). GPT[^8]在预训练阶段使用的是语言建模的优化目标.
+
+???+ note "什么是“去噪”自监督学习任务"
+
+    其核心是MLM, 即在输入句子中随机mask掉一部分次, 然后让模型在不看到这些遮盖词原本信息的情况下, 基于上下文语义来预测被遮盖位置应填入的词汇, 这一过程可以理解为一种“去噪”任务, 输入文本相当于被“噪声”污染过的句子, 而BERT需要学会利用上下文信息将“噪声”清除, 恢复出原本的正确内容.
 
 由于自注意力机制的全局特性, 直接将自注意力应用于图像的话, 每个像素都要关注其他的所有像素. 这所产生的复杂度是输入像素点数量的平方, 显然无法扩展到现实中的输入尺寸. 因此, 为了在图像处理领域运用Transformer, 在过去的工作中, 研究者尝试了多种不同的近似方法. Parmar等人[^9]将自注意力机制仅仅应用于每个查询像素的局部领域, 而不是全局, 这种局部的多头点积自注意力块可以完全取代卷积计算. 在不同的战线上, 由Child等人[^10]提出的Sparse Transformer将输入特征划分为多个区域或块, 然后在这些较小的块内部使用全局或者局部自注意力, 使模型在每个块内建立特征的全局关联. 同时, 在块与块之间采用某种稀疏的连接规则(如跳跃式的远程连接), 而非对所有块进行完全的全局交互, 这样, 每个块内部可以有比较密集的自注意力计算(相当于“局部全局”注意力), 而块与块之间的自注意力交互则被限制在某些特定特征上, 从而降低了整体计算量. 另一种由Weissenborn等人[^11]提出的方法还是对输入特征进行分块的, 不同的是, 他们更强调利用分层结构来减少全局交互, 而不同于Child等人提出的固定块之间的跳跃式稀疏连接. 在计算情况下, 还可以只对行维度或列维度上进行全局的块交互[^4][^12]. 许多这些特殊设计的注意力架构在计算机视觉任务中展现了具有前景的结果, 但是在硬件加速器上需要复杂的工程设计以实现高效运算.
 
 和作者提出的模型关系最大的是由Cordonnier等人[^13]提出的模型. 他们从输入图像中提取大小为2\*2的patches, 然后在此之上应用完整的自我注意力. 这个模型和ViT非常像, 但是作者进一步证明在大规模数据集上预训练的ViT甚至能够比当时的CNN领域的SOTA更好(还是输给了数据集大小, orz). 并且, Cordonnier等人使用的是一个小的2\*2的patch, 这使得他们的模型仅仅能够被应用到小分辨率图像上, 而作者提出的ViT也能够处理中等分辨率的图像.
+
+对于将CNNs和自注意力结合起来也有许多有趣的研究. Bello等人[^14]在CNN提取的特征图上添加自注意力, 增加模型对全局信息的感知, 提升图像分类效果. Hu等人[^15], Carion等人[^2]在CNN输出的基础上应用Transformer架构, 使模型更好地定位和识别图像中的目标对象. Wang等人[^1], Sun等人[^16]在时序序列的视觉特征中加入自注意力, 可以同时关注视频帧之间的全局关联和局部特征, 从而改善动作识别, 视频分类等任务, Wu等人[^17]通过在CNN中整合自注意力, 进一步提升图像分类精度, Locatello等人[^18]在没有明确标注的条件下, 将CNN和自注意力结合, 有助于物体识别. Chen等人[^19], Lu等人[^20], Li等人[^21]通过在CNN视觉特征和文本特征之间引入自注意力, 对图像和文本特征进行统一编码和融合, 从而实现如图文匹配, 图文问答, 多模态理解等复杂任务.
+
+另外一个比较相关的模型是image GPT(iGPT)[^22], 他们将Transformer应用于减少分辨率/颜色空间的图像上, 这个模型被当作一个生成式模型进行无监督预训练, 然后得到的表示被微调或进行“线性探针”以获得分类性能, 在ImageNet上达到了72%的准度.
+
+???+ note "什么是“线性探针”"
+
+    线性探针通常是指在模型的某一层(通常是中间层或者是预训练模型的特定层)上提取特征表示, 然后在这些表示上训练一个简单的线性分类器(例如线性回归或者SVM)来预测特定的下游任务标签, 以此来衡量该层表示中所蕴含的信息和任务可分性.
+
+作者的研究属于不断增多的研究工作之一: 这些研究都试图在比标准的ImageNet数据集更大规模的范围内开展图像识别的探索和实践. 换句话说, 他们的工作与其他的一些论文一起, 正推动图像识别从仅局限于ImageNet数据集, 扩展到处理更大, 更加广泛的图像数据. 此前的一些工作研究了CNN在数据集规模增大时的性能变化, 以及从大规模数据集(如ImageNet-21k和JFT-300M)进行迁移学习的效果. 本研究和这些工作相似, 也使用了上述的大型数据集, 但是和以往的ResNet模型不同的是, 本研究的重点在于使用Transformer模型进行训练和研究.
+
+## 方法论
+
+<figure markdown='1'>
+  ![](https://img.ricolxwz.io/68495fc7236b9721a4b529966ca65c5e.png){ loading=lazy width='500' }
+  <figcaption>模型overview. 将图片分为固定大小的patches, 然后对它们进行线性编码, 加入位置嵌入, 将结果喂到一个标准的Transformer编码器中. 为了能够执行分类任务, 作者使用了向序列中加入"classification token"的标准方式(类似于BERT). Transformer的编码器来源于Vvaswani等人.</figcaption>
+</figure>
 
 [^1]: Wang, X., Girshick, R., Gupta, A., & He, K. (2018). Non-local neural networks (No. arXiv:1711.07971). arXiv. https://doi.org/10.48550/arXiv.1711.07971
 [^2]: Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A., & Zagoruyko, S. (2020). End-to-end object detection with transformers (No. arXiv:2005.12872). arXiv. https://doi.org/10.48550/arXiv.2005.12872
@@ -48,3 +69,12 @@ Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在
 [^11]: Weissenborn, D., Täckström, O., & Uszkoreit, J. (2020). Scaling autoregressive video models (No. arXiv:1906.02634). arXiv. https://doi.org/10.48550/arXiv.1906.02634
 [^12]: Ho, J., Kalchbrenner, N., Weissenborn, D., & Salimans, T. (2019). Axial attention in multidimensional transformers (No. arXiv:1912.12180). arXiv. https://doi.org/10.48550/arXiv.1912.12180
 [^13]: Cordonnier, J.-B., Loukas, A., & Jaggi, M. (2020). On the relationship between self-attention and convolutional layers (No. arXiv:1911.03584). arXiv. https://doi.org/10.48550/arXiv.1911.03584
+[^14]: Bello, I., Zoph, B., Vaswani, A., Shlens, J., & Le, Q. V. (2020). Attention augmented convolutional networks (No. arXiv:1904.09925). arXiv. https://doi.org/10.48550/arXiv.1904.09925
+[^15]: Hu, H., Gu, J., Zhang, Z., Dai, J., & Wei, Y. (2018). Relation networks for object detection (No. arXiv:1711.11575). arXiv. https://doi.org/10.48550/arXiv.1711.11575
+[^16]: Sun, C., Myers, A., Vondrick, C., Murphy, K., & Schmid, C. (2019). VideoBERT: A joint model for video and language representation learning (No. arXiv:1904.01766). arXiv. https://doi.org/10.48550/arXiv.1904.01766
+[^17]: Wu, B., Xu, C., Dai, X., Wan, A., Zhang, P., Yan, Z., Tomizuka, M., Gonzalez, J., Keutzer, K., & Vajda, P. (2020). Visual transformers: Token-based image representation and processing for computer vision (No. arXiv:2006.03677). arXiv. https://doi.org/10.48550/arXiv.2006.03677
+[^18]: Locatello, F., Weissenborn, D., Unterthiner, T., Mahendran, A., Heigold, G., Uszkoreit, J., Dosovitskiy, A., & Kipf, T. (2020). Object-centric learning with slot attention (No. arXiv:2006.15055). arXiv. https://doi.org/10.48550/arXiv.2006.15055
+[^19]: Chen, Y.-C., Li, L., Yu, L., Kholy, A. E., Ahmed, F., Gan, Z., Cheng, Y., & Liu, J. (2020). UNITER: UNiversal image-TExt representation learning (No. arXiv:1909.11740). arXiv. https://doi.org/10.48550/arXiv.1909.11740
+[^20]: Lu, J., Batra, D., Parikh, D., & Lee, S. (2019). ViLBERT: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks (No. arXiv:1908.02265). arXiv. https://doi.org/10.48550/arXiv.1908.02265
+[^21]: Li, L. H., Yatskar, M., Yin, D., Hsieh, C.-J., & Chang, K.-W. (2019). VisualBERT: A simple and performant baseline for vision and language (No. arXiv:1908.03557). arXiv. https://doi.org/10.48550/arXiv.1908.03557
+[^22]: Chen, M., Radford, A., Wu, J., Jun, H., Dhariwal, P., Luan, D., & Sutskever, I. (2020, 七月 12). Generative pretraining from pixels. International Conference on Machine Learning. https://www.semanticscholar.org/paper/Generative-Pretraining-From-Pixels-Chen-Radford/bc022dbb37b1bbf3905a7404d19c03ccbf6b81a8
