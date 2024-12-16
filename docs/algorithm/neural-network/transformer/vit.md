@@ -115,11 +115,13 @@ $$
 
     对于MSA, 自注意力机制会计算序列中任意两个token之间的注意力权重, 也就是说, 输出不仅仅取决于每个token自身的特征, 还高度依赖于其他token的关系, 能够“看到”整个序列的全局结构和上下文信息, 因此具有非局部性.
 
-???+ note "为什么MLP被认为是Translationally Equivariant的"
+???+ question "为什么MLP被认为是Translationally Equivariant的(我认为两者没有这个性质)"
 
     “平移不变形”指的是, **无论特征出现在图像的哪个位置, 网络都能在那个相应的位置产出类似的响应, 并且模型无需为不同位置的同类特征单独学习不同的参数**.
 
-    对于MLP,
+    对于MSA, 由于ViT会引入位置编码, 这使得当图像进行平移之后, 其token的编码会发生变化, 这会使得自注意力分数产生显著变化, 即特征在不同位置会导致自注意力的重新分布, 如此一来, 网络就无法在保证自注意力层参数$W_q, W_k, W_v$不变的情况下, 对平移后的特征图产生与平移前的特征产生完全相同的响应.
+
+    对于MLP而言, 由于ViT会引入位置编码, 那么相同的特征在不同的位置也会呈现出不同的输入信号(因为位置编码的注入改变了输入特征), 从而导致MLP在其参数不改变的情况下, 特征在不同位置的输出不再相同, 所以MLP其实也是没有Translationally Equivariant的.
 
 [^1]: Wang, X., Girshick, R., Gupta, A., & He, K. (2018). Non-local neural networks (No. arXiv:1711.07971). arXiv. https://doi.org/10.48550/arXiv.1711.07971
 [^2]: Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A., & Zagoruyko, S. (2020). End-to-end object detection with transformers (No. arXiv:2005.12872). arXiv. https://doi.org/10.48550/arXiv.2005.12872
