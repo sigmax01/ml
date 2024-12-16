@@ -214,6 +214,7 @@ nav:
   - 代码:
       - PyTorch:
           - code/pytorch/index.md
+          - code/pytorch/transformer-from-pytorch.md
   - 词典:
       - 反向传播: dicts/backpropagation.md
       - 自动微分: dicts/autograd.md
