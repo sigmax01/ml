@@ -1514,6 +1514,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ViT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      归纳偏置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1912,6 +1927,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ViT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      归纳偏置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2002,9 +2032,44 @@
 \]</div>
 <details class="note" open="open">
 <summary>上面公式中变量的含义</summary>
-<p><span class="arithmatex">\(\mathbf{z}\)</span>的下标<span class="arithmatex">\(\ell\)</span>表示的是第<span class="arithmatex">\(\ell\)</span>层, <span class="arithmatex">\(\mathbf{z}_{\ell}\)</span>表示的是第<span class="arithmatex">\(\ell\)</span>层Transformer的输出. <span class="arithmatex">\(\mathbf{z}\)</span>的上标表示的是该层第几个输入, 如<span class="arithmatex">\(\mathbf{z}^{0}_{0}\)</span>表示的是第0层的第0个输入. <span class="arithmatex">\(\mathbf{E}\)</span>表示的是那个可学习的线性变换, 用于将patch转换为<span class="arithmatex">\(D\)</span>维的嵌入. <span class="arithmatex">\(L\)</span>是层的总数量.</p>
+<p><span class="arithmatex">\(\mathbf{z}\)</span>的下标<span class="arithmatex">\(\ell\)</span>表示的是第<span class="arithmatex">\(\ell\)</span>层, <span class="arithmatex">\(\mathbf{z}_{\ell}\)</span>表示的是第<span class="arithmatex">\(\ell\)</span>层Transformer的输出. <span class="arithmatex">\(\mathbf{z}\)</span>的上标表示的是该层第几个输入, 如<span class="arithmatex">\(\mathbf{z}^{0}_{0}\)</span>表示的是第0层的第0个输入. <span class="arithmatex">\(\mathbf{E}\)</span>表示的是那个可学习的线性变换, 用于将patch转换为<span class="arithmatex">\(D\)</span>维的嵌入. <span class="arithmatex">\(L\)</span>是层的总数量. Transformer编码器由多头自注意力层(MSA)和多层感知机(MLP)层交替堆叠而成. 在每一个block之前会进行LN, 并在block之后有一个残差连接(MSA和MLP都算一个block).</p>
 </details>
 <p>和BERT的<code>[class]</code>token类似, 我们会在patches的嵌入组成的序列前面挂一个可学习的嵌入, 即<span class="arithmatex">\(\mathbf{x}_{\text{class}}\)</span>, 来汇总整个序列的信息, 即在ViT中<span class="arithmatex">\(\mathbf{z}^0_0=\mathbf{x}_{\text{class}}\)</span>. 经过多层的Transformer编码器之后, 这个token的状态会被更新, 最终在最后一层(<span class="arithmatex">\(L\)</span>层)的输出中, 它的含义就是整个图像的信息. 这个汇总的全局信息会被送入一个小型网络中, 又叫做“分类头”(classfication head), 这个分类头的输出维度的大小和类别数量相等. 在训练的时候, 为了让模型学到更加通用, 更加丰富的特征表示, 这个分类头由含有一个隐藏层的MLP构成, 中间可能会有非线性激活(如GELU), 这样可以对特征进行进一步的非线性映射, 分类头的输出会和真实标签比较, 计算交叉熵损失然后反向传播. 在微调的时候, 分类头通常被设置为一个单一的线性层(没有隐藏层), 因为在微调的时候, 模型已经有比较好的表示能力, 只需要一个简单的分类器, 对<span class="arithmatex">\(\mathbf{z}^0_L\)</span>进行线性映射, 然后通过softmax输出最终的类别概率.</p>
+<p>位置嵌入会被添加到patch嵌入以保持位置信息. 作者使用的是标准的可学习1D位置嵌入, 因为他们并没有发现使用2D嵌入有非常明显的性能提升. 生成的嵌入向量序列被作为编码器的输入.</p>
+<h4 id="_5">归纳偏置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>作者注意到ViT相比于CNNs来说, 对于图片特定的偏置归纳明显更少. 在CNN中, 局部性, 二维邻域结构和平移等效性这些归纳偏置存在于模型的每一层中. 在ViT中, 只有Transformer块内部的MLP层(不是classification head的那个MLP)在某种程度上具有局部性和平移等变性.</p>
+<details class="note" open="open">
+<summary>什么是二维邻域结构</summary>
+<p>“二维邻域结构”指的是模型在处理数据时体现出来的二维拓扑关联性, 即把输入数据(如图像)看作是有明确行列关系的二维网格. 卷积核在二维图像平面上滑动, 访问“邻近的”像素块, 从而保留了数据的空间排列方式和二维结构. 例如, 我们有一张灰度图像, 可以表示为一个二维像素矩阵:</p>
+<div class="arithmatex">\[
+\begin{matrix}
+p_{11} &amp; p_{12} &amp; p_{13} &amp; p_{14}\\
+p_{21} &amp; p_{22} &amp; p_{23} &amp; p_{24}\\
+p_{31} &amp; p_{32} &amp; p_{33} &amp; p_{34} \\
+p_{41} &amp; p_{42} &amp; p_{43} &amp; p_{44} \\
+\end{matrix}
+\]</div>
+<p>当我们把卷积核应用到图像的左上角的时候, 它会作用在下列二维邻域上:</p>
+<div class="arithmatex">\[
+\begin{matrix}
+p_{11} &amp; p_{12} &amp; p_{13} \\
+p_{21} &amp; p_{22} &amp; p_{23} \\
+p_{31} &amp; p_{32} &amp; p_{33}
+\end{matrix}
+\]</div>
+<p>这里的<span class="arithmatex">\(p_{11}, p_{12}, p_{13}, p_{21}, p_{22}, p_{23}, p_{31}, p_{32}, p_{33}\)</span>组成了一个“二维邻域”, 这个邻域是有空间结构的.</p>
+</details>
+<details class="note" open="open">
+<summary>为什么MLP被认为是Local的</summary>
+<p>“局部性”强调的是模型倾向于在小范围的局部区域中发现特征. 当CNN用小卷积核在输入图像上滑动的时候, 每个卷积核一次只能“看”一个有限大小的局部感受野, 而不会看到其他地方的东西.</p>
+<p>对于MLP, local不是指图像空间上的locality, 是指MLP对每个输入的patch embedding独立, 相同的进行处理(共享权重), 并不考虑其他patch的信息(因为它没有像自注意力那样的全局关联计算), 换句话说, 对于序列中的每个token(patch embedding), MLP执行的变换是相同的. 从另一个角度理解, MLP是point-wise的操作, 它不会根据全局结构或者位置差异对不同的token赋予不同的处理方式, 而是对每个token单独且同样地变换.</p>
+<p>对于MSA, 自注意力机制会计算序列中任意两个token之间的注意力权重, 也就是说, 输出不仅仅取决于每个token自身的特征, 还高度依赖于其他token的关系, 能够“看到”整个序列的全局结构和上下文信息, 因此具有非局部性.</p>
+</details>
+<details class="note" open="open">
+<summary>为什么MLP被认为是Translationally Equivariant的</summary>
+<p>“平移不变形”指的是, <strong>无论特征出现在图像的哪个位置, 网络都能在那个相应的位置产出类似的响应, 并且模型无需为不同位置的同类特征单独学习不同的参数</strong>.</p>
+<p>对于MLP,</p>
+</details>
 <div class="footnote">
 <hr />
 <ol>
