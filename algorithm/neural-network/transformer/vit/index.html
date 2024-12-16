@@ -2114,6 +2114,12 @@ p_{31} &amp; p_{32} &amp; p_{33}
 <h4 id="_6">混合架构<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>除了这种在原始图像上切patches的做法, 作者还提出了一种混合模型架构, 在Transformer之前先使用CNN对图像进行特征提取. 即首先使用CNN对原图进行处理, 得到一个中间层的特征图. 这个特征图会被再切分成patches, 然后通过线性投影层<span class="arithmatex">\(\mathbf{E}\)</span>对每个patch进行展平. 特别的, 如果patch大小是1*1的时候, 每个patch相当于是特征图的单个像素, 并将每个patch线性映射到<span class="arithmatex">\(D\)</span>维, 然后添加那个<code>[class]</code>和位置嵌入.</p>
 <h3 id="_7">微调和高分辨率<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>通常, 我们现在大数据集上预训练ViT, 然后微调以用于(较小的)下游任务. 在进行下游任务微调的时候, 由于下游任务的类别数量<span class="arithmatex">\(k\)</span>可能和预训练的时候不同, 此时需要移除预训练时候的分类头, 或者说是预测头, 并添加一个新的维度为<span class="arithmatex">\(D\times k\)</span>的线性层作为新的预测头.</p>
+<p>此外, 预训练通常在标准的分辨率下进行(如224*224), 此时, 模型学习到了一定的视觉和模式, 当在fine-tuning时使用高分辨率的图像(如384*384)的时候, 图像中会出现更多的细节特征(如更清晰的纹理, 边缘, 微小物体或者局部结构). 由于patch的大小保持不变(仍为16*16), 更高分辨率的图像会被分割出更多的patch, 从而序列长度增大. 这意味着在微调的时候能够获得更加密集, 更加细粒的输入, 从而提升对下游任务的识别, 分类或者检索性能. 理论上来说, 只要有足够的内存, ViT就能处理任意长度的序列, 但是有一个问题, 在预训练的时候使用的是对应于224*224图片的patch网格的positional embeddings. 如果patch网格产生变化, 那么原来的positional embeddings就完全不能用了, 因此预训练的模型就失去了意义. 这可以通过2D插值来实现. 当我们进行这种2D插值的时候, 其实是引入了patch网格的二维空间信息, 因为插入的位置编码是基于它在空间中的位置的, 除了patch内部的2D结构之外还有这个之外, 所有的2D结构都要通过模型自己学习.</p>
+<details class="note" open="open">
+<summary>什么是插值</summary>
+<p>将预训练好的位置嵌入向量阵列视为一个14*14的特征图, 然后通过类似图像插值的方法将其扩展到24*24的特征图, 以匹配新分辨率下的网格. 拿一个简单的1D插值来说, 比如原来的位置编码是<span class="arithmatex">\(7, 9\)</span>, 那么经过插值之后, 原来的位置编码是保持不变的, 再中间插值, 变成了<span class="arithmatex">\(7, 8, 9\)</span>. 只不过, 它这里用是2D的插值, 需要对二维网格上的相邻位置编码做平均.</p>
+</details>
 <div class="footnote">
 <hr />
 <ol>
