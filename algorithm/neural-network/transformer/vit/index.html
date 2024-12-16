@@ -1488,6 +1488,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      相关工作
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1853,6 +1862,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      相关工作
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1902,6 +1920,10 @@
 <p>归纳偏置, Inductive Biases, 或者叫做“归纳偏好”, 是学习算法自身在一个庞大的假设空间中对假设进行选择的启发或者“价值观”<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>. 如CNN通过卷积核在输入数据的局部区域内进行操作, 强调了局部特征的重要性(locality); 并且, 图片平移后识别结果应该具有不变性(translation equivariance), CNN通过卷积核在空间上滑动实现这一点. 每个神经元仅仅与局部区域内的一小部分神经元相连接, 这种稀疏连接能够大幅减少计算量并提高性能, 所以GooLeNet通过密集部件模拟稀疏网络. 这里的局部特征, 平移不变性, 稀疏网络就是归纳偏置.</p>
 </details>
 <p>然而, 如果模型在大规模的数据集上(14M-300M)训练, 他们发现这种大规模的训练范式强于CNN的归纳偏置. 他们的ViT模型在大规模与训练并迁移到较少的任务时, 取得了优异的成果. 他们使用公共的ImageNet-21K或者内部的JFT-300M数据集预训练后, ViT在多项图片识别benchmark上接近或者打败了SOTA. 特别的, 最优的ViT模型在ImageNet上达到了88.55%, 在ImageNet-ReaL上达到了90.72%的准确率, 在CIFAR-100上达到了94.55%的准确率, 在VTAB19个任务套件上达到了77.63%的准确率.</p>
+<h2 id="_3">相关工作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Transformer由Vaswani等人提出<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>, 起初用于机器翻译, 现在已经在很多NLP任务中成为了SOTA方法. 基于Transformer的大模型常常是在大规模语料库上训练然后在特定任务上进行微调. BERT<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>在预训练阶段采用了一种类似“去噪”的自监督学习任务(denoising self-supervised pre-training task), 其核心是MLM, 即在输入句子中随机mask掉一部分次, 然后让模型在不看到这些遮盖词原本信息的情况下, 基于上下文语义来预测被遮盖位置应填入的词汇, 这一过程可以理解为一种“去噪”任务, 输入文本相当于被“噪声”污染过的句子, 而BERT需要学会利用上下文信息将“噪声”清除, 恢复出原本的正确内容. GPT<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup>在预训练阶段使用的是语言建模的优化目标.</p>
+<p>由于自注意力机制的全局特性, 直接将自注意力应用于图像的话, 每个像素都要关注其他的所有像素. 这所产生的复杂度是输入像素点数量的平方, 显然无法扩展到现实中的输入尺寸. 因此, 为了在图像处理领域运用Transformer, 在过去的工作中, 研究者尝试了多种不同的近似方法. Parmar等人<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup>将自注意力机制仅仅应用于每个查询像素的局部领域, 而不是全局, 这种局部的多头点积自注意力块可以完全取代卷积计算. 在不同的战线上, 由Child等人<sup id="fnref:10"><a class="footnote-ref" href="#fn:10">10</a></sup>提出的Sparse Transformer将输入特征划分为多个区域或块, 然后在这些较小的块内部使用全局或者局部自注意力, 使模型在每个块内建立特征的全局关联. 同时, 在块与块之间采用某种稀疏的连接规则(如跳跃式的远程连接), 而非对所有块进行完全的全局交互, 这样, 每个块内部可以有比较密集的自注意力计算(相当于“局部全局”注意力), 而块与块之间的自注意力交互则被限制在某些特定特征上, 从而降低了整体计算量. 另一种由Weissenborn等人<sup id="fnref:11"><a class="footnote-ref" href="#fn:11">11</a></sup>提出的方法还是对输入特征进行分块的, 不同的是, 他们更强调利用分层结构来减少全局交互, 而不同于Child等人提出的固定块之间的跳跃式稀疏连接. 在计算情况下, 还可以只对行维度或列维度上进行全局的块交互<sup id="fnref2:4"><a class="footnote-ref" href="#fn:4">4</a></sup><sup id="fnref:12"><a class="footnote-ref" href="#fn:12">12</a></sup>. 许多这些特殊设计的注意力架构在计算机视觉任务中展现了具有前景的结果, 但是在硬件加速器上需要复杂的工程设计以实现高效运算.</p>
+<p>和作者提出的模型关系最大的是由Cordonnier等人<sup id="fnref:13"><a class="footnote-ref" href="#fn:13">13</a></sup>提出的模型. 他们从输入图像中提取大小为2*2的patches, 然后在此之上应用完整的自我注意力. 这个模型和ViT非常像, 但是作者进一步证明在大规模数据集上预训练的ViT甚至能够比当时的CNN领域的SOTA更好(还是输给了数据集大小, orz). 并且, Cordonnier等人使用的是一个小的2*2的patch, 这使得他们的模型仅仅能够被应用到小分辨率图像上, 而作者提出的ViT也能够处理中等分辨率的图像.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -1915,10 +1937,34 @@
 <p>Ramachandran, P., Parmar, N., Vaswani, A., Bello, I., Levskaya, A., &amp; Shlens, J. (2019). Stand-alone self-attention in vision models (No. arXiv:1906.05909). arXiv. <a href="https://doi.org/10.48550/arXiv.1906.05909">https://doi.org/10.48550/arXiv.1906.05909</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:4">
-<p>Wang, H., Zhu, Y., Green, B., Adam, H., Yuille, A., &amp; Chen, L.-C. (2020). Axial-DeepLab: Stand-alone axial-attention for panoptic segmentation (No. arXiv:2003.07853). arXiv. <a href="https://doi.org/10.48550/arXiv.2003.07853">https://doi.org/10.48550/arXiv.2003.07853</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>Wang, H., Zhu, Y., Green, B., Adam, H., Yuille, A., &amp; Chen, L.-C. (2020). Axial-DeepLab: Stand-alone axial-attention for panoptic segmentation (No. arXiv:2003.07853). arXiv. <a href="https://doi.org/10.48550/arXiv.2003.07853">https://doi.org/10.48550/arXiv.2003.07853</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:5">
 <p>Young. (2019, 三月 20). 深度学习的归纳偏置是什么？ [知乎回答]. 知乎. <a href="https://www.zhihu.com/question/41404496/answer/627673667">https://www.zhihu.com/question/41404496/answer/627673667</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., &amp; Polosukhin, I. (2023). Attention is all you need (No. arXiv:1706.03762). arXiv. <a href="https://doi.org/10.48550/arXiv.1706.03762">https://doi.org/10.48550/arXiv.1706.03762</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding (No. arXiv:1810.04805). arXiv. <a href="https://doi.org/10.48550/arXiv.1810.04805">https://doi.org/10.48550/arXiv.1810.04805</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p>Radford, A. (2018). Improving language understanding by generative pre-training. <a href="https://www.mikecaptain.com/resources/pdf/GPT-1.pdf">https://www.mikecaptain.com/resources/pdf/GPT-1.pdf</a>&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p>Parmar, N., Vaswani, A., Uszkoreit, J., Kaiser, Ł., Shazeer, N., Ku, A., &amp; Tran, D. (2018). Image transformer (No. arXiv:1802.05751). arXiv. <a href="https://doi.org/10.48550/arXiv.1802.05751">https://doi.org/10.48550/arXiv.1802.05751</a>&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:10">
+<p>Child, R., Gray, S., Radford, A., &amp; Sutskever, I. (2019). Generating long sequences with sparse transformers (No. arXiv:1904.10509). arXiv. <a href="https://doi.org/10.48550/arXiv.1904.10509">https://doi.org/10.48550/arXiv.1904.10509</a>&#160;<a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:11">
+<p>Weissenborn, D., Täckström, O., &amp; Uszkoreit, J. (2020). Scaling autoregressive video models (No. arXiv:1906.02634). arXiv. <a href="https://doi.org/10.48550/arXiv.1906.02634">https://doi.org/10.48550/arXiv.1906.02634</a>&#160;<a class="footnote-backref" href="#fnref:11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:12">
+<p>Ho, J., Kalchbrenner, N., Weissenborn, D., &amp; Salimans, T. (2019). Axial attention in multidimensional transformers (No. arXiv:1912.12180). arXiv. <a href="https://doi.org/10.48550/arXiv.1912.12180">https://doi.org/10.48550/arXiv.1912.12180</a>&#160;<a class="footnote-backref" href="#fnref:12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:13">
+<p>Cordonnier, J.-B., Loukas, A., &amp; Jaggi, M. (2020). On the relationship between self-attention and convolutional layers (No. arXiv:1911.03584). arXiv. <a href="https://doi.org/10.48550/arXiv.1911.03584">https://doi.org/10.48550/arXiv.1911.03584</a>&#160;<a class="footnote-backref" href="#fnref:13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -1944,7 +1990,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月16日</span>
   </span>
 
     
