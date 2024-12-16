@@ -26,31 +26,25 @@ GPT和BERT被提出后, NLP领域出现了越来越多基于Transformer结构的
 - 纯Decoder模型, 例如GPT, 又称为自回归(auto-regressive)Transformer模型
 - Encoder-Decoder模型, 例如BART, T5, 又称Seq2Seq(sequence-to-sequence)Transformer模型
 
-### RNN等模型的缺陷
+## 动机
 
-> “This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+### RNN等模型的缺陷
 
 RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必须全部运算完成. 如果时序比较长的话, 可能会导致前面的信息到后面就丢失掉了. 如果不想丢掉的话, 就需要做一个比较大的ht, 这会导致很高昂的内存开销.
 
-> “In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
-
 一开始的时候, 这些注意力机制可能都是和RNN结合起来使用的, 而没有成为一个独立的体系.
 
-### CNN等模型的缺陷
+???+ tip "端到端记忆网络"
 
-> “In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
+    “端到端”指的是一种系统设计方法, 意味着从输入到输出的整个过程由一个单一的系统或者模型直接完成, 通常不需要人工干预或者多个独立的模块.
+
+    端到端记忆网络是主要用于处理需要长期依赖记忆的任务. 它在功能上和LSTM类似, 但是在结构或者说工作方式上有显著不同. 前者引入了一个独立的外部记忆模块, 该模块是一个可供模型读取和写入的内存池, 模型通过注意力机制与这个外部记忆池的交互来保存和获取信息, 从而支持长期依赖. 而LSTM本身是通过门机制来管理和控制记忆的, 它的记忆是隐式的, 即记忆是通过递归传递的内部状态(cell state)来存储的, 而不是通过外部记忆池进行显式存储.
+
+### CNN等模型的缺陷
 
 使用CNN的时候, 每一次它去看的是一个比较小的窗口, 如3\*3的卷积核. 如果两个像素隔的比较远的时候, 需要较多的层才能把这两个像素融合起来.
 
 但是Transformer模型通过注意力机制每一次能够看到所有的像素, 在一层中就能够看到. CNN比较好的地方是它有很多个输出通道, 每个通道可以去识别不同的模式. 所以说它提出了一个多头注意力机制, 模拟CNN的多输出通道的效果.
-
-### 端到端记忆网络
-
-> “End-to-end memory networks are based on a recurrent attention mechanism instead of sequencealigned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].” ([Vaswani 等, 2023, p. 2](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=2))
-
-“端到端”指的是一种系统设计方法, 意味着从输入到输出的整个过程由一个单一的系统或者模型直接完成, 通常不需要人工干预或者多个独立的模块.
-
-端到端记忆网络是主要用于处理需要长期依赖记忆的任务. 它在功能上和LSTM类似, 但是在结构或者说工作方式上有显著不同. 前者引入了一个独立的外部记忆模块, 该模块是一个可供模型读取和写入的内存池, 模型通过注意力机制与这个外部记忆池的交互来保存和获取信息, 从而支持长期依赖. 而LSTM本身是通过门机制来管理和控制记忆的, 它的记忆是隐式的, 即记忆是通过递归传递的内部状态(cell state)来存储的, 而不是通过外部记忆池进行显式存储.
 
 ## 架构
 
@@ -175,15 +169,11 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
 上面的这张图囊括了计算自注意力计算的全过程, 最终得到的向量, 当前例子是Thinking最后的向量会输入到前馈神经网络. 但是, 这样每次只能计算一个位置的输出, 在实际的代码实现中, 自注意的计算是通过矩阵实现的, 这样可以加速计算, 一次就得到了所有位置的输出向量.
 
-???+ note "论文直通"
-
-    > “The two most commonly used attention functions are additive attention [2], and dot-product (multiplicative) attention.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
-
-    > “Additive attention computes the compatibility function using a feed-forward network with a single hidden layer.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+???+ tip "累加/点积注意力计算方法"
 
     最常用的两种注意力函数是累加和点积, 累加是将Query和Key组合起来, 通过一个小型的神经网络生成注意力分数. 它和点积的区别主要在于计算方式的非线性化. 但是由于点积在计算上的性能远远大于累加, 而且在实际中往往更加节省内存空间, 所以这篇文章用的是点积.
 
-    > “We suspect that for large values of dk, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients 4. To counteract this effect, we scale the dot products by √1dk .” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
+???+ note "为什么要除以sqrt(dk)"
 
     当dk比较大的时候, QK^T点积过程中需要累加的项就特别多, 导致最终的attention分数的数值过大. 累积dk次后, 结果的均值和方差都会成比例增大, 由于点积结果的方差和dk是成正比的, 所以通过除以sqrt(dk), 可以使得结果的方差保持常数, 这样, 无论dk的大小如何, 点积结果的数值范围都会被规范到一个固定的范围内.
 
@@ -224,6 +214,10 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 2. 把拼接后得到的矩阵和$W^O$权重矩阵相乘, 这个$W^O$是随着模型一起训练的
 3. 得到最终的矩阵$Z$, 这个矩阵包含了所有注意力头的信息, 输入到前馈神经网络
 
+???+ note "拼接之后的维度需要满足残差连接的条件"
+
+    由于有残差连接的存在, 输入的维度必须是和输出的维度是一样的, 所以, 选择的dk和dv是原始维度/h. 然后拼接的时候就可以回到原来的维度.
+
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/9a721b7e3b77140f0a51e6cb38117209.png){ loading=lazy width='600' }
 </figure>
@@ -233,6 +227,8 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/3cd76d3e0d8a20d87dfa586b56cc1ad3.png){ loading=lazy width='600' }
 </figure>
+
+总结来说, 我们将高维的Q, K和V投影到多个低维子空间(每个子空间对应一个头), 在这些低维子空间中分别计算注意力, 最终将各个头的结果拼接起来, 再进行一次线性变换, 得到输出.
 
 既然我们已经谈到了多头注意力, 现在让我们重新回顾一下之前的翻译例子, 看下当我们编码单词it的时候, 不同的注意力头关注的是什么部分. 例如, 下图中含有$2$个注意力头, 其中的一个注意力头最关注的是"The animal", 另外一个注意力头最关注的是$tired$, 因此"it"在最后的输出中融合了"animal"和"tired".
 
@@ -246,63 +242,9 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 ![](https://img.ricolxwz.io/9cd4154bc491304fb8b0518cff1b872c.png){ loading=lazy width='400' }
 </figure>
 
----
+## 词嵌入
 
-???+ note "论文直通"
-
-    > “we found it beneficial to linearly project the queries, keys and values h times with different, learned linear projections to dk, dk and dv dimensions, respectively.” ([Vaswani 等, 2023, p. 4](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=4))
-
-    将高维的Q, K和V投影到多个低维子空间(每个子空间对应一个头), 在这些低维子空间中分别计算注意力, 最终将各个头的结果拼接起来, 再进行一次线性变换, 得到输出.
-
-    > “In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
-
-    由于有残差连接的存在, 输入的维度必须是和输出的维度是一样的, 所以, 选择的dk和dv是原始维度/h. 然后拼接的时候就可以回到原来的维度.
-
-## 词嵌入[^4]
-
-在真正把数据输入到第一层编码层之前, 需要对文本做一定的处理. 其中第一步是将非结构化的信息转化为结构化的信息, 这一个步骤叫做"文本表示", 主要有3种方式: 独热编码, 整数编码, 词嵌入.
-
- 其中, 独热编码无法表示词语之间的联系, 而且这种过于稀疏的向量, 会导致计算和存储的效率不高. 整数编码是用一种数字来表示一个词, 如猫用1表示, 狗用2表示, 牛用3表示, 这种方法也无法表示词语之间的关系, 而且, 不利于模型的解释.
-
-词嵌入, word embedding跟独热编码和整数编码的目的一样, 不过他有更多的优点. 词嵌入并不是指某个具体的算法, 跟以上2种方式相比, 这种方式有几个明显的优势, 它可以降文本通过一个低微向量表达, 但是不像独热编码那么长. 寓意相似的词在向量空间上有比较相近; 通用性也比较强, 可以用在不同的任务中.
-
-<figure markdown='1'>
-![](https://img.ricolxwz.io/67d533bc3180e699d01468936c6acd7c.webp){ loading=lazy width='500' }
-</figure>
-
-2种主流的词嵌入算法有Word2vec和GloVe.
-
-???+ note "论文直通"
-
-    在模型中, 有三个不同的嵌入层, 它们承担了不同的任务.
-
-    - **Encoder输入嵌入:** 为源序列生成连续向量表示
-
-    - **Decoder输入嵌入:** 为目标序列生成连续向量表示
-
-    - **Softmax前线性变换:** 将解码器输出的向量从dmodel映射到词汇表大小, 用于计算生成词的概率分布
-
-
-    > “In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
-
-    区别是前面的两个是词到词向量, 第三个是词向量到词. 为了训练的高效, 这三个嵌入方法在这篇文章中才用的是相同的权重.
-
-    > “In the embedding layers, we multiply those weights by √dmodel.” ([Vaswani 等, 2023, p. 5](zotero://select/library/items/AWW2Z4WB)) ([pdf](zotero://open-pdf/library/items/K3RI73ET?page=5))
-
-    假设我们需要将(30000, 30000)的独热矩阵降维成(3000, 512)的嵌入矩阵, 那么只需要对独热矩阵做一个矩阵乘法变换进行降维就好了. 即OneHot\*W=Embedding. 由于embedding matrix的初始化方式是xavier init, 这种方式的方差是1/embedding size. 如果dmodel较大, 会使输出值的波动较小, 通过乘以dmodel, 可以使embedding matrix的分布回调到标准正态分布, 有利于训练.
-
-### Word2vec
-
-这是一种基于统计方法来获得词向量的方法, 他是2013年由谷歌的Mikolov提出的一种新的词嵌入方法. 在2018年之前比较主流, 但是随着BERT, GPT2.0的出现, 这种方式已经不算效果最好的方法了.
-
-Word2vec的2种训练模式有两种, CBOW和Skip-gram. CBOW通过上下文来预测当前值, 相当于一句话中扣掉了一个词, 让你猜这个词是什么. Skip-gram用当前此来预测上下文. 相当于给你一个词, 让你猜前面和后面可能出现什么词.
-
-CBOW的模型通常包括以下的步骤:
-
-1. 输入表示, 输入是一组上下文单词, 通常是独热编码之后的结果. 假设词汇表的大小是$V$, 上下文窗口大小为$c$, 即每个上下文的独热向量大小为$V$, 输入矩阵的形状是$c\times V$
-2. 嵌入层, 使用嵌入矩阵$W$将高维稀疏的独热向量映射为低维密集向量. 嵌入矩阵的大小为$V\times d$, 其中$d$是嵌入维度, 对于每个上下文单词, 它的嵌入结果为$\bm{e_i}=\bm{W}^T\cdot x_i$, 其中, $\bm{x_i}$是第$i$个上下文单词的独热向量
-3. 平均上下文向量: 将所有上下文单词的嵌入向量取平均, $\bm{h}=\frac{1}{c}\sum_{i=1}^c\bm{e_i}$, 这里的$\bm{h}$是一个$d$维的向量, 作为中心单词的语义表示
-4. 输出层: 使用一个线性变换和Softmax激活函数将$\bm{h}$转换为概率分布$p(w_{target}|w_{context})=Softmax(\bm{U}\cdot \bm{h})$, 其中, $\bm{U}$是权重矩阵, 大小为$d\times V$, 输出是对词汇表中每个单词的概率预测
+请见[这里](/algorithm/neural-network/word-embedding).
 
 ## 位置编码
 
@@ -335,6 +277,8 @@ CBOW的模型通常包括以下的步骤:
 </figure>
 
 ## 残差连接
+
+关于残差连接, 可以参考[ResNet](/algorithm/neural-network/cnn/resnet).
 
 残差连接, Residual Connection的本质是将输入直接跳过某一层操作, 并与该层的输出相加, 再进行后续处理. 残差最初是ResNet引入的, 主要目的是解决深层神经网络中的梯度消失和梯度爆炸问题.
 
@@ -455,6 +399,8 @@ CBOW的模型通常包括以下的步骤:
 
 ## 归一化
 
+归一化的方式主要分为两种, BN和LN:
+
 - **批归一化(BatchNorm):** 是对每个batch内的样本的每个特征进行归一化, 具体来说, 它会计算整个batch中的每个特征的均值和方差, 然后基于这些统计量对所有的样本进行归一化. 因此, BN的计算是跨样本的, 即竖着计算. 注意, 学习和预测时候的BN是不一样的, 学习的时候是这个batch里面的特征取均值和方差; 预测的时候是整个样本集的特征取均值和方差
 
 - **层归一化(LayerNorm):** 是对每个样本的所有特征进行归一化. 它计算每个样本的所有特征的均值和方差, 因此是横着归一化的
@@ -478,4 +424,3 @@ CBOW的模型通常包括以下的步骤:
 [^1]: 第二章：Transformer 模型 · Transformers快速入门. (不详). 取读于 2024年9月23日, 从 https://transformers.run/c1/transformer/#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82
 [^2]: Alammar, J. (不详). The Illustrated Transformer. 取读于 2024年9月23日, 从 https://jalammar.github.io/illustrated-transformer/
 [^3]: 细节拉满，全网最详细的Transformer介绍（含大量插图）！. (不详). 知乎专栏. 取读于 2024年9月23日, 从 https://zhuanlan.zhihu.com/p/681532180
-[^4]: easyAI-人工智能知识库. (2020, 二月 18). 一文看懂词嵌入word embedding（2种算法+其他文本表示比较）. Medium. https://easyaitech.medium.com/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E8%AF%8D%E5%B5%8C%E5%85%A5word-embedding-2%E7%A7%8D%E7%AE%97%E6%B3%95-%E5%85%B6%E4%BB%96%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E6%AF%94%E8%BE%83-c7dd8e4524db
