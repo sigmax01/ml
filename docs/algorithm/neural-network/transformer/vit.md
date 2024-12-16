@@ -19,7 +19,7 @@ comments: false
 
 受到Transformer在NLP领域的启发, 作者测试了在最少的可能改动下将一个标准的Transformer直接用于图片. 为了实现这一点, 他们将一张图片分为了很多的patches并且对这些patches进行编码, 得到的序列被输入到Transformer中, 这些patches和Transformer中的Token是等价的. 与GPT等模型不同的是, 在预训练阶段, 他们使用的是有监督学习, 而不是自监督学习.
 
-当我们在中等规模的数据集如ImageNet上进行训练, 且不实用高强度的正则化方法时, 这些模型的准确率比同等规模的ResNets低几个百分点. 这种令人失望的结果或许是预期的, 因为Transformer缺乏CNN所具有的一些归纳偏置, 如平移不变性, 局部特征, 因此对于数据量不足的情况下无法很好地泛化.
+当他们在中等规模的数据集如ImageNet上进行训练, 且不实用高强度的正则化方法时, 这些模型的准确率比同等规模的ResNets低几个百分点. 这种令人失望的结果或许是预期的, 因为Transformer缺乏CNN所具有的一些归纳偏置, 如平移不变性, 局部特征, 因此对于数据量不足的情况下无法很好地泛化.
 
 ???+ note "什么是归纳偏置"
 
@@ -55,6 +55,10 @@ Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在
   ![](https://img.ricolxwz.io/68495fc7236b9721a4b529966ca65c5e.png){ loading=lazy width='500' }
   <figcaption>模型overview. 将图片分为固定大小的patches, 然后对它们进行线性编码, 加入位置嵌入, 将结果喂到一个标准的Transformer编码器中. 为了能够执行分类任务, 作者使用了向序列中加入"classification token"的标准方式(类似于BERT). Transformer的编码器来源于Vvaswani等人.</figcaption>
 </figure>
+
+### ViT
+
+对于模型的overview如上图所示. 这个标准的Transformer会收到1D的token嵌入序列. 为了处理2D的图像, 他们将图像$\mathbf{x} \in \mathbb{R}^{H \times W \times C}$首先转化为一个展平的2D patches $\mathbf{x}_p \in \mathbb{R}^{N \times (P^2 \cdot C)}$, $(H, W)$表示的是原图的分辨率, $C$表示的是通道数, $(P, P)$表示的是patch的分辨率, $N=HW/P^2$表示的是产生的patches的数量, 同时也是输入Transformer的序列长度. Transformer对于所有的层潜向量大小是固定的$D$, 所以他们使用可训练的线性变换对这些patches进一步展平到$D$维, 他们将这个线性变换的结果叫做patch嵌入.
 
 [^1]: Wang, X., Girshick, R., Gupta, A., & He, K. (2018). Non-local neural networks (No. arXiv:1711.07971). arXiv. https://doi.org/10.48550/arXiv.1711.07971
 [^2]: Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A., & Zagoruyko, S. (2020). End-to-end object detection with transformers (No. arXiv:2005.12872). arXiv. https://doi.org/10.48550/arXiv.2005.12872
