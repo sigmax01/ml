@@ -33,7 +33,7 @@ title: 开始
         - [x] [Transformer](/algorithm/neural-network/transformer)
             - [x] [GPT](/algorithm/neural-network/transformer/gpt)
             - [x] [BERT](/algorithm/neural-network/transformer/bert)
-            - [ ] [ViT](/algorithm/neural-network/transformer/vit)
+            - [x] [ViT](/algorithm/neural-network/transformer/vit)
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
