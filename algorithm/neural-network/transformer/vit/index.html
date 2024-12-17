@@ -1802,6 +1802,8 @@
       
         
       
+        
+      
     
     
       
@@ -1889,6 +1891,27 @@
   
   <span class="md-ellipsis">
     判别式模型和生成式模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dicts/attention/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    注意力机制
   </span>
   
 
@@ -2059,7 +2082,7 @@
 <p>当他们在中等规模的数据集如ImageNet上进行训练, 且不实用高强度的正则化方法时, 这些模型的准确率比同等规模的ResNets低几个百分点. 这种令人失望的结果或许是预期的, 因为Transformer缺乏CNN所具有的一些归纳偏置, 如平移不变性, 局部特征, 因此对于数据量不足的情况下无法很好地泛化.</p>
 <details class="note" open="open">
 <summary>什么是归纳偏置</summary>
-<p>归纳偏置, Inductive Biases, 或者叫做“归纳偏好”, 是学习算法自身在一个庞大的假设空间中对假设进行选择的启发或者“价值观”<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>. 如CNN通过卷积核在输入数据的局部区域内进行操作, 强调了局部特征的重要性(locality); 并且, 图片平移后识别结果应该具有不变性(translation equivariance), CNN通过卷积核在空间上滑动实现这一点. 每个神经元仅仅与局部区域内的一小部分神经元相连接, 这种稀疏连接能够大幅减少计算量并提高性能, 所以GooLeNet通过密集部件模拟稀疏网络. 这里的局部特征, 平移不变性, 稀疏网络就是归纳偏置.</p>
+<p>归纳偏置, Inductive Biases, 或者叫做“归纳偏好”, 是学习算法自身在一个庞大的假设空间中对假设进行选择的启发或者“价值观”<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>. 如CNN通过卷积核在输入数据的局部区域内进行操作, 强调了局部特征的重要性(locality); 并且, 图片平移后 <del>识别结果</del> 处理方式应该具有不变性(translation equivariance), CNN通过卷积核在空间上滑动实现这一点. 每个神经元仅仅与局部区域内的一小部分神经元相连接, 这种稀疏连接能够大幅减少计算量并提高性能, 所以GooLeNet通过密集部件模拟稀疏网络. 这里的局部特征, 平移不变性, 稀疏网络就是归纳偏置.</p>
 </details>
 <p>然而, 如果模型在大规模的数据集上(14M-300M)训练, 他们发现这种大规模的训练范式强于CNN的归纳偏置. 他们的ViT模型在大规模与训练并迁移到较少的任务时, 取得了优异的成果. 他们使用公共的ImageNet-21K或者内部的JFT-300M数据集预训练后, ViT在多项图片识别benchmark上接近或者打败了SOTA. 特别的, 最优的ViT模型在ImageNet上达到了88.55%, 在ImageNet-ReaL上达到了90.72%的准确率, 在CIFAR-100上达到了94.55%的准确率, 在VTAB19个任务套件上达到了77.63%的准确率.</p>
 <h2 id="_3">相关工作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -2130,10 +2153,10 @@ p_{31} &amp; p_{32} &amp; p_{33}
 <p>对于MSA, 自注意力机制会计算序列中任意两个token之间的注意力权重, 也就是说, 输出不仅仅取决于每个token自身的特征, 还高度依赖于其他token的关系, 能够“看到”整个序列的全局结构和上下文信息, 因此具有非局部性.</p>
 </details>
 <details class="question" open="open">
-<summary>为什么MLP被认为是Translationally Equivariant的(我认为MLP和MSA都没有这个性质)</summary>
-<p>“平移不变形”指的是, <strong>无论特征出现在图像的哪个位置, 网络都能在那个相应的位置产出类似的响应, 并且模型无需为不同位置的同类特征单独学习不同的参数</strong>.</p>
-<p>对于MSA, 由于ViT会引入位置编码, 这使得当图像进行平移之后, 其token的编码会发生变化, 这会使得自注意力分数产生显著变化, 即特征在不同位置会导致自注意力的重新分布, 如此一来, 网络就无法在保证自注意力层参数<span class="arithmatex">\(W_q, W_k, W_v\)</span>不变的情况下, 对平移后的特征图产生与平移前的特征产生完全相同的响应.</p>
-<p>对于MLP而言, 由于ViT会引入位置编码, 那么相同的特征在不同的位置也会呈现出不同的输入信号(因为位置编码的注入改变了输入特征), 从而导致MLP在其参数不改变的情况下, 特征在不同位置的输出不再相同, 所以MLP其实也是没有Translationally Equivariant的.</p>
+<summary>为什么MLP被认为是Translationally Equivariant的</summary>
+<p>“平移不变形”指的是, <strong><del>无论特征出现在图像的哪个位置, 网络都能在那个相应的位置产出类似的响应, 并且模型无需为不同位置的同类特征单独学习不同的参数</del>, 无论输入token的位置如何变化, 对每个token的处理方式都相同.</strong></p>
+<p>对于MSA, 进行平移后, 不同token可能相对位置会发生变化, 导致对于每个token来说, 最终的注意力得分发生变化. 所以对每个token来说, 其注意力处理方式是会发生变化的.</p>
+<p>对于MLP而言, 不管如何进行平移, 对于每个token的处理方式都是不会发生变化的, 都是经过相同的非线性变换.</p>
 </details>
 <details class="note" open="open">
 <summary>为什么切patch会引入局部的二维结构</summary>
@@ -2241,7 +2264,7 @@ p_{31} &amp; p_{32} &amp; p_{33}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月17日</span>
   </span>
 
     
