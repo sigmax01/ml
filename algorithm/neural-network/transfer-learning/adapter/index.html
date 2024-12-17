@@ -2156,8 +2156,8 @@
 <h3 id="_5">参数量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>基于特征的迁移学习和微调对于每个人物都需要一堆新的权重参数. 如果网络的较底层能够共享权重的话, 微调更加节约参数. 但是, 作者提出的adapter方法更加节约参数<img alt="😆" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f606.svg" title=":laughing:" />. 下图展示了这种trade-off.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/75850759a311c60ddadd32562ff6fb17.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/75850759a311c60ddadd32562ff6fb17.webp#only-light" width="400" /></a>
-<a class="glightbox" href="https://img.ricolxwz.io/75850759a311c60ddadd32562ff6fb17_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/75850759a311c60ddadd32562ff6fb17_inverted.webp#only-dark" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d.webp#only-light" width="400" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d_inverted.webp#only-dark" width="400" /></a></p>
 <figcaption>对于adapter和微调准度和任务相关参数数量的trade-off. y轴已经针对完整微调的准度进行归一化. 下/中/上三条曲线分别展示了20分位, 50分位, 80分位的GLUE基准测试中9个任务的性能</figcaption>
 </figure>
 <p>x轴展示的是对于每个任务训练的参数. 这个对应于解决每个额外任务所需要的边际增加. 基于adapter的调整在达到相似性能的情况下可以少训练两个数量级的参数.</p>

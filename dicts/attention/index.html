@@ -2089,7 +2089,7 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/cfee07b985832c64b3de088a47ded3a5.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cfee07b985832c64b3de088a47ded3a5.svg" width="400" /></a></p>
 <figcaption>注意力机制通过将注意力汇聚将查询(自主性提示)和键(非自主性提示)结合在一起, 实现对值(感官输入)的选择倾向</figcaption>
 </figure>
-<p>上面的这种框架在整体结构和性能上占据了核心位置, 因此在下面的分析和讨论中, 这个框架是主要关注的对象. 需要注意的一点是, 注意力框架并非唯一, 研究者们设计了多种不同的注意力机制, 以适应不同的场景和需求. </p>
+<p>上面的这种框架在整体结构和性能上占据了核心位置, 因此在下面的分析和讨论中, 这个框架是主要关注的对象. 需要注意的一点是, 注意力框架并非唯一, 研究者们设计了多种不同的注意力机制, 以适应不同的场景和需求.</p>
 <h3 id="_4">注意力可视化<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>平均汇聚层可以被视为输入的加权平均值, 其中各个输入的权重都是一样的. 而注意力汇聚得到的是加权平均的总和值, 其权重是在给定的查询和不同的键之间计算得出来的.</p>
 <details class="note" open="open">
@@ -2120,7 +2120,7 @@
 <summary>解释上述代码</summary>
 <p><code>matrices</code>正如我们所描述的那样, 是一个四维张量, 形状为<code>(num_rows, num_cols, num_queries, num_keys)</code>. <code>d2l.use_svg_display()</code>用于设置Matplotlib使用SVG格式显示图像. <code>detach()</code>用于分离梯度并将其转化为NumPy数组. <code>sharex=True</code>, <code>sharey=True</code>的含义是所有子图共享同一组x轴或者y轴刻度范围. <code>axes</code>是一个用于表示子图的数组, 每个子图对应一个<code>Axes</code>对象, 具体来说, 它是一个二维NumPy数组, 形状为<code>(num_rows, num_cols)</code>, 每个<code>axes[i, j]</code>对应网格中的第<code>i</code>行第<code>j</code>列的子图, <code>squeeze=False</code>用于控制返回<code>axes</code>对象的形状, 设置为<code>False</code>的时候, 即使只有一行或者一列, <code>axes</code>也会被强制转换为二维数组, 即<code>(1, 1)</code>的形状.</p>
 <p>第一层循环: 这个<code>i</code>对应的是行号, 这个<code>row_axes</code>对应的是<code>axes[0]</code>, <code>axes[1]</code>, ..., 这个<code>row_matrices</code>对应的是<code>matrices[0]</code>, <code>matrices[1]</code>, ...</p>
-<p>第二层循环: 这个<code>j</code>对应的是列号, 在第<code>0</code>行下, 这个<code>ax</code>对应的是<code>axes[0][0]</code>, <code>axes[0][1]</code>, ..., 即某个子图, 这个<code>matrix</code>对应的是<code>matrix[0][0]</code>, <code>matrix[0][1]</code>, 即某个头的注意力矩阵 </p>
+<p>第二层循环: 这个<code>j</code>对应的是列号, 在第<code>0</code>行下, 这个<code>ax</code>对应的是<code>axes[0][0]</code>, <code>axes[0][1]</code>, ..., 即某个子图, 这个<code>matrix</code>对应的是<code>matrix[0][0]</code>, <code>matrix[0][1]</code>, 即某个头的注意力矩阵</p>
 <p><code>i == num_rows - 1</code>对应的是仅为最底部的子图设置x轴标签, <code>j == 0</code>对应的是仅仅为最左侧的子图设置y轴标签.</p>
 </details>
 <p>使用一个简单的例子进行演示. 在这个例子中, 仅当查询和键相同的时候, 注意力权重是1, 否则是0.</p>
