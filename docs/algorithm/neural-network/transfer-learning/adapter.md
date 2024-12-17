@@ -34,8 +34,8 @@ comments: false
 基于特征的迁移学习和微调对于每个人物都需要一堆新的权重参数. 如果网络的较底层能够共享权重的话, 微调更加节约参数. 但是, 作者提出的adapter方法更加节约参数:laughing:. 下图展示了这种trade-off.
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/75850759a311c60ddadd32562ff6fb17.webp#only-light){ loading=lazy width='400' }
-![](https://img.ricolxwz.io/75850759a311c60ddadd32562ff6fb17_inverted.webp#only-dark){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d.webp#only-light){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d_inverted.webp#only-dark){ loading=lazy width='400' }
 <figcaption>对于adapter和微调准度和任务相关参数数量的trade-off. y轴已经针对完整微调的准度进行归一化. 下/中/上三条曲线分别展示了20分位, 50分位, 80分位的GLUE基准测试中9个任务的性能</figcaption>
 </figure>
 
