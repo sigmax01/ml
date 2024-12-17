@@ -58,6 +58,50 @@ comments: false
 
     平均汇聚层虽然是加权的, 但是对于每个输入元素来说, 它们的权重都是1/N, N是输入元素的数量.
 
-为了可视化注意力权重, 需要定义一个`show_heatmaps`函数, 
+为了可视化注意力权重, 需要定义一个`show_heatmaps`函数, 要展示的就是自注意力矩阵, 这个矩阵的每个元素的含义是某个query和某个key之间的注意力分数. 由于我们采用的是多头注意力, 所以输入`matrices`(注意是复数)的形状是(要显示的行数, 要显示的列数, 查询的数目, 键的数目). 例如, 如果有6个注意力头, 可以设置行数为2, 列数为3, 将6个注意力矩阵排列成2行3列的网格.
+
+```py
+#@save
+def show_heatmaps(matrices, xlabel, ylabel, titles=None, figsize=(2.5, 2.5),
+                  cmap='Reds'):
+    """显示矩阵热图"""
+    d2l.use_svg_display()
+    num_rows, num_cols = matrices.shape[0], matrices.shape[1]
+    fig, axes = d2l.plt.subplots(num_rows, num_cols, figsize=figsize,
+                                 sharex=True, sharey=True, squeeze=False)
+    for i, (row_axes, row_matrices) in enumerate(zip(axes, matrices)):
+        for j, (ax, matrix) in enumerate(zip(row_axes, row_matrices)):
+            pcm = ax.imshow(matrix.detach().numpy(), cmap=cmap)
+            if i == num_rows - 1:
+                ax.set_xlabel(xlabel)
+            if j == 0:
+                ax.set_ylabel(ylabel)
+            if titles:
+                ax.set_title(titles[j])
+    fig.colorbar(pcm, ax=axes, shrink=0.6);
+```
+
+???+ note "解释上述代码"
+
+    `matrices`正如我们所描述的那样, 是一个四维张量, 形状为`(num_rows, num_cols, num_queries, num_keys)`. `d2l.use_svg_display()`用于设置Matplotlib使用SVG格式显示图像. `detach()`用于分离梯度并将其转化为NumPy数组. `sharex=True`, `sharey=True`的含义是所有子图共享同一组x轴或者y轴刻度范围. `axes`是一个用于表示子图的数组, 每个子图对应一个`Axes`对象, 具体来说, 它是一个二维NumPy数组, 形状为`(num_rows, num_cols)`, 每个`axes[i, j]`对应网格中的第`i`行第`j`列的子图, `squeeze=False`用于控制返回`axes`对象的形状, 设置为`False`的时候, 即使只有一行或者一列, `axes`也会被强制转换为二维数组, 即`(1, 1)`的形状.
+
+    第一层循环: 这个`i`对应的是行号, 这个`row_axes`对应的是`axes[0]`, `axes[1]`, ..., 这个`row_matrices`对应的是`matrices[0]`, `matrices[1]`, ...
+
+    第二层循环: 这个`j`对应的是列号, 在第`0`行下, 这个`ax`对应的是`axes[0][0]`, `axes[0][1]`, ..., 即某个子图, 这个`matrix`对应的是`matrix[0][0]`, `matrix[0][1]`, 即某个头的注意力矩阵 
+
+    `i == num_rows - 1`对应的是仅为最底部的子图设置x轴标签, `j == 0`对应的是仅仅为最左侧的子图设置y轴标签.
+
+使用一个简单的例子进行演示. 在这个例子中, 仅当查询和键相同的时候, 注意力权重是1, 否则是0.
+
+```py
+attention_weights = torch.eye(10).reshape((1, 1, 10, 10))  # 有10个query和10个key, 并且只有1个头
+show_heatmaps(attention_weights, xlabel='Keys', ylabel='Queries')
+```
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/569074acf4cb1b2c13f5b49179587517.svg){ loading=lazy width='250' }
+</figure>
+
+后续的小节会经常调用`show_heatmaps`函数来显示注意力权重.
 
 [^1]: 10.1. 注意力提示—动手学深度学习 2.0.0 documentation. (不详). 取读于 2024年12月17日, 从 https://zh.d2l.ai/chapter_attention-mechanisms/attention-cues.html

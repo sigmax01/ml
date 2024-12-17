@@ -194,6 +194,8 @@ nav:
       - 降维: algorithm/dimensional-reduction.md
       - 神经网络:
           - algorithm/neural-network/index.md
+          - 微调:
+              - Adapter: algorithm/neural-network/fine-tuning/adapter.md
           - 前馈神经网络: algorithm/neural-network/fnn.md
           - 卷积神经网络:
               - algorithm/neural-network/cnn/index.md
