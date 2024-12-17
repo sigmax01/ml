@@ -12,7 +12,7 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/algorithm/neural-network/fine-tuning/adapter/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/algorithm/neural-network/transfer-learning/adapter/">
       
       
         <link rel="prev" href="../../">
@@ -111,7 +111,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#adapter" class="md-skip">
           跳转至
         </a>
       
@@ -1131,7 +1131,7 @@
             
   
   <span class="md-ellipsis">
-    微调
+    迁移学习
   </span>
   
 
@@ -1141,7 +1141,7 @@
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_11_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_11_2">
             <span class="md-nav__icon md-icon"></span>
-            微调
+            迁移学习
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1157,6 +1157,8 @@
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+      
+        
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
@@ -1185,6 +1187,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1954,6 +1958,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1994,7 +2000,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/algorithm/neural-network/fine-tuning/adapter.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/algorithm/neural-network/transfer-learning/adapter.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2003,20 +2009,19 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/algorithm/neural-network/fine-tuning/adapter.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/algorithm/neural-network/transfer-learning/adapter.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>Adapter</h1>
-
+<h1 id="adapter">Adapter<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#adapter" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>对预训练的模型进行微调是NLP领域有效的迁移学习方法. 然而, 在很多下游任务中, 参数微调效率低下. 对于每一个全新的任务都需要一个新的模型. 为了解决这个问题, 作者提出了一种利用adapter模块进行迁移的方法. Adapter模块提供了模型的整体<strong>紧凑性和可扩展性</strong>(这两个形容词的意思见下小节), 每当需要为一个新任务进行适配的时候, 只需要增加相应的adapter模块, 这些模块通常包含较少的参数, 相比于完全训练一个新的模型或者对整个模型进行微调, 节省了大量的计算资源和存储空间. 并且, 在添加新的任务的时候, 不需要调整之前为其他任务添加的adapter, 只需要新增相应的adapter模块, 需要注意的是, 每个任务都有其独立的适配器, 彼此之间互不干扰, 确保模型能够同时处理多个任务, 避免了“灾难性遗忘”(catastrophic forgetting)的问题. 预训练模型的参数将保持固定, 或者说“冻结”, 使得在不同任务之间有一个高程度的参数共享. 为了证明adapter模块的有效性, 作者最近将刚刚提出的BERT模型应用到26个不同的文本分类任务中, 包括GLUE基准测试. Adapters实现了接近SOTA的性能, 同时每个任务仅仅只需要增加几个参数. 在GLUE基准测试中, 作者将模型的性能控制在和full微调的0.4%左右, 但是对于每个任务仅仅增加了3.6%的参数, 同比之下, full微调对于每个人物会增加100%的参数.</p>
+<p>对预训练的模型进行微调是NLP领域有效的迁移学习方法. 然而, 在很多下游任务中, 参数微调效率低下. 对于每一个全新的任务都需要一个新的模型. 为了解决这个问题, 作者提出了一种利用adapter模块进行迁移的方法. Adapter模块提供了模型的整体<strong>紧凑性和可扩展性</strong>(这两个形容词的意思见下小节), 每当需要为一个新任务进行适配的时候, 只需要增加相应的adapter模块, 这些模块通常包含较少的参数, 相比于完全训练一个新的模型或者对整个模型进行微调, 节省了大量的计算资源和存储空间. 并且, 在添加新的任务的时候, 不需要调整之前为其他任务添加的adapter, 只需要新增相应的adapter模块, 需要注意的是, 每个任务都有其独立的适配器, 彼此之间互不干扰, 确保模型能够同时处理多个任务, 避免了“灾难性遗忘”(catastrophic forgetting)的问题. 预训练模型的参数将保持固定, 或者说“冻结”, 使得在不同任务之间有一个高程度的参数共享. 为了证明adapter模块的有效性, 作者最近将刚刚提出的BERT模型应用到26个不同的文本分类任务中, 包括GLUE基准测试. Adapters实现了接近SOTA的性能, 同时每个任务仅仅只需要增加几个参数. 在GLUE基准测试中, 作者将模型的性能控制在和完整微调的0.4%左右, 但是对于每个任务仅仅增加了3.6%的参数, 同比之下, 微调对于每个人物会增加100%的参数.</p>
 <details class="note" open="open">
 <summary>什么是灾难性遗忘</summary>
-<p>灾难性遗忘, Catastrophic Forgetting, 是指在连续学习多个任务的过程中, 学习新知识的过程会迅速破坏之前获得的信息, 而导致模型性能在旧任务中急剧下降. 这种现象在顺序学习或者增量学习中尤为常见. 灾难性遗忘主要由于以下几个原因: a) 共享参数, 大多数神经网络通过共享大量参数来学习和表示不同的任务, 当模型在训练新任务的时候, 导致新任务的学习过程覆盖了旧任务的知识; b) 缺乏记忆机制, 传统的神经网络缺乏有效的机制来区分和保护不同任务的重要参数, 导致新任务的学习过程覆盖了旧任务的知识; c) 优化冲突: 不同任务之间的优化目标可能存在冲突, 训练新任务时优化的方向可能和保留旧任务性能的方向相反, 从而导致旧任务的性能下降.</p>
+<p>灾难性遗忘, Catastrophic Forgetting, 是指在连续学习多个任务的过程中, 学习新知识的过程会迅速破坏之前获得的信息, 而导致模型性能在旧任务中急剧下降<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. 这种现象在顺序学习或者增量学习中尤为常见. 灾难性遗忘主要由于以下几个原因: a) 共享参数, 大多数神经网络通过共享大量参数来学习和表示不同的任务, 当模型在训练新任务的时候, 导致新任务的学习过程覆盖了旧任务的知识; b) 缺乏记忆机制, 传统的神经网络缺乏有效的机制来区分和保护不同任务的重要参数, 导致新任务的学习过程覆盖了旧任务的知识; c) 优化冲突: 不同任务之间的优化目标可能存在冲突, 训练新任务时优化的方向可能和保留旧任务性能的方向相反, 从而导致旧任务的性能下降.</p>
 </details>
 <details class="tip" open="open">
 <summary>GLUE基准测试</summary>
@@ -2025,6 +2030,21 @@
 <h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>预训练模型能够通过迁移学习在许多NLP任务上取得很强的性能. BERT, 一个基于Transformer的网络, 在大规模语料库上进行无监督预训练, 在文本分类和抽取式问答上达到了SOTA的表现.</p>
 <p>在该研究中, 任务以流(stream)的形式连续到达, 系统需要逐一进行处理, 而不是一次性获取所有任务. 目标是在不为每一个任务都训练一个新模型的情况下, 找到一种机制使得在每个任务上都表现良好. 高程度的任务间共享(意味着大部分模型参数或者结构在不同任务间是共享的)对于云服务等应用尤其有用, 因为在这些应用中, 模型需要被训练以依次处理来自客户的众多任务. 作者提出了一种迁移学习的方法, 能够产生<strong>紧凑性和可扩展性</strong>的下游模型. 紧凑性意味着模型对每个任务增加一小部分参数就能解决很多不同的任务. 可扩展性意味着模型能够在不出现灾难性遗忘的前提下, 被增量训练以处理新任务. 作者提出的方法就能产生这样一个模型并不牺牲性能.</p>
+<p>目前在NLP中最流行的两种迁移学习的方法是feature-based迁移和微调. 相反, 作者展现的是一种基于adapter模块<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>的替代方案. 基于特征的迁移学习其核心思想是利用预训练模型生成的特征表示, 例如, 实值的词嵌入, 句子级嵌入, 段落级嵌入, 将这些特征作为输入提供给为下游特定任务设计的独立模型(如分类器, 回归模型, 序列标注模型等等). 微调包括调整预训练模型的参数已使其适应下游任务. 最近的工作证明微调常常比基于特征的迁移性能更高.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., &amp; Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. <a href="https://doi.org/10.48550/arXiv.1902.00751">https://doi.org/10.48550/arXiv.1902.00751</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Rebuffi, S.-A., Bilen, H., &amp; Vedaldi, A. (2017). Learning multiple visual domains with residual adapters (No. arXiv:1705.08045). arXiv. <a href="https://doi.org/10.48550/arXiv.1705.08045">https://doi.org/10.48550/arXiv.1705.08045</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>大规模语言模型—灾难性遗忘-行麦科技. (不详). 取读于 2024年12月17日, 从 <a href="https://www.aihomecaring.com/?jishu/89.html">https://www.aihomecaring.com/?jishu/89.html</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
