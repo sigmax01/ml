@@ -25,6 +25,17 @@ comments: false
 
 目前在NLP中最流行的两种迁移学习的方法是feature-based迁移和微调. 相反, 作者展现的是一种基于adapter模块[^2]的替代方案. 基于特征的迁移学习其核心思想是利用预训练模型生成的特征表示, 例如, 实值的词嵌入, 句子级嵌入, 段落级嵌入, 将这些特征作为输入提供给为下游特定任务设计的独立模型(如分类器, 回归模型, 序列标注模型等等). 微调包括调整预训练模型的参数已使其适应下游任务. 最近的工作证明微调常常比基于特征的迁移性能更高.
 
+基于特征的迁移学习和微调对于每个人物都需要一堆新的权重参数. 如果网络的较底层能够共享权重的话, 微调更加节约参数. 但是, 作者提出的adapter方法更加节约函数:laughing:. 下图展示了这种trade-off.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/1b8e9c25a972dd6a740707acf4a038ce.webp){ loading=lazy width='400' }
+<figcaption>对于adapter和微调准度和任务相关参数数量的trade-off. y轴已经针对完整微调的准度进行归一化. 下/中/上三条曲线分别展示了20分位, 50分位, 80分位的GLUE基准测试中9个任务的性能</figcaption>
+</figure>
+
+x轴展示的是对于每个任务训练的参数. 这个对应于解决每个额外任务所需要的边际增加. 基于adapter的调整在达到相似性能的情况下可以少训练两个数量级的参数.
+
+**Adapters是在预训练模型的层之间添加的新模块**. 基于adapter和基于特征的迁移学习, 微调之间的差异如下: 考虑一个参数为$\bm{w}$函数(神经网络)$\phi_{\bm{w}}(\bm{x})$. 基于特征的迁移学习结合了$\phi_{\bm{w}}(\bm{x})$和一个全新的函数$\mathcal{X}_{\bm{v}}$, 产生$\mathcal{X}_{\bm{v}}(\phi_{\bm{w}}(\bm{x}))$. 只有新的基于任务的参数$\bm{v}$, 会被额外训练. 微调对于每个任务来说都包含了对原始参数$\bm{w}$的修改, 限制了产生模型的紧凑型. 对于adapter来说, 也定义了一个新的函数, $\psi_{\bm{w}, \bm{v}}(\bm{x})$, 但是这里的$\bm{w}$时从预训练那里搬过来的. 作者还设计了$\bm{v}_0$, 保证在训练开始的时候, adapter模块不会显著改变模型的输出, 即$\psi_{\bm{w}, \bm{v}}(\bm{x})\simeq \phi_{\bm{w}}(\bm{x})$, 这对于保证模型的厨师性能和稳定性非常重要, 有助于加快收敛. 在训练的过程中, 只有$\bm{v}$被调整. 对于深层网络, 定义$\psi_{\bm{w}, \bm{v}}(\bm{x})$通常包括在原网络$\phi_{\bm{w}}$中添加新的层. 如果选择$|\bm{v}|<<|\bm{w}|$, 那么产生的模型对于很多任务来说需要的参数$\sim |\bm{w}|$. 因为$\bm{w}$是固定的, 所以模型可以被扩展到其他任务而不影响之前的任务(没有灾难性遗忘).
+
 [^1]: Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., & Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. https://doi.org/10.48550/arXiv.1902.00751
 [^2]: Rebuffi, S.-A., Bilen, H., & Vedaldi, A. (2017). Learning multiple visual domains with residual adapters (No. arXiv:1705.08045). arXiv. https://doi.org/10.48550/arXiv.1705.08045
 [^3]: 大规模语言模型—灾难性遗忘-行麦科技. (不详). 取读于 2024年12月17日, 从 https://www.aihomecaring.com/?jishu/89.html
