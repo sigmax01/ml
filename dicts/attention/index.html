@@ -2063,13 +2063,15 @@
 <p>注意力是如何应用于视觉世界中的呢? 这要从当前十分普及的双组件(two-component)的框架开始讲起, 在这个框架中, 受试者基于<strong>非自主性提示</strong>和<strong>自主性提示</strong>有选择地引导注意力的焦点.</p>
 <p><strong>非自主性提示</strong>是基于环境中物体的突出性和易见性. 假设我们面前有五个物品, 一份报纸, 一篇论文, 一杯咖啡, 一本笔记和一本书, 所有的纸制品都是黑白印刷的, 但是咖啡杯是红色的. 换句话说, 这个咖啡杯在这种视觉环境中是突出和显眼的, 不由自主地引起注意, 所以我们会把视力最敏锐的地方放到咖啡上.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/b0945597f22366e591a33a8e5bf9e76c.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b0945597f22366e591a33a8e5bf9e76c.svg" width="300" /></a>
+<p><a class="glightbox" href="https://img.ricolxwz.io/b6f62d2dd7462e96becd2abf8a1e5d98.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b6f62d2dd7462e96becd2abf8a1e5d98.webp#only-light" width="300" /></a>
+  <a class="glightbox" href="https://img.ricolxwz.io/b6f62d2dd7462e96becd2abf8a1e5d98_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b6f62d2dd7462e96becd2abf8a1e5d98_inverted.webp#only-dark" width="300" /></a>
   </p>
 <figcaption>由于突出性的非自主性提示(红杯子), 注意力不自主地指向了☕️</figcaption>
 </figure>
 <p>喝咖啡后, 我们会变得兴奋并想读书, 所以转过了头, 重新聚焦眼睛, 然后看看书, 与上图的突出性导致的选择不同, 此时选择书是受到了认知和意识的控制, 因此注意力在基于<strong>自主性提示</strong>去辅助选择的时候将更为谨慎. 受试者的主观意愿推动, 选择的力量就更加强大.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/cace7a0218a207cf8a11ce3638e1bebc.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cace7a0218a207cf8a11ce3638e1bebc.svg" width="300" /></a>
+<p><a class="glightbox" href="https://img.ricolxwz.io/ed6110ddf2f9a70408d1195ff78b6793.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/ed6110ddf2f9a70408d1195ff78b6793.webp#only-light" width="300" /></a>
+  <a class="glightbox" href="https://img.ricolxwz.io/ed6110ddf2f9a70408d1195ff78b6793_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/ed6110ddf2f9a70408d1195ff78b6793_inverted.webp#only-dark" width="300" /></a>
   </p>
 <figcaption>依赖于任务的意志提示(想读一本书), 注意力被自主引导到📖上</figcaption>
 </figure>
@@ -2086,7 +2088,8 @@
 </details>
 <p>因此, “是否包含自主性提示”将注意力机制和全连接层和汇聚层区别开来. 在注意力机制的背景下, 自主性提示被称为“查询”. 给定任何查询, 注意力机制通过注意力汇聚(attention pooling)将选择引导至感官输入(sensory inputs). 在注意力机制中, 这些感官输入被称为值(value). 更通俗的解释, 每个值都与一个键(key)配对, 这可以想象为感官输入的非自主性提示. 如下图所示, 可以通过设计注意力汇聚的方式, 便于给定的查询(自主性提示)和键(非自主性提示)进行匹配, 这将引导得出最匹配的值(感官输入).</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/cfee07b985832c64b3de088a47ded3a5.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/cfee07b985832c64b3de088a47ded3a5.svg" width="400" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/292bd83d5480f210dc83347e5443fdf5.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/292bd83d5480f210dc83347e5443fdf5.webp#only-light" width="400" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/292bd83d5480f210dc83347e5443fdf5_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/292bd83d5480f210dc83347e5443fdf5_inverted.webp#only-dark" width="400" /></a></p>
 <figcaption>注意力机制通过将注意力汇聚将查询(自主性提示)和键(非自主性提示)结合在一起, 实现对值(感官输入)的选择倾向</figcaption>
 </figure>
 <p>上面的这种框架在整体结构和性能上占据了核心位置, 因此在下面的分析和讨论中, 这个框架是主要关注的对象. 需要注意的一点是, 注意力框架并非唯一, 研究者们设计了多种不同的注意力机制, 以适应不同的场景和需求.</p>
@@ -2128,7 +2131,8 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">show_heatmaps</span><span class="p">(</span><span class="n">attention_weights</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Keys&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Queries&#39;</span><span class="p">)</span>
 </code></pre></div>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/569074acf4cb1b2c13f5b49179587517.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/569074acf4cb1b2c13f5b49179587517.svg" width="250" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/344590a20ac250b2ffda6794f826e4cd.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/344590a20ac250b2ffda6794f826e4cd.webp#only-light" width="250" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/344590a20ac250b2ffda6794f826e4cd_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/344590a20ac250b2ffda6794f826e4cd_inverted.webp#only-dark" width="250" /></a></p>
 </figure>
 <p>后续的小节会经常调用<code>show_heatmaps</code>函数来显示注意力权重.</p>
 <div class="footnote">
