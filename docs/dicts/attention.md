@@ -12,14 +12,16 @@ comments: false
 **非自主性提示**是基于环境中物体的突出性和易见性. 假设我们面前有五个物品, 一份报纸, 一篇论文, 一杯咖啡, 一本笔记和一本书, 所有的纸制品都是黑白印刷的, 但是咖啡杯是红色的. 换句话说, 这个咖啡杯在这种视觉环境中是突出和显眼的, 不由自主地引起注意, 所以我们会把视力最敏锐的地方放到咖啡上.
 
 <figure markdown='1'>
-  ![](https://img.ricolxwz.io/b0945597f22366e591a33a8e5bf9e76c.svg){ loading=lazy width='300' }
+  ![](https://img.ricolxwz.io/b6f62d2dd7462e96becd2abf8a1e5d98.webp#only-light){ loading=lazy width='300' }
+  ![](https://img.ricolxwz.io/b6f62d2dd7462e96becd2abf8a1e5d98_inverted.webp#only-dark){ loading=lazy width='300' }
   <figcaption>由于突出性的非自主性提示(红杯子), 注意力不自主地指向了☕️</figcaption>
 </figure>
 
 喝咖啡后, 我们会变得兴奋并想读书, 所以转过了头, 重新聚焦眼睛, 然后看看书, 与上图的突出性导致的选择不同, 此时选择书是受到了认知和意识的控制, 因此注意力在基于**自主性提示**去辅助选择的时候将更为谨慎. 受试者的主观意愿推动, 选择的力量就更加强大.
 
 <figure markdown='1'>
-  ![](https://img.ricolxwz.io/cace7a0218a207cf8a11ce3638e1bebc.svg){ loading=lazy width='300' }
+  ![](https://img.ricolxwz.io/ed6110ddf2f9a70408d1195ff78b6793.webp#only-light){ loading=lazy width='300' }
+  ![](https://img.ricolxwz.io/ed6110ddf2f9a70408d1195ff78b6793_inverted.webp#only-dark){ loading=lazy width='300' }
   <figcaption>依赖于任务的意志提示(想读一本书), 注意力被自主引导到📖上</figcaption>
 </figure>
 
@@ -44,7 +46,8 @@ comments: false
 因此, “是否包含自主性提示”将注意力机制和全连接层和汇聚层区别开来. 在注意力机制的背景下, 自主性提示被称为“查询”. 给定任何查询, 注意力机制通过注意力汇聚(attention pooling)将选择引导至感官输入(sensory inputs). 在注意力机制中, 这些感官输入被称为值(value). 更通俗的解释, 每个值都与一个键(key)配对, 这可以想象为感官输入的非自主性提示. 如下图所示, 可以通过设计注意力汇聚的方式, 便于给定的查询(自主性提示)和键(非自主性提示)进行匹配, 这将引导得出最匹配的值(感官输入).
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/cfee07b985832c64b3de088a47ded3a5.svg){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/292bd83d5480f210dc83347e5443fdf5.webp#only-light){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/292bd83d5480f210dc83347e5443fdf5_inverted.webp#only-dark){ loading=lazy width='400' }
 <figcaption>注意力机制通过将注意力汇聚将查询(自主性提示)和键(非自主性提示)结合在一起, 实现对值(感官输入)的选择倾向</figcaption>
 </figure>
 
@@ -99,7 +102,8 @@ show_heatmaps(attention_weights, xlabel='Keys', ylabel='Queries')
 ```
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/569074acf4cb1b2c13f5b49179587517.svg){ loading=lazy width='250' }
+![](https://img.ricolxwz.io/344590a20ac250b2ffda6794f826e4cd.webp#only-light){ loading=lazy width='250' }
+![](https://img.ricolxwz.io/344590a20ac250b2ffda6794f826e4cd_inverted.webp#only-dark){ loading=lazy width='250' }
 </figure>
 
 后续的小节会经常调用`show_heatmaps`函数来显示注意力权重.
