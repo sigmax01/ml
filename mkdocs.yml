@@ -219,3 +219,4 @@ nav:
       - 反向传播: dicts/backpropagation.md
       - 自动微分: dicts/autograd.md
       - 判别式模型和生成式模型: dicts/discriminative-and-generative-model.md
+      - 注意力机制: dicts/attention.md

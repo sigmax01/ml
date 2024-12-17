@@ -38,8 +38,14 @@ title: 开始
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
   - [ ] 代码
-    - [x] [PyTorch](/code/pytorch/)
-        - [ ] [从PyTorch开始Transformer](/code/pytorch/transformer-from-pytorch)
+      - [x] [PyTorch](/code/pytorch/)
+          - [ ] [从PyTorch开始Transformer](/code/pytorch/transformer-from-pytorch)
+  - [ ] 词典
+      - [x] [反向传播](/dicts/backpropagation)
+      - [x] [自动微分](/dicts/autograd)
+      - [x] [判别式模型和生成式模型](/dicts/discriminative-and-generative-model)
+      - [ ] [注意力机制](/dicts/attention)
+
 
 ## 推荐
 
