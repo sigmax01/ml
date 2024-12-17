@@ -22,8 +22,8 @@ title: 开始
     - [x] [支持向量机](/algorithm/svm)
     - [x] [降维](/algorithm/dimensional-reduction)
     - [x] [神经网络](/algorithm/neural-network)
-        - [ ] 微调
-            - [ ] [Adapter](/algorithm/neural-network/fine-tuning/adapter)
+        - [ ] 迁移学习
+            - [ ] [Adapter](/algorithm/neural-network/transfer-learning/adapter)
         - [x] [前馈神经网络](/algorithm/neural-network/fnn)
         - [x] [卷积神经网络](/algorithm/neural-network/cnn)
             - [x] [AlexNet](/algorithm/neural-network/cnn/alexnet)
