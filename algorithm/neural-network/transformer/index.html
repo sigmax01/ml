@@ -2236,7 +2236,7 @@
 <p>如上图, 当我们在第五层编码器(即最后一层编码器)编码it的时候, 有相当一部分的注意力集中在The animal上, 把这两个单词的信息融合到了it这个单词中.</p>
 <p>下面我们来看如何使用向量来计算自注意力, 然后再看如何使用矩阵来实现自注意力.</p>
 <h3 id="计算三个向量">计算Query, Key, Value向量<a class="headerlink" href="#计算三个向量" title="Permanent link">&para;</a></h3>
-<p>计算自注意力的第一步是, 对输入编码器的每个向量, 都创建三个向量, 分别是Query向量, Key向量, Value向量. 这三个向量是向量分别和三个矩阵相乘得到的, 这三个矩阵就是我们要学习的参数. 注意到这些新的向量比向量的维度更小, 如, 若编码器的输入/输出的向量的维度是<span class="arithmatex">\(512\)</span>, 则新的三个向量的维度是<span class="arithmatex">\(64\)</span>. 虽然在这里选用<span class="arithmatex">\(64\)</span>, 但是这并不是必须的, 选择较小维度主要是为了优化计算效率, 尤其是在多头注意力(后面会讲)的计算过程中.</p>
+<p>计算自注意力的第一步是, 对输入编码器的每个向量, 都创建三个向量, 分别是Query向量, Key向量, Value向量. 这三个向量是向量分别和三个矩阵相乘得到的, 这三个矩阵就是我们要学习的参数. 注意到这些新的向量比向量的维度更小, 如, 若编码器的输入/输出的向量的维度是<span class="arithmatex">\(512\)</span>, 则新的三个向量的维度是<span class="arithmatex">\(64\)</span>. 虽然在这里选用<span class="arithmatex">\(64\)</span>, 但是这并不是必须的, 选择较小维度主要是为了优化计算效率以及提取多种特征, 尤其是在多头注意力(后面会讲)的计算过程中.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/45dbc2a47b2cd6d2ef8ba28ef2fac164.png" width="500" /></a></p>
 </figure>
@@ -2278,6 +2278,54 @@
 <p><a class="glightbox" href="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/752c1c91e1b4dbca1b64f59a7e026b9b.png" width="500" /></a></p>
 </figure>
 <h2 id="多头注意力机制">多头注意力机制<a class="headerlink" href="#多头注意力机制" title="Permanent link">&para;</a></h2>
+<details class="note" open="open">
+<summary>深入理解MSA</summary>
+<p>在这条补丁下面的可能是比较粗浅的理解(而且可能和PyTorch的实现有点出入), 这条补丁是较深入的理解:</p>
+<ol>
+<li>
+<p><strong>输入:</strong> </p>
+<p>输入<code>x</code>的形状为<code>(batch_size, seq_len, hidden_size)</code></p>
+</li>
+<li>
+<p><strong>线性投影生成<code>Q</code>, <code>K</code>, <code>V</code>:</strong> </p>
+<p>通过三个独立的线性层, 进行线性变换, 即通过<code>W_K</code>, <code>W_Q</code>, <code>W_V</code>, 分别生成<code>Q, K, V</code>, 形状均为<code>(batch_size, seq_len, hidden_size)</code></p>
+</li>
+<li>
+<p><strong>拆分为多个头:</strong> </p>
+<ol>
+<li>使用<code>view</code>或者<code>reshape</code>将<code>Q</code>, <code>K</code>, <code>V</code>的形状从<code>(batch_size, seq_len, hidden_size)</code>转换为<code>(batch_size, seq_len, num_heads, hidden_size/num_heads)</code></li>
+<li>使用<code>transpose</code>将维度顺序调整为<code>(batch_size, num_heads, seq_len, hidden_size/num_heads)</code></li>
+</ol>
+</li>
+<li>
+<p><strong>计算注意力得分:</strong></p>
+<ol>
+<li>
+<p>对每个头独立计算注意力得分, 得分的形状为<code>(batch_size, num_heads, seq_len, seq_len)</code></p>
+</li>
+<li>
+<p>通过<code>softmax</code>函数对得分进行归一化, 得到注意力权重</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>计算注意力输出:</strong></p>
+<p>使用注意力权重和每个头独立的<code>V</code>进行乘法, 得到注意力输出, 形状为<code>(batch_size, num_heads, seq_len, hidden_size/num_heads)</code></p>
+</li>
+<li>
+<p><strong>拼接所有头的输出:</strong></p>
+<ol>
+<li>使用<code>transpose</code>将注意力输出的维度顺序调整回<code>(batch_size, seq_len, num_heads, hidden_size/num_heads)</code></li>
+<li>使用<code>view</code>或者<code>reshape</code>将tensor拼接回原始的嵌入维度, 形状为<code>(batch_size, seq_len, hidden_size)</code></li>
+</ol>
+</li>
+<li>
+<p><strong>最终线性层:</strong></p>
+<p>然后通过一个线性层对拼接后的注意力输出进行最终转换, 得到模型的输出. 这个线性层的作用是对输出进行整合, 增强模型的表达能力.</p>
+</li>
+</ol>
+<p>虽然在原文中写了每个头有自己独立的权重矩阵<code>W^i_Q</code>, <code>W^i_K</code>, <code>W^i_V</code>, 但是在实际的实现中, 通常采用上述这种共享大的<code>W_Q</code>, <code>W_K</code>, <code>W_V</code>, 切分<code>Q</code>, <code>K</code>, <code>V</code>的做法.</p>
+</details>
 <p>论文还通过增加多头注意力机制, 进一步完善了自注意力层. 注意力头是多头注意力机制中的一个子组件, 它是一个独立的注意力计算单元. 每个注意力头都有自己的Query, Key, Value矩阵. 多头注意力机制从下面的两个方面扩展了自注意力层的能力:</p>
 <ul>
 <li>它扩展了模型关注不同位置的能力. 就如在<a href="#计算注意力分数">计算注意力分数</a>中的第四步讲到的那样, 最后生成的<span class="arithmatex">\(z_1\)</span>向量被自己Thinking主导(<span class="arithmatex">\(0.88\)</span>), 而只包含了Machines的很小一部分信息(<span class="arithmatex">\(0.12\)</span>). 多头注意力则允许模型同时学习多个不同的注意力分布. 例如, 某些注意力头可能专注于局部信息, 而其他头可能捕捉更远距离的依赖</li>
@@ -2475,7 +2523,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月18日</span>
   </span>
 
     

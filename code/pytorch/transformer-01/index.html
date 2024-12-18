@@ -1801,6 +1801,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码器
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1987,6 +1996,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码器
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2045,12 +2063,12 @@
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>  <span class="n">output</span> <span class="o">=</span> <span class="n">token_embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输入形状: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输出形状&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输出形状: &quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
 <a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="n">test_token_embedding</span><span class="p">()</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>输入形状:  torch.Size([32, 10])
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>输出形状 torch.Size([32, 10, 512])
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>输出形状:  torch.Size([32, 10, 512])
 </code></pre></div>
 <details class="note" open="open">
 <summary><code>nn.Embedding()</code>的用法</summary>
@@ -2077,13 +2095,13 @@ PE(pos, 2i+1) &amp;= \cos\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="c1"># 创建一个位置编码表, 形状为(max_len, 1)</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="c1"># 提前进行unsqueeze在末尾添加一个维度以适应后面的广播, 原先是(max_len, ), 经过unsqueeze之后, 是(max_len, 1)</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_seq_len</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_len</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="c1"># 计算三角函数内分母的倒数, 形状为(hidden_size/2, )</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">div_term</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">embed_model_dim</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">*</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">embed_model_dim</span><span class="p">))</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">div_term</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">*</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">hidden_size</span><span class="p">))</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="c1"># 初始化位置嵌入矩阵为零矩阵, 形状为(max_len, hidden_size)</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">pe</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_seq_len</span><span class="p">,</span> <span class="n">embed_model_dim</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">pe</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="c1"># 广播机制会将div_term扩展到(1, hidden_size/2)</span>
 <a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="c1"># 相乘产生的结果大小为(max_len, hidden_size/2), pe的大小为(max_len, hidden_size)</span>
@@ -2106,6 +2124,30 @@ PE(pos, 2i+1) &amp;= \cos\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)
 <a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">[:</span><span class="n">seq_len</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
 <a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    <span class="k">return</span> <span class="n">x</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="k">def</span> <span class="nf">test_positional_embedding</span><span class="p">():</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>  <span class="n">max_len</span> <span class="o">=</span> <span class="mi">5000</span>  <span class="c1"># 设置输出长度为5000的序列的每个token的位置嵌入向量</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>  <span class="n">hidden_size</span> <span class="o">=</span> <span class="mi">512</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>  <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>  <span class="n">seq_len</span> <span class="o">=</span> <span class="mi">4</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>  <span class="c1"># 随机生成输入数据, 形状为(batch_size, seq_len, hidden_size)</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>  <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>  <span class="c1"># 创建PositionalEmbedding模块实例</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>  <span class="n">positional_embedding</span> <span class="o">=</span> <span class="n">PositionalEmbedding</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>  <span class="c1"># 计算位置嵌入输出</span>
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>  <span class="n">output</span> <span class="o">=</span> <span class="n">positional_embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>  <span class="c1"># 打印输入和输出的形状</span>
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输入形状: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输出形状: &quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a><span class="n">test_positional_embedding</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>输入形状:  torch.Size([2, 4, 512])
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>输出形状:  torch.Size([2, 4, 512])
 </code></pre></div>
 <details class="note" open="open">
 <summary><code>unsqueeze()</code>的作用</summary>
@@ -2121,6 +2163,119 @@ PE(pos, 2i+1) &amp;= \cos\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)
 <summary><code>self.pe[:seq_len, :]</code>的动机</summary>
 <p>由于位置嵌入矩阵一般是不会改变的, 所以一般的做法是一次性生成一个很长序列的位置嵌入矩阵, 比如长度为5000序列的位置嵌入矩阵, 我们可以通过截取前<code>seq_len</code>的方式获取到第<code>1</code>个到第<code>seq_len</code>个token的位置嵌入向量, 而不用再去计算一遍位置嵌入矩阵. 也就是说, <code>PositionalEmbedding</code>构造器的输入<code>max_len</code>可以搞一个很长的值, 可以远大于需求. 当然, 也要考虑实际内存容量. 这个和实际序列的最长长度没有关系, 比如说, 实际序列长度是4, 6, 2, 7, 最长长度是7, 但是这里的<code>max_len</code>可以是6000, 一下子生成所有token的位置嵌入向量.</p>
 </details>
+<h2 id="_3">编码器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<details class="note" open="open">
+<summary>深入理解MSA</summary>
+<ol>
+<li>
+<p><strong>输入:</strong> </p>
+<p>输入<code>x</code>的形状为<code>(batch_size, seq_len, hidden_size)</code></p>
+</li>
+<li>
+<p><strong>线性投影生成<code>Q</code>, <code>K</code>, <code>V</code>:</strong> </p>
+<p>通过三个独立的线性层, 进行线性变换, 即通过<code>W_K</code>, <code>W_Q</code>, <code>W_V</code>, 分别生成<code>Q, K, V</code>, 形状均为<code>(batch_size, seq_len, hidden_size)</code></p>
+</li>
+<li>
+<p><strong>拆分为多个头:</strong> </p>
+<ol>
+<li>使用<code>view</code>或者<code>reshape</code>将<code>Q</code>, <code>K</code>, <code>V</code>的形状从<code>(batch_size, seq_len, hidden_size)</code>转换为<code>(batch_size, seq_len, num_heads, hidden_size/num_heads)</code></li>
+<li>使用<code>transpose</code>将维度顺序调整为<code>(batch_size, num_heads, seq_len, hidden_size/num_heads)</code></li>
+</ol>
+</li>
+<li>
+<p><strong>计算注意力得分:</strong></p>
+<ol>
+<li>
+<p>对每个头独立计算注意力得分, 得分的形状为<code>(batch_size, num_heads, seq_len, seq_len)</code></p>
+</li>
+<li>
+<p>通过<code>softmax</code>函数对得分进行归一化, 得到注意力权重</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>计算注意力输出:</strong></p>
+<p>使用注意力权重和每个头独立的<code>V</code>进行乘法, 得到注意力输出, 形状为<code>(batch_size, num_heads, seq_len, hidden_size/num_heads)</code></p>
+</li>
+<li>
+<p><strong>拼接所有头的输出:</strong></p>
+<ol>
+<li>使用<code>transpose</code>将注意力输出的维度顺序调整回<code>(batch_size, seq_len, num_heads, hidden_size/num_heads)</code></li>
+<li>使用<code>view</code>或者<code>reshape</code>将tensor拼接回原始的嵌入维度, 形状为<code>(batch_size, seq_len, hidden_size)</code></li>
+</ol>
+</li>
+<li>
+<p><strong>最终线性层:</strong></p>
+<p>然后通过一个线性层对拼接后的注意力输出进行最终转换, 得到模型的输出. 这个线性层的作用是对输出进行整合, 增强模型的表达能力.</p>
+</li>
+</ol>
+<p>虽然在原文中写了每个头有自己独立的权重矩阵<code>W^i_Q</code>, <code>W^i_K</code>, <code>W^i_V</code>, 但是在实际的实现中, 通常采用上述这种共享大的<code>W_Q</code>, <code>W_K</code>, <code>W_V</code>, 切分<code>Q</code>, <code>K</code>, <code>V</code>的做法.</p>
+</details>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span> <span class="nc">EncoderLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">ff_size</span><span class="p">,</span> <span class="n">dropout_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="c1"># 多头注意力层, 需要词向量的维度和头的数量, 每个头的维度是hidden_size/num_heads</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">multi_head_attention</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="c1"># Dropout层, 这是一个单独的层, 对输入以dropout_prob为概率进行随机置零操作</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout_prob</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="c1"># LN层</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">layer_norm1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="c1"># FNN, 其实这里面也是有一个projection的, 不是只有multi-head有projection</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">feed_forward</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">ff_size</span><span class="p">),</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">ff_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="p">)</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="c1"># Dropout层</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout_prob</span><span class="p">)</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="c1"># LN层</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">layer_norm2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    <span class="c1"># 多头注意力层</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    <span class="c1"># 输入x的形状为(batch_size, seq_len, hidden_size)</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>    <span class="c1"># 全局注意力, 所以设置attention_mask为None</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>    <span class="n">attn_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multi_head_attention</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">)</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    <span class="n">attn_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span><span class="p">(</span><span class="n">attn_output</span><span class="p">)</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    <span class="c1"># 先进行残差连接, 然后进行LN</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>    <span class="n">out1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_norm1</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">attn_output</span><span class="p">)</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>    <span class="c1"># FNN</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>    <span class="n">ff_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feed_forward</span><span class="p">(</span><span class="n">out1</span><span class="p">)</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>    <span class="n">ff_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span><span class="p">(</span><span class="n">ff_output</span><span class="p">)</span>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>    <span class="n">out2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_norm2</span><span class="p">(</span><span class="n">out1</span> <span class="o">+</span> <span class="n">ff_output</span><span class="p">)</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>    <span class="k">return</span> <span class="n">out2</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>  <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>  <span class="n">seq_len</span> <span class="o">=</span> <span class="mi">4</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>  <span class="n">hidden_size</span> <span class="o">=</span> <span class="mi">512</span>
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>  <span class="n">num_heads</span> <span class="o">=</span> <span class="mi">8</span>
+<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>  <span class="n">ff_size</span> <span class="o">=</span> <span class="mi">2048</span>
+<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>
+<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a>  <span class="c1"># 随机生成输入数据(batch_size, seq_len, hidden_size)</span>
+<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a>  <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>
+<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>  <span class="c1"># 创建EncoderLayer模块</span>
+<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>  <span class="n">encoder_layer</span> <span class="o">=</span> <span class="n">EncoderLayer</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">ff_size</span><span class="p">)</span>
+<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a>
+<a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>  <span class="c1"># 计算EncoderLayer输出</span>
+<a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a>  <span class="n">output</span> <span class="o">=</span> <span class="n">encoder_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a>
+<a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输入形状: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-4-62" name="__codelineno-4-62" href="#__codelineno-4-62"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输出形状: &quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-4-63" name="__codelineno-4-63" href="#__codelineno-4-63"></a>
+<a id="__codelineno-4-64" name="__codelineno-4-64" href="#__codelineno-4-64"></a><span class="n">main</span><span class="p">()</span>
+</code></pre></div>
 <div class="footnote">
 <hr />
 <ol>
