@@ -33,14 +33,14 @@ def test_token_embedding():
   output = token_embedding(x)
 
   print("输入形状: ", x.shape)
-  print("输出形状", output.shape)
+  print("输出形状: ", output.shape)
 
 test_token_embedding()
 ```
 
 ``` title='输出'
 输入形状:  torch.Size([32, 10])
-输出形状 torch.Size([32, 10, 512])
+输出形状:  torch.Size([32, 10, 512])
 ```
 
 ???+ note "`nn.Embedding()`的用法"
@@ -74,13 +74,13 @@ class PositionalEmbedding(nn.Module):
 
     # 创建一个位置编码表, 形状为(max_len, 1)
     # 提前进行unsqueeze在末尾添加一个维度以适应后面的广播, 原先是(max_len, ), 经过unsqueeze之后, 是(max_len, 1)
-    position = torch.arange(0, max_seq_len).unsqueeze(1).float()
+    position = torch.arange(0, max_len).unsqueeze(1).float()
 
     # 计算三角函数内分母的倒数, 形状为(hidden_size/2, )
-    div_term = torch.exp(torch.arange(0, embed_model_dim, 2).float() * -(np.log(10000.0) / embed_model_dim))
+    div_term = torch.exp(torch.arange(0, hidden_size, 2).float() * -(np.log(10000.0) / hidden_size))
 
     # 初始化位置嵌入矩阵为零矩阵, 形状为(max_len, hidden_size)
-    pe = torch.zeros(max_seq_len, embed_model_dim)
+    pe = torch.zeros(max_len, hidden_size)
 
     # 广播机制会将div_term扩展到(1, hidden_size/2)
     # 相乘产生的结果大小为(max_len, hidden_size/2), pe的大小为(max_len, hidden_size)
@@ -91,18 +91,44 @@ class PositionalEmbedding(nn.Module):
 
     # 将位置编码信息注册为buffer, 模型训练的时候不会更新
     self.register_buffer("pe", pe)
-  
+
   def forward(self, x):
     # x的形状为(batch_size, seq_len, hidden_size)
     # 由seq_len可能发生改变, 有可能seq_len=4, 而我们的self.pe已经预先生成了长度为5000的序列的所有token的嵌入向量了, 所以需要对self.pe进行截取, 只取前1-seq_len个token的位置嵌入向量
     seq_len = x.size(1)
-    
+
     # 将位置编码加入到向量上
     # self.pe[:seq_len, :]的形状为(seq_len, hidden_size), 意思是前面的seq_len个token的位置向量
     # unsqueeze(0)使其形状变为(1, seq_len, hidden_size), 便于与输入tensor相加, 这个过程中有广播
     x = x + self.pe[:seq_len, :].unsqueeze(0)
 
     return x
+
+def test_positional_embedding():
+  max_len = 5000  # 设置输出长度为5000的序列的每个token的位置嵌入向量
+  hidden_size = 512
+  batch_size = 2
+  seq_len = 4
+
+  # 随机生成输入数据, 形状为(batch_size, seq_len, hidden_size)
+  x = torch.randn(batch_size, seq_len, hidden_size)
+
+  # 创建PositionalEmbedding模块实例
+  positional_embedding = PositionalEmbedding(max_len, hidden_size)
+
+  # 计算位置嵌入输出
+  output = positional_embedding(x)
+
+  # 打印输入和输出的形状
+  print("输入形状: ", x.shape)
+  print("输出形状: ", output.shape)
+
+test_positional_embedding()
+```
+
+``` title='输出'
+输入形状:  torch.Size([2, 4, 512])
+输出形状:  torch.Size([2, 4, 512])
 ```
 
 ???+ note "`unsqueeze()`的作用"
@@ -120,6 +146,111 @@ class PositionalEmbedding(nn.Module):
 ???+ note "`self.pe[:seq_len, :]`的动机"
 
     由于位置嵌入矩阵一般是不会改变的, 所以一般的做法是一次性生成一个很长序列的位置嵌入矩阵, 比如长度为5000序列的位置嵌入矩阵, 我们可以通过截取前`seq_len`的方式获取到第`1`个到第`seq_len`个token的位置嵌入向量, 而不用再去计算一遍位置嵌入矩阵. 也就是说, `PositionalEmbedding`构造器的输入`max_len`可以搞一个很长的值, 可以远大于需求. 当然, 也要考虑实际内存容量. 这个和实际序列的最长长度没有关系, 比如说, 实际序列长度是4, 6, 2, 7, 最长长度是7, 但是这里的`max_len`可以是6000, 一下子生成所有token的位置嵌入向量.
+
+## 编码器
+
+???+ note "深入理解MSA"
+
+    1. **输入:** 
+
+        输入`x`的形状为`(batch_size, seq_len, hidden_size)`
+
+    2. **线性投影生成`Q`, `K`, `V`:** 
+
+        通过三个独立的线性层, 进行线性变换, 即通过`W_K`, `W_Q`, `W_V`, 分别生成`Q, K, V`, 形状均为`(batch_size, seq_len, hidden_size)`
+
+    3. **拆分为多个头:** 
+
+        1. 使用`view`或者`reshape`将`Q`, `K`, `V`的形状从`(batch_size, seq_len, hidden_size)`转换为`(batch_size, seq_len, num_heads, hidden_size/num_heads)`
+        2. 使用`transpose`将维度顺序调整为`(batch_size, num_heads, seq_len, hidden_size/num_heads)`
+
+    4. **计算注意力得分:**
+
+        1. 对每个头独立计算注意力得分, 得分的形状为`(batch_size, num_heads, seq_len, seq_len)`
+
+        2. 通过`softmax`函数对得分进行归一化, 得到注意力权重
+
+    5. **计算注意力输出:**
+    
+        使用注意力权重和每个头独立的`V`进行乘法, 得到注意力输出, 形状为`(batch_size, num_heads, seq_len, hidden_size/num_heads)`
+
+    6. **拼接所有头的输出:**
+    
+        1. 使用`transpose`将注意力输出的维度顺序调整回`(batch_size, seq_len, num_heads, hidden_size/num_heads)`
+        2. 使用`view`或者`reshape`将tensor拼接回原始的嵌入维度, 形状为`(batch_size, seq_len, hidden_size)`
+
+    7. **最终线性层:**
+    
+        然后通过一个线性层对拼接后的注意力输出进行最终转换, 得到模型的输出. 这个线性层的作用是对输出进行整合, 增强模型的表达能力.
+
+    虽然在原文中写了每个头有自己独立的权重矩阵`W^i_Q`, `W^i_K`, `W^i_V`, 但是在实际的实现中, 通常采用上述这种共享大的`W_Q`, `W_K`, `W_V`, 切分`Q`, `K`, `V`的做法.
+
+```py title='输入'
+class EncoderLayer(nn.Module):
+  def __init__(self, hidden_size, num_heads, ff_size, dropout_prob=0.1):
+    super().__init__()
+    
+    # 多头注意力层, 需要词向量的维度和头的数量, 每个头的维度是hidden_size/num_heads
+    self.multi_head_attention = nn.MultiheadAttention(hidden_size, num_heads)
+
+    # Dropout层, 这是一个单独的层, 对输入以dropout_prob为概率进行随机置零操作
+    self.dropout1 = nn.Dropout(p=dropout_prob)
+
+    # LN层
+    self.layer_norm1 = nn.LayerNorm(hidden_size)
+
+    # FNN, 其实这里面也是有一个projection的, 不是只有multi-head有projection
+    self.feed_forward = nn.Sequential(
+        nn.Linear(hidden_size, ff_size),
+        nn.ReLU(),
+        nn.Linear(ff_size, hidden_size)
+    )
+
+    # Dropout层
+    self.dropout2 = nn.Dropout(dropout_prob)
+
+    # LN层
+    self.layer_norm2 = nn.LayerNorm(hidden_size)
+
+  def forward(self, x, attention_mask=None):
+    # 多头注意力层
+    # 输入x的形状为(batch_size, seq_len, hidden_size)
+    # 全局注意力, 所以设置attention_mask为None
+    attn_output = self.multi_head_attention(x, x, x, attention_mask)
+
+    attn_output = self.dropout1(attn_output)
+
+    # 先进行残差连接, 然后进行LN
+    out1 = self.layer_norm1(x + attn_output)
+
+    # FNN
+    ff_output = self.feed_forward(out1)
+    ff_output = self.dropout2(ff_output)
+    out2 = self.layer_norm2(out1 + ff_output)
+
+    return out2
+
+def main():
+  batch_size = 2
+  seq_len = 4
+  hidden_size = 512
+  num_heads = 8
+  ff_size = 2048
+
+  # 随机生成输入数据(batch_size, seq_len, hidden_size)
+  x = torch.rand(batch_size, seq_len, hidden_size)
+
+  # 创建EncoderLayer模块
+  encoder_layer = EncoderLayer(hidden_size, num_heads, ff_size)
+
+  # 计算EncoderLayer输出
+  output = encoder_layer(x)
+
+  print("输入形状: ", x.shape)
+  print("输出形状: ", output.shape)
+
+main()
+```
 
 [^1]: 苦行僧. (2021, 七月 28). 基于Pytorch的torch.nn.embedding()实现词嵌入层. Csdn. https://blog.csdn.net/weixin_43646592/article/details/119180298
 [^2]: 不当菜鸡的程序媛. (不详). Pytorch的默认初始化分布 nn.Embedding.weight初始化分布. Csdn. 取读于 2024年12月18日, 从 https://blog.csdn.net/vivi_cin/article/details/135564011
