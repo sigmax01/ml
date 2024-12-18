@@ -1,6 +1,6 @@
 ---
 title: ViT
-comments: false
+comments: true
 ---
 
 ## 摘要

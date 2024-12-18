@@ -196,6 +196,7 @@ nav:
           - algorithm/neural-network/index.md
           - 迁移学习:
               - Adapter: algorithm/neural-network/transfer-learning/adapter.md
+              - LoRA: algorithm/neural-network/transfer-learning/lora.md
           - 前馈神经网络: algorithm/neural-network/fnn.md
           - 卷积神经网络:
               - algorithm/neural-network/cnn/index.md

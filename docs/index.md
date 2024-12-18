@@ -23,7 +23,8 @@ title: 开始
     - [x] [降维](/algorithm/dimensional-reduction)
     - [x] [神经网络](/algorithm/neural-network)
         - [ ] 迁移学习
-            - [ ] [Adapter](/algorithm/neural-network/transfer-learning/adapter)
+            - [x] [Adapter](/algorithm/neural-network/transfer-learning/adapter)
+            - [ ] [LoRA](/algorithm/neural-network/transfer-learning/lora)
         - [x] [前馈神经网络](/algorithm/neural-network/fnn)
         - [x] [卷积神经网络](/algorithm/neural-network/cnn)
             - [x] [AlexNet](/algorithm/neural-network/cnn/alexnet)

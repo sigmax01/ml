@@ -1,0 +1,5 @@
+---
+title: Adapter
+comments: false
+---
+

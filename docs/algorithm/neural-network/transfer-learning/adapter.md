@@ -1,6 +1,6 @@
 ---
 title: Adapter
-comments: false
+comments: true
 ---
 
 # Adapter[^1]
