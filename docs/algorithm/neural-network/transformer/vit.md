@@ -52,7 +52,9 @@ Transformer由Vaswani等人提出[^6], 起初用于机器翻译, 现在已经在
 ## 方法论
 
 <figure markdown='1'>
-  ![](https://img.ricolxwz.io/68495fc7236b9721a4b529966ca65c5e.png){ loading=lazy width='500' }
+  ![](https://img.ricolxwz.io/43f2112e139a0a3fc85bfd86b6e60771.webp#only-light){ loading=lazy width='500' }
+  ![](https://img.ricolxwz.io/43f2112e139a0a3fc85bfd86b6e60771_inverted.webp#only-dark){ loading=lazy width='500' }
+
   <figcaption>模型overview. 将图片分为固定大小的patches, 然后对它们进行线性编码, 加入位置嵌入, 将结果喂到一个标准的Transformer编码器中. 为了能够执行分类任务, 作者使用了向序列中加入"classification token"的标准方式(类似于BERT). Transformer的编码器来源于Vvaswani等人.</figcaption>
 </figure>
 

@@ -133,7 +133,8 @@ $$L_3(\mathcal{C}) = L_2(\mathcal{C}) + \lambda \cdot L_1(\mathcal{C})$$
 对于某一些任务, 如文本分类, 我们可以直接如上个小节所述的样子直接微调. 另外一些任务, 如QA或者TE, 它们的输入常常是局域结构的. 由于我们的预训练模型是在连续的文本序列上训练的, 所以需要一点点的调整来应用到这些任务中. 之前的研究提出了一种方法, 即在预训练的表示之上, 设计特定于任务的网络架构, 这种方法的问题在于, 它重新引入了针对具体任务的定制化操作, 也就是说, 虽然迁移学习的目的是为了减少不同任务的重复劳动, 但是这种方法通过设计特定架构增加了复杂性.
 
 <figure markdown='1'>
-![](https://img.ricolxwz.io/5eca022ccaa6870205ee7ffd3fe0226f.png){ loading=lazy width='500' }
+![](https://img.ricolxwz.io/38a996b4fdbe0e3e44027a43a10f9011.webp#only-light){ loading=lazy width='500' }
+![](https://img.ricolxwz.io/38a996b4fdbe0e3e44027a43a10f9011_inverted.webp#only-dark){ loading=lazy width='500' }
 <figcaption>Transformer的结构(左); 对于不同的下游任务微调阶段输入的转换, 使用Traversal-style Approaches将结构化的输入转化为单一的, 连续的token序列(右)</figcaption>
 </figure>
 
