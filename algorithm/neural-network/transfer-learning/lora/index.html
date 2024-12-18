@@ -12,28 +12,28 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/math/probability/large-number-central-limit-theorem/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/algorithm/neural-network/transfer-learning/lora/">
       
       
-        <link rel="prev" href="../numerical-characteristics-of-random-variable/">
+        <link rel="prev" href="../adapter/">
       
       
-        <link rel="next" href="../../../algorithm/">
+        <link rel="next" href="../../fnn/">
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
-        <title>大数定律与中心极限定理 - 机器蝉</title>
+        <title>Adapter - 机器蝉</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,9 +54,9 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -83,7 +83,7 @@
     href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css"
 />
 
-   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -92,7 +92,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -110,11 +110,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#_1" class="md-skip">
-          跳转至
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -125,7 +120,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -166,7 +161,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              大数定律与中心极限定理
+              Adapter
             
           </span>
         </div>
@@ -292,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../../../.." class="md-tabs__link">
           
   
     
@@ -308,21 +303,17 @@
         
   
   
-    
-  
   
     
     
       
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../../math/probability/" class="md-tabs__link">
           
   
     
@@ -341,11 +332,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../algorithm/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
           
   
     
@@ -371,7 +364,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../code/pytorch/" class="md-tabs__link">
+        <a href="../../../../code/pytorch/" class="md-tabs__link">
           
   
     
@@ -394,7 +387,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../dicts/backpropagation/" class="md-tabs__link">
+        <a href="../../../../dicts/backpropagation/" class="md-tabs__link">
           
   
     
@@ -429,7 +422,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../../../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -503,7 +496,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../.." class="md-nav__link ">
+            <a href="../../../.." class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -535,12 +528,270 @@
       
   
   
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            数学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../math/probability/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    概率
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            概率
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../math/probability/random-event-and-probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    随机事件和概率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../math/probability/one-dimensional-random-variable-distribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一维随机变量及其分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../math/probability/multi-dimensional-random-variable-distribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多维随机变量及其分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../math/probability/numerical-characteristics-of-random-variable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    随机变量的数字特征
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../math/probability/large-number-central-limit-theorem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大数定律与中心极限定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -557,26 +808,225 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
-            
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
-    数学
+    算法
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            数学
+            算法
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linear-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性回归
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    预处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../knn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最邻近
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../naive-bayes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    朴素贝叶斯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../evaluation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    评估
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../decision-tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    决策树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ensemble-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    集成学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../svm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    支持向量机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dimensional-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    降维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -591,6 +1041,8 @@
       
         
           
+        
+      
         
       
         
@@ -613,32 +1065,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_11" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
-    概率
+    神经网络
   </span>
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_11">
             <span class="md-nav__icon md-icon"></span>
-            概率
+            神经网络
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -648,22 +1100,47 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../random-event-and-probability/" class="md-nav__link">
+  
+    
+    
+      
         
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_11_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_11_2" id="__nav_3_11_2_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
-    随机事件和概率
+    迁移学习
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_11_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_11_2">
+            <span class="md-nav__icon md-icon"></span>
+            迁移学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -672,53 +1149,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../one-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../adapter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    一维随机变量及其分布
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../multi-dimensional-random-variable-distribution/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    多维随机变量及其分布
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../numerical-characteristics-of-random-variable/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    随机变量的数字特征
+    Adapter
   </span>
   
 
@@ -742,562 +1177,7 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    大数定律与中心极限定理
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    大数定律与中心极限定理
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      依概率收敛
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      大数定律
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="大数定律">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      切比雪夫大数定律
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      伯努利大数定律
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      幸钦大数定律
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      中心极限定理
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="中心极限定理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#-" class="md-nav__link">
-    <span class="md-ellipsis">
-      列维-林德伯格定理
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#-_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      棣莫弗-拉普拉斯定理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/" class="md-nav__link ">
-              
-  
-  <span class="md-ellipsis">
-    算法
-  </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            算法
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/linear-regression/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    线性回归
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/preprocessing/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    预处理
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/knn/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    最邻近
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/naive-bayes/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    朴素贝叶斯
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/evaluation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    评估
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/decision-tree/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    决策树
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/ensemble-learning/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    集成学习
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/svm/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    支持向量机
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/dimensional-reduction/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    降维
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/neural-network/" class="md-nav__link ">
-              
-  
-  <span class="md-ellipsis">
-    神经网络
-  </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_11">
-            <span class="md-nav__icon md-icon"></span>
-            神经网络
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_11_2" id="__nav_3_11_2_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    迁移学习
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_11_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_11_2">
-            <span class="md-nav__icon md-icon"></span>
-            迁移学习
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transfer-learning/adapter/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Adapter
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transfer-learning/lora/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1306,6 +1186,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1326,7 +1207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/fnn/" class="md-nav__link">
+      <a href="../../fnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1378,7 +1259,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/neural-network/cnn/" class="md-nav__link ">
+            <a href="../../cnn/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1411,7 +1292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/alexnet/" class="md-nav__link">
+      <a href="../../cnn/alexnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1432,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
+      <a href="../../cnn/resnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1453,7 +1334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/nin/" class="md-nav__link">
+      <a href="../../cnn/nin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1474,7 +1355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/googlenet/" class="md-nav__link">
+      <a href="../../cnn/googlenet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1503,7 +1384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/rnn/" class="md-nav__link">
+      <a href="../../rnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1524,7 +1405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/word-embedding/" class="md-nav__link">
+      <a href="../../word-embedding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1574,7 +1455,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/neural-network/transformer/" class="md-nav__link ">
+            <a href="../../transformer/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1607,7 +1488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/gpt/" class="md-nav__link">
+      <a href="../../transformer/gpt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1628,7 +1509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/bert/" class="md-nav__link">
+      <a href="../../transformer/bert/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1649,7 +1530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/vit/" class="md-nav__link">
+      <a href="../../transformer/vit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1686,7 +1567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/clustering/" class="md-nav__link">
+      <a href="../../../clustering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1707,7 +1588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/markov-chain/" class="md-nav__link">
+      <a href="../../../markov-chain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1728,7 +1609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/reinforcement-learning/" class="md-nav__link">
+      <a href="../../../reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1825,7 +1706,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../code/pytorch/" class="md-nav__link ">
+            <a href="../../../../code/pytorch/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1858,7 +1739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code/pytorch/transformer-from-pytorch/" class="md-nav__link">
+      <a href="../../../../code/pytorch/transformer-from-pytorch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1944,7 +1825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/backpropagation/" class="md-nav__link">
+      <a href="../../../../dicts/backpropagation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1965,7 +1846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/autograd/" class="md-nav__link">
+      <a href="../../../../dicts/autograd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1986,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/discriminative-and-generative-model/" class="md-nav__link">
+      <a href="../../../../dicts/discriminative-and-generative-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2007,7 +1888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/attention/" class="md-nav__link">
+      <a href="../../../../dicts/attention/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2046,98 +1927,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      依概率收敛
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      大数定律
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="大数定律">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      切比雪夫大数定律
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      伯努利大数定律
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      幸钦大数定律
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      中心极限定理
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="中心极限定理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#-" class="md-nav__link">
-    <span class="md-ellipsis">
-      列维-林德伯格定理
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#-_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      棣莫弗-拉普拉斯定理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2151,7 +1940,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/math/probability/large-number-central-limit-theorem.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/algorithm/neural-network/transfer-learning/lora.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2160,30 +1949,16 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/math/probability/large-number-central-limit-theorem.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/algorithm/neural-network/transfer-learning/lora.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>大数定律与中心极限定理</h1>
+  <h1>LoRA</h1>
 
-<h2 id="_1">依概率收敛<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>设随机变量<span class="arithmatex">\(X\)</span>与随机变量序列<span class="arithmatex">\(\{X_n\}(n=1, 2, 3, ...)\)</span>, 如果对任意的<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|X_n-X|\geq \epsilon\}=0\)</span>或<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|X_n-X|&lt;\epsilon\}=1\)</span>, 则称随机变量序列<span class="arithmatex">\(\{X_n\}\)</span>依概率收敛于随机变量<span class="arithmatex">\(X\)</span>, 记为<span class="arithmatex">\(\lim_{n\rightarrow \infty}X_n=X(P)\)</span>或<span class="arithmatex">\(X_n\stackrel{P}{\rightarrow}X(n\rightarrow \infty)\)</span>.</p>
-<h2 id="_2">大数定律<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="_3">切比雪夫大数定律<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>假设<span class="arithmatex">\(\{X_n(n=1, 2, ...)\}\)</span>是相互独立的随机变量序列, 如果方差<span class="arithmatex">\(DX_i(i\geq 1)\)</span>存在且一致有上界, 即存在常数<span class="arithmatex">\(C\)</span>, 使<span class="arithmatex">\(DX_i
-\leq C\)</span>对一切<span class="arithmatex">\(i\geq 1\)</span>均成立, 则<span class="arithmatex">\(\{X_n\}\)</span>服从大数定律: <span class="arithmatex">\(\frac{1}{n}\sum_{i=1}^{n}X_i\stackrel{P}{\rightarrow} \frac{1}{n}\sum_{i=1}^{n}EX_i\)</span>.</p>
-<h3 id="_4">伯努利大数定律<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>假设<span class="arithmatex">\(\mu_n\)</span>是<span class="arithmatex">\(n\)</span>重伯努利试验中事件<span class="arithmatex">\(A\)</span>发生的次数, 在每次试验中事件<span class="arithmatex">\(A\)</span>发生的概率为<span class="arithmatex">\(p(0&lt;p&lt;1)\)</span>, 则<span class="arithmatex">\(\frac{\mu_0}{n}\stackrel{P}{\rightarrow}p\)</span>, 即对任意<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|\frac{\mu_0}{n}-p|&lt;\epsilon\}=1\)</span>.</p>
-<h3 id="_5">幸钦大数定律<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p>假设<span class="arithmatex">\(\{X_n\}\)</span>是独立同分布的随机变量序列, 如果<span class="arithmatex">\(EX_i=\mu(i=1, 2, ...)\)</span>存在, 则<span class="arithmatex">\(\frac{1}{n}\sum_{i=1}^{n}X_i\stackrel{P}{\rightarrow}\mu\)</span>, 即对任意<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{|\frac{1}{n}\sum_{i=1}^n X_i-\mu|&lt;\epsilon\}=1\)</span>.</p>
-<h2 id="_6">中心极限定理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<h3 id="-">列维-林德伯格定理<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
-<p>假设<span class="arithmatex">\(\{X_n\}\)</span>是独立同分布的随机变量系列, 如果<span class="arithmatex">\(EX_i=\mu, DX_i=\sigma^2&gt;0(i=1, 2, ...)\)</span>存在, 则对任意实数<span class="arithmatex">\(x\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{\frac{\sum_{i=1}^n X_i-n\mu}{\sqrt{n}\sigma}\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}}dt=\Phi(x)\)</span>.</p>
-<h3 id="-_1">棣莫弗-拉普拉斯定理<a class="headerlink" href="#-_1" title="Permanent link">&para;</a></h3>
-<p>假设随机变量<span class="arithmatex">\(Y_n\sim B(n, p)(0&lt;p&lt;1, n\geq 1)\)</span>, 则对任意实数<span class="arithmatex">\(x\)</span>, 有<span class="arithmatex">\(\lim_{n\rightarrow \infty}P\{\frac{Y_n-np}{\sqrt{np(1-p)}}\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}}dt=\Phi(x)\)</span>.</p>
+
 
 
 
@@ -2206,7 +1981,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月18日</span>
   </span>
 
     
@@ -2216,7 +1991,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月18日</span>
   </span>
 
     
@@ -2252,64 +2027,6 @@
 
 
 
-
-<h2 id="__comments">评论</h2>
-<!-- Insert generated snippet here -->
-<script
-    src="https://giscus.app/client.js"
-    data-repo="sigmax01/ml"
-    data-repo-id="R_kgDOMNX2Cw"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOMNX2C84CgVid"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="1"
-    data-input-position="top"
-    data-theme="preferred_color_scheme"
-    data-lang="zh-CN"
-    data-loading="lazy"
-    crossorigin="anonymous"
-    async
-></script>
-
-<!-- Synchronize Giscus theme with palette -->
-<script>
-    var giscus = document.querySelector("script[src*=giscus]");
-
-    // Set palette on initial load
-    var palette = __md_get("__palette");
-    if (palette && typeof palette.color === "object") {
-        var theme =
-            palette.color.scheme === "slate"
-                ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
-                : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
-
-        // Instruct Giscus to set theme
-        giscus.setAttribute("data-theme", theme);
-    }
-
-    // Register event handlers after documented loaded
-    document.addEventListener("DOMContentLoaded", function () {
-        var ref = document.querySelector("[data-md-component=palette]");
-        ref.addEventListener("change", function () {
-            var palette = __md_get("__palette");
-            if (palette && typeof palette.color === "object") {
-                var theme =
-                    palette.color.scheme === "slate"
-                        ? "https://ml.ricolxwz.de/stylesheets/comments-dark.css"
-                        : "https://ml.ricolxwz.de/stylesheets/comments-light.css";
-
-                // Instruct Giscus to change theme
-                var frame = document.querySelector(".giscus-frame");
-                frame.contentWindow.postMessage(
-                    { giscus: { setConfig: { theme } } },
-                    "https://giscus.app",
-                );
-            }
-        });
-    });
-</script>
 
                 
               </article>
@@ -2430,20 +2147,20 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
-        <script src="../../../javascripts/favicon.js"></script>
+        <script src="../../../../javascripts/favicon.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="../../../js/open_in_new_tab.js"></script>
+        <script src="../../../../js/open_in_new_tab.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
