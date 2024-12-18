@@ -64,6 +64,11 @@ comments: false
 为了可视化注意力权重, 需要定义一个`show_heatmaps`函数, 要展示的就是自注意力矩阵, 这个矩阵的每个元素的含义是某个query和某个key之间的注意力分数. 由于我们采用的是多头注意力, 所以输入`matrices`(注意是复数)的形状是(要显示的行数, 要显示的列数, 查询的数目, 键的数目). 例如, 如果有6个注意力头, 可以设置行数为2, 列数为3, 将6个注意力矩阵排列成2行3列的网格.
 
 ```py
+import torch
+from d2l import torch as d2l
+```
+
+```py
 #@save
 def show_heatmaps(matrices, xlabel, ylabel, titles=None, figsize=(2.5, 2.5),
                   cmap='Reds'):
@@ -109,3 +114,4 @@ show_heatmaps(attention_weights, xlabel='Keys', ylabel='Queries')
 后续的小节会经常调用`show_heatmaps`函数来显示注意力权重.
 
 [^1]: 10.1. 注意力提示—动手学深度学习 2.0.0 documentation. (不详). 取读于 2024年12月17日, 从 https://zh.d2l.ai/chapter_attention-mechanisms/attention-cues.html
+[^2]: 10.2. 注意力汇聚：Nadaraya-Watson 核回归—动手学深度学习 2.0.0 documentation. (不详). 取读于 2024年12月18日, 从 https://zh.d2l.ai/chapter_attention-mechanisms/nadaraya-waston.html
