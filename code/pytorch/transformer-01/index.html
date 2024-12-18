@@ -1792,6 +1792,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      位置嵌入
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1969,6 +1978,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      位置嵌入
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2000,21 +2018,40 @@
   
 
 
-<h1 id="transformer-01"><a href="https://colab.research.google.com/drive/1MoxcUOQKAhBoSpJNsB-8NifN48C5VmAz?usp=sharing">Transformer-01</a><a class="headerlink" href="#transformer-01" title="Permanent link">&para;</a></h1>
+<h1 id="transformer-01"><a href="https://colab.research.google.com/drive/1MoxcUOQKAhBoSpJNsB-8NifN48C5VmAz?usp=sharing">Transformer-01</a><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup><a class="headerlink" href="#transformer-01" title="Permanent link">&para;</a></h1>
 <h2 id="_1">词嵌入<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>首先, 我们需要将在输入序列中的每个词转换为词向量. 假设每个嵌入向量的大小是512维, 假设词典的大小是100, 那么嵌入矩阵的大小就是512*100. 这个矩阵能够通过线性变换将one-hot编码的词汇转化为对应的512维词嵌入. 假设我们批次的大小是32, 也就是说一个批次有32个序列, 单个序列中token的数量是10, 那么一个批次的维度是32*10*512.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">EmbeddingLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">):</span>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">TokenEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">):</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">embed</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">return</span> <span class="n">out</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">embedded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="n">embedded</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">def</span> <span class="nf">test_token_embedding</span><span class="p">():</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  <span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">100</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  <span class="n">hidden_size</span> <span class="o">=</span> <span class="mi">512</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>  <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>  <span class="n">seq_len</span> <span class="o">=</span> <span class="mi">10</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>  <span class="c1"># 随机生成输入数据, 形状为(batch_size, seq_len)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>  <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">))</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>  <span class="c1"># 创建TokenEmbedding模块</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>  <span class="n">token_embedding</span> <span class="o">=</span> <span class="n">TokenEmbedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>  <span class="c1"># 计算嵌入输出</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>  <span class="n">output</span> <span class="o">=</span> <span class="n">token_embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输入形状: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;输出形状&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="n">test_token_embedding</span><span class="p">()</span>
 </code></pre></div>
-<details class="tip" open="open">
-<summary>词嵌入模型的训练</summary>
-<p>在上述代码中, 我们并没有对这个模型展开训练, 要使嵌入层可以训练, 需要创建一个完整的模型, 该模型需要具有明确的优化目标和损失函数. 常见的方法是CBOW, Skip-gram, GloVe.</p>
-</details>
+<div class="highlight"><span class="filename">输出</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>输入形状:  torch.Size([32, 10])
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>输出形状 torch.Size([32, 10, 512])
+</code></pre></div>
 <details class="note" open="open">
 <summary><code>nn.Embedding()</code>的用法</summary>
 <p><code>nn.Embedding</code>的第一个参数表示的是词表的大小, 第二个参数表示的是词向量的维度, 其实还有第三个变量<code>padding_idx</code>表示的是如果词汇表产生的编码是<code>padding_idx</code>的话, 那么产生的词向量为全0. 例如, <code>padding_idx</code>被设置为0, 在词表中有一个词汇<code>&lt;PAD&gt;</code>的编码是0, 则句子中的所有<code>&lt;PAD&gt;</code>的词向量都对应为一个全0的词向量. 注意, 这里<code>&lt;PAD&gt;</code>的作用是用于补齐句子的长度<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
@@ -2022,7 +2059,67 @@
 </details>
 <details class="note" open="open">
 <summary><code>nn.Embedding.from_pretrained()</code>用法</summary>
-<p><code>nn.Embedding.from_pretrained()</code>这个方法允许你使用已经训练好的嵌入向量来初始化<code>nn.Embedding</code>, 可以来自CBOW, Skip-gram, GloVe等等, 而不是从随机初始化开始. 它的第一个参数是<code>pretrained_embeddings</code>, 这是一个包含预训练嵌入矩阵的2D FloatTensor, 第一个维度是词汇表的大小, 第二个维度是嵌入向量的维度. 第二个参数是<code>freeze</code>, 这是可选的, 若<code>freeze=True</code>, 则嵌入权重在训练过程中不会被更新, 如果是<code>freeze=False</code>, 则嵌入权重 <ins>可以</ins> 在训练中进行微调(需要自己定义损失函数训练), <code>padding_idx</code>同<code>nn.Embedding</code>.</p>
+<p><code>nn.Embedding.from_pretrained()</code>这个方法允许你使用已经训练好的嵌入向量来初始化<code>nn.Embedding</code>, 可以来自CBOW, Skip-gram, GloVe等等, 而不是从随机初始化开始. 它的第一个参数是<code>pretrained_embeddings</code>, 这是一个包含预训练嵌入矩阵的2D FloatTensor, 第一个维度是词汇表的大小, 第二个维度是嵌入向量的维度. 第二个参数是<code>freeze</code>, 这是可选的, 若<code>freeze=True</code>, 则嵌入权重在训练过程中不会被更新, 如果是<code>freeze=False</code>, 则嵌入权重 <ins>可以</ins> 在训练中进行微调, <code>padding_idx</code>同<code>nn.Embedding</code>.</p>
+</details>
+<h2 id="_2">位置嵌入<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>在原始论文中他们使用的位置嵌入是通过两个函数生成的.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+PE(pos, 2i) &amp;= \sin\left(\frac{pos}{10000^{\frac{2i}{d}}}\right) \\
+PE(pos, 2i+1) &amp;= \cos\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)
+\end{aligned}
+\]</div>
+<p>其中, <span class="arithmatex">\(i\)</span>表示的是维度索引, <span class="arithmatex">\(pos\)</span>表示的是token在sequence中的位置. </p>
+<div class="highlight"><span class="filename">输入</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span> <span class="nc">PositionalEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_len</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="c1"># 创建一个位置编码表, 形状为(max_len, 1)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="c1"># 提前进行unsqueeze在末尾添加一个维度以适应后面的广播, 原先是(max_len, ), 经过unsqueeze之后, 是(max_len, 1)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_seq_len</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="c1"># 计算三角函数内分母的倒数, 形状为(hidden_size/2, )</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">div_term</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">embed_model_dim</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">*</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">embed_model_dim</span><span class="p">))</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="c1"># 初始化位置嵌入矩阵为零矩阵, 形状为(max_len, hidden_size)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">pe</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_seq_len</span><span class="p">,</span> <span class="n">embed_model_dim</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="c1"># 广播机制会将div_term扩展到(1, hidden_size/2)</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="c1"># 相乘产生的结果大小为(max_len, hidden_size/2), pe的大小为(max_len, hidden_size)</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="c1"># 偶数列使用正弦函数</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="n">pe</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">position</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="c1"># 奇数列使用余弦函数</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="n">pe</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">position</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="c1"># 将位置编码信息注册为buffer, 模型训练的时候不会更新</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;pe&quot;</span><span class="p">,</span> <span class="n">pe</span><span class="p">)</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="c1"># x的形状为(batch_size, seq_len, hidden_size)</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    <span class="c1"># 由seq_len可能发生改变, 有可能seq_len=4, 而我们的self.pe已经预先生成了长度为5000的序列的所有token的嵌入向量了, 所以需要对self.pe进行截取, 只取前1-seq_len个token的位置嵌入向量</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>    <span class="n">seq_len</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    <span class="c1"># 将位置编码加入到向量上</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    <span class="c1"># self.pe[:seq_len, :]的形状为(seq_len, hidden_size), 意思是前面的seq_len个token的位置向量</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    <span class="c1"># unsqueeze(0)使其形状变为(1, seq_len, hidden_size), 便于与输入tensor相加, 这个过程中有广播</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">[:</span><span class="n">seq_len</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    <span class="k">return</span> <span class="n">x</span>
+</code></pre></div>
+<details class="note" open="open">
+<summary><code>unsqueeze()</code>的作用</summary>
+<p><code>unsqueeze()</code>函数的作用是在指定位置上给tensor增加一个维度, 具体来说, 它可以将一个形状为<code>[N, ...]</code>的tensor扩展为一个形状为<code>[N, 1, ...]</code>的tensor.</p>
+<p>在上述代码中, 我们需要对位置进行<code>unsqueeze</code>, 这是为后面的广播做准备, 也就是<code>position * div_term</code>. 由于<code>position</code>经过<code>unsqueeze</code>之后, 形状为<code>(max_len, 1)</code>, 而<code>div_term</code>的形状为<code>(hidden_size/2, )</code>. </p>
+<p>进行相乘操作的同时会进行广播, <code>div_term</code>在广播时, 其初始形状被视为<code>(1, hidden_size/2)</code>(从右到左匹配, 见<a href="https://py.ricolxwz.de/numpy/broadcast/#%E5%B9%BF%E6%92%AD%E8%A7%84%E5%88%99">这里</a>), <code>(max_len, 1)</code>和<code>(1, hidden_size/2)</code>相乘后最后得到的<code>pe[:, 0::2]</code>/<code>pe[:, 1::2]</code>的大小为<code>(max_len, hidden_size/2)</code>.</p>
+</details>
+<details class="note" open="open">
+<summary><code>register_buffer()</code>的作用</summary>
+<p><code>register_buffer()</code>用于注册持久缓冲区. 主要用于将一个tensor作为模型的一部分进行注册, 但该tensor不会被视为可学习的参数. 使用这种方式注册的tensor会在模型保存和加载的时候一同保存, 这意味着即使该tensor不参与梯度更新, 所以它们通常用于存储一些固定的数据, 如位置编码. 当模型从一个设备移动到另一个设备的时候, 注册的缓冲区也会跟着移动, 这简化了在不同硬件上的部署.</p>
+</details>
+<details class="note" open="open">
+<summary><code>self.pe[:seq_len, :]</code>的动机</summary>
+<p>由于位置嵌入矩阵一般是不会改变的, 所以一般的做法是一次性生成一个很长序列的位置嵌入矩阵, 比如长度为5000序列的位置嵌入矩阵, 我们可以通过截取前<code>seq_len</code>的方式获取到第<code>1</code>个到第<code>seq_len</code>个token的位置嵌入向量, 而不用再去计算一遍位置嵌入矩阵. 也就是说, <code>PositionalEmbedding</code>构造器的输入<code>max_len</code>可以搞一个很长的值, 可以远大于需求. 当然, 也要考虑实际内存容量. 这个和实际序列的最长长度没有关系, 比如说, 实际序列长度是4, 6, 2, 7, 最长长度是7, 但是这里的<code>max_len</code>可以是6000, 一下子生成所有token的位置嵌入向量.</p>
 </details>
 <div class="footnote">
 <hr />
@@ -2032,6 +2129,9 @@
 </li>
 <li id="fn:2">
 <p>不当菜鸡的程序媛. (不详). Pytorch的默认初始化分布 nn.Embedding.weight初始化分布. Csdn. 取读于 2024年12月18日, 从 <a href="https://blog.csdn.net/vivi_cin/article/details/135564011">https://blog.csdn.net/vivi_cin/article/details/135564011</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>He W. (2024, 七月 8). 手撕经典算法 #3 Transformer篇. Hwcoder - Life Oriented Programming. <a href="https://hwcoder.top/Manual-Coding-3">https://hwcoder.top/Manual-Coding-3</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
