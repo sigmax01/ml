@@ -1275,6 +1275,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transformer网络的实例化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2105,6 +2129,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transformer网络的实例化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2138,7 +2186,7 @@
 
 <h1 id="adapter">Adapter<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#adapter" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>对预训练的模型进行微调是NLP领域有效的迁移学习方法. 然而, 在很多下游任务中, 参数微调效率低下. 对于每一个全新的任务都需要一个新的模型. 为了解决这个问题, 作者提出了一种利用adapter模块进行迁移的方法. Adapter模块提供了模型的整体<strong>紧凑性和可扩展性</strong>(这两个形容词的意思见下小节), 每当需要为一个新任务进行适配的时候, 只需要增加相应的adapter模块, 这些模块通常包含较少的参数, 相比于完全训练一个新的模型或者对整个模型进行微调, 节省了大量的计算资源和存储空间. 并且, 在添加新的任务的时候, 不需要调整之前为其他任务添加的adapter, 只需要新增相应的adapter模块, 需要注意的是, 每个任务都有其独立的适配器, 彼此之间互不干扰, 确保模型能够同时处理多个任务, 避免了“灾难性遗忘”(catastrophic forgetting)的问题. 预训练模型的参数将保持固定, 或者说“冻结”, 使得在不同任务之间有一个高程度的参数共享. 为了证明adapter模块的有效性, 作者最近将刚刚提出的BERT模型应用到26个不同的文本分类任务中, 包括GLUE基准测试. Adapters实现了接近SOTA的性能, 同时每个任务仅仅只需要增加几个参数. 在GLUE基准测试中, 作者将模型的性能控制在和完整微调的0.4%左右, 但是对于每个任务仅仅增加了3.6%的参数, 同比之下, 微调对于每个人物会增加100%的参数.</p>
+<p>对预训练的模型进行微调是NLP领域有效的迁移学习方法. 然而, 在很多下游任务中, 参数微调效率低下. 对于每一个全新的任务都需要一个新的模型. 为了解决这个问题, 作者提出了一种利用adapter模块进行迁移的方法. Adapter模块提供了模型的整体<strong>紧凑性和可扩展性</strong>(这两个形容词的意思见下小节), 每当需要为一个新任务进行适配的时候, 只需要增加相应的adapter模块, 这些模块通常包含较少的参数, 相比于完全训练一个新的模型或者对整个模型进行微调, 节省了大量的计算资源和存储空间. 并且, 在添加新的任务的时候, 不需要调整之前为其他任务添加的adapter, 只需要新增相应的adapter模块, 需要注意的是, 每个任务都有其独立的adapter, 彼此之间互不干扰, 确保模型能够同时处理多个任务, 避免了“灾难性遗忘”(catastrophic forgetting)的问题. 预训练模型的参数将保持固定, 或者说“冻结”, 使得在不同任务之间有一个高程度的参数共享. 为了证明adapter模块的有效性, 作者最近将刚刚提出的BERT模型应用到26个不同的文本分类任务中, 包括GLUE基准测试. Adapters实现了接近SOTA的性能, 同时每个任务仅仅只需要增加几个参数. 在GLUE基准测试中, 作者将模型的性能控制在和完整微调的0.4%左右, 但是对于每个任务仅增加了3.6%的参数, 同比之下, 微调对每个任务会增加100%的参数.</p>
 <details class="note" open="open">
 <summary>什么是灾难性遗忘</summary>
 <p>灾难性遗忘, Catastrophic Forgetting, 是指在连续学习多个任务的过程中, 学习新知识的过程会迅速破坏之前获得的信息, 而导致模型性能在旧任务中急剧下降<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. 这种现象在顺序学习或者增量学习中尤为常见. 灾难性遗忘主要由于以下几个原因: a) 共享参数, 大多数神经网络通过共享大量参数来学习和表示不同的任务, 当模型在训练新任务的时候, 导致新任务的学习过程覆盖了旧任务的知识; b) 缺乏记忆机制, 传统的神经网络缺乏有效的机制来区分和保护不同任务的重要参数, 导致新任务的学习过程覆盖了旧任务的知识; c) 优化冲突: 不同任务之间的优化目标可能存在冲突, 训练新任务时优化的方向可能和保留旧任务性能的方向相反, 从而导致旧任务的性能下降.</p>
@@ -2162,14 +2210,38 @@
 </figure>
 <p>x轴展示的是对于每个任务训练的参数. 这个对应于解决每个额外任务所需要的边际增加. 基于adapter的调整在达到相似性能的情况下可以少训练两个数量级的参数.</p>
 <h3 id="_6">数学表示<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p><strong>Adapters是在预训练模型的层之间添加的新模块</strong>. 基于adapter和基于特征的迁移学习, 微调之间的差异如下: 考虑一个参数为<span class="arithmatex">\(\bm{w}\)</span>函数(神经网络)<span class="arithmatex">\(\phi_{\bm{w}}(\bm{x})\)</span>. 基于特征的迁移学习结合了<span class="arithmatex">\(\phi_{\bm{w}}(\bm{x})\)</span>和一个全新的函数<span class="arithmatex">\(\mathcal{X}_{\bm{v}}\)</span>, 产生<span class="arithmatex">\(\mathcal{X}_{\bm{v}}(\phi_{\bm{w}}(\bm{x}))\)</span>. 只有新的基于任务的参数<span class="arithmatex">\(\bm{v}\)</span>, 会被额外训练. 微调对于每个任务来说都包含了对原始参数<span class="arithmatex">\(\bm{w}\)</span>的修改, 限制了产生模型的紧凑型. 对于adapter来说, 也定义了一个新的函数, <span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\)</span>, 但是这里的<span class="arithmatex">\(\bm{w}\)</span>时从预训练那里搬过来的. <ins>作者还设计了<span class="arithmatex">\(\bm{v}_0\)</span>, 保证在训练开始的时候, adapter模块不会显著改变模型的输出, 即<span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\simeq \phi_{\bm{w}}(\bm{x})\)</span>, 这对于保证模型的厨师性能和稳定性非常重要, 有助于加快收敛.</ins> 在训练的过程中, 只有<span class="arithmatex">\(\bm{v}\)</span>被调整. 对于深层网络, 定义<span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\)</span>通常包括在原网络<span class="arithmatex">\(\phi_{\bm{w}}\)</span>中添加新的层. 如果选择<span class="arithmatex">\(|\bm{v}|&lt;&lt;|\bm{w}|\)</span>, 那么产生的模型对于很多任务来说需要的参数<span class="arithmatex">\(\sim |\bm{w}|\)</span>. 因为<span class="arithmatex">\(\bm{w}\)</span>是固定的, 所以模型可以被扩展到其他任务而不影响之前的任务(没有灾难性遗忘).</p>
+<p><strong>Adapters是在预训练模型的层之间添加的新模块</strong>. 基于adapter和基于特征的迁移学习, 微调之间的差异如下: 考虑一个参数为<span class="arithmatex">\(\bm{w}\)</span>函数(神经网络)<span class="arithmatex">\(\phi_{\bm{w}}(\bm{x})\)</span>. 基于特征的迁移学习结合了<span class="arithmatex">\(\phi_{\bm{w}}(\bm{x})\)</span>和一个全新的函数<span class="arithmatex">\(\mathcal{X}_{\bm{v}}\)</span>, 产生<span class="arithmatex">\(\mathcal{X}_{\bm{v}}(\phi_{\bm{w}}(\bm{x}))\)</span>. 只有新的基于任务的参数<span class="arithmatex">\(\bm{v}\)</span>, 会被额外训练. 微调对于每个任务来说都包含了对原始参数<span class="arithmatex">\(\bm{w}\)</span>的修改, 限制了产生模型的紧凑型. 对于adapter来说, 也定义了一个新的函数, <span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\)</span>, 但是这里的<span class="arithmatex">\(\bm{w}\)</span>是从预训练那里搬过来的. <ins>作者还设计了<span class="arithmatex">\(\bm{v}_0\)</span>, 保证在训练开始的时候, adapter模块不会显著改变模型的输出, 即<span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\simeq \phi_{\bm{w}}(\bm{x})\)</span>, 这对于保证模型的初始性能和稳定性非常重要, 有助于加快收敛.</ins> 在训练的过程中, 只有<span class="arithmatex">\(\bm{v}\)</span>被调整. 对于深层网络, 定义<span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\)</span>通常包括在原网络<span class="arithmatex">\(\phi_{\bm{w}}\)</span>中添加新的层. 如果选择<span class="arithmatex">\(|\bm{v}|&lt;&lt;|\bm{w}|\)</span>, 那么产生的模型对于很多任务来说需要的参数<span class="arithmatex">\(\sim |\bm{w}|\)</span>. 因为<span class="arithmatex">\(\bm{w}\)</span>是固定的, 所以模型可以被扩展到其他任务而不影响之前的任务(没有灾难性遗忘).</p>
 <h3 id="_7">多任务和持续学习<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>基于adapter的调优与多任务和持续学习相关. 多任务学习可以带来紧凑的模型, 这意味着, 通过同时训练一个模型来处理多个相关任务, 模型的参数量可以相对较少, 但是, 多任务学习有一个缺点, 每个任务需要不同类型的数据, 如SA需要标注有情感标签的文本, NER需要标注实体的文本, 问答系统需要上下文与问题及答案的配对, 而且不同任务的数据量差异可能很大, 确保每个任务的数据质量和数量平衡是一个挑战, 还有不同任务的数据格式差异, 需要设计复杂的数据处理流水线来转换这些数据, 使其适应共享模型的输入格式, 不同的任务有不同的重要性和难度, 需要为每个任务设计合适的损失函数和权重, what's more, 不同任务的梯度更新方向可能不一致, 导致训练过程中梯度冲突, 影响模型的收敛... 持续学习系统目标是从无穷无尽的流式任务中学习, 这种范式具有挑战性因为网络在重新训练后会忘记之前的任务(灾难性遗忘). <strong>Adapters的不同之处在于不同的任务之间不会发生交互, 而且共享的权重是被冻结的</strong>, 这意味着该模型在少量任务特定参数的代价下能够完美地记住先前的任务.</p>
 <h3 id="_8">效果<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>作者证明在一个大量的, 多样化的文本分类任务上, adapters能够实现NLP参数的高效率微调. 最重要的创新是发明一个高效的adapter模块能够和base模型产生很好的集成. 作者提出了一种简单但是高效, 的瓶颈结构. 在GLUE基准测试中, 作者的方法几乎达到了和完整微调的BERT一样的效果, 但是作者只使用了3%的任务相关的参数, 但是微调用了100%的参数. 作者观察到在另外17个公共文本数据集达到了相似的效果. 总结来说, 基于adapter的调优能够产生一个单一的, 可扩展的在文本识别领域能够接近SOTA的模型.</p>
 <details class="note" open="open">
 <summary>什么是瓶颈结构</summary>
-<p>瓶颈结构, Bottleneck Structure, 是深度学习中常用的一种架构设计方法. 它的核心思想是通过在网络中引入一个或者多个较小的, 维度受限的层, 从而迫使模型在有限的容量下提取和表示最关键的特征, 这种设计不仅能够减少模型的参数量, 还能提高模型的训练效率和泛化能力. 例如, 使用1*1卷积核跨通道池化减小特征图的维度, 等等.</p>
+<p>瓶颈结构, Bottleneck Structure, 是深度学习中常用的一种架构设计方法. 它的核心思想是通过在网络中引入一个或者多个较小的, 维度受限的层, 从而迫使模型在有限的容量下提取和表示最关键的特征, 这种设计不仅能够减少模型的参数量, 还能提高模型的训练效率和泛化能力. 例如, 使用1*1卷积核跨通道池化减小特征图的维度.</p>
+</details>
+<h2 id="_9">方法<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>作者提出了一个在多个下游任务上调优大模型的策略. 他们的方法有三个重要的特征: (i) 它能够达到很好的性能; (ii) 禁止序列化任务训练, 也就是说, 它不需要同时访问所有的数据集; (iii) 对于每个任务它只加一小部分参数. 这些特性对于云服务特别有用, 因为有许多的下游任务都需要有一个模型, 所以这种高强度的参数共享是必要的.</p>
+<p>为了达到这些特性, 他们提出了一种瓶颈结构, adapter模块. 调优adapter模块包含对于每个下游任务增加一小部分的新的参数. 当对深度网络执行普通的微调的时候, 会修改网络的顶层, 这是必要的, 因为上游任务(即预训练时使用的任务)和下游任务(即你希望微调后网络执行的新任务)在标签空间和损失函数上存在差异. Adapter模块执行的是一种更加通用的架构修改, 以将与训练网络重新用于下游任务. 特别的, 这个adapter调优的策略包含向预训练的网络注入新的层(^***^, 相同的概念反复讲来讲去...). 原始网络的参数是被冻结的, 然而新的adapter层以随机的方式初始化(我怎么感觉这段不是和原来的那个人一起写的, 之前明明说在训练开始的时候, 要使得新函数和原函数相似... 所以怎么可能是随机的?). 在标准的调优中, 会移除预训练模型的顶层, 然后根据下游任务的需求, 设计一个新的输出层, 在新的任务数据上, 同时更新预训练模型的所有权重(包括底层和新添加的顶层). 与此相反, 在adapter调优中, 原始网络的参数是冻结的, 它们在下游任务是共享的. (<mark>这段完全是凑🍠的</mark>)</p>
+<p>Adapter模块有两个核心的特性: 参数数量少而且近乎相同的初始化(near-identity initialization). 这个adapter模块相比于原始网络的层必须要小, 使得增加下游任务的时候总体模型的大小增长相对缓慢. 近乎相同的初始化, 这个特性是需要的, 能使得训练更加稳定, 通过新函数和原函数近似恒等, 保证在训练开始的时候原始网络的输出不受影响. <ins>在训练的过程中, adapters可能会对网络中信息的流动和激活值的分布产生影响, 通过这种方式, adapter能够调整模型的表现, 使其更好地适应特定任务和数据的分布. 如果某些adapter模块在特定情况下不需要, 可以选择忽略它们, 这有助于减少计算开销, 并避免不必要的参数更新. 在作者后续的研究中, 他们观察到某些adapter对网络的影响力更大, 这意味着并非所有的adapter模块在调整模型的时候都同样重要.</ins> 此外, 如果adapter的初始设置导致偏离了原始函数太多, 模型在训练的过程中可能无法顺利进行(难以收敛).</p>
+<h3 id="transformer">Transformer网络的实例化<a class="headerlink" href="#transformer" title="Permanent link">&para;</a></h3>
+<p>作者的实例化基于adapter的文本Transformer调优, 这些模型在许多的NLP任务中达到了SOTA, 包括翻译, 文本分类问题. 作者考虑的是由Vaswani等人<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>提出的标准的Transformer架构.</p>
+<p>由于adapter模块的设计空间极大, 研究人员可以在其架构上做出很多选择, 在面对多种可能的设计选择的时候, 作者决定采用一种较为简单的adapter架构, 这种简单设计不仅易于实现和理解, 还能在多个数据集上取得很好的性能. 虽然作者最终选择了简单的设计, 但是他们并没有忽视其他更加复杂的架构可能带来的潜在优势, 因此, 他们进行了多种更加复杂的设计实验, 以评估其性能.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/188d8d2ffcf8b5a1b8be33ca52db1d9d.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/188d8d2ffcf8b5a1b8be33ca52db1d9d.webp#only-light" width="400" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/188d8d2ffcf8b5a1b8be33ca52db1d9d_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/188d8d2ffcf8b5a1b8be33ca52db1d9d_inverted.webp#only-dark" width="400" /></a></p>
+<figcaption>Adapter模块的架构以及它和Transformer的集成</figcaption>
+</figure>
+<p>在Transformer层中添加两个adapter模块, 一个是在多头注意力的投影层之后, 另一个是在2层FNN之后(左) Adapter模块采用瓶颈设计, 这意味着它们具有较少的参数量, adapter内部使用了残差连接, 有助于减少“退化问题”, <strong>在adapter调优的时候, adapter模块/LN/分类头(没有显示在图中)的参数会参与训练, 其余参数全部冻结.</strong> </p>
+<details class="note" open="open">
+<summary>Adapter的位置</summary>
+<p>注意到左边Transformer层里面有两个残差连接, 每个残差连接前都会有一个投影, 下面的那个投影对应的是把所有的头的输出拼接起来, 然后通过一个线性变换将拼接后的矩阵投影会原始维度, 和输入的维度match. 上面的那个投影是因为这个2xFNN通常会对维度进行扩展, 所以需要通过线性变换降为输入的维度. 残差连接之后的结果会被喂到LN里面.</p>
+<p>Adapter模块所在的位置是<strong>在LN之前, 在投影之后</strong>. </p>
+</details>
+<p>为了限制参数的数量, 作者提出了一种“瓶颈结构”. Adapters首先将原来<span class="arithmatex">\(d\)</span>维的特征映射到一个较小的维度, <span class="arithmatex">\(m\)</span>, 应用非线性变换, 然后在映射回<span class="arithmatex">\(d\)</span>维, 以进行残差连接. 每个adapter的参数(包括截距)为<span class="arithmatex">\(2md+d+m\)</span>. 通过设置<span class="arithmatex">\(m\ll d\)</span>, 可以限制每个任务新增的参数量. 在实际中, <span class="arithmatex">\(2md+d+m\)</span>约为<span class="arithmatex">\(0.5-8\%\)</span>的原网络参数量. 这个“瓶颈维度”, <span class="arithmatex">\(m\)</span>, 提供了一种简单的平衡性能和参数效率的方法. Adapter内部使用了残差连接, <ins>如果投影层(右图最上面的那个层)的参数初始化为零, 则该adapter模块就被初始化一个近似恒等函数, 这就实现了在训练开始的时候, adapter模块不会显著改变模型的输出, 即<span class="arithmatex">\(\psi_{\bm{w}, \bm{v}}(\bm{x})\simeq \phi_{\bm{w}}(\bm{x})\)</span></ins>.</p>
+<p>除了训练adapter模块中的层, 对于每个下游任务, 他们还训练了Transformer层中的两个LN层. 这种方法类似于条件BN和自调节, 他们的共同特点是通过减少少量的参数来实现网络的快速适应, 这些方法每层只需要大概<span class="arithmatex">\(2d\)</span>的参数来对任务进行有效的适应. </p>
+<details class="note" open="open">
+<summary>什么是条件批归一化</summary>
+<p>条件批归一化(Conditional Batch Normalization, CBN)是一种在标准批归一化的基础上进行扩展的方法, 目的是使得模型能够根据不同的条件动态地调整归一化过程. 在传统的BN中, 网络的每一层都会在训练过程中对其输入进行归一化, 具体做法是减去均值, 除以标准差, 并且学习缩放和偏移参数. CBN时归一化的一个扩展, 它根据不同的条件来调整归一化的参数(如均值, 方差, 缩放参数和偏移参数), 这些条件可以时输入相关的(例如输入的某些特征), 也可以是任务相关的(例如在多任务学习中, 不同任务可能有不同的归一化策略).</p>
 </details>
 <div class="footnote">
 <hr />
@@ -2182,6 +2254,9 @@
 </li>
 <li id="fn:3">
 <p>大规模语言模型—灾难性遗忘-行麦科技. (不详). 取读于 2024年12月17日, 从 <a href="https://www.aihomecaring.com/?jishu/89.html">https://www.aihomecaring.com/?jishu/89.html</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., &amp; Polosukhin, I. (2023). Attention is all you need (No. arXiv:1706.03762). arXiv. <a href="https://doi.org/10.48550/arXiv.1706.03762">https://doi.org/10.48550/arXiv.1706.03762</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -2207,7 +2282,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月18日</span>
   </span>
 
     
