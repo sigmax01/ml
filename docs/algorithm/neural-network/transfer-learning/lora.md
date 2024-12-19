@@ -41,7 +41,7 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
 
 ???+ question "为什么adapter层的推理时间占比会随batsh_size减小而增加"
 
-    自注意力层的时间复杂度是$O(B\cdot N^2\cdot D)$. Adapter层的时间复杂度为$O(B\cdot N\cdot D')$.
+    自注意力层的时间复杂度是$O(B\cdot N^2\cdot D)$. Adapter层的时间复杂度为$O(B\cdot N\cdot D')$. 既然自注意力层和adapter层都和批次大小$B$是线性相关的, 那么为什么adapter层的推理时间占比会随着batch_size的减小而增加呢?
 
 ???+ note "什么多任务降低延迟"
 
