@@ -2151,20 +2151,37 @@
 <a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" width="200" /></a></p>
 <figcaption>LoRA. 会对原始权重和调整权重进行相加操作, $d$表示密集层的理论最大秩, $r$表示在调优中的权重变换矩阵的秩</figcaption>
 </figure>
+<details class="note" open="open">
+<summary>什么是过参数化模型</summary>
+<p>过参数化, Overparameterization是指模型具有过多的自由度, 即参数数量大于训练数据的样本数量.</p>
+</details>
 <p>拿GPT-3 175B举个例子, 某些密集层的理论最大秩为12288(即图中的<span class="arithmatex">\(d=12288\)</span>, GPT-3 的<span class="arithmatex">\(d_{model}=12288\)</span>), 但是在实际调优的过程中其<strong>权重变化受限于低维度</strong>(根据Li等人的研究), 如图中<span class="arithmatex">\(r\)</span>甚至可以是<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(2\)</span>已经足够, 而远远不需要达到理论上的最大秩, 这使得LoRA在存储和计算上非常高效.</p>
 <h3 id="lora_2">LoRA优点<a class="headerlink" href="#lora_2" title="Permanent link">&para;</a></h3>
 <p>LoRA有以下的优点:</p>
 <ul>
 <li>一个预训练模型可以被共享, 并构建用于不同任务的许多小型LoRA模块. 我们可以冻结共享模型, 并通过替换上图的<span class="arithmatex">\(\bm{A}\)</span>和<span class="arithmatex">\(\bm{B}\)</span>来有效切换任务, 从而显著降低存储需求和任务切换开销</li>
-<li>LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span>自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态</li>
-<li>🌟LoRA在调优的时候对密集层的权重是一个<strong>间接的, 线性的</strong>调整, 在部署到特定任务前, LoRA对于权重的调整会被预先整合到原始密集层的权重中, 即在推理过程中这个LoRA模块就是不存在的. 而Adapter模块在推理的时候仍然是存在的, 因为adapter是在transformer层之间插入独立的神经网络层, 这些层包含独立的权重和偏置参数, 不能被简单地整合到某个层的权重中. 因此, LoRA的延迟和原始网络是相等的, 而Adapter新增了adapter模块内部的延迟🌟</li>
+<li>
+<p>LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态</p>
+<details class="note" open="open">
+<summary>自适应优化器</summary>
+<p>自适应优化器是一类能够根据参数的历史梯度信息动态调整每个参数学习率的优化算法, 常见的自适应优化器包括Adam, AdaGard, RMSProp, 主要优势在于, 无需手动调节每个参数的学习率, 优化器会根据梯度的一阶(均值)和二阶(方差)矩估计动态调整学习率, 通过合理调整学习率, 可以显著加快模型的收敛速度, 并提高稳定性. </p>
+<p>由于自适应优化器需要为每个参数维护其状态信息(如一阶和二阶矩估计), 由于在使用LoRA的时候, 其参数量更少, 所以要维护的参数的状态信息更少, 所以计算效率更好, 存储需求更低.</p>
+</details>
+</li>
+<li>
+<p>🌟LoRA在调优的时候对密集层的权重是一个<strong>间接的, 线性的</strong>调整, 在部署到特定任务前, LoRA对于权重的调整会被预先整合到原始密集层的权重中, 即在推理过程中这个LoRA模块就是不存在的. 而Adapter模块在推理的时候仍然是存在的, 因为adapter是在transformer层之间插入独立的神经网络层, 这些层包含独立的权重和偏置参数, 不能被简单地整合到某个层的权重中. 因此, LoRA的延迟和原始网络是相等的, 而Adapter新增了adapter模块内部的延迟🌟</p>
+</li>
 <li>LoRA和其他方法在功能和实现上相互独立, 互不干扰, 所以可以和其他方法协同工作, 如Prefix-Tuning, 进一步提升模型的性能和效率</li>
 </ul>
 <h3 id="_4">术语和规范<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>作者常常会引用Transformer架构并且使用它那里常用的术语. 我们称Transformer层的输入输出维度大小为<span class="arithmatex">\(d_{model}\)</span>. 使用<span class="arithmatex">\(W_q\)</span>, <span class="arithmatex">\(W_k\)</span>, <span class="arithmatex">\(W_v\)</span>, <span class="arithmatex">\(W_o\)</span>指代Q/K/V/Output投影矩阵. <span class="arithmatex">\(W\)</span>或者<span class="arithmatex">\(W_0\)</span>指代预训练的权重矩阵, <span class="arithmatex">\(\Delta W\)</span>指的是在调优过程中累积的权重更新. 使用<span class="arithmatex">\(r\)</span>表示LoRA模块的秩. 并且, 使用Adam优化器优化模型, 在Transformer内部使用一个维度为<span class="arithmatex">\(d_{fnn}=4\times d_{model}\)</span>的MLP(这里的维度指的是隐藏层维度).</p>
 <h2 id="_5">问题<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>由于作者的proposal不依赖于训练目标, 所以他们以语言模型作为use case. 下面是一个语言建模问题的简要表述, 特别的, 是针对特定任务提示下条件概率的最大化. </p>
-<p>假设我们给定了一个预训练的自回归语言模型<span class="arithmatex">\(P_{\Phi}(y|x)\)</span>, 参数为<span class="arithmatex">\(\Phi\)</span>. 举个例子, <span class="arithmatex">\(P_{\Phi}(y|x)\)</span>可以是一个基于Transformer架构的<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1-64 0"/></svg></span>通用多任务学习器如GPT. 考虑将这个预训练模型用于下游的条件文本生成任务, 如总结, 机器阅读理解(MRC)和自然语言转SQL(NL2SQL). 每个下游任务都由一个上下文-目标对的数据集表示: <span class="arithmatex">\(\mathcal{Z}=\{(x_i, y_i)\}_{i=1, ..., N}\)</span>, 其中<span class="arithmatex">\(x_i\)</span>, <span class="arithmatex">\(y_i\)</span>都是序列. 例如, 在NL2SQL中, <span class="arithmatex">\(x_i\)</span>是自然语言的查询, <span class="arithmatex">\(y_i\)</span>是对应的SQL代码. 对于总结任务, <span class="arithmatex">\(x_i\)</span>是文章的内容, <span class="arithmatex">\(y_i\)</span>是总结. </p>
+<p>假设我们给定了一个预训练的自回归语言模型<span class="arithmatex">\(P_{\Phi}(y|x)\)</span>, 参数为<span class="arithmatex">\(\Phi\)</span>. 举个例子, <span class="arithmatex">\(P_{\Phi}(y|x)\)</span>可以是一个基于Transformer架构的通用多任务学习器如GPT. 考虑将这个预训练模型用于下游的条件文本生成任务, 如总结, 机器阅读理解(MRC)和自然语言转SQL(NL2SQL). 每个下游任务都由一个上下文-目标对的数据集表示: <span class="arithmatex">\(\mathcal{Z}=\{(x_i, y_i)\}_{i=1, ..., N}\)</span>, 其中<span class="arithmatex">\(x_i\)</span>, <span class="arithmatex">\(y_i\)</span>都是序列. 例如, 在NL2SQL中, <span class="arithmatex">\(x_i\)</span>是自然语言的查询, <span class="arithmatex">\(y_i\)</span>是对应的SQL代码. 对于总结任务, <span class="arithmatex">\(x_i\)</span>是文章的内容, <span class="arithmatex">\(y_i\)</span>是总结. </p>
+<details class="note" open="open">
+<summary>为什么GPT这个预训练模型本身就是多任务的</summary>
+<p>GPT之所以是一个通用多任务模型, 关键在于其在多样化的数据上大规模预训练, 在预训练阶段就已经赋予了模型广泛的多任务学习能力, 使其能够在无需专门调优的情况下, 适应并完成各种不同的任务.</p>
+</details>
 <p>在完整微调中, 模型会被初始化为预训练的权重<span class="arithmatex">\(\Phi_0\)</span>并且通过梯度下降最大化下列条件语言建模的优化目标更新到<span class="arithmatex">\(\Phi_0+\Delta \Phi\)</span>. </p>
 <div class="arithmatex">\[\max_{\Phi} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (P_\Phi(y_t | x, y_{&lt;t}))\]</div>
 <p>完整微调最大的缺点就是对于每一个下游的任务, 我们都要学习一个不同的<span class="arithmatex">\(\Delta \Phi\)</span>, 并且<span class="arithmatex">\(\Delta \Phi\)</span>的参数量<span class="arithmatex">\(|\Delta \Phi|\)</span>和原始参数量<span class="arithmatex">\(|\Phi_0|\)</span>是相等的. 因此, 如果预训练模型非常大(像GPT-3 <span class="arithmatex">\(|\Phi_0|\simeq 175\)</span>B), 存储和部署许多独立的微调模型是具有挑战性的, 甚至可能根本不可行.</p>
