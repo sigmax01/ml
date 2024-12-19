@@ -2165,6 +2165,11 @@ PE(pos, 2i+1) &amp;= \cos\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)
 </details>
 <h2 id="_3">编码器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <details class="note" open="open">
+<summary>如何计算attention层的复杂度</summary>
+<p>设<span class="arithmatex">\(N\)</span>是序列长度, <span class="arithmatex">\(D\)</span>是特征维度, <span class="arithmatex">\(B\)</span>是batch_size.</p>
+<p>Q和K的维度都是<span class="arithmatex">\(N\cdot D\)</span>. 两个矩阵<span class="arithmatex">\(m\cdot n\)</span>和<span class="arithmatex">\(n\cdot p\)</span>相乘的复杂度是<span class="arithmatex">\(O(m\cdot p\cdot n)\)</span>. 所以QK^T的复杂度是<span class="arithmatex">\(O(N^2\cdot D)\)</span>. Softmax处理QK^T结果的复杂度是<span class="arithmatex">\(O(N^2)\)</span>, 将softmax结果和V进行矩阵乘法, V的维度是<span class="arithmatex">\(N\cdot D\)</span>, 继续运用矩阵乘法的复杂度计算公式, 复杂度是<span class="arithmatex">\(O(N^2\cdot D)\)</span>. 总共有<span class="arithmatex">\(B\)</span>个序列, 所以结果为<span class="arithmatex">\(O(B\cdot N^2\cdot D)\)</span>.</p>
+</details>
+<details class="note" open="open">
 <summary>GPU并行计算</summary>
 <p>在实际训练中, 通常是<code>batch_size</code>个序列直接输入, 每个序列都对应自己的<code>Q, K, V</code>矩阵, 所以可以利用GPU等并行设备, 同时对batch中的所有序列进行计算, 从而显著提高计算速度. 如果<code>batch_size</code>为1, 就无法利用GPU的序列间并行计算能力, 导致处理速度较慢(但是内部计算<code>QK^T</code>矩阵乘法还是并行的).  </p>
 <p>所以, GPU的并行计算体现在两个方面:</p>

@@ -2290,6 +2290,11 @@
 <summary>注意力的范围</summary>
 <p>在标准的Transformer模型中, 不同的序列(即同一batch中的不同样本)之间是没有注意力的, 注意力仅仅局限在单个序列内部, 模型不会跨序列进行注意力汇聚.</p>
 </details>
+<details class="note" open="open">
+<summary>如何计算attention层的复杂度</summary>
+<p>设<span class="arithmatex">\(N\)</span>是序列长度, <span class="arithmatex">\(D\)</span>是特征维度, <span class="arithmatex">\(B\)</span>是batch_size.</p>
+<p>Q和K的维度都是<span class="arithmatex">\(N\cdot D\)</span>. 两个矩阵<span class="arithmatex">\(m\cdot n\)</span>和<span class="arithmatex">\(n\cdot p\)</span>相乘的复杂度是<span class="arithmatex">\(O(m\cdot p\cdot n)\)</span>. 所以QK^T的复杂度是<span class="arithmatex">\(O(N^2\cdot D)\)</span>. Softmax处理QK^T结果的复杂度是<span class="arithmatex">\(O(N^2)\)</span>, 将softmax结果和V进行矩阵乘法, V的维度是<span class="arithmatex">\(N\cdot D\)</span>, 继续运用矩阵乘法的复杂度计算公式, 复杂度是<span class="arithmatex">\(O(N^2\cdot D)\)</span>. 总共有<span class="arithmatex">\(B\)</span>个序列, 所以结果为<span class="arithmatex">\(O(B\cdot N^2\cdot D)\)</span>.</p>
+</details>
 <h2 id="多头注意力机制">多头注意力机制<a class="headerlink" href="#多头注意力机制" title="Permanent link">&para;</a></h2>
 <details class="note" open="open">
 <summary>深入理解MSA</summary>
