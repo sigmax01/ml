@@ -36,13 +36,31 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
 LoRA有以下的优点:
 
 - 一个预训练模型可以被共享, 并构建用于不同任务的许多小型LoRA模块. 我们可以冻结共享模型, 并通过替换上图的$\bm{A}$和$\bm{B}$来有效切换任务, 从而显著降低存储需求和任务切换开销
-- LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态
+- LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用:fontawesome-solid-circle-question:自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态
 - 🌟LoRA在调优的时候对密集层的权重是一个**间接的, 线性的**调整, 在部署到特定任务前, LoRA对于权重的调整会被预先整合到原始密集层的权重中, 即在推理过程中这个LoRA模块就是不存在的. 而Adapter模块在推理的时候仍然是存在的, 因为adapter是在transformer层之间插入独立的神经网络层, 这些层包含独立的权重和偏置参数, 不能被简单地整合到某个层的权重中. 因此, LoRA的延迟和原始网络是相等的, 而Adapter新增了adapter模块内部的延迟🌟
 - LoRA和其他方法在功能和实现上相互独立, 互不干扰, 所以可以和其他方法协同工作, 如Prefix-Tuning, 进一步提升模型的性能和效率
 
 ### 术语和规范
 
 作者常常会引用Transformer架构并且使用它那里常用的术语. 我们称Transformer层的输入输出维度大小为$d_{model}$. 使用$W_q$, $W_k$, $W_v$, $W_o$指代Q/K/V/Output投影矩阵. $W$或者$W_0$指代预训练的权重矩阵, $\Delta W$指的是在调优过程中累积的权重更新. 使用$r$表示LoRA模块的秩. 并且, 使用Adam优化器优化模型, 在Transformer内部使用一个维度为$d_{fnn}=4\times d_{model}$的MLP(这里的维度指的是隐藏层维度).
+
+## 问题
+
+由于作者的proposal不依赖于训练目标, 所以他们以语言模型作为use case. 下面是一个语言建模问题的简要表述, 特别的, 是针对特定任务提示下条件概率的最大化. 
+
+假设我们给定了一个预训练的自回归语言模型$P_{\Phi}(y|x)$, 参数为$\Phi$. 举个例子, $P_{\Phi}(y|x)$可以是一个基于Transformer架构的:fontawesome-solid-circle-question:通用多任务学习器如GPT. 考虑将这个预训练模型用于下游的条件文本生成任务, 如总结, 机器阅读理解(MRC)和自然语言转SQL(NL2SQL). 每个下游任务都由一个上下文-目标对的数据集表示: $\mathcal{Z}=\{(x_i, y_i)\}_{i=1, ..., N}$, 其中$x_i$, $y_i$都是序列. 例如, 在NL2SQL中, $x_i$是自然语言的查询, $y_i$是对应的SQL代码. 对于总结任务, $x_i$是文章的内容, $y_i$是总结. 
+
+在完整微调中, 模型会被初始化为预训练的权重$\Phi_0$并且通过梯度下降最大化下列条件语言建模的优化目标更新到$\Phi_0+\Delta \Phi$. 
+
+$$\max_{\Phi} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (P_\Phi(y_t | x, y_{<t}))$$
+
+完整微调最大的缺点就是对于每一个下游的任务, 我们都要学习一个不同的$\Delta \Phi$, 并且$\Delta \Phi$的参数量$|\Delta \Phi|$和原始参数量$|\Phi_0|$是相等的. 因此, 如果预训练模型非常大(像GPT-3 $|\Phi_0|\simeq 175$B), 存储和部署许多独立的微调模型是具有挑战性的, 甚至可能根本不可行.
+
+在这篇论文中, 作者采用了一种parameter-efficient的方法: 任务相关的参数增量$\Delta \Phi=\Delta \Phi(\Theta)$由一部分数量较小的参数$\Theta$生成, 参数量远远小于原始参数量$|\Theta|\lll |\Phi_0|$. 寻找$\Delta \Phi$的过程就是在优化$\Theta$.
+
+$$\max_{\Theta} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (p_{\Phi_0 + \Delta \Phi(\Theta)}(y_t | x, y_{<t}))$$
+
+注意到, 这里拿到的是那一小部分的参数$\Theta$, 而不是整体参数$\Phi$. 在下面的小节中, 作者提出了一种使用低秩表示方法表示$\Delta \Phi$使得在计算和存储上都特别高效. 当他们的预训练模型选择的是GPT-3 175B的时候, 这一小部分可训练参数的量$|\Theta|$是原始参数量$|\Phi_0|$的$0.01\%$.
 
 [^1]: Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-rank adaptation of large language models (No. arXiv:2106.09685). arXiv. https://doi.org/10.48550/arXiv.2106.09685
 [^2]: Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., & Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. https://doi.org/10.48550/arXiv.1902.00751
