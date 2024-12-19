@@ -204,6 +204,12 @@ RNN模型无法并行执行, 在计算第t的词的时候, 前面的t-1个词必
 
     在标准的Transformer模型中, 不同的序列(即同一batch中的不同样本)之间是没有注意力的, 注意力仅仅局限在单个序列内部, 模型不会跨序列进行注意力汇聚.
 
+???+ note "如何计算attention层的复杂度"
+
+    设$N$是序列长度, $D$是特征维度, $B$是batch_size.
+
+    Q和K的维度都是$N\cdot D$. 两个矩阵$m\cdot n$和$n\cdot p$相乘的复杂度是$O(m\cdot p\cdot n)$. 所以QK^T的复杂度是$O(N^2\cdot D)$. Softmax处理QK^T结果的复杂度是$O(N^2)$, 将softmax结果和V进行矩阵乘法, V的维度是$N\cdot D$, 继续运用矩阵乘法的复杂度计算公式, 复杂度是$O(N^2\cdot D)$. 总共有$B$个序列, 所以结果为$O(B\cdot N^2\cdot D)$.
+
 ## 多头注意力机制 {#多头注意力机制}
 
 ???+ note "深入理解MSA"
