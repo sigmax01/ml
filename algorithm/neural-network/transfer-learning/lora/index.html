@@ -2146,24 +2146,34 @@
 <p>许多研究者试图通过仅调整部分参数或者对于每个新的任务都学习一个外部模块. 这样一来, 对于每个任务只需要在预训练模型之外存储和加载一小部分task-specific的参数, 极大提高了在部署阶段的操作效率. 🌟然而, 现有的方法通常存在一些问题, 一方面, 这些方法通过增加模型的深度来实现某些功能(如使用adapter模块<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>), 另一方面, 这些方法可能会减少模型能够处理的序列长度(如使用Prompt调优, 加入了一些额外的指令), 即模型在处理长文本或长时间序列数据时的能力受到限制, 这两个因素导致推理时间的显著增加. 更重要的是, 这些方法常常无法匹敌微调的基线, 导致需要在效率和性能之间做一个trade-off.🌟</p>
 <p>下面是详细探讨.</p>
 <p>作者想要解决的这个微调效率低下的问题已经存在很久了. 自动迁移学习出现, 已经有许多工作想要使得模型的调优变得更加parameter&amp;compute高效. 以语言模型举一个例子, 有两种主流的方法: 一个是添加adapter层. 一个是优化输入层激活(其实就是Prompt调优?). 但是, 这些策略都有它们各自的限制, 尤其是在大规模的对延迟很敏感的领域.</p>
-<p><strong>Adapter层会导致推理延迟</strong>. Adapters有很多变种, 作者关注的是由Houlsby等人<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup>提供的原始设计, 这个设计在每个Transformer的block中都有两个adapter模块. Lin等人<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup>提出了一种更为简化的设计, 每个块中只有一个适配器层, 但是有一个额外的LN层. 虽然可以通过剪枝或者利用多任务来降低延迟, 但是由adapter这一层带来的额外计算量是无法绕过的. 这看起来不成问题, 因为adapter被设计成一种"瓶颈结构", 所增加的参数量非常少(有时甚至是原预训练模型的<span class="arithmatex">\(1\%\)</span>之内), 但是, <ins>大型神经网络依赖于硬件上的并行性使得延迟降低, 而adapter层是串行处理的</ins>, 特别是在线推理的场景下, batch_size通常为1, adapter层推理时间的占比会显著增加(因为基数很小, 也就是一个token的推理时间很快, 所以由adapter层产生的额外推理时间就占比较大). 实验显示, 在没有模型并行的情况下, 在单块GPU上运行GPT-2, 即使adapter的瓶颈维度非常小, 也会显著增加延迟(见下表).</p>
+<p><strong>Adapter层会导致推理延迟</strong>. Adapters有很多变种, 作者关注的是由Houlsby等人<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup>提供的原始设计, 这个设计在每个Transformer的block中都有两个adapter模块. Lin等人<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup>提出了一种更为简化的设计, 每个块中只有一个适配器层, 但是有一个额外的LN层. 虽然可以通过剪枝或者利用多任务来降低延迟, 但是由adapter这一层带来的额外计算量是无法绕过的. 这看起来不成问题, 因为adapter被设计成一种"瓶颈结构", 所增加的参数量非常少(有时甚至是原预训练模型的<span class="arithmatex">\(1\%\)</span>之内), 但是, <ins>大型神经网络依赖于硬件上的并行性使得延迟降低, 而adapter层是串行处理的, 特别是在线推理的场景下, batch_size通常为1, adapter层推理时间的占比会显著增加.</ins> 实验显示, 在没有模型并行的情况下, 在单块GPU上运行GPT-2, 即使adapter的瓶颈维度非常小, 也会显著增加延迟(见下表). 可以看到, Batch Size在32的时候, Adapter调优的延迟增加2.2%; Batch Size在1的时候, Adapter调优的延迟增加20.7%.</p>
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba.webp#only-light" width="600" /></a>
   <a class="glightbox" href="https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba_inverted.webp#only-dark" width="600" /></a></p>
 </figure>
+<details class="note" open="open">
+<summary>为什么adapter层的推理时间占比会随batsh_size减小而增加</summary>
+<p>设<span class="arithmatex">\(N\)</span>是序列长度, <span class="arithmatex">\(D\)</span>是特征维度, <span class="arithmatex">\(B\)</span>是批次的数量. 自注意力层的时间复杂度是<span class="arithmatex">\(O(B\cdot N^2\cdot D)\)</span>. Adapter层的时间复杂度为<span class="arithmatex">\(O(B\cdot N\cdot D')\)</span>, <span class="arithmatex">\(D'\)</span>是adapter模块的瓶颈维度, 通常<span class="arithmatex">\(D'\ll D\)</span>. 可以看出, 在其余参数保持不变的情况下, 自注意力层的复杂度是随<span class="arithmatex">\(N^2\)</span>线性增加的, adapter层的复杂度是随<span class="arithmatex">\(N\)</span>线性增加的. 所以adapter层的复杂度增加的较慢, 在batch_size较大的时候, adapter层的推理时间占比较低, 在batch_size较小的时候, adapter层的推理时间占比较大.</p>
+<details class="note" open="open">
+<summary>如何计算attention层和adapter层的复杂度</summary>
+<p>Attention层复杂度计算: Q和K的维度都是<span class="arithmatex">\(N\cdot D\)</span>. 两个矩阵<span class="arithmatex">\(m\cdot n\)</span>和<span class="arithmatex">\(n\cdot p\)</span>相乘的复杂度是<span class="arithmatex">\(O(m\cdot p\cdot n)\)</span>. 所以QK^T的复杂度是<span class="arithmatex">\(O(N^2\cdot D)\)</span>. Softmax处理QK^T结果的复杂度是<span class="arithmatex">\(O(N^2)\)</span>, 将softmax结果和V进行矩阵乘法, V的维度是<span class="arithmatex">\(N\cdot D\)</span>, 继续运用矩阵乘法的复杂度计算公式, 复杂度是<span class="arithmatex">\(O(N^2\cdot D)\)</span>. 总共有<span class="arithmatex">\(B\)</span>个batch, 所以结果为<span class="arithmatex">\(O(B\cdot N^2\cdot D)\)</span>.</p>
+<p>Adapter层复杂度计算: 对于输入特征维度为<span class="arithmatex">\(n\)</span>和输出特征维度为<span class="arithmatex">\(m\)</span>的线性层, 其时间复杂度为<span class="arithmatex">\(O(n\times m)\)</span>. Adapter的复杂度可以表示为<span class="arithmatex">\(O(N\cdot D'+D'\cdot N)=O(N\cdot D')\)</span>, 总共有<span class="arithmatex">\(B\)</span>个batch, 所以结果为<span class="arithmatex">\(O(B\cdot N\cdot D')\)</span>.</p>
+</details>
+</details>
 <details class="note" open="open">
 <summary>什么多任务降低延迟</summary>
 <p>多任务降低延迟是指通过同时处理多个任务来减少整体的响应时间和执行延迟. 这种方法通常涉及将一个大任务拆分为多个子任务, 并利用并行处理的方式来提高效率.</p>
 </details>
 <details class="note" open="open">
 <summary>什么是在线推理</summary>
-<p>在线推理, 也称为实时推理, 是指在机器学习和深度学习应用中, 模型对输入数据进行即时预测或者决策的过程. 与批量推理不同, 在线推理通常处理的是单个或者少量的数据样本, 并且需要在极短的时间内给出结果, 以满足实时性要求. 当每个批次只处理一个请求的时候, 即batch_size为1的时候, 模型完全无法利用硬件的并行能力.</p>
+<p>在线推理, 也称为实时推理, 是指在机器学习和深度学习应用中, 模型对输入数据进行即时预测或者决策的过程. 与批量推理不同, 在线推理通常处理的是单个或者少量的数据样本, 并且需要在极短的时间内给出结果, 以满足实时性要求. 当每个批次只处理一个请求的时候, 即batch_size为1的时候, 模型几乎完全无法利用硬件的并行能力.</p>
 </details>
+<p>当我们需要对超大规模模型进行切分时, 这个问题会变得更加严重. 因为由于adapter增加的额外的深度需要更多同步GPU的操作, 例如<code>AllReduce</code>和<code>Broadcast</code>, 除非我们多次冗余地存储adapter的参数, 这偏离了设计初衷.</p>
 <h3 id="lora_1">LoRA的提出<a class="headerlink" href="#lora_1" title="Permanent link">&para;</a></h3>
 <p>作者受到Li等人<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>和Aghajanyan等人<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>研究工作的启发. 🌟他们的研究表明, 学习到的过参数化模型(Over-Parameterized Model)实际上存在于一个低内在维度空间(Low Intrinsic Dimension)中. 基于这一发现, 作者假设在模型的<strong>调优/适应</strong>过程中, 权重的变化<strong>也</strong>具有低内在秩(Intrinsic Rank). 这促使作者提出了低秩适应(LoRA)的方法.🌟 <ins>LoRA允许我们通过在调优过程中优化某些特定密集层(Dense Layer)的权重变化的秩分解矩阵(Rank Decomposition Matrices)来间接"训练"这些密集层, 同时保持预训练的权重冻结.</ins> 如下图所示.</p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4.webp#only-light" width="225" /></a>
-<a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" width="225" /></a></p>
+<p><a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4.webp#only-light" width="210" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" width="210" /></a></p>
 <figcaption>LoRA. 会对原始权重和调整权重进行相加操作, $d$表示密集层的理论最大秩, $r$表示在调优中的权重变换矩阵的秩</figcaption>
 </figure>
 <details class="note" open="open">
