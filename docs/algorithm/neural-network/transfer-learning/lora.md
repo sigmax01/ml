@@ -29,7 +29,7 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
 <figcaption>LoRA. 会对原始权重和调整权重进行相加操作, $d$表示密集层的理论最大秩, $r$表示在调优中的权重变换矩阵的秩</figcaption>
 </figure>
 
-拿GPT-3 175B举个例子, 某些密集层的理论最大秩为12288(即图中的$d=12288$), 但是在实际调优的过程中其**权重变化受限于低维度**(根据Li等人的研究), 如图中$r$甚至可以是$1$或者$2$已经足够, 而远远不需要达到理论上的最大秩, 这使得LoRA在存储和计算上非常高效.
+拿GPT-3 175B举个例子, 某些密集层的理论最大秩为12288(即图中的$d=12288$, GPT-3 的$d_{model}=12288$), 但是在实际调优的过程中其**权重变化受限于低维度**(根据Li等人的研究), 如图中$r$甚至可以是$1$或者$2$已经足够, 而远远不需要达到理论上的最大秩, 这使得LoRA在存储和计算上非常高效.
 
 ### LoRA优点
 
@@ -39,6 +39,10 @@ LoRA有以下的优点:
 - LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态
 - 🌟LoRA在调优的时候对密集层的权重是一个**间接的, 线性的**调整, 在部署到特定任务前, LoRA对于权重的调整会被预先整合到原始密集层的权重中, 即在推理过程中这个LoRA模块就是不存在的. 而Adapter模块在推理的时候仍然是存在的, 因为adapter是在transformer层之间插入独立的神经网络层, 这些层包含独立的权重和偏置参数, 不能被简单地整合到某个层的权重中. 因此, LoRA的延迟和原始网络是相等的, 而Adapter新增了adapter模块内部的延迟🌟
 - LoRA和其他方法在功能和实现上相互独立, 互不干扰, 所以可以和其他方法协同工作, 如Prefix-Tuning, 进一步提升模型的性能和效率
+
+### 术语和规范
+
+作者常常会引用Transformer架构并且使用它那里常用的术语. 我们称Transformer层的输入输出维度大小为$d_{model}$. 使用$W_q$, $W_k$, $W_v$, $W_o$指代Q/K/V/Output投影矩阵. $W$或者$W_0$指代预训练的权重矩阵, $\Delta W$指的是在调优过程中累积的权重更新. 使用$r$表示LoRA模块的秩. 并且, 使用Adam优化器优化模型, 在Transformer内部使用一个维度为$d_{fnn}=4\times d_{model}$的MLP(这里的维度指的是隐藏层维度).
 
 [^1]: Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-rank adaptation of large language models (No. arXiv:2106.09685). arXiv. https://doi.org/10.48550/arXiv.2106.09685
 [^2]: Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., & Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. https://doi.org/10.48550/arXiv.1902.00751
