@@ -26,7 +26,7 @@
     
     
       
-        <title>Adapter - 机器蝉</title>
+        <title>LoRA - 机器蝉</title>
       
     
     
@@ -111,7 +111,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#lora" class="md-skip">
           跳转至
         </a>
       
@@ -166,7 +166,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Adapter
+              LoRA
             
           </span>
         </div>
@@ -1181,6 +1181,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -1209,6 +1211,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1222,6 +1226,57 @@
       概要
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      背景
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      微调的问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapterprompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adapter/Prompt的问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoRA的提出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoRA优点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1945,6 +2000,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1958,6 +2015,57 @@
       概要
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      背景
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      微调的问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapterprompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adapter/Prompt的问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoRA的提出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoRA优点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1992,10 +2100,56 @@
   
 
 
-  <h1>LoRA</h1>
-
+<h1 id="lora">LoRA<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#lora" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>NLP邻域最重要的一个范式是先使用通用领域的大规模数据进行预训练然后将其搬到特定的任务或者领域上. 重新训练模型所有参数的完整微调方法是不太可行的, 拿GPT-3 175B举个例子, 部署每一个任务特定的微调模型, 每个都要以训练175B参数为代价. 作者提出了低秩适配(Low-Rank Adaptation, LoRA), 它会冻结与训练模型的权重, 并将可训练的秩分解矩阵(trainable rank decomposition matrices)注入到Transformer模型架构的每一层中「怎么感觉和<a href="/algorithm/neural-network/transfer-learning/adapter">Adapter</a>有点像」, 对于下游任务显著减少了可训练的参数量. 对比使用Adam优化器微调的GPT-3 175B, LoRA可以将可训练的参数量减少了10000倍, 同时, 对于GPU内存的要求减少了3倍. 使用LoRA调优后的模型性能和使用微调的模型性能相当或甚至更好, 但是前者有更少的可训练参数, 更高的训练吞吐量, <strong>并且, 和adapters不一样的是, 没有额外的推理延迟</strong>. <ins>作者通过实验发现了语言模型适配中的秩缺失现象, 解释和确认了LoRA方法的有效性.</ins> 相关的代码包括在PyTorch上使用LoRA可以在<a href="https://github.com/microsoft/LoRA">这里</a>找到.</p>
+<p>NLP邻域最重要的一个范式是先使用通用领域的大规模数据进行预训练然后将其搬到特定的任务或者领域上. 重新训练模型所有参数的完整微调方法是不太可行的, 拿GPT-3 175B举个例子, 部署每一个任务特定的微调模型, 每个都要以训练175B参数为代价. 作者提出了低秩适配(Low-Rank Adaptation, LoRA), 它会冻结预训练模型的权重, 并将可训练的秩分解矩阵(trainable rank decomposition matrices)注入到Transformer模型架构的每一层中「怎么感觉和<a href="/algorithm/neural-network/transfer-learning/adapter">Adapter</a>有点像」, 对于下游任务显著减少了可训练的参数量. 对比使用Adam优化器微调的GPT-3 175B, LoRA可以将可训练的参数量减少了10000倍, 同时, 对于GPU内存的要求减少了3倍. 使用LoRA调优后的模型性能和使用微调的模型性能相当或甚至更好, 但是前者有更少的可训练参数, 更高的训练吞吐量, <strong>并且, 和adapters不一样的是, 没有额外的推理延迟</strong>. <ins>作者通过实验发现了语言模型适配中的秩缺失现象, 解释和确认了LoRA方法的有效性.</ins> 相关的代码包括在PyTorch上使用LoRA可以在<a href="https://github.com/microsoft/LoRA">这里</a>找到. </p>
+<h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">微调的问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>很多在NLP领域的应用依赖于将一个大型的预训练语言模型搬到许多下游任务中. 这样的adaptation经常是通过微调实现的, 微调会更新预训练模型的所有参数, 然而, 这样的操作不是紧凑的. 随着大模型每隔几个月就被训练一次, 这从对GPT-2或者RoBERTa大模型而言仅仅是“不太方便”, 转变为对拥有1750亿可训练参数的GPT-3而言的部署挑战.</p>
+<h3 id="adapterprompt">Adapter/Prompt的问题<a class="headerlink" href="#adapterprompt" title="Permanent link">&para;</a></h3>
+<p>许多研究者试图通过仅调整部分参数或者对于每个新的任务都学习一个外部模块. 这样一来, 对于每个任务只需要在预训练模型之外存储和加载一小部分task-specific的参数, 极大提高了在部署阶段的操作效率. 🌟然而, 现有的方法通常存在一些问题, 一方面, 这些方法通过增加模型的深度来实现某些功能(如使用adapter模块<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>), 另一方面, 这些方法可能会减少模型能够处理的序列长度(如使用Prompt调优, 加入了一些额外的指令), 即模型在处理长文本或长时间序列数据时的能力受到限制, 这两个因素导致推理时间的显著增加. 更重要的是, 这些方法常常无法匹敌微调的基线, 导致需要在效率和性能之间做一个trade-off.🌟</p>
+<h3 id="lora_1">LoRA的提出<a class="headerlink" href="#lora_1" title="Permanent link">&para;</a></h3>
+<p>作者受到Li等人<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>和Aghajanyan等人<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>研究工作的启发. 🌟他们的研究表明, 学习到的过参数化模型(Over-Parameterized Model)实际上存在于一个低内在维度空间(Low Intrinsic Dimension)中. 基于这一发现, 作者假设在模型的<strong>调优/适应</strong>过程中, 权重的变化<strong>也</strong>具有低内在秩(Intrinsic Rank). 这促使作者提出了低秩适应(LoRA)的方法.🌟 <ins>LoRA允许我们通过在调优过程中优化某些特定密集层(Dense Layer)的权重变化的秩分解矩阵(Rank Decomposition Matrices)来间接"训练"这些密集层, 同时保持预训练的权重冻结.</ins> 如下图所示.</p>
+<figure>
+<p><a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4.webp#only-light" width="200" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark" width="200" /></a></p>
+<figcaption>LoRA. 会对原始权重和调整权重进行相加操作, $d$表示密集层的理论最大秩, $r$表示在调优中的权重变换矩阵的秩</figcaption>
+</figure>
+<p>拿GPT-3 175B举个例子, 某些密集层的理论最大秩为12288(即图中的<span class="arithmatex">\(d=12288\)</span>), 但是在实际调优的过程中其<strong>权重变化受限于低维度</strong>(根据Li等人的研究), 如图中<span class="arithmatex">\(r\)</span>甚至可以是<span class="arithmatex">\(1\)</span>或者<span class="arithmatex">\(2\)</span>已经足够, 而远远不需要达到理论上的最大秩, 这使得LoRA在存储和计算上非常高效.</p>
+<h3 id="lora_2">LoRA优点<a class="headerlink" href="#lora_2" title="Permanent link">&para;</a></h3>
+<p>LoRA有以下的优点:</p>
+<ul>
+<li>一个预训练模型可以被共享, 并构建用于不同任务的许多小型LoRA模块. 我们可以冻结共享模型, 并通过替换上图的<span class="arithmatex">\(\bm{A}\)</span>和<span class="arithmatex">\(\bm{B}\)</span>来有效切换任务, 从而显著降低存储需求和任务切换开销</li>
+<li>LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态</li>
+<li>🌟LoRA在调优的时候对密集层的权重是一个<strong>间接的, 线性的</strong>调整, 在部署到特定任务前, LoRA对于权重的调整会被预先整合到原始密集层的权重中, 即在推理过程中这个LoRA模块就是不存在的. 而Adapter模块在推理的时候仍然是存在的, 因为adapter是在transformer层之间插入独立的神经网络层, 这些层包含独立的权重和偏置参数, 不能被简单地整合到某个层的权重中. 因此, LoRA的延迟和原始网络是相等的, 而Adapter新增了adapter模块内部的延迟🌟</li>
+<li>LoRA和其他方法在功能和实现上相互独立, 互不干扰, 所以可以和其他方法协同工作, 如Prefix-Tuning, 进一步提升模型的性能和效率</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., &amp; Chen, W. (2021). LoRA: Low-rank adaptation of large language models (No. arXiv:2106.09685). arXiv. <a href="https://doi.org/10.48550/arXiv.2106.09685">https://doi.org/10.48550/arXiv.2106.09685</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., &amp; Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. <a href="https://doi.org/10.48550/arXiv.1902.00751">https://doi.org/10.48550/arXiv.1902.00751</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Rebuffi, S.-A., Bilen, H., &amp; Vedaldi, A. (2017). Learning multiple visual domains with residual adapters (No. arXiv:1705.08045). arXiv. <a href="https://doi.org/10.48550/arXiv.1705.08045">https://doi.org/10.48550/arXiv.1705.08045</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Li, X. L., &amp; Liang, P. (2021). Prefix-tuning: Optimizing continuous prompts for generation (No. arXiv:2101.00190). arXiv. <a href="https://doi.org/10.48550/arXiv.2101.00190">https://doi.org/10.48550/arXiv.2101.00190</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>Lester, B., Al-Rfou, R., &amp; Constant, N. (2021). The power of scale for parameter-efficient prompt tuning (No. arXiv:2104.08691). arXiv. <a href="https://doi.org/10.48550/arXiv.2104.08691">https://doi.org/10.48550/arXiv.2104.08691</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>Li, Y., &amp; Liang, Y. (2019). Learning overparameterized neural networks via stochastic gradient descent on structured data (No. arXiv:1808.01204). arXiv. <a href="https://doi.org/10.48550/arXiv.1808.01204">https://doi.org/10.48550/arXiv.1808.01204</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Aghajanyan, A., Zettlemoyer, L., &amp; Gupta, S. (2020). Intrinsic dimensionality explains the effectiveness of language model fine-tuning (No. arXiv:2012.13255). arXiv. <a href="https://doi.org/10.48550/arXiv.2012.13255">https://doi.org/10.48550/arXiv.2012.13255</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -2018,7 +2172,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月19日</span>
   </span>
 
     
