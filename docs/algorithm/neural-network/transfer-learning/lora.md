@@ -23,23 +23,25 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
 
 作者想要解决的这个微调效率低下的问题已经存在很久了. 自动迁移学习出现, 已经有许多工作想要使得模型的调优变得更加parameter&compute高效. 以语言模型举一个例子, 有两种主流的方法: 一个是添加adapter层. 一个是优化输入层激活(其实就是Prompt调优?). 但是, 这些策略都有它们各自的限制, 尤其是在大规模的对延迟很敏感的领域.
 
-**Adapter层会导致推理延迟**. Adapters有很多变种, 作者关注的是由Houlsby等人[^2]提供的原始设计, 这个设计在每个Transformer的block中都有两个adapter模块. Lin等人[^8]提出了一种更为简化的设计, 每个块中只有一个适配器层, 但是有一个额外的LN层. 虽然可以通过剪枝或者利用多任务来降低延迟, 但是由adapter这一层带来的额外计算量是无法绕过的. 这看起来不成问题, 因为adapter被设计成一种"瓶颈结构", 所增加的参数量非常少(有时甚至是原预训练模型的$1\%$之内), 但是, ^^大型神经网络依赖于硬件上的并行性使得延迟降低, 而adapter层是串行处理的, 特别是在线推理的场景下, batch_size通常为1, adapter层推理时间的占比会显著增加.^^ 实验显示, 在没有模型并行的情况下, 在单块GPU上运行GPT-2, 即使adapter的瓶颈维度非常小, 也会显著增加延迟(见下表). 可以看到, Batch Size在16的时候, AdapterL调优的延迟增加5.0%; 但是Batch Size在1的时候, AdapterL调优的延迟增加20.7%.
+**Adapter层会导致推理延迟**. Adapters有很多变种, 作者关注的是由Houlsby等人[^2]提供的原始设计, 这个设计在每个Transformer的block中都有两个adapter模块. Lin等人[^8]提出了一种更为简化的设计, 每个块中只有一个适配器层, 但是有一个额外的LN层. 虽然可以通过剪枝或者利用多任务来降低延迟, 但是由adapter这一层带来的额外计算量是无法绕过的. 这看起来不成问题, 因为adapter被设计成一种"瓶颈结构", 所增加的参数量非常少(有时甚至是原预训练模型的$1\%$之内), 但是, ^^大型神经网络依赖于硬件上的并行性使得延迟降低, 而adapter层是串行处理的, 特别是在线推理的场景下, batch_size通常为1, adapter层推理时间的占比会显著增加.^^ 实验显示, 在没有模型并行的情况下, 在单块GPU上运行GPT-2, 即使adapter的瓶颈维度非常小, 也会显著增加延迟(见下表). 
 
 <figure markdown='1'>
   ![](https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba.webp#only-light){ loading=lazy width='600' }
   ![](https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba_inverted.webp#only-dark){ loading=lazy width='600' }
   <figcaption>GPT-2中型模型单次前向传播的100次实验平均值, 单位毫秒. 使用的是NVIDIA Quadro RTX8000. $|\Theta|$表示的是adapter层的可训练参数数量. AdapterL和AdapterH是两种adapter调优的方法</figcaption>
 </figure>
+    
+???+ note "如何计算attention层和adapter层的复杂度"
 
-???+ note "为什么adapter层的推理时间占比会随batsh_size减小而增加"
+    设$N$是序列长度, $D$是特征维度, $B$是batch_size, $D'$是adapter模块的瓶颈维度, 通常$D'\ll D$.
 
-    设$N$是序列长度, $D$是特征维度, $B$是批次的数量. 自注意力层的时间复杂度是$O(B\cdot N^2\cdot D)$. Adapter层的时间复杂度为$O(B\cdot N\cdot D')$, $D'$是adapter模块的瓶颈维度, 通常$D'\ll D$. 可以看出, 在其余参数保持不变的情况下, 自注意力层的复杂度是随$N^2$线性增加的, adapter层的复杂度是随$N$线性增加的. 所以adapter层的复杂度增加的较慢, 在batch_size较大的时候, adapter层的推理时间占比较低, 在batch_size较小的时候, adapter层的推理时间占比较大.
+    Attention层复杂度计算: Q和K的维度都是$N\cdot D$. 两个矩阵$m\cdot n$和$n\cdot p$相乘的复杂度是$O(m\cdot p\cdot n)$. 所以QK^T的复杂度是$O(N^2\cdot D)$. Softmax处理QK^T结果的复杂度是$O(N^2)$, 将softmax结果和V进行矩阵乘法, V的维度是$N\cdot D$, 继续运用矩阵乘法的复杂度计算公式, 复杂度是$O(N^2\cdot D)$. 总共有$B$个序列, 所以结果为$O(B\cdot N^2\cdot D)$.
 
-    ???+ note "如何计算attention层和adapter层的复杂度"
+    Adapter层复杂度计算: 对于输入特征维度为$n$和输出特征维度为$m$的线性层, 其时间复杂度为$O(n\times m)$. Adapter的复杂度可以表示为$O(N\cdot D'+D'\cdot N)=O(N\cdot D')$, 总共有$B$个序列, 所以结果为$O(B\cdot N\cdot D')$.
 
-        Attention层复杂度计算: Q和K的维度都是$N\cdot D$. 两个矩阵$m\cdot n$和$n\cdot p$相乘的复杂度是$O(m\cdot p\cdot n)$. 所以QK^T的复杂度是$O(N^2\cdot D)$. Softmax处理QK^T结果的复杂度是$O(N^2)$, 将softmax结果和V进行矩阵乘法, V的维度是$N\cdot D$, 继续运用矩阵乘法的复杂度计算公式, 复杂度是$O(N^2\cdot D)$. 总共有$B$个batch, 所以结果为$O(B\cdot N^2\cdot D)$.
+???+ question "为什么adapter层的推理时间占比会随batsh_size减小而增加"
 
-        Adapter层复杂度计算: 对于输入特征维度为$n$和输出特征维度为$m$的线性层, 其时间复杂度为$O(n\times m)$. Adapter的复杂度可以表示为$O(N\cdot D'+D'\cdot N)=O(N\cdot D')$, 总共有$B$个batch, 所以结果为$O(B\cdot N\cdot D')$.
+    自注意力层的时间复杂度是$O(B\cdot N^2\cdot D)$. Adapter层的时间复杂度为$O(B\cdot N\cdot D')$.
 
 ???+ note "什么多任务降低延迟"
 
@@ -111,6 +113,10 @@ $$\max_{\Phi} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (P_\Phi(y_t | 
 $$\max_{\Theta} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (p_{\Phi_0 + \Delta \Phi(\Theta)}(y_t | x, y_{<t}))$$
 
 注意到, 这里拿到的是那一小部分的参数$\Theta$, 而不是整体参数$\Phi$. 在下面的小节中, 作者提出了一种使用低秩表示方法表示$\Delta \Phi$使得在计算和存储上都特别高效. 当他们的预训练模型选择的是GPT-3 175B的时候, 这一小部分可训练参数的量$|\Theta|$是原始参数量$|\Phi_0|$的$0.01\%$.
+
+## 方法
+
+
 
 [^1]: Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-rank adaptation of large language models (No. arXiv:2106.09685). arXiv. https://doi.org/10.48550/arXiv.2106.09685
 [^2]: Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., & Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. https://doi.org/10.48550/arXiv.1902.00751
