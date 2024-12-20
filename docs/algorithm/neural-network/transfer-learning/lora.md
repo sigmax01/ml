@@ -7,7 +7,7 @@ comments: false
 
 ## 概要
 
-NLP邻域最重要的一个范式是先使用通用领域的大规模数据进行预训练然后将其搬到特定的任务或者领域上. 重新训练模型所有参数的完整微调方法是不太可行的, 拿GPT-3 175B举个例子, 部署每一个任务特定的微调模型, 每个都要以训练175B参数为代价. 作者提出了低秩适配(Low-Rank Adaptation, LoRA), 它会冻结预训练模型的权重, 并将可训练的秩分解矩阵(trainable rank decomposition matrices)注入到Transformer模型架构的每一层中「怎么感觉和[Adapter](/algorithm/neural-network/transfer-learning/adapter)有点像」, 对于下游任务显著减少了可训练的参数量. 对比使用Adam优化器微调的GPT-3 175B, LoRA可以将可训练的参数量减少了10000倍, 同时, 对于GPU内存的要求减少了3倍. 使用LoRA调优后的模型性能和使用微调的模型性能相当或甚至更好, 但是前者有更少的可训练参数, 更高的训练吞吐量, **并且, 和adapters不一样的是, 没有额外的推理延迟**. ^^作者通过实验发现了语言模型适配中的秩缺失现象, 解释和确认了LoRA方法的有效性.^^ 相关的代码包括在PyTorch上使用LoRA可以在[这里](https://github.com/microsoft/LoRA)找到.
+NLP邻域最重要的一个范式是先使用通用领域的大规模数据进行预训练然后将其搬到特定的任务或者领域上. 重新训练模型所有参数的全量微调方法是不太可行的, 拿GPT-3 175B举个例子, 部署每一个任务特定的微调模型, 每个都要以训练175B参数为代价. 作者提出了低秩适配(Low-Rank Adaptation, LoRA), 它会冻结预训练模型的权重, 并将可训练的秩分解矩阵(trainable rank decomposition matrices)注入到Transformer模型架构的每一层中「怎么感觉和[Adapter](/algorithm/neural-network/transfer-learning/adapter)有点像」, 对于下游任务显著减少了可训练的参数量. 对比使用Adam优化器微调的GPT-3 175B, LoRA可以将可训练的参数量减少了10000倍, 同时, 对于GPU内存的要求减少了3倍. 使用LoRA调优后的模型性能和使用微调的模型性能相当或甚至更好, 但是前者有更少的可训练参数, 更高的训练吞吐量, **并且, 和adapters不一样的是, 没有额外的推理延迟**. ^^作者通过实验发现了语言模型适配中的秩缺失现象, 解释和确认了LoRA方法的有效性.^^ 相关的代码包括在PyTorch上使用LoRA可以在[这里](https://github.com/microsoft/LoRA)找到.
 
 ## 背景
 
@@ -111,11 +111,11 @@ LoRA有以下的优点:
 
     GPT之所以是一个通用多任务模型, 关键在于其在多样化的数据上大规模预训练, 在预训练阶段就已经赋予了模型广泛的多任务学习能力, 使其能够在无需专门调优的情况下, 适应并完成各种不同的任务.
 
-在完整微调中, 模型会被初始化为预训练的权重$\Phi_0$并且通过梯度下降最大化下列条件语言建模的优化目标更新到$\Phi_0+\Delta \Phi$.
+在全量微调中, 模型会被初始化为预训练的权重$\Phi_0$并且通过梯度下降最大化下列条件语言建模的优化目标更新到$\Phi_0+\Delta \Phi$.
 
 $$\max_{\Phi} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (P_\Phi(y_t | x, y_{<t}))$$
 
-完整微调最大的缺点就是对于每一个下游的任务, 我们都要学习一个不同的$\Delta \Phi$, 并且$\Delta \Phi$的参数量$|\Delta \Phi|$和原始参数量$|\Phi_0|$是相等的. 因此, 如果预训练模型非常大(像GPT-3 $|\Phi_0|\simeq 175$B), 存储和部署许多独立的微调模型是具有挑战性的, 甚至可能根本不可行.
+全量微调最大的缺点就是对于每一个下游的任务, 我们都要学习一个不同的$\Delta \Phi$, 并且$\Delta \Phi$的参数量$|\Delta \Phi|$和原始参数量$|\Phi_0|$是相等的. 因此, 如果预训练模型非常大(像GPT-3 $|\Phi_0|\simeq 175$B), 存储和部署许多独立的微调模型是具有挑战性的, 甚至可能根本不可行.
 
 在这篇论文中, 作者采用了一种parameter-efficient的方法: 任务相关的参数增量$\Delta \Phi=\Delta \Phi(\Theta)$由一部分数量较小的参数$\Theta$生成, 参数量远远小于原始参数量$|\Theta|\lll |\Phi_0|$. 寻找$\Delta \Phi$的过程就是在优化$\Theta$.
 
@@ -140,6 +140,12 @@ $$h=W_0x+\Delta W_x=W_0x+BAx$$
 这个公式已经被表示在第一张图中. ^^作者对$A$进行标准正态分布初始化, 对$B$初始化为零矩阵, 使得$\Delta W=BA=0$, 这个做法类似于adapter的初始化^^, 保证在开始的时候, LoRA模块不会显著改变模型的输出, 这对于保证模型的初始性能和稳定性非常重要. 
 
 作者还对更新量$\Delta Wx$的学习率$\alpha$进行了缩放: 乘以$\frac{1}{r}$, 这是因为, 在没有缩放的情况下, 同样的学习率$\alpha$下改变秩$r$会直接影响权重更新的尺度. 通过引入与$\frac{1}{r}$成比例的缩放, 我们可以对梯度尺度进行归一化, 使其对$r$的变化不太敏感, 这使得超参数$r$的调整更加容易, 因为单个$\alpha$就可以在不同的$r$下表现良好, 即$\frac{\alpha}{r}$才是真正的学习率. 简单的说, 就是通过$r$的改变使得在不同的$r$下Adam优化器能够以相同的策略调整$\alpha$, 省去了不同$r$下调优$\alpha$的必要.
+
+**全量微调的泛化**. 一般的部分微调允许只微调所有预训练权重的一部分, 如只调整顶层的参数. LoRA在这个的基础上更进了一步, **不需要在调优的过程中, 要求权重的累积梯度更新矩阵必须具有满秩**. 这意味着当将LoRA应用于所有(层)的权重矩阵并训练所有的$\Delta W$, 并且将LoRA的秩$r$为对应权重矩阵的秩, 那么我们就得到了一个全量微调, 即两者是等价的. 换句话说, 当我们增加可训练参数量的时候, 训练LoRA会随着秩的增加收敛于全量微调, 训练adapter模块收敛于训练一个隐藏层较大的MLP, 基于前缀的方法收敛于一个无法接受长实际可训练序列的模型.
+
+**没有额外的推理延迟**. 当在production环境下部署的时候, 我们可以特别的计算并存储更新后的权重矩阵$W=W_0+BA$并且按照一个没有添加LoRA模块的原始网络那样进行推理. 注意, $W_0$和$BA$的形状都是$\mathbb{R}^{d\times k}$. ^^这意味着, 当我们要切换到另一个下游任务的时候, 我们得恢复原始的$W=W_0$, 方法就是减去$BA$, 然后加上另外一个$B'A'$^^. 这个方法只需要一点点内存空间, 最重要的是, 这样的操作不会产生额外的推理延迟相比于adapter模块.
+
+### LoRA应用于Transformer
 
 [^1]: Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-rank adaptation of large language models (No. arXiv:2106.09685). arXiv. https://doi.org/10.48550/arXiv.2106.09685
 [^2]: Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., & Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. https://doi.org/10.48550/arXiv.1902.00751
