@@ -30,6 +30,12 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
   ![](https://img.ricolxwz.io/b4cce089d30456a9b8007148c07c08ba_inverted.webp#only-dark){ loading=lazy width='600' }
   <figcaption>GPT-2中型模型单次前向传播的100次实验平均值, 单位毫秒. 使用的是NVIDIA Quadro RTX8000. $|\Theta|$表示的是adapter层的可训练参数数量. AdapterL和AdapterH是两种adapter调优的方法</figcaption>
 </figure>
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/51b932b2b2603d0713554d1306e6dd04.webp#only-light){ loading=lazy width='600' }
+![](https://img.ricolxwz.io/51b932b2b2603d0713554d1306e6dd04_inverted.webp#only-dark){ loading=lazy width='600' }
+<figcaption>以没有adapter(r=0)作为基线, 比较不同seq_len, batch_size, r下adapter延迟增加的百分比. 上面的一条是AdapterH, 下面的一条是AdapterL. 大batch_size和seq_len能够缓解延迟. 在线推理, 短序列的情况下, 这种推理时间增加的百分比高达30%</figcaption>
+</figure>
     
 ???+ note "如何计算attention层和adapter层的复杂度"
 
@@ -41,7 +47,11 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
 
 ???+ question "为什么adapter层的推理时间占比会随batsh_size减小而增加"
 
-    自注意力层的时间复杂度是$O(B\cdot N^2\cdot D)$. Adapter层的时间复杂度为$O(B\cdot N\cdot D')$. 既然自注意力层和adapter层都和批次大小$B$是线性相关的, 那么为什么adapter层的推理时间占比会随着batch_size的减小而增加呢? 这个应该和GPU的并行处理有关系, 但是单从复杂度分析感觉这两个占比应该是没有变化的?
+    自注意力层的时间复杂度是$O(B\cdot N^2\cdot D)$. Adapter层的时间复杂度为$O(B\cdot N\cdot D')$. 既然自注意力层和adapter层都和批次大小$B$是线性相关的, 那么为什么adapter层的推理时间占比会随着batch_size的减小而增加呢? 单从复杂度分析感觉这两个占比应该是没有变化的? 可能推理时间和复杂度不是正比关系, 因为不同层在并行性有差异?
+
+    下面是LoRA开发者的回答: https://github.com/microsoft/LoRA/issues/129#issuecomment-1783956680
+
+    > This is because when the bsz is small, we need to parallelize over width to gain the best hardware efficiency. Adapter adds to the depth, which has to be processed sequentially.
 
 ???+ note "什么多任务降低延迟"
 
@@ -64,7 +74,6 @@ NLP邻域最重要的一个范式是先使用通用领域的大规模数据进�
 ![](https://img.ricolxwz.io/1ed1d2f0549dd53c0a7684355d9f56a4_inverted.webp#only-dark){ loading=lazy width='210' }
 <figcaption>LoRA. 会对原始权重和调整权重进行相加操作, $d$表示密集层的理论最大秩, $r$表示在调优中的权重变换矩阵的秩</figcaption>
 </figure>
-
 
 ???+ note "什么是过参数化模型"
 
@@ -116,7 +125,21 @@ $$\max_{\Theta} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (p_{\Phi_0 +
 
 ## 方法
 
+### 低秩参数化更新矩阵
 
+一个神经网络包含许多执行矩阵乘法操作的密集层. 这些密集层的权重矩阵常常是满秩的. 当将其搬到特定任务的时候, Aghajanyan等人的工作显示了预训练模型有低内在维度, 并且即使将模型的高维参数空间通过随机投影降维到一个较小的子空间, 模型仍然能够高效地学习(不是调优). 作者受到他们的启发, 推测在调优的时候对权重的更新也具有低内在秩. 
+
+???+ question "为什么权重矩阵是满秩的, 而模型本身具有低内在秩"
+
+    这可能是因为: 尽管每一层individually满秩, 多个层之间的参数可能高度相关, 导致整个模型的参数空间中是有高度的冗余和相关的, 所以处在低内在秩状态.
+
+对于一个预训练的权重矩阵$W_0\in \mathbb{R}^{d\times k}$. 我们通过将权重的变化表示为一个低秩分解, 即$\Delta W=BA$, 其中, $B\in \mathbb{R}^{d\times r}$, $A\in \mathbb{R}^{r\times k}$, $r\ll \min(d, k)$. 在调优的过程中, $W_0$是被冻结的, 它不会收到权重更新, 而$A$和$B$会被更新, 包含可训练参数. 注意, $W_0$和$\Delta W=BA$都会被相同的输入相乘, 并且它们各自的输出会进行coordinate-wise相加(Adapter就无法直接相加, 非adapter和adapter是两波不同的参数). 对于$h=W_0x$, 我们修改后的前向传播为:
+
+$$h=W_0x+\Delta W_x=W_0x+BAx$$
+
+这个公式已经被表示在第一张图中. ^^作者对$A$进行标准正态分布初始化, 对$B$初始化为零矩阵, 使得$\Delta W=BA=0$, 这个做法类似于adapter的初始化^^, 保证在开始的时候, LoRA模块不会显著改变模型的输出, 这对于保证模型的初始性能和稳定性非常重要. 
+
+作者还对更新量$\Delta Wx$的学习率$\alpha$进行了缩放: 乘以$\frac{1}{r}$, 这是因为, 在没有缩放的情况下, 同样的学习率$\alpha$下改变秩$r$会直接影响权重更新的尺度. 通过引入与$\frac{1}{r}$成比例的缩放, 我们可以对梯度尺度进行归一化, 使其对$r$的变化不太敏感, 这使得超参数$r$的调整更加容易, 因为单个$\alpha$就可以在不同的$r$下表现良好, 即$\frac{\alpha}{r}$才是真正的学习率. 简单的说, 就是通过$r$的改变使得在不同的$r$下Adam优化器能够以相同的策略调整$\alpha$, 省去了不同$r$下调优$\alpha$的必要.
 
 [^1]: Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-rank adaptation of large language models (No. arXiv:2106.09685). arXiv. https://doi.org/10.48550/arXiv.2106.09685
 [^2]: Houlsby, N., Giurgiu, A., Jastrzebski, S., Morrone, B., Laroussilhe, Q. de, Gesmundo, A., Attariyan, M., & Gelly, S. (2019). Parameter-efficient transfer learning for NLP (No. arXiv:1902.00751). arXiv. https://doi.org/10.48550/arXiv.1902.00751
