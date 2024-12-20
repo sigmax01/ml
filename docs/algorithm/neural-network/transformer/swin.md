@@ -15,6 +15,14 @@ comments: false
 
 在另一个赛道上, 自然语言处理中网络架构的演变则走了一条不同的道路, 如今盛行的架构是Transformer. Transformer模型专为序列建模和[转导任务](/dicts/inductive-transductive-learning)而设计, 其显著的特点在于利用注意力机制来模拟数据中的长程连接关系. 其在语言领域的巨大成功促使研究人员探究其在计算机视觉领域的应用, 最近在特定的任务上, 例如图像分类和联合视觉-语言建模上, 取得了令人鼓舞的成果.
 
+在这个研究中, 他们旨在找到扩展Transformer的功能, 使其成为一种通用的计算机视觉领域的[骨干网络](/dicts/backbone), 正如它在NLP领域和CNN在视觉领域那样. 作者观察到, 将其在语言领域的出色表现转移到视觉领域面临的重大挑战, 可以用两种模态之间的差异来解释. 其中的一个差异是[尺度](/dicts/large-variation-in-scale-visual-entities/), 于作为语言Transformer处理基本单元的词元不同, 视觉元素的尺度差异很大, 这个问题在目标检测任务中受到了极大关注. 现在的基于Transformer的模型, 所有的token都是固定尺度的, 这对于在视觉领域的应用是不合适的. 另外一个差异是图像中像素的分辨率远远高于文本段落中的文字. 许多视觉任务, 如语义分割, 需要像素级密集预测, 如果图像的分辨率一大, 对于Transformer模型来说是难以处理的, 假设我们对于整张图片的所有像素运用全局注意力, 其复杂度$O(B\cdot N^2\cdot D)$和图像的大小是呈现二次方关系的, 和图像的宽度呈现四次方关系. 
 
+为了解决这个问题, 作者提出了一种Transformer[通用主干网络](/dicts/backbone), 叫做Swin Transformer. **它会构建分层特征图, 并且其计算复杂度和图像的大小呈现线性关系. 它通过从小patches开始, 并在更深的Transformer层中逐渐合并相邻补丁, 构建层次表示(如下图所示)**. 利用这些分层特征图, Swin Transformer模型可以方便地利用高级稠密预测技术, 例如特征金字塔网络(FPN)或者U-Net.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96_inverted.webp#only-dark){ loading=lazy width='400' }
+<figcaption></figcaption>
+</figure>
 
 [^1]: Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., & Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. https://doi.org/10.48550/arXiv.2103.14030
