@@ -12,28 +12,28 @@
         <meta name="author" content="ricolxwz">
       
       
-        <link rel="canonical" href="https://ml.ricolxwz.de/math/probability/numerical-characteristics-of-random-variable/">
+        <link rel="canonical" href="https://ml.ricolxwz.de/dicts/backbone/">
       
       
-        <link rel="prev" href="../multi-dimensional-random-variable-distribution/">
+        <link rel="prev" href="../discriminative-and-generative-model/">
       
       
-        <link rel="next" href="../large-number-central-limit-theorem/">
+        <link rel="next" href="../inductive-transductive-learning/">
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
-        <title>随机变量的数字特征 - 机器蝉</title>
+        <title>主干网络 - 机器蝉</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,9 +54,9 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -83,7 +83,7 @@
     href="https://cdn.jsdelivr.net/npm/@ayahub/webfont-harmony-sans-sc@1.0.0/css/index.min.css"
 />
 
-   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -92,7 +92,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -110,11 +110,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#_1" class="md-skip">
-          跳转至
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -125,7 +120,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../.." title="机器蝉" class="md-header__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -166,7 +161,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              随机变量的数字特征
+              主干网络
             
           </span>
         </div>
@@ -292,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
     
@@ -308,21 +303,17 @@
         
   
   
-    
-  
   
     
     
       
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../math/probability/" class="md-tabs__link">
           
   
     
@@ -345,7 +336,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../algorithm/" class="md-tabs__link">
+        <a href="../../algorithm/" class="md-tabs__link">
           
   
     
@@ -371,7 +362,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../code/pytorch/" class="md-tabs__link">
+        <a href="../../code/pytorch/" class="md-tabs__link">
           
   
     
@@ -390,11 +381,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../dicts/backpropagation/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../backpropagation/" class="md-tabs__link">
           
   
     
@@ -429,7 +422,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
+    <a href="../.." title="机器蝉" class="md-nav__button md-logo" aria-label="机器蝉" data-md-component="logo">
       <!--
   Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
 
@@ -503,7 +496,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../.." class="md-nav__link ">
+            <a href="../.." class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -535,10 +528,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -547,20 +538,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -571,7 +561,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             数学
@@ -582,8 +572,6 @@
                 
   
   
-    
-  
   
   
     
@@ -609,16 +597,18 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../math/probability/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -635,7 +625,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             概率
@@ -651,7 +641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../random-event-and-probability/" class="md-nav__link">
+      <a href="../../math/probability/random-event-and-probability/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -672,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../one-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../../math/probability/one-dimensional-random-variable-distribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -693,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multi-dimensional-random-variable-distribution/" class="md-nav__link">
+      <a href="../../math/probability/multi-dimensional-random-variable-distribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -711,28 +701,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    随机变量的数字特征
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../math/probability/numerical-characteristics-of-random-variable/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -741,234 +713,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      一维随机变量的数字特征
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="一维随机变量的数字特征">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      数学期望
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数学期望">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      离散型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      连续型
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      性质
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      方差/标准差/切比雪夫不等式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="方差/标准差/切比雪夫不等式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      性质
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      切比雪夫不等式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      二维随机变量的数字特征
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="二维随机变量的数字特征">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      数学期望
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数学期望">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      离散型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      连续型
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
-    <span class="md-ellipsis">
-      协方差/相关系数
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="协方差/相关系数">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
-    <span class="md-ellipsis">
-      性质
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -981,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../large-number-central-limit-theorem/" class="md-nav__link">
+      <a href="../../math/probability/large-number-central-limit-theorem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1066,7 +810,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/" class="md-nav__link ">
+            <a href="../../algorithm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1099,7 +843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/linear-regression/" class="md-nav__link">
+      <a href="../../algorithm/linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1120,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/preprocessing/" class="md-nav__link">
+      <a href="../../algorithm/preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1141,7 +885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/knn/" class="md-nav__link">
+      <a href="../../algorithm/knn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1162,7 +906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/naive-bayes/" class="md-nav__link">
+      <a href="../../algorithm/naive-bayes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1183,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/evaluation/" class="md-nav__link">
+      <a href="../../algorithm/evaluation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1204,7 +948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/decision-tree/" class="md-nav__link">
+      <a href="../../algorithm/decision-tree/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1225,7 +969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/ensemble-learning/" class="md-nav__link">
+      <a href="../../algorithm/ensemble-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1246,7 +990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/svm/" class="md-nav__link">
+      <a href="../../algorithm/svm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1267,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/dimensional-reduction/" class="md-nav__link">
+      <a href="../../algorithm/dimensional-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1323,7 +1067,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/neural-network/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1402,7 +1146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transfer-learning/adapter/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transfer-learning/adapter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1423,7 +1167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transfer-learning/lora/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transfer-learning/lora/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1452,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/fnn/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/fnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1504,7 +1248,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/neural-network/cnn/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/cnn/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1537,7 +1281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/alexnet/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/cnn/alexnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1558,7 +1302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/cnn/resnet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1579,7 +1323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/nin/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/cnn/nin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1600,7 +1344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/cnn/googlenet/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/cnn/googlenet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1629,7 +1373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/rnn/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/rnn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1650,7 +1394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/word-embedding/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/word-embedding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1702,7 +1446,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../algorithm/neural-network/transformer/" class="md-nav__link ">
+            <a href="../../algorithm/neural-network/transformer/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1735,7 +1479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/gpt/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transformer/gpt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1756,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/bert/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transformer/bert/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1777,7 +1521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/vit/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transformer/vit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1798,7 +1542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/neural-network/transformer/swin/" class="md-nav__link">
+      <a href="../../algorithm/neural-network/transformer/swin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1835,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/clustering/" class="md-nav__link">
+      <a href="../../algorithm/clustering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1856,7 +1600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/markov-chain/" class="md-nav__link">
+      <a href="../../algorithm/markov-chain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1877,7 +1621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../algorithm/reinforcement-learning/" class="md-nav__link">
+      <a href="../../algorithm/reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1974,7 +1718,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../code/pytorch/" class="md-nav__link ">
+            <a href="../../code/pytorch/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2007,7 +1751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code/pytorch/transformer-01/" class="md-nav__link">
+      <a href="../../code/pytorch/transformer-01/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2040,8 +1784,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -2064,19 +1810,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -2087,7 +1834,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             词典
@@ -2101,7 +1848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/backpropagation/" class="md-nav__link">
+      <a href="../backpropagation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2122,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/autograd/" class="md-nav__link">
+      <a href="../autograd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2143,7 +1890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/discriminative-and-generative-model/" class="md-nav__link">
+      <a href="../discriminative-and-generative-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2161,10 +1908,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../dicts/backbone/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2173,6 +1927,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -2185,7 +1940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/inductive-transductive-learning/" class="md-nav__link">
+      <a href="../inductive-transductive-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2206,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/large-variation-in-scale-visual-entities/" class="md-nav__link">
+      <a href="../large-variation-in-scale-visual-entities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2227,7 +1982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/ade20k/" class="md-nav__link">
+      <a href="../ade20k/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2248,7 +2003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dicts/coco/" class="md-nav__link">
+      <a href="../coco/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2287,224 +2042,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      一维随机变量的数字特征
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="一维随机变量的数字特征">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      数学期望
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数学期望">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      离散型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      连续型
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      性质
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      方差/标准差/切比雪夫不等式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="方差/标准差/切比雪夫不等式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      性质
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      切比雪夫不等式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      二维随机变量的数字特征
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="二维随机变量的数字特征">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      数学期望
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数学期望">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      离散型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      连续型
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
-    <span class="md-ellipsis">
-      协方差/相关系数
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="协方差/相关系数">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
-    <span class="md-ellipsis">
-      性质
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2518,7 +2055,7 @@
                   
 
   
-    <a href="https://github.com/sigmax01/ml/edit/master/docs/math/probability/numerical-characteristics-of-random-variable.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/edit/master/docs/dicts/backbone.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2527,129 +2064,16 @@
     
       
     
-    <a href="https://github.com/sigmax01/ml/raw/master/docs/math/probability/numerical-characteristics-of-random-variable.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/sigmax01/ml/raw/master/docs/dicts/backbone.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>随机变量的数字特征</h1>
+  <h1>主干网络</h1>
 
-<h2 id="_1">一维随机变量的数字特征<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h3 id="_2">数学期望<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<h4 id="_3">概念<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
-<p>设<span class="arithmatex">\(X\)</span>为随机变量, <span class="arithmatex">\(Y\)</span>是<span class="arithmatex">\(X\)</span>的函数, <span class="arithmatex">\(Y=g(X)\)</span>(<span class="arithmatex">\(g\)</span>为连续函数).</p>
-<h5 id="_4">离散型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
-<p>如果<span class="arithmatex">\(X\)</span>是离散型随机变量, 其分布列为<span class="arithmatex">\(p_i=P\{X=x_i\}(i=1, 2, ...)\)</span>, 若级数<span class="arithmatex">\(\sum_{i=1}^{\infty}x_ip_i\)</span>绝对收敛, 称随机变量<span class="arithmatex">\(X\)</span>的数学期望存在, 并将级数<span class="arithmatex">\(\sum_{i=1}^{\infty}x_ip_i\)</span>的和称为随机变量<span class="arithmatex">\(X\)</span>的数学期望, 记为<span class="arithmatex">\(E(X)\)</span>或<span class="arithmatex">\(EX\)</span>, 即<span class="arithmatex">\(EX=\sum_{i=1}^{\infty}x_ip_i\)</span>, 否则称<span class="arithmatex">\(X\)</span>的数学期望不存在. </p>
-<p>若级数<span class="arithmatex">\(\sum_{i=1}^{\infty}g(x_i)p_i\)</span>绝对收敛, 则称<span class="arithmatex">\(Y=g(X)\)</span>的数学期望<span class="arithmatex">\(E[g(X)]\)</span>存在, 且<span class="arithmatex">\(E[g(X)]=\sum_{i=1}^{\infty}g(x_i)p_i\)</span>, 否则称<span class="arithmatex">\(g(X)\)</span>的数学期望不存在.</p>
-<h5 id="_5">连续型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
-<p>如果<span class="arithmatex">\(X\)</span>是连续型随机变量, 其概率密度为<span class="arithmatex">\(f(x)\)</span>, 若积分<span class="arithmatex">\(\int_{-\infty}^{\infty}xf(x)dx\)</span>绝对收敛, 则称<span class="arithmatex">\(X\)</span>的数学期望存在, 且<span class="arithmatex">\(EX=\int_{-\infty}^{+\infty}xf(x)dx\)</span>, 否则称<span class="arithmatex">\(X\)</span>的数学期望不存在. </p>
-<p>若积分<span class="arithmatex">\(\int_{-\infty}^{+\infty}g(x)f(x)dx\)</span>绝对收敛, 则称<span class="arithmatex">\(g(X)\)</span>的数学期望存在, 且<span class="arithmatex">\(E[g(X)]=\int_{-\infty}^{\infty}g(x)f(x)dx\)</span>, 否则称<span class="arithmatex">\(g(X)\)</span>的数学期望不存在.</p>
-<h4 id="_6">性质<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
-<ul>
-<li>对任意常数<span class="arithmatex">\(a_i\)</span>和随机变量<span class="arithmatex">\(X_i(i=1, 2, ..., n)\)</span>有<span class="arithmatex">\(E(\sum_{i=1}^{n}a_iX_i)=\sum_{i=1}^n a_iEX_i\)</span></li>
-<li><span class="arithmatex">\(Ec=c, E(aX+c)=aEX+c, E(X\pm Y)=EX\pm EY\)</span></li>
-<li>设<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立, 则<span class="arithmatex">\(E(XY)=EX\cdot EY, E[g_1(X)\cdot g_2(Y)]=E[g_1(X)]\cdot E[g_2(Y)]\)</span></li>
-<li>一般地, 设<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立, 则<span class="arithmatex">\(E(\prod_{i=1}^{n}X_i)=\prod_{i=1}^{n}EX_i, E[\prod_{i=1}^ng_i(X_i)]=\prod_{i=1}^n E[g_i(X_i)]\)</span></li>
-</ul>
-<h3 id="_7">方差/标准差/切比雪夫不等式<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<h4 id="_8">概念<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
-<p>设<span class="arithmatex">\(X\)</span>是随机变量, 如果<span class="arithmatex">\(E[(X-EX)^2]\)</span>存在, 则称<span class="arithmatex">\(E[(X-EX)^2]\)</span>为<span class="arithmatex">\(X\)</span>的方差, 记为<span class="arithmatex">\(DX\)</span>, 即<span class="arithmatex">\(DX=E[(X-EX)^2]=E(X^2)-(EX)^2\)</span>, 称<span class="arithmatex">\(\sqrt{DX}\)</span>为<span class="arithmatex">\(X\)</span>的标准差或均方差, 记为<span class="arithmatex">\(\sigma(X)\)</span>. 称随机变量<span class="arithmatex">\(X^*=\frac{X-EX}{\sqrt{DX}}\)</span>为<span class="arithmatex">\(X\)</span>的标准化随机变量, 此时<span class="arithmatex">\(EX^*=0, DX^*=1\)</span>.</p>
-<h4 id="_9">性质<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
-<ul>
-<li><span class="arithmatex">\(DX\geq 0, E(X^2)=DX+(EX)^2\geq (EX)^2\)</span></li>
-<li><span class="arithmatex">\(Dc = 0\)</span></li>
-<li><span class="arithmatex">\(D(aX+b)=a^2DX\)</span></li>
-<li><span class="arithmatex">\(D(X\pm Y)=DX+DY\pm 2Cov(X, Y)\)</span></li>
-<li>如果<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相互独立, 则<span class="arithmatex">\(D(aX+bY)=a^2DX+b^2DY\)</span></li>
-<li>一般地, 如果<span class="arithmatex">\(X_1, X_2, ..., X_n\)</span>相互独立, <span class="arithmatex">\(g_i(x)\)</span>为<span class="arithmatex">\(x\)</span>的连续函数, 则<span class="arithmatex">\(D(\sum_{i=1}^n a_iX_i)=\sum_{i=1}^n a_i^2DX_i\)</span>且<span class="arithmatex">\(D[\sum_{i=1}^ng_i(X_i)]=\sum_{i=1}^n D[g_i(X_i)]\)</span></li>
-</ul>
-<h4 id="_10">切比雪夫不等式<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
-<p>如果随机变量<span class="arithmatex">\(X\)</span>的期望<span class="arithmatex">\(EX\)</span>和方差<span class="arithmatex">\(DX\)</span>存在, 则对任意<span class="arithmatex">\(\epsilon&gt;0\)</span>, 有<span class="arithmatex">\(P\{|X-EX|\geq \epsilon\}\leq \frac{DX}{\epsilon^2}\)</span>或<span class="arithmatex">\(P\{|X-EX|&lt;\epsilon\}\geq 1-\frac{DX}{\epsilon^2}\)</span>.</p>
-<details class="note" open="open">
-<summary>笔记</summary>
-<p>由切比雪夫不等式可知, 当<span class="arithmatex">\(DX\)</span>愈小时, 概率<span class="arithmatex">\(P\{X-EX\}&lt;\epsilon\)</span>愈大, 这表明方差是刻画随机变量与其期望值偏离程度的量, 是描述随机变量<span class="arithmatex">\(X\)</span>"分散程度"特征的指标.</p>
-</details>
-<p>常用分布的期望和方差列表如下:</p>
-<table>
-<thead>
-<tr>
-<th>分布</th>
-<th>分布列<span class="arithmatex">\(P_x\)</span>或概率密度<span class="arithmatex">\(f(x)\)</span></th>
-<th>期望</th>
-<th>方差</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0-1 分布</td>
-<td><span class="arithmatex">\( P\{X=k\} = p^k (1-p)^{1-k}, k=0,1 \)</span></td>
-<td><span class="arithmatex">\( p \)</span></td>
-<td><span class="arithmatex">\( p(1-p) \)</span></td>
-</tr>
-<tr>
-<td>二项分布</td>
-<td><span class="arithmatex">\( P\{X=k\} = C_n^k p^k (1-p)^{n-k}, k=0,1,...,n \)</span></td>
-<td><span class="arithmatex">\( np \)</span></td>
-<td><span class="arithmatex">\( np(1-p) \)</span></td>
-</tr>
-<tr>
-<td>泊松分布</td>
-<td><span class="arithmatex">\( P\{X=k\} = \frac{\lambda^k e^{-\lambda}}{k!}, k=0,1,... \)</span></td>
-<td><span class="arithmatex">\( \lambda \)</span></td>
-<td><span class="arithmatex">\( \lambda \)</span></td>
-</tr>
-<tr>
-<td>几何分布</td>
-<td><span class="arithmatex">\( P\{X=k\} = (1-p)^{k-1} p, k=1,2,... \)</span></td>
-<td><span class="arithmatex">\( \frac{1}{p} \)</span></td>
-<td><span class="arithmatex">\( \frac{1-p}{p^2} \)</span></td>
-</tr>
-<tr>
-<td>正态分布</td>
-<td><span class="arithmatex">\( f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ - \frac{(x-\mu)^2}{2\sigma^2} \}, -\infty &lt; x &lt; \infty \)</span></td>
-<td><span class="arithmatex">\( \mu \)</span></td>
-<td><span class="arithmatex">\( \sigma^2 \)</span></td>
-</tr>
-<tr>
-<td>均匀分布</td>
-<td><span class="arithmatex">\( f(x) = \frac{1}{b-a}, a &lt; x &lt; b \)</span></td>
-<td><span class="arithmatex">\( \frac{a+b}{2} \)</span></td>
-<td><span class="arithmatex">\( \frac{(b-a)^2}{12} \)</span></td>
-</tr>
-<tr>
-<td>指数分布</td>
-<td><span class="arithmatex">\( f(x) = \lambda e^{-\lambda x}, x &gt; 0 \)</span></td>
-<td><span class="arithmatex">\( \frac{1}{\lambda} \)</span></td>
-<td><span class="arithmatex">\( \frac{1}{\lambda^2} \)</span></td>
-</tr>
-</tbody>
-</table>
-<h2 id="_11">二维随机变量的数字特征<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
-<h3 id="_12">数学期望<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<h4 id="_13">概念<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
-<p>设<span class="arithmatex">\(X, Y\)</span>为随机变量, <span class="arithmatex">\(g(X, Y)\)</span>为<span class="arithmatex">\(X, Y\)</span>的函数(<span class="arithmatex">\(g\)</span>是连续函数).</p>
-<h5 id="_14">离散型<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h5>
-<p>如果<span class="arithmatex">\((X, Y)\)</span>为离散型随机变量, 其联合分布为<span class="arithmatex">\(p_{ij}=P\{X=x_i, Y=y_i\}(i, j=1, 2, ...)\)</span>, 若级数<span class="arithmatex">\(\sum_i\sum_j g(x_i, y_j)p_{ij}\)</span>绝对收敛, 则定义<span class="arithmatex">\(E[g(X, Y)]=\sum_i\sum_j g(x_i, y_j)p_{ij}\)</span>.</p>
-<h5 id="_15">连续型<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h5>
-<p>如果<span class="arithmatex">\((X, Y)\)</span>为连续型随机变量, 其概率密度为<span class="arithmatex">\(f(x, y)\)</span>, 若积分<span class="arithmatex">\(\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x, y)f(x, y)dxdy\)</span>绝对收敛, 则定义<span class="arithmatex">\(E[g(X, Y)]=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x, y)f(x, y)dxdy\)</span>.</p>
-<h3 id="_16">协方差/相关系数<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
-<h4 id="_17">概念<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
-<p>如果随机变量<span class="arithmatex">\(X\)</span>和<span class="arithmatex">\(Y\)</span>的方差存在且<span class="arithmatex">\(DX&gt;0, DY&gt;0\)</span>, 则称<span class="arithmatex">\(E[(X-EX)(Y-EY)]\)</span>为随机变量<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>的协方差, 并记为<span class="arithmatex">\(Cov(X, Y)\)</span>, 即<span class="arithmatex">\(Cov(X, Y)=E[(X-EX)(Y-EY)]=E(XY)-EX\cdot EY\)</span>.</p>
-<p>其中<span class="arithmatex">\(E(XY)\)</span>为:</p>
-<ul>
-<li><span class="arithmatex">\(\sum_i\sum_j x_iy_jP\{X=x_i, Y=y_j\}\)</span> (离散型)</li>
-<li><span class="arithmatex">\(\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}xyf(x, y)dxdy\)</span> (连续型)</li>
-</ul>
-<p>称<span class="arithmatex">\(\rho_{XY}=\frac{Cov(X, Y)}{\sqrt{DX}\sqrt{DY}}\)</span>为随机变量<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>的相关系数, 如果<span class="arithmatex">\(\rho_{XY}=0\)</span>, 则称<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>不相关; 如果<span class="arithmatex">\(\rho_{XY}\neq 0\)</span>, 则称<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(Y\)</span>相关.</p>
-<h4 id="_18">性质<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
-<ul>
-<li><span class="arithmatex">\(Cov(X, Y)=Cov(Y, X), \rho_{XY}=\rho_{YX}\)</span>, <span class="arithmatex">\(Cov(X, X)=DX, \rho_{XX}=1\)</span></li>
-<li><span class="arithmatex">\(Cov(X, c)=0, Cov(aX+b, Y)=aCov(X, Y)\)</span>, <span class="arithmatex">\(Cov(X_1+X_2, Y)=Cov(X_1, Y)+Cov(X_2, Y)\)</span>, 一般的, <span class="arithmatex">\(Cov(\sum_{i=1}^n a_iX_i, Y)=\sum_{i=1}^n a_iCov(X_i, Y)\)</span></li>
-<li><span class="arithmatex">\(|\rho_{XY}|\leq 1\)</span></li>
-<li>如果<span class="arithmatex">\(Y=aX+b\)</span>, 则<span class="arithmatex">\(\rho_{XY}=1, a&gt;0\)</span>, <span class="arithmatex">\(\rho_{XY}=-1, a &lt; 0\)</span></li>
-</ul>
+<p>主干网络, Backbone, 指的是<strong>用于特征提取</strong>的核心神经网络架构. 通用主干网络, General-Purpose Backbone, 指的是设计为能够适应多种任务, 数据类型和应用场景的主干网络. </p>
 
 
 
@@ -2672,7 +2096,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月20日</span>
   </span>
 
     
@@ -2682,7 +2106,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月20日</span>
   </span>
 
     
@@ -2896,20 +2320,20 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "content.tabs.link", "content.footnote.tooltips", "content.tooltips", "content.action.edit", "content.action.view", "navigation.tabs", "navitation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
-        <script src="../../../javascripts/favicon.js"></script>
+        <script src="../../javascripts/favicon.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
-        <script src="../../../js/open_in_new_tab.js"></script>
+        <script src="../../js/open_in_new_tab.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
