@@ -22,7 +22,7 @@ comments: false
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light){ loading=lazy width='400' }
 ![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96_inverted.webp#only-dark){ loading=lazy width='400' }
-<figcaption></figcaption>
+<figcaption>红色的边框区域表示一个窗口, 被红色的边框围起来的是一个patch. (a) Swin Transformer通过在深层合并patches构造层次结构并且由于只在窗口内有注意力, 所以复杂度是和输入图片大小线性相关的. (b) </figcaption>
 </figure>
 
 [^1]: Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., & Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. https://doi.org/10.48550/arXiv.2103.14030
