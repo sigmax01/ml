@@ -4,14 +4,14 @@ title: 开始
 
 ## 传送
 
-- [ ] 数学
-    - [ ] [概率](/math/probability/)
+- [x] 数学
+    - [x] [概率](/math/probability/)
         - [x] [随机事件与概率](/math/probability/random-event-and-math/probability)
         - [x] [一维随机变量及其分布](/math/probability/one-dimensional-random-variable-distribution)
         - [x] [多维随机变量及其分布](/math/probability/multi-dimensional-random-variable-distribution)
         - [x] [随机变量的数字特征](/math/probability/numerical-characteristics-of-random-variable)
         - [ ] [大数定律与中心极限定理](/math/probability/large-number-central-limit-theorem)
-- [ ] [算法](/algorithm/)
+- [x] [算法](/algorithm/)
     - [x] [线性回归](/algorithm/linear-regression)
     - [x] [预处理](/algorithm/preprocessing)
     - [x] [最邻近](/algorithm/knn)
@@ -22,9 +22,9 @@ title: 开始
     - [x] [支持向量机](/algorithm/svm)
     - [x] [降维](/algorithm/dimensional-reduction)
     - [x] [神经网络](/algorithm/neural-network)
-        - [ ] 迁移学习
+        - [x] 迁移学习
             - [x] [Adapter](/algorithm/neural-network/transfer-learning/adapter)
-            - [ ] [LoRA](/algorithm/neural-network/transfer-learning/lora)
+            - [x] [LoRA](/algorithm/neural-network/transfer-learning/lora)
         - [x] [前馈神经网络](/algorithm/neural-network/fnn)
         - [x] [卷积神经网络](/algorithm/neural-network/cnn)
             - [x] [AlexNet](/algorithm/neural-network/cnn/alexnet)
@@ -37,13 +37,14 @@ title: 开始
             - [x] [GPT](/algorithm/neural-network/transformer/gpt)
             - [x] [BERT](/algorithm/neural-network/transformer/bert)
             - [x] [ViT](/algorithm/neural-network/transformer/vit)
+            - [ ] [Swin](/algorithm/neural-network/transformer/swin)
     - [x] [聚类](/algorithm/clustering)
     - [x] [马尔可夫链](/algorithm/markov-chain)
     - [x] [强化学习](/algorithm/reinforcement-learning)
-  - [ ] 代码
+  - [x] 代码
       - [x] [PyTorch](/code/pytorch/)
          - [ ] [Transformer-01](/code/pytorch/transformer-01)
-  - [ ] 词典
+  - [x] 词典
       - [x] [反向传播](/dicts/backpropagation)
       - [x] [自动微分](/dicts/autograd)
       - [x] [判别式模型和生成式模型](/dicts/discriminative-and-generative-model)

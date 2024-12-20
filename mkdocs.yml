@@ -211,6 +211,7 @@ nav:
               - GPT: algorithm/neural-network/transformer/gpt.md
               - BERT: algorithm/neural-network/transformer/bert.md
               - ViT: algorithm/neural-network/transformer/vit.md
+              - Swin: algorithm/neural-network/transformer/swin.md
       - 聚类: algorithm/clustering.md
       - 马尔可夫链: algorithm/markov-chain.md
       - 强化学习: algorithm/reinforcement-learning.md

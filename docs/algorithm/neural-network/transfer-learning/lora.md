@@ -1,6 +1,6 @@
 ---
 title: LoRA
-comments: false
+comments: true
 ---
 
 # LoRA[^1]
