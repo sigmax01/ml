@@ -223,3 +223,8 @@ nav:
       - 反向传播: dicts/backpropagation.md
       - 自动微分: dicts/autograd.md
       - 判别式模型和生成式模型: dicts/discriminative-and-generative-model.md
+      - 主干网络: dicts/backbone.md
+      - 归纳式/直推式学习: dicts/inductive-transductive-learning.md
+      - 视觉实体在尺度上的差异: dicts/large-variation-in-scale-visual-entities.md
+      - ADE20K: dicts/ade20k.md
+      - COCO: dicts/coco.md

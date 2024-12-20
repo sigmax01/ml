@@ -44,11 +44,6 @@ title: 开始
   - [x] 代码
       - [x] [PyTorch](/code/pytorch/)
          - [ ] [Transformer-01](/code/pytorch/transformer-01)
-  - [x] 词典
-      - [x] [反向传播](/dicts/backpropagation)
-      - [x] [自动微分](/dicts/autograd)
-      - [x] [判别式模型和生成式模型](/dicts/discriminative-and-generative-model)
-
 
 ## 推荐
 
