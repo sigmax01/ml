@@ -1320,7 +1320,7 @@
           <li class="md-nav__item">
   <a href="#loratransformer" class="md-nav__link">
     <span class="md-ellipsis">
-      LoRA应用于Transformer
+      LoRA用于Transformer
     </span>
   </a>
   
@@ -2160,7 +2160,7 @@
           <li class="md-nav__item">
   <a href="#loratransformer" class="md-nav__link">
     <span class="md-ellipsis">
-      LoRA应用于Transformer
+      LoRA用于Transformer
     </span>
   </a>
   
@@ -2268,7 +2268,7 @@
 <p>LoRA通过优化注入较小的低秩矩阵, 使得训练过程更加高效, 并降低了硬件门槛, 尤其是在使用自适应优化器时候的效果显著, 提升可达到3倍. 传统的训练方法需要计算大部分参数的梯度并维护优化器状态</p>
 <details class="note" open="open">
 <summary>自适应优化器</summary>
-<p>自适应优化器是一类能够根据参数的历史梯度信息动态调整每个参数学习率的优化算法, 常见的自适应优化器包括Adam, AdaGard, RMSProp, 主要优势在于, 无需手动调节每个参数的学习率, 优化器会根据梯度的一阶(均值)和二阶(方差)矩估计动态调整学习率, 通过合理调整学习率, 可以显著加快模型的收敛速度, 并提高稳定性.</p>
+<p>自适应优化器是一类能够根据参数的历史梯度信息动态调整每个参数学习率的优化算法, 常见的自适应优化器包括Adam, AdaGrad, RMSProp, 主要优势在于, 无需手动调节每个参数的学习率, 优化器会根据梯度的一阶(均值)和二阶(方差)矩估计动态调整学习率, 通过合理调整学习率, 可以显著加快模型的收敛速度, 并提高稳定性.</p>
 <p>由于自适应优化器需要为每个参数维护其状态信息(如一阶和二阶矩估计), 由于在使用LoRA的时候, 其参数量更少, 所以要维护的参数的状态信息更少, 所以计算效率更好, 存储需求更低.</p>
 </details>
 </li>
@@ -2303,9 +2303,11 @@
 <div class="arithmatex">\[h=W_0x+\Delta W_x=W_0x+BAx\]</div>
 <p>这个公式已经被表示在第一张图中. <ins>作者对<span class="arithmatex">\(A\)</span>进行标准正态分布初始化, 对<span class="arithmatex">\(B\)</span>初始化为零矩阵, 使得<span class="arithmatex">\(\Delta W=BA=0\)</span>, 这个做法类似于adapter的初始化</ins>, 保证在开始的时候, LoRA模块不会显著改变模型的输出, 这对于保证模型的初始性能和稳定性非常重要. </p>
 <p>作者还对更新量<span class="arithmatex">\(\Delta Wx\)</span>的学习率<span class="arithmatex">\(\alpha\)</span>进行了缩放: 乘以<span class="arithmatex">\(\frac{1}{r}\)</span>, 这是因为, 在没有缩放的情况下, 同样的学习率<span class="arithmatex">\(\alpha\)</span>下改变秩<span class="arithmatex">\(r\)</span>会直接影响权重更新的尺度. 通过引入与<span class="arithmatex">\(\frac{1}{r}\)</span>成比例的缩放, 我们可以对梯度尺度进行归一化, 使其对<span class="arithmatex">\(r\)</span>的变化不太敏感, 这使得超参数<span class="arithmatex">\(r\)</span>的调整更加容易, 因为单个<span class="arithmatex">\(\alpha\)</span>就可以在不同的<span class="arithmatex">\(r\)</span>下表现良好, 即<span class="arithmatex">\(\frac{\alpha}{r}\)</span>才是真正的学习率. 简单的说, 就是通过<span class="arithmatex">\(r\)</span>的改变使得在不同的<span class="arithmatex">\(r\)</span>下Adam优化器能够以相同的策略调整<span class="arithmatex">\(\alpha\)</span>, 省去了不同<span class="arithmatex">\(r\)</span>下调优<span class="arithmatex">\(\alpha\)</span>的必要.</p>
-<p><strong>全量微调的泛化</strong>. 一般的部分微调允许只微调所有预训练权重的一部分, 如只调整顶层的参数. LoRA在这个的基础上更进了一步, <strong>不需要在调优的过程中, 要求权重的累积梯度更新矩阵必须具有满秩</strong>. 这意味着当将LoRA应用于所有(层)的权重矩阵并训练所有的<span class="arithmatex">\(\Delta W\)</span>, 并且将LoRA的秩<span class="arithmatex">\(r\)</span>为对应权重矩阵的秩, 那么我们就得到了一个全量微调, 即两者是等价的. 换句话说, 当我们增加可训练参数量的时候, 训练LoRA会随着秩的增加收敛于全量微调, 训练adapter模块收敛于训练一个隐藏层较大的MLP, 基于前缀的方法收敛于一个无法接受长实际可训练序列的模型.</p>
+<p><strong>全量微调的泛化</strong>. 一般的部分微调允许只微调所有预训练权重的一部分, 如只调整顶层的参数. LoRA在这个的基础上更进了一步, <strong>不需要在调优的过程中, 要求权重的累积梯度更新矩阵必须具有满秩</strong>. 这意味着当将LoRA应用于所有的权重矩阵并训练所有的<span class="arithmatex">\(\Delta W\)</span>, 并且将LoRA的秩<span class="arithmatex">\(r\)</span>为对应权重矩阵的秩, 那么我们就得到了一个全量微调, 即两者是等价的. 换句话说, 当我们增加可训练参数量的时候, 训练LoRA会随着秩的增加收敛于全量微调, 训练adapter模块收敛于训练一个隐藏层较大的MLP, 基于前缀的方法收敛于一个无法接受长实际可训练序列的模型.</p>
 <p><strong>没有额外的推理延迟</strong>. 当在production环境下部署的时候, 我们可以特别的计算并存储更新后的权重矩阵<span class="arithmatex">\(W=W_0+BA\)</span>并且按照一个没有添加LoRA模块的原始网络那样进行推理. 注意, <span class="arithmatex">\(W_0\)</span>和<span class="arithmatex">\(BA\)</span>的形状都是<span class="arithmatex">\(\mathbb{R}^{d\times k}\)</span>. <ins>这意味着, 当我们要切换到另一个下游任务的时候, 我们得恢复原始的<span class="arithmatex">\(W=W_0\)</span>, 方法就是减去<span class="arithmatex">\(BA\)</span>, 然后加上另外一个<span class="arithmatex">\(B'A'\)</span></ins>. 这个方法只需要一点点内存空间, 最重要的是, 这样的操作不会产生额外的推理延迟相比于adapter模块.</p>
-<h3 id="loratransformer">LoRA应用于Transformer<a class="headerlink" href="#loratransformer" title="Permanent link">&para;</a></h3>
+<h3 id="loratransformer">LoRA用于Transformer<a class="headerlink" href="#loratransformer" title="Permanent link">&para;</a></h3>
+<p>在实际运用中, 我们可以将LoRA运用于神经网络的任何权重矩阵上以减少可调优的参数. 在Transformer架构中, 自注意力模块上, 有4个权重矩阵(<span class="arithmatex">\(W_q, W_k, W_v, W_o\)</span>); MLP模块上, 有两个权重矩阵. 我们将<span class="arithmatex">\(W_q\)</span>(或<span class="arithmatex">\(W_k, W_v\)</span>视为一个维度为<span class="arithmatex">\(d_{model}\times d_{model}\)</span>的单一矩阵, 即使产生的<span class="arithmatex">\(Q\)</span>, <span class="arithmatex">\(K\)</span>, <span class="arithmatex">\(V\)</span>矩阵会被切分为注意力头). <ins>作者仅调整了下游任务的注意力权重, 而不对MLP的权重进行调整, 这是为了简化和提高参数效率.</ins> 作者还进一步研究了在Transformer中采用不同类型的注意力权重矩阵的影响. 他们将在后续研究中探讨调整MLP层, LN层的权重和偏置项的影响.</p>
+<p><strong>实践优势和限制.</strong> 最明显的优势来自节约了内存的使用量. 对于一个采用Adam优化器训练的大Transformer模型, 如果<span class="arithmatex">\(r\ll d_{model}\)</span>, VRAM的使用率下降可以高达<span class="arithmatex">\(2/3\)</span>, 因为和全量微调来说, 不需要存储那些冻结参数在优化器中的状态. 例如, 在GPT-3 175B上, 他们将在训练时VRAM的使用量从1.2TB降低到了350GB, 甚至于, 在<span class="arithmatex">\(r=4\)</span>, 并且只对<span class="arithmatex">\(Q\)</span>和<span class="arithmatex">\(V\)</span>投影矩阵进行LoRA低秩矩阵更新的时候, 又减少了大概10000倍, 从350GB减小到35MB. 这允许他们的更少的GPUs上训练并且避免IO瓶颈. 另外一个显著的优势是他们可以通过替换掉LoRA的权重来以极低的成本实现在任务之间的调整, 甚至可以实时调整. 和全量微调相比, 他们还在GPT-3 175B的微调中观察到了25%的加速, 因为不需要计算绝大多数参数的梯度. LoRA也有limitations, 例如, 如果选择将<span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span>吸收到<span class="arithmatex">\(W\)</span>中以消除推理延迟, 那么在一个前向传播中批量处理本应由不同<span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span>处理的不同任务并非易事. 当然, 在延迟不是那么关键地时候, 也可以动态地选择用于批处理地LoRA模块. </p>
 <div class="footnote">
 <hr />
 <ol>
