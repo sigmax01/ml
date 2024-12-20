@@ -2186,7 +2186,7 @@
 
 <h1 id="adapter">Adapter<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#adapter" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>对预训练的模型进行微调是NLP领域有效的迁移学习方法. 然而, 在很多下游任务中, 参数微调效率低下. 对于每一个全新的任务都需要一个新的模型. 为了解决这个问题, 作者提出了一种利用adapter模块进行迁移的方法. Adapter模块提供了模型的整体<strong>紧凑性和可扩展性</strong>(这两个形容词的意思见下小节), 每当需要为一个新任务进行适配的时候, 只需要增加相应的adapter模块, 这些模块通常包含较少的参数, 相比于完全训练一个新的模型或者对整个模型进行微调, 节省了大量的计算资源和存储空间. 并且, 在添加新的任务的时候, 不需要调整之前为其他任务添加的adapter, 只需要新增相应的adapter模块, 需要注意的是, 每个任务都有其独立的adapter, 彼此之间互不干扰, 确保模型能够同时处理多个任务, 避免了“灾难性遗忘”(catastrophic forgetting)的问题. 预训练模型的参数将保持固定, 或者说“冻结”, 使得在不同任务之间有一个高程度的参数共享. 为了证明adapter模块的有效性, 作者最近将刚刚提出的BERT模型应用到26个不同的文本分类任务中, 包括GLUE基准测试. Adapters实现了接近SOTA的性能, 同时每个任务仅仅只需要增加几个参数. 在GLUE基准测试中, 作者将模型的性能控制在和完整微调的0.4%左右, 但是对于每个任务仅增加了3.6%的参数, 同比之下, 微调对每个任务会增加100%的参数.</p>
+<p>对预训练的模型进行微调是NLP领域有效的迁移学习方法. 然而, 在很多下游任务中, 参数微调效率低下. 对于每一个全新的任务都需要一个新的模型. 为了解决这个问题, 作者提出了一种利用adapter模块进行迁移的方法. Adapter模块提供了模型的整体<strong>紧凑性和可扩展性</strong>(这两个形容词的意思见下小节), 每当需要为一个新任务进行适配的时候, 只需要增加相应的adapter模块, 这些模块通常包含较少的参数, 相比于完全训练一个新的模型或者对整个模型进行微调, 节省了大量的计算资源和存储空间. 并且, 在添加新的任务的时候, 不需要调整之前为其他任务添加的adapter, 只需要新增相应的adapter模块, 需要注意的是, 每个任务都有其独立的adapter, 彼此之间互不干扰, 确保模型能够同时处理多个任务, 避免了“灾难性遗忘”(catastrophic forgetting)的问题. 预训练模型的参数将保持固定, 或者说“冻结”, 使得在不同任务之间有一个高程度的参数共享. 为了证明adapter模块的有效性, 作者最近将刚刚提出的BERT模型应用到26个不同的文本分类任务中, 包括GLUE基准测试. Adapters实现了接近SOTA的性能, 同时每个任务仅仅只需要增加几个参数. 在GLUE基准测试中, 作者将模型的性能控制在和全量微调的0.4%左右, 但是对于每个任务仅增加了3.6%的参数, 同比之下, 微调对每个任务会增加100%的参数.</p>
 <details class="note" open="open">
 <summary>什么是灾难性遗忘</summary>
 <p>灾难性遗忘, Catastrophic Forgetting, 是指在连续学习多个任务的过程中, 学习新知识的过程会迅速破坏之前获得的信息, 而导致模型性能在旧任务中急剧下降<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. 这种现象在顺序学习或者增量学习中尤为常见. 灾难性遗忘主要由于以下几个原因: a) 共享参数, 大多数神经网络通过共享大量参数来学习和表示不同的任务, 当模型在训练新任务的时候, 导致新任务的学习过程覆盖了旧任务的知识; b) 缺乏记忆机制, 传统的神经网络缺乏有效的机制来区分和保护不同任务的重要参数, 导致新任务的学习过程覆盖了旧任务的知识; c) 优化冲突: 不同任务之间的优化目标可能存在冲突, 训练新任务时优化的方向可能和保留旧任务性能的方向相反, 从而导致旧任务的性能下降.</p>
@@ -2206,7 +2206,7 @@
 <figure>
 <p><a class="glightbox" href="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d.webp#only-light" width="400" /></a>
 <a class="glightbox" href="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/eb18642fbd8a8d7ab88bc333671b123d_inverted.webp#only-dark" width="400" /></a></p>
-<figcaption>对于adapter和微调准度和任务相关参数数量的trade-off. y轴已经针对完整微调的准度进行归一化. 下/中/上三条曲线分别展示了20分位, 50分位, 80分位的GLUE基准测试中9个任务的性能</figcaption>
+<figcaption>对于adapter和微调准度和任务相关参数数量的trade-off. y轴已经针对全量微调的准度进行归一化. 下/中/上三条曲线分别展示了20分位, 50分位, 80分位的GLUE基准测试中9个任务的性能</figcaption>
 </figure>
 <p>x轴展示的是对于每个任务训练的参数. 这个对应于解决每个额外任务所需要的边际增加. 基于adapter的调整在达到相似性能的情况下可以少训练两个数量级的参数.</p>
 <h3 id="_6">数学表示<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
@@ -2214,7 +2214,7 @@
 <h3 id="_7">多任务和持续学习<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>基于adapter的调优与多任务和持续学习相关. 多任务学习可以带来紧凑的模型, 这意味着, 通过同时训练一个模型来处理多个相关任务, 模型的参数量可以相对较少, 但是, 多任务学习有一个缺点, 每个任务需要不同类型的数据, 如SA需要标注有情感标签的文本, NER需要标注实体的文本, 问答系统需要上下文与问题及答案的配对, 而且不同任务的数据量差异可能很大, 确保每个任务的数据质量和数量平衡是一个挑战, 还有不同任务的数据格式差异, 需要设计复杂的数据处理流水线来转换这些数据, 使其适应共享模型的输入格式, 不同的任务有不同的重要性和难度, 需要为每个任务设计合适的损失函数和权重, what's more, 不同任务的梯度更新方向可能不一致, 导致训练过程中梯度冲突, 影响模型的收敛... 持续学习系统目标是从无穷无尽的流式任务中学习, 这种范式具有挑战性因为网络在重新训练后会忘记之前的任务(灾难性遗忘). <strong>Adapters的不同之处在于不同的任务之间不会发生交互, 而且共享的权重是被冻结的</strong>, 这意味着该模型在少量任务特定参数的代价下能够完美地记住先前的任务.</p>
 <h3 id="_8">效果<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p>作者证明在一个大量的, 多样化的文本分类任务上, adapters能够实现NLP参数的高效率微调. 最重要的创新是发明一个高效的adapter模块能够和base模型产生很好的集成. 作者提出了一种简单但是高效, 的瓶颈结构. 在GLUE基准测试中, 作者的方法几乎达到了和完整微调的BERT一样的效果, 但是作者只使用了3%的任务相关的参数, 但是微调用了100%的参数. 作者观察到在另外17个公共文本数据集达到了相似的效果. 总结来说, 基于adapter的调优能够产生一个单一的, 可扩展的在文本识别领域能够接近SOTA的模型.</p>
+<p>作者证明在一个大量的, 多样化的文本分类任务上, adapters能够实现NLP参数的高效率微调. 最重要的创新是发明一个高效的adapter模块能够和base模型产生很好的集成. 作者提出了一种简单但是高效, 的瓶颈结构. 在GLUE基准测试中, 作者的方法几乎达到了和全量微调的BERT一样的效果, 但是作者只使用了3%的任务相关的参数, 但是微调用了100%的参数. 作者观察到在另外17个公共文本数据集达到了相似的效果. 总结来说, 基于adapter的调优能够产生一个单一的, 可扩展的在文本识别领域能够接近SOTA的模型.</p>
 <details class="note" open="open">
 <summary>什么是瓶颈结构</summary>
 <p>瓶颈结构, Bottleneck Structure, 是深度学习中常用的一种架构设计方法. 它的核心思想是通过在网络中引入一个或者多个较小的, 维度受限的层, 从而迫使模型在有限的容量下提取和表示最关键的特征, 这种设计不仅能够减少模型的参数量, 还能提高模型的训练效率和泛化能力. 例如, 使用1*1卷积核跨通道池化减小特征图的维度.</p>
@@ -2282,7 +2282,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月20日</span>
   </span>
 
     

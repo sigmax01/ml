@@ -1317,6 +1317,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#loratransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoRA应用于Transformer
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2148,6 +2157,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#loratransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoRA应用于Transformer
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2186,7 +2204,7 @@
 
 <h1 id="lora">LoRA<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#lora" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>NLP邻域最重要的一个范式是先使用通用领域的大规模数据进行预训练然后将其搬到特定的任务或者领域上. 重新训练模型所有参数的完整微调方法是不太可行的, 拿GPT-3 175B举个例子, 部署每一个任务特定的微调模型, 每个都要以训练175B参数为代价. 作者提出了低秩适配(Low-Rank Adaptation, LoRA), 它会冻结预训练模型的权重, 并将可训练的秩分解矩阵(trainable rank decomposition matrices)注入到Transformer模型架构的每一层中「怎么感觉和<a href="/algorithm/neural-network/transfer-learning/adapter">Adapter</a>有点像」, 对于下游任务显著减少了可训练的参数量. 对比使用Adam优化器微调的GPT-3 175B, LoRA可以将可训练的参数量减少了10000倍, 同时, 对于GPU内存的要求减少了3倍. 使用LoRA调优后的模型性能和使用微调的模型性能相当或甚至更好, 但是前者有更少的可训练参数, 更高的训练吞吐量, <strong>并且, 和adapters不一样的是, 没有额外的推理延迟</strong>. <ins>作者通过实验发现了语言模型适配中的秩缺失现象, 解释和确认了LoRA方法的有效性.</ins> 相关的代码包括在PyTorch上使用LoRA可以在<a href="https://github.com/microsoft/LoRA">这里</a>找到.</p>
+<p>NLP邻域最重要的一个范式是先使用通用领域的大规模数据进行预训练然后将其搬到特定的任务或者领域上. 重新训练模型所有参数的全量微调方法是不太可行的, 拿GPT-3 175B举个例子, 部署每一个任务特定的微调模型, 每个都要以训练175B参数为代价. 作者提出了低秩适配(Low-Rank Adaptation, LoRA), 它会冻结预训练模型的权重, 并将可训练的秩分解矩阵(trainable rank decomposition matrices)注入到Transformer模型架构的每一层中「怎么感觉和<a href="/algorithm/neural-network/transfer-learning/adapter">Adapter</a>有点像」, 对于下游任务显著减少了可训练的参数量. 对比使用Adam优化器微调的GPT-3 175B, LoRA可以将可训练的参数量减少了10000倍, 同时, 对于GPU内存的要求减少了3倍. 使用LoRA调优后的模型性能和使用微调的模型性能相当或甚至更好, 但是前者有更少的可训练参数, 更高的训练吞吐量, <strong>并且, 和adapters不一样的是, 没有额外的推理延迟</strong>. <ins>作者通过实验发现了语言模型适配中的秩缺失现象, 解释和确认了LoRA方法的有效性.</ins> 相关的代码包括在PyTorch上使用LoRA可以在<a href="https://github.com/microsoft/LoRA">这里</a>找到.</p>
 <h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="_3">微调的问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>很多在NLP领域的应用依赖于将一个大型的预训练语言模型搬到许多下游任务中. 这样的adaptation经常是通过微调实现的, 微调会更新预训练模型的所有参数, 然而, 这样的操作不是紧凑的. 随着大模型每隔几个月就被训练一次, 这从对GPT-2或者RoBERTa大模型而言仅仅是“不太方便”, 转变为对拥有1750亿可训练参数的GPT-3而言的部署挑战.</p>
@@ -2268,9 +2286,9 @@
 <summary>为什么GPT这个预训练模型本身就是多任务的</summary>
 <p>GPT之所以是一个通用多任务模型, 关键在于其在多样化的数据上大规模预训练, 在预训练阶段就已经赋予了模型广泛的多任务学习能力, 使其能够在无需专门调优的情况下, 适应并完成各种不同的任务.</p>
 </details>
-<p>在完整微调中, 模型会被初始化为预训练的权重<span class="arithmatex">\(\Phi_0\)</span>并且通过梯度下降最大化下列条件语言建模的优化目标更新到<span class="arithmatex">\(\Phi_0+\Delta \Phi\)</span>.</p>
+<p>在全量微调中, 模型会被初始化为预训练的权重<span class="arithmatex">\(\Phi_0\)</span>并且通过梯度下降最大化下列条件语言建模的优化目标更新到<span class="arithmatex">\(\Phi_0+\Delta \Phi\)</span>.</p>
 <div class="arithmatex">\[\max_{\Phi} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (P_\Phi(y_t | x, y_{&lt;t}))\]</div>
-<p>完整微调最大的缺点就是对于每一个下游的任务, 我们都要学习一个不同的<span class="arithmatex">\(\Delta \Phi\)</span>, 并且<span class="arithmatex">\(\Delta \Phi\)</span>的参数量<span class="arithmatex">\(|\Delta \Phi|\)</span>和原始参数量<span class="arithmatex">\(|\Phi_0|\)</span>是相等的. 因此, 如果预训练模型非常大(像GPT-3 <span class="arithmatex">\(|\Phi_0|\simeq 175\)</span>B), 存储和部署许多独立的微调模型是具有挑战性的, 甚至可能根本不可行.</p>
+<p>全量微调最大的缺点就是对于每一个下游的任务, 我们都要学习一个不同的<span class="arithmatex">\(\Delta \Phi\)</span>, 并且<span class="arithmatex">\(\Delta \Phi\)</span>的参数量<span class="arithmatex">\(|\Delta \Phi|\)</span>和原始参数量<span class="arithmatex">\(|\Phi_0|\)</span>是相等的. 因此, 如果预训练模型非常大(像GPT-3 <span class="arithmatex">\(|\Phi_0|\simeq 175\)</span>B), 存储和部署许多独立的微调模型是具有挑战性的, 甚至可能根本不可行.</p>
 <p>在这篇论文中, 作者采用了一种parameter-efficient的方法: 任务相关的参数增量<span class="arithmatex">\(\Delta \Phi=\Delta \Phi(\Theta)\)</span>由一部分数量较小的参数<span class="arithmatex">\(\Theta\)</span>生成, 参数量远远小于原始参数量<span class="arithmatex">\(|\Theta|\lll |\Phi_0|\)</span>. 寻找<span class="arithmatex">\(\Delta \Phi\)</span>的过程就是在优化<span class="arithmatex">\(\Theta\)</span>.</p>
 <div class="arithmatex">\[\max_{\Theta} \sum_{(x, y) \in \mathcal{Z}} \sum_{t=1}^{|y|} \log (p_{\Phi_0 + \Delta \Phi(\Theta)}(y_t | x, y_{&lt;t}))\]</div>
 <p>注意到, 这里拿到的是那一小部分的参数<span class="arithmatex">\(\Theta\)</span>, 而不是整体参数<span class="arithmatex">\(\Phi\)</span>. 在下面的小节中, 作者提出了一种使用低秩表示方法表示<span class="arithmatex">\(\Delta \Phi\)</span>使得在计算和存储上都特别高效. 当他们的预训练模型选择的是GPT-3 175B的时候, 这一小部分可训练参数的量<span class="arithmatex">\(|\Theta|\)</span>是原始参数量<span class="arithmatex">\(|\Phi_0|\)</span>的<span class="arithmatex">\(0.01\%\)</span>.</p>
@@ -2285,6 +2303,9 @@
 <div class="arithmatex">\[h=W_0x+\Delta W_x=W_0x+BAx\]</div>
 <p>这个公式已经被表示在第一张图中. <ins>作者对<span class="arithmatex">\(A\)</span>进行标准正态分布初始化, 对<span class="arithmatex">\(B\)</span>初始化为零矩阵, 使得<span class="arithmatex">\(\Delta W=BA=0\)</span>, 这个做法类似于adapter的初始化</ins>, 保证在开始的时候, LoRA模块不会显著改变模型的输出, 这对于保证模型的初始性能和稳定性非常重要. </p>
 <p>作者还对更新量<span class="arithmatex">\(\Delta Wx\)</span>的学习率<span class="arithmatex">\(\alpha\)</span>进行了缩放: 乘以<span class="arithmatex">\(\frac{1}{r}\)</span>, 这是因为, 在没有缩放的情况下, 同样的学习率<span class="arithmatex">\(\alpha\)</span>下改变秩<span class="arithmatex">\(r\)</span>会直接影响权重更新的尺度. 通过引入与<span class="arithmatex">\(\frac{1}{r}\)</span>成比例的缩放, 我们可以对梯度尺度进行归一化, 使其对<span class="arithmatex">\(r\)</span>的变化不太敏感, 这使得超参数<span class="arithmatex">\(r\)</span>的调整更加容易, 因为单个<span class="arithmatex">\(\alpha\)</span>就可以在不同的<span class="arithmatex">\(r\)</span>下表现良好, 即<span class="arithmatex">\(\frac{\alpha}{r}\)</span>才是真正的学习率. 简单的说, 就是通过<span class="arithmatex">\(r\)</span>的改变使得在不同的<span class="arithmatex">\(r\)</span>下Adam优化器能够以相同的策略调整<span class="arithmatex">\(\alpha\)</span>, 省去了不同<span class="arithmatex">\(r\)</span>下调优<span class="arithmatex">\(\alpha\)</span>的必要.</p>
+<p><strong>全量微调的泛化</strong>. 一般的部分微调允许只微调所有预训练权重的一部分, 如只调整顶层的参数. LoRA在这个的基础上更进了一步, <strong>不需要在调优的过程中, 要求权重的累积梯度更新矩阵必须具有满秩</strong>. 这意味着当将LoRA应用于所有(层)的权重矩阵并训练所有的<span class="arithmatex">\(\Delta W\)</span>, 并且将LoRA的秩<span class="arithmatex">\(r\)</span>为对应权重矩阵的秩, 那么我们就得到了一个全量微调, 即两者是等价的. 换句话说, 当我们增加可训练参数量的时候, 训练LoRA会随着秩的增加收敛于全量微调, 训练adapter模块收敛于训练一个隐藏层较大的MLP, 基于前缀的方法收敛于一个无法接受长实际可训练序列的模型.</p>
+<p><strong>没有额外的推理延迟</strong>. 当在production环境下部署的时候, 我们可以特别的计算并存储更新后的权重矩阵<span class="arithmatex">\(W=W_0+BA\)</span>并且按照一个没有添加LoRA模块的原始网络那样进行推理. 注意, <span class="arithmatex">\(W_0\)</span>和<span class="arithmatex">\(BA\)</span>的形状都是<span class="arithmatex">\(\mathbb{R}^{d\times k}\)</span>. <ins>这意味着, 当我们要切换到另一个下游任务的时候, 我们得恢复原始的<span class="arithmatex">\(W=W_0\)</span>, 方法就是减去<span class="arithmatex">\(BA\)</span>, 然后加上另外一个<span class="arithmatex">\(B'A'\)</span></ins>. 这个方法只需要一点点内存空间, 最重要的是, 这样的操作不会产生额外的推理延迟相比于adapter模块.</p>
+<h3 id="loratransformer">LoRA应用于Transformer<a class="headerlink" href="#loratransformer" title="Permanent link">&para;</a></h3>
 <div class="footnote">
 <hr />
 <ol>
