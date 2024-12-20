@@ -110,6 +110,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#swin" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1551,6 +1556,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Swin
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1561,6 +1579,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概要
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1926,6 +1972,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概要
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1956,9 +2021,39 @@
   
 
 
-  <h1>Swin</h1>
-
-
+<h1 id="swin">Swin<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#swin" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>该研究展现了一种新的视觉Transformer, 叫做Swin Transformer. 它是一种能够胜任计算机视觉的一般性骨干网络. 将Transformer从语言领域应用到视觉领域面临着诸多的挑战, 这些挑战源于两者之间的差异. 例如视觉实体在尺度上的差异, 图像的高像素分辨率. 为了解决这些差异产生的问题, 作者提出了一种<strong>层次化</strong>的Transformer, 使用<strong>滑动窗口</strong>计算表示. 这个滑动窗口的方案通过<strong>将自我注意力限制在不重叠的局部窗口中, 同时允许不同窗口间的连接</strong>, 从而提高效率. 这种层次化的结构具有在不同尺度上建模的灵活性, 并且其计算复杂度和图像的大小呈线性关系. 这些特性使得Swin Transformer能够兼容广泛的视觉任务, 包括图像分类, 在ImageNet-1K上达到87.3%的top-1精度; 密集预测任务, 如目标检测, 在COCO测试集上, 58.7的框平均精度和51.1的掩码平均精度; 语义分割, 在ADE20K上达到53.5mIoU. 它的性能已经超过了之前的SOTA, 在COCO上, Box AP +2.7, Mask AP +2.6. 在ADE20K上, +3.2 mIoU, 展现了基于Transformer的模型作为视觉主干网络的潜力. 这种<strong>层次化</strong>的设计和<strong>滑动窗口</strong>的方法被证明对于所有的MLP架构都是有益的. 代码可以在<a href="https://github.com/microsoft/Swin-Transformer">https://github.com/microsoft/Swin-Transformer</a>找到.</p>
+<details class="note" open="open">
+<summary>主干网络</summary>
+<p>主干网络, Purpose Backbone, 指的是<strong>用于特征提取</strong>的核心神经网络架构. 而通用主干网络, General-Purpose Backbone, 指的是设计为能够适应多种任务, 多种数据类型和多种应用场景的主干网络. </p>
+</details>
+<details class="note" open="open">
+<summary>视觉实体在尺度上的差异</summary>
+<p>"视觉实体在尺度上的差异", large variations in the scale of visual entities. 指的是, 在图像中, 物体的大小和形状可能会产生极大的变化, 例如, 一张照片中可能同时包含较大和较小的物体, 这要求模型能够有效识别和处理不同尺度的信息. 而这种尺度上的变化在自然语言领域相对少见.</p>
+</details>
+<details class="tip" open="open">
+<summary>目标检测</summary>
+<p>COCO是一个广泛使用的数据集, 专门为对象检测, 分割和图像标注而设计. 该数据集为计算机视觉研究提供了标准化的评估目标, 如平均精度(AP), 主要分为Box AP和Mask AP. </p>
+<ul>
+<li>框平均精度(Box AP): 这是评估对象检测模型性能的关键指标, 表示模型正确检测到的边界框和实际标注框之间的重叠程度, 通常使用交叉比(IoU)来计算, IoU值越高, 表示模型检测越准确</li>
+<li>掩码平均精度(Mask AP): 此指标用于实例分割任务, 评估模型在预测对象掩码时的准确性, 它不仅考虑边界框, 还考虑掩码和真实标注之间的重叠程度. 高Mask AP表示模型不仅能正确定位对象, 还能精准分割出对象的轮廓. 掩码是一个与图像尺寸相同的二维数组, 每个元素对应图像中的一个像素点, 掩码用于准确地标识图像中某个特定对象的区域, 具体来说, 掩码通常是一个二值化的对象, 值为1标识该像素属于目标对象; 值为0, 标识该像素不属于目标对象</li>
+</ul>
+</details>
+<details class="tip" open="open">
+<summary>语义分割</summary>
+<p>ADE20K是一个广泛使用的场景解析数据集, 包含超过2万张图像, 涵盖150个类别. 它由麻省理工学院(MIT)和斯坦福大学联合发布, 旨在促进场景解析和语义分割领域的研究. ADE20K数据集的多样性和复杂性使其成为评估语义分割模型性能的理想选择.</p>
+<p>语义分割是计算机视觉中的一项任务, 旨在对图像中的每一个像素进行分类, 将其分配到预定义的类别中. 例如, 在一张街景图像中, 语义分割模型会将每个像素标注为"道路", "建筑物", "行人", "车辆"等类别. 这种细粒度的分析不仅能够识别图像中的物体, 还能精确地定位它们在图像中的位置和形状.</p>
+<p>mIoU(平均交并比)是评估语义分割模型性能的常用指标. 它通过计算预测分割结果与真实标注之间的重叠程度来衡量模型的准确性.</p>
+</details>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., &amp; Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. <a href="https://doi.org/10.48550/arXiv.2103.14030">https://doi.org/10.48550/arXiv.2103.14030</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
