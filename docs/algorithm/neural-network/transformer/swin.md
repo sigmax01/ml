@@ -76,6 +76,14 @@ Swin Transformer中的另一个比较重要的设计就是移位窗口, Shifted 
     > 
     > In non-overlapping window method used in Swin Transformer. Different queries within a same red window, for example, q and q', will share a same key set.
 
+### 评估
+
+作者所提出的Swin Transformer在图像分类, 目标检测和予以分割等识别任务上取得了强大的性能. 它在性能上超越了ViT/DeiT, ResNe(X)t模型, 并且在延迟上所差无几. 它在[COCO](/dicts/coco)上的成绩为58.7 box AP, 51.1 mask AP, 超越了之前的SOTA, +2.7 box AP, +2.6 mask AP. 在[ADE20K](/dicts/ade20k)语义分割上, 在验证集上达到了53.5 mIoU, 较之前的SOTA增加了3.2 mIoU. 它也在ImageNet-1K图像分类的top-1的准度上达到了87.3%. 
+
+---
+
+作者深信, 一个在计算机视觉领域和自然语言处理领域统一的架构会对两个领域都有极大的帮助, 因为它能促进视觉和文本信号的联合建模, 并且来自这两个领域的建模只是可以更加深入地共享. 他们相信通过Swin Transformer在各种视觉任务上的出色表现, 能够让社区更加深入地推动这种信念, 并鼓舞视觉和语言信号的统一建模.
+
 [^1]: Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., & Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. https://doi.org/10.48550/arXiv.2103.14030
 [^2]: 木盏. (2021, 十月 18). Swin transformer全方位解读【ICCV2021马尔奖】. Csdn. https://blog.csdn.net/leviopku/article/details/120826980
 [^3]: 最容易理解的Swin transformer模型(通俗易懂版)—海_纳百川—博客园. (不详). 取读于 2024年12月21日, 从 https://www.cnblogs.com/chentiao/p/18379629
