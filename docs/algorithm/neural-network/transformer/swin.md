@@ -52,6 +52,30 @@ comments: false
 
 #### 移位窗口 {#shifted-window}
 
-Swin Transformer中的另一个比较重要的设计就是移位窗口, Shifted Window. 这种移位窗口发生在同一个stage的不同transformer块之间, 使得不同block的窗口之间产生了连接/重叠/交叉, 从而显著增强了建模能力. 
+Swin Transformer中的另一个比较重要的设计就是移位窗口, Shifted Window. 这种移位窗口发生在同一个stage的不同transformer块之间, 使得不同block的窗口之间产生了连接/重叠/交叉, 让原本独立的窗口之间产生了联系, 使得模型能够学习到更大范围的信息, 提升了在不同窗口之间的理解能力. 如下图所示.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/c1b8074569e7a51ce2c3008dd1caf2dc.webp#only-light){ loading=lazy width='500' }
+![](https://img.ricolxwz.io/c1b8074569e7a51ce2c3008dd1caf2dc_inverted.webp#only-dark){ loading=lazy width='500' }
+<figcaption>移位窗口. 在左边, 使用的是一种常规的分割策略. 在右边, 是将前一个block的窗口进行移动.</figcaption>
+</figure>
+
+这个策略同样在真实世界降低延迟方面也很有效, 所有在同一个窗口内不同的patch的$Q$向量共享的都是同一个键集合, 而不是像传统的滑动窗口(sliding window)方法那样不同的patch的$Q$向量使用的是不同的键集合, 这样可以极大降低延迟和内存占用. 作者的实验显示在消耗的算力差不多的情况下移位窗口策略的延迟相比滑动窗口显著降低. 这种移位窗口的approach被证明对所有的MLP架构是有益的.
+
+<figure markdown='1'>
+![](https://img.ricolxwz.io/8b85d471089af1b92eb97119e1bc71ea.webp#only-light){ loading=lazy width='500' }
+![](https://img.ricolxwz.io/8b85d471089af1b92eb97119e1bc71ea_inverted.webp#only-dark){ loading=lazy width='500' }
+<figcaption>传统滑动窗口计算某一个patch对其他patches注意力的时候, 必须要用到它的周围一圈的patches组成的键集合; 但是移位窗口计算某一个patch对其他patches注意力的时候, 只用同一个窗口下的patches组成的键集合. 如b2, b3, b4, b5, b6, b7计算注意力的时候用到的都是同一个键集合. 但是b2, b3计算注意力的时候用到的不是同一个键集合</figcaption>
+</figure>
+
+???+ note "理解共用一个键集合"
+
+    参考: https://github.com/microsoft/Swin-Transformer/issues/118#issuecomment-993124909
+
+    > In traditional sliding window method. Different querys, q and q', will have different neighboring windows, which indicates different key sets. The computation is unfriendly to memory access and the real speed is thus not good.
+    > 
+    > In non-overlapping window method used in Swin Transformer. Different queries within a same red window, for example, q and q', will share a same key set.
 
 [^1]: Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., & Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. https://doi.org/10.48550/arXiv.2103.14030
+[^2]: 木盏. (2021, 十月 18). Swin transformer全方位解读【ICCV2021马尔奖】. Csdn. https://blog.csdn.net/leviopku/article/details/120826980
+[^3]: 最容易理解的Swin transformer模型(通俗易懂版)—海_纳百川—博客园. (不详). 取读于 2024年12月21日, 从 https://www.cnblogs.com/chentiao/p/18379629
