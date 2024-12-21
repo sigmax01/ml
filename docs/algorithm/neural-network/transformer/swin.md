@@ -25,9 +25,9 @@ comments: false
 
 ### Swin的提出
 
-#### 层次化架构
+#### 层次化架构 {#hierarchical-structure}
 
-为了解决这些问题, 作者提出了一种Transformer[通用主干网络](/dicts/backbone), 叫做Swin Transformer. **它会构建分层特征图, 并且其计算复杂度和图像的大小呈现线性关系. 它通过从小patches开始, 并在更深的Transformer层中逐渐合并相邻补丁, 构建层次表示(如下图所示)**. 利用这些分层特征图, Swin Transformer模型可以方便地利用高级稠密预测技术, 例如特征金字塔网络(FPN)或者U-Net. 他们将图像划分为非重叠的窗口(红色框), 并在窗口内局部计算自注意力, 且每个窗口中patch的数量固定, 因此复杂度是图像大小的线性函数(见下方复杂度计算).  
+为了解决这些问题, 作者提出了一种Transformer[通用主干网络](/dicts/backbone), 叫做Swin Transformer. **它会构建分层特征图, 并且其计算复杂度和图像的大小呈现线性关系. 它通过从小patches开始, 并在更深的Transformer层中(更深的stage)逐渐合并相邻补丁, 构建层次表示(如下图所示)**. 利用这些分层特征图, Swin Transformer模型可以方便地利用高级稠密预测技术, 例如特征金字塔网络(FPN)或者U-Net. 他们将图像划分为非重叠的窗口(红色框), 并在窗口内局部计算自注意力, 且每个窗口中patch的数量固定, 因此复杂度是图像大小的线性函数(见下方复杂度计算).  
 
 <figure markdown='1'>
 <!-- ![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light){ loading=lazy width='400' }
@@ -37,17 +37,21 @@ comments: false
 <figcaption>(a) Swin Transformer通过在深层合并patches构造层次的特征图, 由于只在窗口内部有注意力, 窗口内patch的数量是固定的, 所以复杂度和图像大小线性相关. (b) ViT只能产生一个低分辨率的特征图, 而且其复杂度和图像大小的平方呈正比</figcaption>
 </figure>
 
+???+ warning "层次化结构是指不同stage之间的结构具有层次化"
+
+    🌟请注意, 这种patches合并, 窗口变大, 特征图分辨率减半的行为只会发生在不同的stage之间, 不会发生在同一个stage内部, 每个stage内部的窗口大小是不会变的, 每个stage内部会有多个transformer块, 这些transformer块的区别是窗口的位置会交替变化([移位窗口](#shifted-window)). 上图表示的是不同的stage之间的区别, 而不是同一个stage内部的区别.(看下面那张完整的Swin Transformer架构图).🌟
+
 ???+ note "Swin和ViT复杂度简单计算"
 
     假设图像的大小为$H\times W$, 大小的单位都是像素.
 
     - ViT: 假设图像在每一层都会被分为$N$个patches. 每一层都要在这些固定的patches之间计算注意力, 所以每一层的复杂度都为$O(N^2\cdot D)$, $D$是每个patch的嵌入维度. 假设patches的大小为$Q\times Q$, 那么$N=\frac{H\times W}{Q^2}$, 代入到公式里面, 就是$O(\frac{(H\times W)^2\cdot D}{Q^4})$. 这表明, ViT的时间复杂度和图像分辨率$H\times W$的平方呈正比
-    - Swin: 假设第$i$层每个窗口的大小为$M_i\times M_i$, 其窗口的数量为$\frac{H\times W}{M_i^2}$, 每个窗口内, 会被划分为固定数量的patches, 假设为$P$, 那么在每个窗口内的自注意力复杂度为$O(P^2\cdot C_i)$, $C_i$是这些patches在第$i$层的嵌入维度, 所以第$i$层的复杂度是$O(\frac{H\times W\times P^2\times C_i}{M_i^2})$, 由于在最底层$M_i\gg P$, 且随着$i$的变大, $P$是不变的, $M_i$是2倍扩大的, 所以$\frac{P^2}{M_i^2}$是单调递减的, 所以复杂度可以简化为$O(H\cdot W\cdot C_i)$. 这表明, Swin的时间复杂度和图像分辨率$H\times W$呈正比
+    - Swin: 假设第$i$个stage每个窗口的大小为$M_i\times M_i$, 其窗口的数量为$\frac{H\times W}{M_i^2}$, 每个窗口内, 会被划分为固定数量的patches, 假设为$P$, 那么在每个窗口内的自注意力复杂度为$O(P^2\cdot C_i)$, $C_i$是这些patches在第$i$个stage的嵌入维度, 所以第$i$个stage的复杂度是$O(\frac{H\times W\times P^2\times C_i}{M_i^2})$, 由于在最底部的stage$M_i\gg P$, 且随着$i$的变大, $P$是不变的, $M_i$是2倍扩大的, 所以$\frac{P^2}{M_i^2}$是单调递减的, 所以复杂度可以简化为$O(H\cdot W\cdot C_i)$. 这表明, Swin的时间复杂度和图像分辨率$H\times W$呈正比
 
 这些优点使得Swin Transformer成为各种视觉任务的通用主干网络, 这和之前的基于Transformer架构的[ViT](/algorithm/neural-network/transformer/vit)形成对比, 后者所有的patch嵌入都只有单一尺度的特征, 无法有效学习到不同尺度的信息, ^^且只会产生单一分辨率的特征图^^, 所以有二次方的复杂度, ^^而Swin Transformer随着网络的加深, 其特征图的分辨率会逐渐降低, 而通道数逐渐增加^^.
 
-#### 移位窗口
+#### 移位窗口 {#shifted-window}
 
-
+Swin Transformer中的另一个比较重要的设计就是移位窗口, Shifted Window. 这种移位窗口发生在同一个stage的不同transformer块之间, 使得不同block的窗口之间产生了连接/重叠/交叉, 从而显著增强了建模能力. 
 
 [^1]: Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., & Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. https://doi.org/10.48550/arXiv.2103.14030
