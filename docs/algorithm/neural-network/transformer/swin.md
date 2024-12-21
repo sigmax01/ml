@@ -22,7 +22,7 @@ comments: false
 <figure markdown='1'>
 ![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light){ loading=lazy width='400' }
 ![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96_inverted.webp#only-dark){ loading=lazy width='400' }
-<figcaption>红色的边框区域表示一个窗口, 被红色的边框围起来的是数个patch. (a) Swin Transformer通过在深层合并patches构造层次结构并且由于只在窗口内部有注意力, 窗口内patch的数量是固定的, 所以复杂度和图像大小线性相关. (b) </figcaption>
+<figcaption>红色的边框区域表示一个窗口, 被红色的边框围起来的是数个patch. 右边的数字表示的是patch的大小 (a) Swin Transformer通过在深层合并patches构造层次的特征图, 由于只在窗口内部有注意力, 窗口内patch的数量是固定的, 所以复杂度和图像大小线性相关. (b) ViT只能产生一个低分辨率的特征图, 而且其复杂度和图像大小的平方呈正比</figcaption>
 </figure>
 
 ???+ note "Swin和ViT复杂度简单计算"
@@ -32,7 +32,7 @@ comments: false
     - ViT: 假设图像在每一层都会被分为$N$个patches. 每一层都要在这些固定的patches之间计算注意力, 所以每一层的复杂度都为$O(N^2\cdot D)$, $D$是每个patch的嵌入维度. 假设patches的大小为$Q\times Q$, 那么$N=\frac{H\times W}{Q^2}$, 代入到公式里面, 就是$O(\frac{(H\times W)^2\cdot D}{Q^4})$. 这表明, ViT的时间复杂度和图像分辨率$H\times W$的平方呈正比
     - Swin: 假设第$i$层每个窗口的大小为$M_i\times M_i$, 其窗口的数量为$\frac{H\times W}{M_i^2}$, 每个窗口内, 会被划分为固定数量的patches, 假设为$P$, 那么在每个窗口内的自注意力复杂度为$O(P^2\cdot C_i)$, $C_i$是这些patches在第$i$层的嵌入维度, 所以第$i$层的复杂度是$O(\frac{H\times W\times P^2\times C_i}{M_i^2})$, 由于在最底层$M_i\gg P$, 且随着$i$的变大, $P$是不变的, $M_i$是2倍扩大的, 所以$\frac{P^2}{M_i^2}$是单调递减的, 所以复杂度可以简化为$O(H\cdot W\cdot C_i)$. 这表明, Swin的时间复杂度和图像分辨率$H\times W$呈正比
 
-这些优点使得Swin Transformer成为各种视觉任务的通用主干网络, 这和之前的基于Transformer架构的[ViT](/algorithm/neural-network/transformer/vit)形成对比, 后者所有的patch嵌入都只有单一尺度的特征, 无法有效学习到不同尺度的信息, 且只会产生单一分辨率的特征图(即那个窗口的大小是固定的), 所以有二次方的复杂度. 
+这些优点使得Swin Transformer成为各种视觉任务的通用主干网络, 这和之前的基于Transformer架构的[ViT](/algorithm/neural-network/transformer/vit)形成对比, 后者所有的patch嵌入都只有单一尺度的特征, 无法有效学习到不同尺度的信息, ^^且只会产生单一分辨率的特征图^^, 所以有二次方的复杂度, ^^而Swin Transformer随着网络的加深, 其特征图的分辨率会逐渐降低, 而通道数逐渐增加^^.
 
 
 
