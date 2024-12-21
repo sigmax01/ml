@@ -1642,11 +1642,35 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#swin-transformer" class="md-nav__link">
+  <a href="#swin_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Swin Transformer的提出
+      Swin的提出
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Swin的提出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      层次化架构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      移位窗口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2194,11 +2218,35 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#swin-transformer" class="md-nav__link">
+  <a href="#swin_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Swin Transformer的提出
+      Swin的提出
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Swin的提出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      层次化架构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      移位窗口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2248,17 +2296,16 @@
 <p>在另一个赛道上, 自然语言处理中网络架构的演变则走了一条不同的道路, 如今盛行的架构是Transformer. Transformer模型专为序列建模和<a href="/dicts/inductive-transductive-learning">转导任务</a>而设计, 其显著的特点在于利用注意力机制来模拟数据中的长程连接关系. 其在语言领域的巨大成功促使研究人员探究其在计算机视觉领域的应用, 最近在特定的任务上, 例如图像分类和联合视觉-语言建模上, 取得了令人鼓舞的成果.</p>
 <h3 id="_3">图像和文本模态的差异<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>在这个研究中, 他们旨在找到扩展Transformer的功能, 使其成为一种通用的计算机视觉领域的<a href="/dicts/backbone">骨干网络</a>, 正如它在NLP领域和CNN在视觉领域那样. 作者观察到, 将其在语言领域的出色表现转移到视觉领域面临的重大挑战, 可以用两种模态之间的差异来解释. 其中的一个差异是<a href="/dicts/large-variation-in-scale-visual-entities/">尺度</a>, 于作为语言Transformer处理基本单元的词元不同, 视觉元素的尺度差异很大, 这个问题在目标检测任务中受到了极大关注. 现在的基于Transformer的模型, 所有的token都是固定尺度的, 这对于在视觉领域的应用是不合适的. 另外一个差异是图像中像素的分辨率远远高于文本段落中的文字. 许多视觉任务, 如语义分割, 需要像素级密集预测, 如果图像的分辨率一大, 对于Transformer模型来说是难以处理的, 假设我们对于整张图片的所有像素运用全局注意力, 其复杂度<span class="arithmatex">\(O(B\cdot N^2\cdot D)\)</span>和图像的大小是呈现二次方关系的. </p>
-<h3 id="swin-transformer">Swin Transformer的提出<a class="headerlink" href="#swin-transformer" title="Permanent link">&para;</a></h3>
+<h3 id="swin_1">Swin的提出<a class="headerlink" href="#swin_1" title="Permanent link">&para;</a></h3>
+<h4 id="_4">层次化架构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>为了解决这些问题, 作者提出了一种Transformer<a href="/dicts/backbone">通用主干网络</a>, 叫做Swin Transformer. <strong>它会构建分层特征图, 并且其计算复杂度和图像的大小呈现线性关系. 它通过从小patches开始, 并在更深的Transformer层中逐渐合并相邻补丁, 构建层次表示(如下图所示)</strong>. 利用这些分层特征图, Swin Transformer模型可以方便地利用高级稠密预测技术, 例如特征金字塔网络(FPN)或者U-Net. 他们将图像划分为非重叠的窗口(红色框), 并在窗口内局部计算自注意力, 且每个窗口中patch的数量固定, 因此复杂度是图像大小的线性函数(见下方复杂度计算).  </p>
 <figure>
-<p><a class="glightbox" href="https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light" width="400" /></a>
-<a class="glightbox" href="https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96_inverted.webp#only-dark" width="400" /></a></p>
-<figcaption>红色的边框区域表示一个窗口, 被红色的边框围起来的是数个patch. 右边的数字表示的是patch的大小 (a) Swin Transformer通过在深层合并patches构造层次的特征图, 由于只在窗口内部有注意力, 窗口内patch的数量是固定的, 所以复杂度和图像大小线性相关. (b) ViT只能产生一个低分辨率的特征图, 而且其复杂度和图像大小的平方呈正比</figcaption>
+<!-- ![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96.webp#only-light){ loading=lazy width='400' }
+![](https://img.ricolxwz.io/77e84ae173ab3e1ff94dd4d5a678ac96_inverted.webp#only-dark){ loading=lazy width='400' } -->
+<p><a class="glightbox" href="https://img.ricolxwz.io/c78aa09e2a4a017c112084c2eca559a8.webp#only-light" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c78aa09e2a4a017c112084c2eca559a8.webp#only-light" width="600" /></a>
+<a class="glightbox" href="https://img.ricolxwz.io/c78aa09e2a4a017c112084c2eca559a8_inverted.webp#only-dark" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" loading="lazy" src="https://img.ricolxwz.io/c78aa09e2a4a017c112084c2eca559a8_inverted.webp#only-dark" width="600" /></a></p>
+<figcaption>(a) Swin Transformer通过在深层合并patches构造层次的特征图, 由于只在窗口内部有注意力, 窗口内patch的数量是固定的, 所以复杂度和图像大小线性相关. (b) ViT只能产生一个低分辨率的特征图, 而且其复杂度和图像大小的平方呈正比</figcaption>
 </figure>
-<details class="note" open="open">
-<summary>在这里特征图是指</summary>
-<p>在这里特征图是指窗口结果的总和构成的图, 如对于左图, 其特征图就是最外面那个边框. 可以看到, 它的分辨率从下往上是逐级减少的, 因为patches数量在不断减少. 而对于右图, 它的分辨率从下往上是不变的, 因为内部patches的数量没有变化. </p>
-</details>
 <details class="note" open="open">
 <summary>Swin和ViT复杂度简单计算</summary>
 <p>假设图像的大小为<span class="arithmatex">\(H\times W\)</span>, 大小的单位都是像素.</p>
@@ -2268,6 +2315,7 @@
 </ul>
 </details>
 <p>这些优点使得Swin Transformer成为各种视觉任务的通用主干网络, 这和之前的基于Transformer架构的<a href="/algorithm/neural-network/transformer/vit">ViT</a>形成对比, 后者所有的patch嵌入都只有单一尺度的特征, 无法有效学习到不同尺度的信息, <ins>且只会产生单一分辨率的特征图</ins>, 所以有二次方的复杂度, <ins>而Swin Transformer随着网络的加深, 其特征图的分辨率会逐渐降低, 而通道数逐渐增加</ins>.</p>
+<h4 id="_5">移位窗口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <div class="footnote">
 <hr />
 <ol>
