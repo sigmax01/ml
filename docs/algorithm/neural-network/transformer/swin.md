@@ -34,4 +34,6 @@ comments: false
 
 这些优点使得Swin Transformer成为各种视觉任务的通用主干网络, 这和之前的基于Transformer架构的[ViT](/algorithm/neural-network/transformer/vit)形成对比, 后者所有的patch嵌入都只有单一尺度的特征, 无法有效学习到不同尺度的信息, 且只会产生单一分辨率的特征图(即那个窗口的大小是固定的), 所以有二次方的复杂度. 
 
+
+
 [^1]: Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., & Guo, B. (2021). Swin transformer: Hierarchical vision transformer using shifted windows (No. arXiv:2103.14030). arXiv. https://doi.org/10.48550/arXiv.2103.14030
